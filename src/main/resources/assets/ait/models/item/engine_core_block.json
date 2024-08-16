@@ -1,3 +1,6 @@
 {
-  "parent": "ait:block/engine_core_block"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ait:item/engine_core_block"
+  }
 }
