@@ -96,9 +96,6 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
     }
 
     public UUID getHeldPlayerUUID() {
-        if (!this.isSiegeBeingHeld())
-            return null;
-
         return heldKey.get();
     }
 
