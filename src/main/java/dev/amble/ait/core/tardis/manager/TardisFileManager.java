@@ -18,6 +18,7 @@ import dev.amble.ait.AITMod;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisManager;
+import org.jetbrains.annotations.NotNull;
 
 public class TardisFileManager<T extends Tardis> {
 
@@ -79,18 +80,18 @@ public class TardisFileManager<T extends Tardis> {
              * if (version == 0) new JsonObjectTransform(object).transform();
              */
 
-            T tardis = function.apply(manager.getFileGson(), object);
+            T tardis = function.readTardis(manager.getFileGson(), object);
 
             AITMod.LOGGER.info("Deserialized {} in {}ms", tardis, System.currentTimeMillis() - start);
             return Either.left(tardis);
-        } catch (IOException e) {
+        } catch (Exception e) {
             AITMod.LOGGER.warn("Failed to load {}!", uuid);
             AITMod.LOGGER.warn(e.getMessage());
             return Either.right(e);
         }
     }
 
-    public void saveTardis(MinecraftServer server, TardisManager<T, ?> manager, T tardis) {
+    public void saveTardis(MinecraftServer server, TardisManager<T, ?> manager, @NotNull T tardis) {
         try {
             Path savePath = TardisFileManager.getSavePath(server, tardis.getUuid(), "json");
             Files.writeString(savePath, manager.getFileGson().toJson(tardis, ServerTardis.class));
@@ -122,6 +123,6 @@ public class TardisFileManager<T extends Tardis> {
 
     @FunctionalInterface
     public interface TardisLoader<T> {
-        T apply(Gson gson, JsonObject object);
+        T readTardis(Gson gson, JsonObject object);
     }
 }

@@ -1,6 +1,7 @@
 package dev.amble.ait.core.tardis.manager.old;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -15,7 +16,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.network.PacketByteBuf;
@@ -43,7 +44,7 @@ import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.TardisMap;
 import dev.amble.ait.data.properties.Value;
 
-public abstract class DeprecatedServerTardisManager extends TardisManager<ServerTardis, MinecraftServer> {
+public abstract class DeprecatedServerTardisManager extends TardisManager<ServerTardis, MinecraftServer> implements TardisFileManager.TardisLoader<ServerTardis> {
 
     protected final TardisMap.Optional<ServerTardis> lookup = new TardisMap.Optional<>();
     protected final TardisFileManager<ServerTardis> fileManager = new TardisFileManager<>();
@@ -74,6 +75,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     }
 
     public ServerTardis create(TardisBuilder builder) {
+        Objects.requireNonNull(builder);
+
         ServerTardis tardis = builder.build();
         this.lookup.put(tardis);
 
@@ -108,9 +111,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     public abstract void markPropertyDirty(ServerTardis tardis, Value<?> value);
 
     @Override
-    public @Nullable ServerTardis demandTardis(MinecraftServer server, UUID uuid) {
-        if (uuid == null)
-            return null; // ugh - ong bro
+    public @Nullable ServerTardis demandTardis(@NotNull MinecraftServer server, @NotNull UUID uuid) {
+        Objects.requireNonNull(uuid);
 
         if (this.fileManager.isLocked())
             return null;
@@ -127,20 +129,21 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     }
 
     @Override
-    public void loadTardis(MinecraftServer server, UUID uuid, @Nullable Consumer<ServerTardis> consumer) {
-        if (consumer == null) return;
+    public void loadTardis(@NotNull MinecraftServer server, @NotNull UUID uuid, Consumer<ServerTardis> consumer) {
+        Objects.requireNonNull(uuid);
 
-        Either<ServerTardis,Exception> either = this.loadTardis(server, uuid);
+        Either<ServerTardis, Exception> either = this.loadTardis(server, uuid);
 
-        if (either == null) return;
+        if (either == null || consumer == null)
+            return;
 
         either.ifLeft(consumer);
     }
 
     @Override
-    public void getTardis(MinecraftServer server, UUID uuid, Consumer<ServerTardis> consumer)  {
-        if (uuid == null)
-            return; // ugh
+    public void getTardis(MinecraftServer server, @NotNull UUID uuid, @NotNull Consumer<ServerTardis> consumer) {
+        Objects.requireNonNull(uuid);
+        Objects.requireNonNull(consumer);
 
         if (this.fileManager.isLocked())
             return;
@@ -165,8 +168,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         this.lookup.forEach((uuid, either) -> either.ifLeft(consumer));
     }
 
-    public Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
-        Either<ServerTardis, Exception> result = this.fileManager.loadTardis(server, this, uuid, this::readTardis);
+    private Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
+        Either<ServerTardis, Exception> result = this.fileManager.loadTardis(server, this, uuid, this);
 
         this.lookup.put(uuid, result);
         return result;
@@ -179,6 +182,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     }
 
     public void remove(MinecraftServer server, ServerTardis tardis) {
+        Objects.requireNonNull(tardis);
+
         tardis.setRemoved(true);
 
         CachedDirectedGlobalPos exteriorPos = tardis.travel().position();
@@ -186,7 +191,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         if (exteriorPos != null) {
             tardis.world().getPlayers().forEach(player
                     -> TardisUtil.teleportOutside(tardis, player));
-            
+
             World world = exteriorPos.getWorld();
             BlockPos pos = exteriorPos.getPos();
 
@@ -202,15 +207,15 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         this.fileManager.delete(server, tardis.getUuid());
     }
 
-    private void save(MinecraftServer server, boolean clean) {
-        if (clean)
+    private void save(MinecraftServer server, boolean close) {
+        if (close)
             this.fileManager.setLocked(true);
 
         this.forEach(tardis -> {
-            if (clean) {
-                if (tardis == null)
-                    return;
+            if (tardis == null)
+                return;
 
+            if (close) {
                 // TODO move this into some method like #dispose
                 TravelHandlerBase.State state = tardis.travel().getState();
 
@@ -226,7 +231,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
             this.fileManager.saveTardis(server, this, tardis);
         });
 
-        if (!clean)
+        if (!close)
             return;
 
         for (ServerWorld world : server.getWorlds()) {
@@ -242,7 +247,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     /**
      * @return An initialized {@link ServerTardis} without attachments.
      */
-    protected ServerTardis readTardis(Gson gson, JsonObject json) {
+    @Override
+    public ServerTardis readTardis(Gson gson, JsonObject json) {
         ServerTardis tardis = gson.fromJson(json, ServerTardis.class);
         Tardis.init(tardis, TardisComponent.InitContext.deserialize());
 
