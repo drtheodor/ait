@@ -149,7 +149,7 @@ public class DoorHandler extends KeyedTardisComponent implements TardisTickable 
                 .filter(entity -> !entity.isSpectator()) // Exclude spectators
                 .forEach(entity -> {
                     DirectedBlockPos directed = tardis.getDesktop().getDoorPos();
-                    if (!(tardis.asServer().worldRef().get().getBlockEntity(directed.getPos()) instanceof DoorBlockEntity))
+                    if (!(tardis.asServer().world().getBlockEntity(directed.getPos()) instanceof DoorBlockEntity))
                         return;
 
                     Vec3d pos = new Vec3d(directed.getPos().getX(), directed.getPos().getY(),
@@ -253,8 +253,7 @@ public class DoorHandler extends KeyedTardisComponent implements TardisTickable 
     }
 
     public boolean interactAllDoors(ServerWorld world, @Nullable BlockPos pos, @Nullable ServerPlayerEntity player, boolean both) {
-        ServerWorld interior = tardis.asServer().worldRef().getOrDefault(() -> null);
-
+        ServerWorld interior = tardis.asServer().world();
         InteractionResult result = TardisEvents.USE_DOOR.invoker().onUseDoor(tardis, interior, world, player, pos);
 
         if (result == InteractionResult.KNOCK) {
@@ -355,10 +354,10 @@ public class DoorHandler extends KeyedTardisComponent implements TardisTickable 
         tardis.travel().position().getWorld().playSound(null, tardis.travel().position().getPos(),
                 keySound, SoundCategory.BLOCKS, 0.6F, 1F);
 
-        tardis.asServer().worldRef().ifPresent(interior -> {
-            interior.playSound(null, tardis.getDesktop().getDoorPos().getPos(),
-                    keySound, SoundCategory.BLOCKS, 0.6F, 1F);
-        });
+        ServerWorld interior = tardis.asServer().world();
+
+        interior.playSound(null, tardis.getDesktop().getDoorPos().getPos(),
+                keySound, SoundCategory.BLOCKS, 0.6F, 1F);
 
         return true;
     }

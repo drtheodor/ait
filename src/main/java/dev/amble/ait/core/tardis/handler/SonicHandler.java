@@ -63,7 +63,7 @@ public class SonicHandler extends KeyedTardisComponent implements ArtronHolderIt
 
     public void insertConsoleSonic(ItemStack sonic, BlockPos consolePos) {
         insertAnySonic(this.consoleSonic, sonic,
-                stack -> spawnItem(tardis.asServer().worldRef().get(), consolePos, stack));
+                stack -> spawnItem(tardis.asServer().world(), consolePos, stack));
     }
 
     public void insertExteriorSonic(ItemStack sonic) {

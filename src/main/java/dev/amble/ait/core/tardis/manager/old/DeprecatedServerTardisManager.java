@@ -189,7 +189,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
             world.removeBlockEntity(pos);
         }
 
-        MultiDim.get(server).remove(TardisServerWorld.keyForTardis(tardis));
+        MultiDim.get(server).queueRemove(TardisServerWorld.keyForTardis(tardis));
 
         this.sendTardisRemoval(server, tardis);
 

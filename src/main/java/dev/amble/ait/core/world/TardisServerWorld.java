@@ -74,19 +74,17 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return created;
     }
 
-    public static ServerWorld getOrLoad(ServerTardis tardis) {
-        MinecraftServer server = ServerLifecycleHooks.get();
-
-        RegistryKey<World> key = keyForTardis(tardis);
-        ServerWorld world = server.getWorld(key);
-
-        if (world != null)
-            return world;
-
+    public static ServerWorld load(ServerTardis tardis) {
         long start = System.currentTimeMillis();
-        MultiDimFileManager.readFromFile(MultiDim.get(server), NAMESPACE, MultiDimFileManager.getSavePath(server, key.getValue()));
+        MinecraftServer server = ServerLifecycleHooks.get();
+        MultiDimFileManager.readFromFile(MultiDim.get(server), NAMESPACE, MultiDimFileManager.getSavePath(server, idForTardis(tardis)));
         MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
-        return server.getWorld(key);
+
+        return get(tardis);
+    }
+
+    public static ServerWorld get(ServerTardis tardis) {
+        return ServerLifecycleHooks.get().getWorld(keyForTardis(tardis));
     }
 
     public static RegistryKey<World> keyForTardis(ServerTardis tardis) {

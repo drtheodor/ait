@@ -96,10 +96,10 @@ public class WaypointHandler extends KeyedTardisComponent {
         if (!this.hasCartridge())
             return;
 
-        ItemEntity entity = new ItemEntity(tardis.asServer().worldRef().get(), console.getX(), console.getY(),
+        ItemEntity entity = new ItemEntity(tardis.asServer().world(), console.getX(), console.getY(),
                 console.getZ(), createWaypointItem(waypoint));
 
-        tardis.asServer().worldRef().get().spawnEntity(entity);
+        tardis.asServer().world().spawnEntity(entity);
         this.clearCartridge();
     }
 
