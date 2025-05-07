@@ -36,6 +36,10 @@ public class Property<T> {
         this(type, name, o -> def);
     }
 
+    public Property(PropertyType.Nullable<T> type, String name) {
+        this(type, name, o -> null);
+    }
+
     public Value<T> create(KeyedTardisComponent holder) {
         T t = this.def == null ? null : this.def.apply(holder);
         Value<T> result = this.create(t);
@@ -95,7 +99,7 @@ public class Property<T> {
     public static final PropertyType<String> STR = new PropertyType<>(String.class, PacketByteBuf::writeString,
             PacketByteBuf::readString);
 
-    public static final PropertyType<UUID> UUID = new PropertyType.Nullable<>(UUID.class, PacketByteBuf::writeUuid, PacketByteBuf::readUuid);
+    public static final PropertyType.Nullable<UUID> UUID = new PropertyType.Nullable<>(UUID.class, PacketByteBuf::writeUuid, PacketByteBuf::readUuid);
 
     public static final PropertyType<Double> DOUBLE = new PropertyType<>(Double.class, PacketByteBuf::writeDouble,
             PacketByteBuf::readDouble);
