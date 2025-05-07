@@ -180,8 +180,9 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         CachedDirectedGlobalPos exteriorPos = tardis.travel().position();
 
         if (exteriorPos != null) {
-            TardisUtil.getPlayersInsideInterior(tardis).forEach(player -> TardisUtil.teleportOutside(tardis, player));
-
+            tardis.world().getPlayers().forEach(player
+                    -> TardisUtil.teleportOutside(tardis, player));
+            
             World world = exteriorPos.getWorld();
             BlockPos pos = exteriorPos.getPos();
 
