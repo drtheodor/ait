@@ -6,6 +6,8 @@ import java.util.concurrent.Executor;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
+import dev.drtheo.multidim.MultiDimFileManager;
+import dev.drtheo.multidim.MultiDimMod;
 import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
 import net.fabricmc.api.EnvType;
@@ -72,8 +74,19 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return created;
     }
 
-    public static ServerWorld get(ServerTardis tardis) {
-        return ServerLifecycleHooks.get().getWorld(keyForTardis(tardis));
+    public static ServerWorld getOrLoad(ServerTardis tardis) {
+        MinecraftServer server = ServerLifecycleHooks.get();
+
+        RegistryKey<World> key = keyForTardis(tardis);
+        ServerWorld world = server.getWorld(key);
+
+        if (world != null)
+            return world;
+
+        long start = System.currentTimeMillis();
+        MultiDimFileManager.readFromFile(MultiDim.get(server), NAMESPACE, MultiDimFileManager.getSavePath(server, key.getValue()));
+        MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
+        return server.getWorld(key);
     }
 
     public static RegistryKey<World> keyForTardis(ServerTardis tardis) {

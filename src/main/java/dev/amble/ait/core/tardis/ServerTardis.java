@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 import com.google.gson.InstanceCreator;
 
+import dev.drtheo.multidim.MultiDimFileManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 
@@ -88,7 +89,7 @@ public class ServerTardis extends Tardis {
     }
 
     private ServerWorld getOrCreateWorld() {
-        ServerWorld world = TardisServerWorld.get(this);
+        ServerWorld world = TardisServerWorld.getOrLoad(this);
 
         // If its still null, It's likely to be pre-1.2.0, meaning we should create a new one.
         if (world == null)
