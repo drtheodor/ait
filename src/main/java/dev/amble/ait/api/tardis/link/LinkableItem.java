@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
+import net.minecraft.nbt.NbtHelper;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.gui.screen.Screen;
@@ -96,22 +97,26 @@ public abstract class LinkableItem extends Item {
 
         // convert old string data
         if (element.getType() == NbtElement.STRING_TYPE) {
-            nbt.remove(path);
             UUID converted = UUID.fromString(element.asString());
 
             nbt.putUuid(path, converted);
             return converted;
         }
 
-        return nbt.getUuid(path);
+        return NbtHelper.toUuid(element);
     }
 
     public Tardis getTardis(World world, ItemStack stack) {
         if (world == null)
             return null;
 
+        UUID tardisId = this.getTardisId(stack);
+
+        if (tardisId == null)
+            return null;
+
         return TardisManager.with(world, (o, manager) ->
-                manager.demandTardis(o, this.getTardisId(stack)));
+                manager.demandTardis(o, tardisId));
     }
 
     public static <T> T apply(ItemStack stack, BiFunction<LinkableItem, ItemStack, T> f) {
