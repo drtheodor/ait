@@ -33,7 +33,7 @@ import dev.amble.ait.registry.impl.TardisComponentRegistry;
 public class GravityHandler extends KeyedTardisComponent implements TardisTickable {
 
     private static final Identifier SYNC = AITMod.id("sync_gravity");
-    private static final Property<Direction> DIRECTION = new Property<>(Property.Type.DIRECTION, "direction",
+    private static final Property<Direction> DIRECTION = new Property<>(Property.DIRECTION, "direction",
             Direction.DOWN);
 
     private final Value<Direction> direction = DIRECTION.create(this);

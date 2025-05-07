@@ -79,8 +79,11 @@ public class Value<T> implements Disposable {
     }
 
     public void set(T value, boolean sync) {
-        if (this.value == value && property.getType().isSameRef())
+        if (property.getType().equals(this.value, value))
             return;
+
+        if (!property.getType().isValid(value))
+            throw new IllegalArgumentException("Tried to set value '" + property.getName() + "' to illegal state: " + value);
 
         this.value = value;
 
@@ -106,7 +109,7 @@ public class Value<T> implements Disposable {
     }
 
     @Environment(EnvType.CLIENT)
-    protected void syncToServer() { // todo - flags
+    protected void syncToServer() {
         ClientPlayNetworking.send(new SyncPropertyC2SPacket(this.holder.tardis().getUuid(), this));
     }
 
@@ -132,12 +135,12 @@ public class Value<T> implements Disposable {
             this.sync();
     }
 
-    public void read(PacketByteBuf buf, byte mode) {
+    public void read(PacketByteBuf buf) {
         if (this.property == null)
             throw new IllegalStateException(
                     "Couldn't get the parent property value! Maybe you forgot to initialize the value field on load?");
 
-        T value = mode == Property.Mode.UPDATE ? this.property.getType().decode(buf) : null;
+        T value = this.property.getType().decode(buf);
 
         this.set(value, false);
     }
@@ -160,7 +163,7 @@ public class Value<T> implements Disposable {
         private final Class<?> clazz;
         private final Function<V, T> creator;
 
-        public Serializer(Property.Type<?> type, Function<V, T> creator) {
+        public Serializer(PropertyType<?> type, Function<V, T> creator) {
             this(type.getClazz(), creator);
         }
 
