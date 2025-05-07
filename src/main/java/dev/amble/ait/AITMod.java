@@ -9,6 +9,7 @@ import java.util.UUID;
 import dev.amble.lib.container.RegistryContainer;
 import dev.amble.lib.register.AmbleRegistries;
 import dev.amble.lib.util.ServerLifecycleHooks;
+import dev.drtheo.multidim.MultiDim;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -68,7 +69,6 @@ import dev.amble.ait.core.sounds.travel.TravelSoundRegistry;
 import dev.amble.ait.core.tardis.animation.v2.blockbench.BlockbenchParser;
 import dev.amble.ait.core.tardis.animation.v2.datapack.TardisAnimationRegistry;
 import dev.amble.ait.core.tardis.control.sound.ControlSoundRegistry;
-import dev.amble.ait.core.tardis.handler.SeatHandler;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.tardis.util.AsyncLocatorUtil;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
@@ -137,7 +137,7 @@ public class AITMod implements ModInitializer {
 
         ServerLifecycleHooks.init();
         AsyncLocatorUtil.init();
-        SeatHandler.init();
+        MultiDim.init();
 
         ConsoleRegistry.init();
         CreakRegistry.init();
