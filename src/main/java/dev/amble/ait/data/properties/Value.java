@@ -8,9 +8,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.google.gson.*;
+import dev.amble.ait.client.tardis.manager.ClientTardisManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
 import net.minecraft.network.PacketByteBuf;
 
@@ -19,7 +19,6 @@ import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
-import dev.amble.ait.core.tardis.util.network.c2s.SyncPropertyC2SPacket;
 import dev.amble.ait.data.Exclude;
 
 public class Value<T> implements Disposable {
@@ -110,7 +109,7 @@ public class Value<T> implements Disposable {
 
     @Environment(EnvType.CLIENT)
     protected void syncToServer() {
-        ClientPlayNetworking.send(new SyncPropertyC2SPacket(this.holder.tardis().getUuid(), this));
+        ClientTardisManager.getInstance().sendProperty(this);
     }
 
     public void flatMap(Function<T, T> func) {

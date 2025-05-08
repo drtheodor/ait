@@ -6,12 +6,14 @@ import java.util.function.Consumer;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.gson.GsonBuilder;
+import dev.amble.ait.data.properties.Value;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,6 +68,18 @@ public class ClientTardisManager extends TardisManager<ClientTardis, MinecraftCl
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> this.reset());
         ClientLoginConnectionEvents.DISCONNECT.register((client, reason) -> this.reset());
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> this.reset());
+    }
+
+    public void sendProperty(Value<?> value) {
+        PacketByteBuf buf = PacketByteBufs.create();
+
+        TardisComponent holder = value.getHolder();
+        buf.writeUuid(holder.tardis().getUuid());
+        buf.writeString(holder.getId().name());
+        buf.writeString(value.getProperty().getName());
+        value.write(buf);
+
+        ClientPlayNetworking.send(SEND_PROPERTY, buf);
     }
 
     private void remove(PacketByteBuf buf) {

@@ -2,7 +2,9 @@ package dev.amble.ait.core.tardis.manager;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
+import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -80,6 +82,22 @@ public class ServerTardisManager extends DeprecatedServerTardisManager {
             }
 
             this.delta.clear();
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(SEND_PROPERTY, (server, player, networkHandler, buf, response) -> {
+            UUID tardisId = buf.readUuid();
+            ServerTardis tardis = this.demandTardis(server, tardisId);
+
+            if (tardis == null)
+                return;
+
+            TardisComponent.IdLike componentId = TardisComponentRegistry.getInstance().get(buf.readString());
+
+            if (!(tardis.handler(componentId) instanceof KeyedTardisComponent keyed))
+                return;
+
+            String propertyId = buf.readString();
+            keyed.getPropertyData().get(propertyId).read(buf);
         });
     }
 
