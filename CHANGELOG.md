@@ -16,3 +16,4 @@
 - fix: control entities can be interacted with again | by [@DrTheodor](https://github.com/DrTheodor), [@Loqor](https://github.com/Loqor) ([#1522](https://github.com/amblelabs/ait/pull/1522))
 - fix: you can interact with slightly broken controls again | by [@DrTheodor](https://github.com/DrTheodor), [@Loqor](https://github.com/Loqor) ([#1522](https://github.com/amblelabs/ait/pull/1522))
 - Gallifrey Falls Keeps Turning Into Trenzalore, BUT NO MORE I SAY | by [@Loqor](https://github.com/Loqor), [@Mansarde](https://github.com/Mansarde) ([#1533](https://github.com/amblelabs/ait/pull/1533))
+- fix: randomizer and structure locator no longer throw up when you rejoin the world | by [@DrTheodor](https://github.com/DrTheodor) ([#1544](https://github.com/amblelabs/ait/pull/1544))
