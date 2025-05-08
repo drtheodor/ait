@@ -1,5 +1,6 @@
 package dev.amble.ait.core.world;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -77,9 +78,14 @@ public class TardisServerWorld extends MultiDimServerWorld {
     public static ServerWorld load(ServerTardis tardis) {
         long start = System.currentTimeMillis();
         MinecraftServer server = ServerLifecycleHooks.get();
-        MultiDimFileManager.readFromFile(MultiDim.get(server), NAMESPACE, MultiDimFileManager.getSavePath(server, idForTardis(tardis)));
-        MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
+        MultiDim multidim = MultiDim.get(server);
 
+        Path path = MultiDimFileManager.getSavePath(server, idForTardis(tardis));
+        MultiDimFileManager.Saved saved = MultiDimFileManager.readFromFile(multidim, NAMESPACE, path);
+
+        multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
+
+        MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
         return get(tardis);
     }
 
