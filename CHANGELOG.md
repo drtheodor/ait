@@ -19,3 +19,4 @@
 - fix: randomizer and structure locator no longer throw up when you rejoin the world | by [@DrTheodor](https://github.com/DrTheodor) ([#1544](https://github.com/amblelabs/ait/pull/1544))
 - fix: mod no longer collapses when playing with GTceuM | by [@DrTheodor](https://github.com/DrTheodor) ([#1542](https://github.com/amblelabs/ait/pull/1542))
 - feat: nullable properties | by [@DrTheodor](https://github.com/DrTheodor) ([#1537](https://github.com/amblelabs/ait/pull/1537))
+- fix: siege mode freezes the players once again | by [@DrTheodor](https://github.com/DrTheodor) ([#1538](https://github.com/amblelabs/ait/pull/1538))
