@@ -37,7 +37,7 @@ public class ButlerHandler extends KeyedTardisComponent implements ArtronHolderI
 
     public void insertHandles(ItemStack handlesMyBoy, BlockPos consolePos) {
         insertAnyHandles(this.handles, handlesMyBoy,
-                stack -> spawnItem(tardis.asServer().worldRef().get(), consolePos, stack));
+                stack -> spawnItem(tardis.asServer().world(), consolePos, stack));
     }
 
     public ItemStack takeHandles() {

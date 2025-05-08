@@ -1,11 +1,14 @@
 package dev.amble.ait.core.world;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
+import dev.drtheo.multidim.MultiDimFileManager;
+import dev.drtheo.multidim.MultiDimMod;
 import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
 import net.fabricmc.api.EnvType;
@@ -72,6 +75,20 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return created;
     }
 
+    public static ServerWorld load(ServerTardis tardis) {
+        long start = System.currentTimeMillis();
+        MinecraftServer server = ServerLifecycleHooks.get();
+        MultiDim multidim = MultiDim.get(server);
+
+        Path path = MultiDimFileManager.getSavePath(server, idForTardis(tardis));
+        MultiDimFileManager.Saved saved = MultiDimFileManager.readFromFile(multidim, NAMESPACE, path);
+
+        multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
+
+        MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
+        return get(tardis);
+    }
+
     public static ServerWorld get(ServerTardis tardis) {
         return ServerLifecycleHooks.get().getWorld(keyForTardis(tardis));
     }
@@ -96,16 +113,20 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return world instanceof TardisServerWorld;
     }
 
-    @Nullable @Environment(EnvType.CLIENT)
-    public static UUID getClientTardisId(@Nullable ClientWorld world) {
+    @Nullable
+    public static UUID getTardisId(@Nullable World world) {
         if (world == null || !isTardisDimension(world))
             return null;
 
-        return UUID.fromString(world.getRegistryKey().getValue().getPath());
+        return getTardisId(world.getRegistryKey());
+    }
+
+    public static UUID getTardisId(RegistryKey<World> key) {
+        return UUID.fromString(key.getValue().getPath());
     }
 
     @Environment(EnvType.CLIENT)
     public static boolean isTardisDimension(ClientWorld world) {
-        return world.getRegistryKey().getValue().getNamespace().equals(NAMESPACE);
+        return isTardisDimension(world.getRegistryKey());
     }
 }

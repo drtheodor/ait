@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.network.PacketByteBuf;
@@ -111,6 +112,9 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         if (uuid == null)
             return null; // ugh - ong bro
 
+        if (this.fileManager.isLocked())
+            return null;
+
         Either<ServerTardis, ?> either = this.lookup.get(uuid);
 
         if (either == null)
@@ -138,6 +142,9 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         if (uuid == null)
             return; // ugh
 
+        if (this.fileManager.isLocked())
+            return;
+
         Either<ServerTardis, ?> either = this.lookup.get(uuid);
 
         if (either == null) {
@@ -158,10 +165,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         this.lookup.forEach((uuid, either) -> either.ifLeft(consumer));
     }
 
-    @Nullable private Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
-        if (this.fileManager.isLocked())
-            return null;
-
+    public Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
         Either<ServerTardis, Exception> result = this.fileManager.loadTardis(server, this, uuid, this::readTardis);
 
         this.lookup.put(uuid, result);
@@ -180,8 +184,9 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         CachedDirectedGlobalPos exteriorPos = tardis.travel().position();
 
         if (exteriorPos != null) {
-            TardisUtil.getPlayersInsideInterior(tardis).forEach(player -> TardisUtil.teleportOutside(tardis, player));
-
+            tardis.world().getPlayers().forEach(player
+                    -> TardisUtil.teleportOutside(tardis, player));
+            
             World world = exteriorPos.getWorld();
             BlockPos pos = exteriorPos.getPos();
 
@@ -189,7 +194,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
             world.removeBlockEntity(pos);
         }
 
-        MultiDim.get(server).remove(TardisServerWorld.keyForTardis(tardis));
+        MultiDim.get(server).queueRemove(TardisServerWorld.keyForTardis(tardis));
 
         this.sendTardisRemoval(server, tardis);
 

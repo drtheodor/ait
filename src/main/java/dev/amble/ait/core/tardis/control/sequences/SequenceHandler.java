@@ -54,7 +54,7 @@ public class SequenceHandler extends TardisComponent implements TardisTickable {
         if (this.playerUUID == null)
             return null;
 
-        ServerWorld world = this.tardis.asServer().worldRef().getOrDefault(() -> null);
+        ServerWorld world = this.tardis.asServer().world();
 
         if (world == null)
             return null;
@@ -147,14 +147,14 @@ public class SequenceHandler extends TardisComponent implements TardisTickable {
     }
 
     private void doMissedControlEffects(@Nullable BlockPos console) {
-        this.tardis.asServer().worldRef().ifPresent(world -> {
-            if (console == null) {
-                this.tardis.getDesktop().getConsolePos().forEach(pos -> SequenceHandler.missedControlEffects(world, pos));
-                return;
-            }
+        ServerWorld world = this.tardis.asServer().world();
 
-            SequenceHandler.missedControlEffects(world, console);
-        });
+        if (console == null) {
+            this.tardis.getDesktop().getConsolePos().forEach(pos -> SequenceHandler.missedControlEffects(world, pos));
+            return;
+        }
+
+        SequenceHandler.missedControlEffects(world, console);
     }
 
     public static void missedControlEffects(ServerWorld world, BlockPos pos) {
@@ -173,14 +173,14 @@ public class SequenceHandler extends TardisComponent implements TardisTickable {
     }
 
     private void doCompletedControlEffects(@Nullable BlockPos console) {
-        this.tardis.asServer().worldRef().ifPresent(world -> {
-            if (console == null) {
-                this.tardis.getDesktop().getConsolePos().forEach(pos -> SequenceHandler.completedControlEffects(world, pos));
-                return;
-            }
+        ServerWorld world = this.tardis.asServer().world();
 
-            SequenceHandler.completedControlEffects(world, console);
-        });
+        if (console == null) {
+            this.tardis.getDesktop().getConsolePos().forEach(pos -> SequenceHandler.completedControlEffects(world, pos));
+            return;
+        }
+
+        SequenceHandler.completedControlEffects(world, console);
     }
 
     public static void completedControlEffects(ServerWorld world, BlockPos pos) {

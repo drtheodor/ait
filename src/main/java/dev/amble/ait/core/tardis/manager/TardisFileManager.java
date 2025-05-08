@@ -47,9 +47,6 @@ public class TardisFileManager<T extends Tardis> {
     }
 
     public Either<T, Exception> loadTardis(MinecraftServer server, TardisManager<T, ?> manager, UUID uuid, TardisLoader<T> function) {
-        if (this.locked)
-            return null;
-
         long start = System.currentTimeMillis();
 
         try {
