@@ -190,8 +190,6 @@ public abstract class TardisManager<T extends Tardis, C> {
     @Nullable @Deprecated
     public abstract T demandTardis(C c, UUID uuid);
 
-    public abstract void loadTardis(C c, UUID uuid, @Nullable Consumer<T> consumer);
-
     protected abstract TardisMap<?> lookup();
 
     public void reset() {

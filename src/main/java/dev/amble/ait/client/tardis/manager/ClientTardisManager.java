@@ -1,5 +1,6 @@
 package dev.amble.ait.client.tardis.manager;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -87,12 +88,6 @@ public class ClientTardisManager extends TardisManager<ClientTardis, MinecraftCl
     }
 
     @Override
-    @Deprecated(forRemoval = true)
-    public void loadTardis(MinecraftClient client, UUID uuid, @Nullable Consumer<ClientTardis> consumer) {
-        // do nothing
-    }
-
-    @Override
     protected TardisMap.Direct<ClientTardis> lookup() {
         return lookup;
     }
@@ -100,6 +95,7 @@ public class ClientTardisManager extends TardisManager<ClientTardis, MinecraftCl
     @Override
     @Deprecated
     public @Nullable ClientTardis demandTardis(MinecraftClient client, UUID uuid) {
+        Objects.requireNonNull(uuid);
         return this.lookup.get(uuid);
     }
 
