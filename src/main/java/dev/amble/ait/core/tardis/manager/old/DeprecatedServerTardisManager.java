@@ -122,9 +122,6 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         if (either == null)
             either = this.loadTardis(server, uuid);
 
-        if (either == null)
-            return null;
-
         return either.map(tardis -> tardis, o -> null);
     }
 
