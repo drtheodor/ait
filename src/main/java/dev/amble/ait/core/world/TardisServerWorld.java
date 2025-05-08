@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
+import java.util.function.BooleanSupplier;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
@@ -47,6 +48,12 @@ public class TardisServerWorld extends MultiDimServerWorld {
     }
 
     @Override
+    public void tick(BooleanSupplier shouldKeepTicking) {
+        if (this.tardis.shouldTick())
+            super.tick(shouldKeepTicking);
+    }
+
+    @Override
     public boolean spawnEntity(Entity entity) {
         if (entity instanceof ItemEntity && this.getTardis().interiorChangingHandler().regenerating().get())
             return false;
@@ -85,7 +92,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
 
         multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
 
-        MultiDimMod.LOGGER.info("Time taken: {}", System.currentTimeMillis() - start);
+        MultiDimMod.LOGGER.info("Time taken to load sub-world: {}", System.currentTimeMillis() - start);
         return get(tardis);
     }
 
