@@ -20,3 +20,4 @@
 - fix: mod no longer collapses when playing with GTceuM | by [@DrTheodor](https://github.com/DrTheodor) ([#1542](https://github.com/amblelabs/ait/pull/1542))
 - feat: nullable properties | by [@DrTheodor](https://github.com/DrTheodor) ([#1537](https://github.com/amblelabs/ait/pull/1537))
 - fix: siege mode freezes the players once again | by [@DrTheodor](https://github.com/DrTheodor) ([#1538](https://github.com/amblelabs/ait/pull/1538))
+- fix: worlds with a lot of tardises will not load all the tardis worlds on start up anymore | by [@DrTheodor](https://github.com/DrTheodor) ([#1545](https://github.com/amblelabs/ait/pull/1545))
