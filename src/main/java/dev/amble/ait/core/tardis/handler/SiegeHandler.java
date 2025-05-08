@@ -40,7 +40,7 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
     public static final Identifier APERTURE_TEXTURE = new Identifier(AITMod.MOD_ID,
             "textures/blockentities/exteriors/siege_mode/weighted_cube.png");
 
-    private static final Property<UUID> HELD_KEY = new Property<>(Property.UUID, "siege_held_uuid", new UUID(0, 0));
+    private static final Property<UUID> HELD_KEY = new Property<>(Property.UUID, "siege_held_uuid");
     private static final Property<Identifier> TEXTURE = new Property<>(Property.IDENTIFIER, "texture", DEFAULT_TEXTURRE);
 
     private static final BoolProperty ACTIVE = new BoolProperty("siege_mode", false);
