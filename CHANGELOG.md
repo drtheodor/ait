@@ -21,3 +21,4 @@
 - feat: nullable properties | by [@DrTheodor](https://github.com/DrTheodor) ([#1537](https://github.com/amblelabs/ait/pull/1537))
 - fix: siege mode freezes the players once again | by [@DrTheodor](https://github.com/DrTheodor) ([#1538](https://github.com/amblelabs/ait/pull/1538))
 - fix: worlds with a lot of tardises will not load all the tardis worlds on start up anymore | by [@DrTheodor](https://github.com/DrTheodor) ([#1545](https://github.com/amblelabs/ait/pull/1545))
+- fix: "LINK TO ENGINE VIA FLUID LINKS" being wrong name for artron cables | by [@Addi3](https://github.com/Addi3) ([#1534](https://github.com/amblelabs/ait/pull/1534))
