@@ -49,7 +49,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
 
     @Override
     public void tick(BooleanSupplier shouldKeepTicking) {
-        if (this.tardis.shouldTick())
+        if (this.getTardis().shouldTick())
             super.tick(shouldKeepTicking);
     }
 
@@ -120,8 +120,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return world instanceof TardisServerWorld;
     }
 
-    @Nullable
-    public static UUID getTardisId(@Nullable World world) {
+    @Nullable public static UUID getTardisId(@Nullable World world) {
         if (world == null || !isTardisDimension(world))
             return null;
 
