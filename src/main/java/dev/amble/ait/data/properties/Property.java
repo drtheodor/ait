@@ -72,39 +72,39 @@ public class Property<T> {
         return new Property<>(PropertyType.forEnum(clazz), name, def);
     }
 
-    public static final PropertyType<DirectedGlobalPos> DIRECTED_GLOBAL_POS = new PropertyType<>(DirectedGlobalPos.class,
+    public static final PropertyType.Nullable<DirectedGlobalPos> DIRECTED_GLOBAL_POS = new PropertyType.Nullable<>(DirectedGlobalPos.class,
             (buf, pos) -> pos.write(buf), DirectedGlobalPos::read);
 
-    public static final PropertyType<BlockPos> BLOCK_POS = new PropertyType<>(BlockPos.class, PacketByteBuf::writeBlockPos,
+    public static final PropertyType.Nullable<BlockPos> BLOCK_POS = new PropertyType.Nullable<>(BlockPos.class, PacketByteBuf::writeBlockPos,
             PacketByteBuf::readBlockPos);
 
-    public static final PropertyType<CachedDirectedGlobalPos> CDIRECTED_GLOBAL_POS = new PropertyType<>(
+    public static final PropertyType.Nullable<CachedDirectedGlobalPos> CDIRECTED_GLOBAL_POS = new PropertyType.Nullable<>(
             CachedDirectedGlobalPos.class, (buf, pos) -> pos.write(buf), CachedDirectedGlobalPos::read);
 
-    public static final PropertyType<Identifier> IDENTIFIER = new PropertyType<>(Identifier.class, PacketByteBuf::writeIdentifier,
+    public static final PropertyType.Nullable<Identifier> IDENTIFIER = new PropertyType.Nullable<>(Identifier.class, PacketByteBuf::writeIdentifier,
             PacketByteBuf::readIdentifier);
 
-    public static final PropertyType<Long> LONG = new PropertyType<>(Long.class, PacketByteBuf::writeLong, PacketByteBuf::readLong);
+    public static final PropertyType.Nullable<Long> LONG = new PropertyType.Nullable<>(Long.class, PacketByteBuf::writeLong, PacketByteBuf::readLong);
 
-    public static final PropertyType<RegistryKey<World>> WORLD_KEY = new PropertyType<>(RegistryKey.class,
+    public static final PropertyType.Nullable<RegistryKey<World>> WORLD_KEY = new PropertyType.Nullable<>(RegistryKey.class,
             PacketByteBuf::writeRegistryKey, buf -> buf.readRegistryKey(RegistryKeys.WORLD));
 
     public static final PropertyType<Direction> DIRECTION = PropertyType.forEnum(Direction.class);
 
-    public static final PropertyType<Vector2i> VEC2I = new PropertyType<>(Vector2i.class, (buf, vector2i) -> {
+    public static final PropertyType.Nullable<Vector2i> VEC2I = new PropertyType.Nullable<>(Vector2i.class, (buf, vector2i) -> {
         buf.writeInt(vector2i.x);
         buf.writeInt(vector2i.y);
     }, buf -> new Vector2i(buf.readInt(), buf.readInt()));
 
-    public static final PropertyType<String> STR = new PropertyType<>(String.class, PacketByteBuf::writeString,
+    public static final PropertyType.Nullable<String> STR = new PropertyType.Nullable<>(String.class, PacketByteBuf::writeString,
             PacketByteBuf::readString);
 
     public static final PropertyType.Nullable<UUID> UUID = new PropertyType.Nullable<>(UUID.class, PacketByteBuf::writeUuid, PacketByteBuf::readUuid);
 
-    public static final PropertyType<Double> DOUBLE = new PropertyType<>(Double.class, PacketByteBuf::writeDouble,
+    public static final PropertyType.Nullable<Double> DOUBLE = new PropertyType.Nullable<>(Double.class, PacketByteBuf::writeDouble,
             PacketByteBuf::readDouble);
 
-    public static final PropertyType<HashSet<String>> STR_SET = new PropertyType<>(HashSet.class, (buf, strings) -> {
+    public static final PropertyType.Nullable<HashSet<String>> STR_SET = new PropertyType.Nullable<>(HashSet.class, (buf, strings) -> {
         buf.writeVarInt(strings.size());
 
         for (String str : strings)
@@ -120,6 +120,6 @@ public class Property<T> {
         return result;
     });
 
-    public static final PropertyType<ItemStack> ITEM_STACK = new PropertyType<>(ItemStack.class, PacketByteBuf::writeItemStack,
+    public static final PropertyType.Nullable<ItemStack> ITEM_STACK = new PropertyType.Nullable<>(ItemStack.class, PacketByteBuf::writeItemStack,
             PacketByteBuf::readItemStack);
 }
