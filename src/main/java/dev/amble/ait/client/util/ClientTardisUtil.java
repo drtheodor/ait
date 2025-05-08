@@ -52,8 +52,7 @@ public class ClientTardisUtil {
             currentTardis = new TardisRef(id, uuid -> ClientTardisManager.getInstance().demandTardis(uuid));
         });
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            if (currentTardis != null)
-                currentTardis = null;
+            currentTardis = null;
         });
     }
 
