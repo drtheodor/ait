@@ -40,8 +40,8 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
     public static final Identifier APERTURE_TEXTURE = new Identifier(AITMod.MOD_ID,
             "textures/blockentities/exteriors/siege_mode/weighted_cube.png");
 
-    private static final Property<UUID> HELD_KEY = new Property<>(Property.Type.UUID, "siege_held_uuid", new UUID(0, 0));
-    private static final Property<Identifier> TEXTURE = new Property<>(Property.Type.IDENTIFIER, "texture", DEFAULT_TEXTURRE);
+    private static final Property<UUID> HELD_KEY = new Property<>(Property.UUID, "siege_held_uuid", new UUID(0, 0));
+    private static final Property<Identifier> TEXTURE = new Property<>(Property.IDENTIFIER, "texture", DEFAULT_TEXTURRE);
 
     private static final BoolProperty ACTIVE = new BoolProperty("siege_mode", false);
 
@@ -103,7 +103,7 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
         if (playerId != null) {
             this.tardis.door().closeDoors();
             this.tardis.door().setLocked(true);
-            this.tardis.alarm().enabled().set(true);
+            this.tardis.alarm().enable();
         }
 
         this.heldKey.set(playerId);
@@ -130,7 +130,7 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
             this.tardis.door().setDeadlocked(false);
             this.tardis.door().setLocked(false);
 
-            this.tardis.alarm().enabled().set(false);
+            this.tardis.alarm().disable();
 
             if (this.tardis.getExterior().findExteriorBlock().isEmpty())
                 this.tardis.travel().placeExterior(false);

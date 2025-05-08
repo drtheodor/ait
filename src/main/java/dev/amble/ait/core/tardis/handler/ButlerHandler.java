@@ -17,7 +17,7 @@ import dev.amble.ait.data.properties.Value;
 
 public class ButlerHandler extends KeyedTardisComponent implements ArtronHolderItem, TardisTickable {
 
-    private static final Property<ItemStack> HANDLES = new Property<>(Property.Type.ITEM_STACK, "handles",
+    private static final Property<ItemStack> HANDLES = new Property<>(Property.ITEM_STACK, "handles",
             (ItemStack) null);
 
     private final Value<ItemStack> handles = HANDLES.create(this); // The current handles in the console

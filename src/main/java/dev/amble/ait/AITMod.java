@@ -136,7 +136,6 @@ public class AITMod implements ModInitializer {
         CONFIG = AITConfig.createAndLoad();
 
         ServerLifecycleHooks.init();
-        NetworkUtil.init();
         AsyncLocatorUtil.init();
         SeatHandler.init();
 

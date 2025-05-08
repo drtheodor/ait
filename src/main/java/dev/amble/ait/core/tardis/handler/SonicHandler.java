@@ -27,15 +27,12 @@ public class SonicHandler extends KeyedTardisComponent implements ArtronHolderIt
 
     public static final Identifier CHANGE_SONIC = AITMod.id("change_sonic");
 
-    private static final Property<ItemStack> CONSOLE_SONIC = new Property<>(Property.Type.ITEM_STACK, "console_sonic",
-            (ItemStack) null);
-    private static final Property<ItemStack> EXTERIOR_SONIC = new Property<>(Property.Type.ITEM_STACK, "exterior_sonic",
-            (ItemStack) null);
+    private static final Property<ItemStack> CONSOLE_SONIC = new Property<>(Property.ITEM_STACK, "console_sonic");
+    private static final Property<ItemStack> EXTERIOR_SONIC = new Property<>(Property.ITEM_STACK, "exterior_sonic");
 
     private final Value<ItemStack> consoleSonic = CONSOLE_SONIC.create(this); // The current sonic in the console
     private final Value<ItemStack> exteriorSonic = EXTERIOR_SONIC.create(this); // The current sonic in the exterior's
                                                                                 // keyhole
-
     static {
         ServerPlayNetworking.registerGlobalReceiver(CHANGE_SONIC,
                 ServerTardisManager.receiveTardis((tardis, server, player, handler, buf, responseSender) -> {
