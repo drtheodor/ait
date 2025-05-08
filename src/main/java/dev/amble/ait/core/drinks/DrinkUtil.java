@@ -150,11 +150,10 @@ public class DrinkUtil {
     }
 
     public static ItemStack setDrink(ItemStack stack, Drink drink) {
-        Identifier identifier = drink.id();
-        if (drink == EMPTY) {
+        if (drink == null || drink == EMPTY) {
             stack.removeSubNbt(DRINK_KEY);
         } else {
-            stack.getOrCreateNbt().putString(DRINK_KEY, identifier.toString());
+            stack.getOrCreateNbt().putString(DRINK_KEY, drink.id().toString());
         }
         return stack;
     }
