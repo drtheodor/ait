@@ -129,18 +129,6 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
     }
 
     @Override
-    public void loadTardis(@NotNull MinecraftServer server, @NotNull UUID uuid, Consumer<ServerTardis> consumer) {
-        Objects.requireNonNull(uuid);
-
-        Either<ServerTardis, Exception> either = this.loadTardis(server, uuid);
-
-        if (either == null || consumer == null)
-            return;
-
-        either.ifLeft(consumer);
-    }
-
-    @Override
     public void getTardis(MinecraftServer server, @NotNull UUID uuid, @NotNull Consumer<ServerTardis> consumer) {
         Objects.requireNonNull(uuid);
         Objects.requireNonNull(consumer);
@@ -150,10 +138,8 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
 
         Either<ServerTardis, ?> either = this.lookup.get(uuid);
 
-        if (either == null) {
-            this.loadTardis(server, uuid, consumer);
-            return;
-        }
+        if (either == null)
+            either = this.loadTardis(server, uuid);
 
         either.ifLeft(consumer);
     }
@@ -168,6 +154,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         this.lookup.forEach((uuid, either) -> either.ifLeft(consumer));
     }
 
+    @NotNull
     private Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
         Either<ServerTardis, Exception> result = this.fileManager.loadTardis(server, this, uuid, this);
 

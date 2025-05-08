@@ -88,12 +88,6 @@ public class ClientTardisManager extends TardisManager<ClientTardis, MinecraftCl
     }
 
     @Override
-    @Deprecated(forRemoval = true)
-    public void loadTardis(MinecraftClient client, UUID uuid, @Nullable Consumer<ClientTardis> consumer) {
-        // do nothing
-    }
-
-    @Override
     protected TardisMap.Direct<ClientTardis> lookup() {
         return lookup;
     }
