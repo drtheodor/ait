@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Either;
+import dev.amble.ait.core.util.WorldUtil;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.multidim.MultiDim;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -56,7 +57,11 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         ServerLifecycleEvents.SERVER_STOPPING.register(this::saveAndReset);
 
         ServerCrashEvent.EVENT.register(((server, report) -> this.reset())); // just panic and reset
-        WorldSaveEvent.EVENT.register(world -> this.save(world.getServer(), false));
+
+        WorldSaveEvent.EVENT.register(world -> {
+            if (world == WorldUtil.getOverworld())
+                this.save(world.getServer(), false);
+        });
 
         ServerTickEvents.START_SERVER_TICK.register(server -> {
             this.forEach(tardis -> {
@@ -207,8 +212,6 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
                 } else if (state == TravelHandlerBase.State.MAT) {
                     tardis.travel().finishRemat();
                 }
-
-                tardis.door().closeDoors();
             }
 
             this.fileManager.saveTardis(server, this, tardis);
