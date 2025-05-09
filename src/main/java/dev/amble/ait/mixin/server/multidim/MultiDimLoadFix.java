@@ -25,9 +25,10 @@ public class MultiDimLoadFix {
         if (result != null)
             return result;
 
-        if (TardisServerWorld.isTardisDimension(key))
+        if (TardisServerWorld.isTardisDimension(key)) {
             return ServerTardisManager.getInstance().loadTardis(instance, TardisServerWorld.getTardisId(key))
                     .map(ServerTardis::world, e -> null);
+        }
 
         return null;
     }
