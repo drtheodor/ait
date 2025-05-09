@@ -6,7 +6,6 @@ import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
 
-import dev.amble.ait.core.tardis.TardisDesktop;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
 import dev.drtheo.multidim.MultiDimFileManager;
@@ -15,7 +14,6 @@ import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -46,6 +44,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
     public static final String NAMESPACE = AITMod.MOD_ID + "-tardis";
 
     private ServerTardis tardis;
+    private RegistryEntry<Biome> cachedBiome;
 
     public TardisServerWorld(WorldBlueprint blueprint, MinecraftServer server, Executor workerExecutor, LevelStorage.Session session, ServerWorldProperties properties, RegistryKey<World> worldKey, DimensionOptions dimensionOptions, WorldGenerationProgressListener worldGenerationProgressListener, List<Spawner> spawners, @Nullable RandomSequencesState randomSequencesState, boolean created) {
         super(blueprint, server, workerExecutor, session, properties, worldKey, dimensionOptions, worldGenerationProgressListener, spawners, randomSequencesState, created);
@@ -65,17 +64,13 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return super.spawnEntity(entity);
     }
 
-    // TODO: make this return a constant value
     @Override
     public RegistryEntry<Biome> getBiome(BlockPos pos) {
-        return super.getBiome(pos);
-    }
+        if (this.cachedBiome != null)
+            return cachedBiome;
 
-    @Override
-    public boolean canPlayerModifyAt(PlayerEntity player, BlockPos pos) {
-        return super.canPlayerModifyAt(player, pos) &&
-                pos.getX() > -TardisDesktop.RADIUS && pos.getX() < TardisDesktop.RADIUS &&
-                pos.getZ() > -TardisDesktop.RADIUS && pos.getZ() < TardisDesktop.RADIUS;
+        this.cachedBiome = super.getBiome(pos);
+        return cachedBiome;
     }
 
     public void setTardis(ServerTardis tardis) {
