@@ -151,8 +151,7 @@ public abstract class DeprecatedServerTardisManager extends TardisManager<Server
         this.lookup.forEach((uuid, either) -> either.ifLeft(consumer));
     }
 
-    @NotNull
-    public Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
+    @NotNull public Either<ServerTardis, Exception> loadTardis(MinecraftServer server, UUID uuid) {
         Either<ServerTardis, Exception> result = this.fileManager.loadTardis(server, this, uuid, this);
 
         this.lookup.put(uuid, result);

@@ -1,7 +1,6 @@
 package dev.amble.ait.core.blocks;
 
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import net.minecraft.server.world.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.*;
@@ -15,6 +14,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;

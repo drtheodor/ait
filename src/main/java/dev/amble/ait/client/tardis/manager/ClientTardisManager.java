@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.gson.GsonBuilder;
-import dev.amble.ait.data.properties.Value;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
@@ -29,6 +28,7 @@ import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisManager;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.TardisMap;
+import dev.amble.ait.data.properties.Value;
 import dev.amble.ait.registry.impl.TardisComponentRegistry;
 
 public class ClientTardisManager extends TardisManager<ClientTardis, MinecraftClient> {
