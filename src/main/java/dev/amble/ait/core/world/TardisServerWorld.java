@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
 
+import dev.amble.ait.core.tardis.TardisDesktop;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
 import dev.drtheo.multidim.MultiDimFileManager;
@@ -14,6 +15,10 @@ import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.world.ClientWorld;
@@ -59,6 +64,19 @@ public class TardisServerWorld extends MultiDimServerWorld {
             return false;
 
         return super.spawnEntity(entity);
+    }
+
+    // TODO: make this return a constant value
+    @Override
+    public RegistryEntry<Biome> getBiome(BlockPos pos) {
+        return super.getBiome(pos);
+    }
+
+    @Override
+    public boolean canPlayerModifyAt(PlayerEntity player, BlockPos pos) {
+        return super.canPlayerModifyAt(player, pos) &&
+                pos.getX() > -TardisDesktop.RADIUS && pos.getX() < TardisDesktop.RADIUS &&
+                pos.getZ() > -TardisDesktop.RADIUS && pos.getZ() < TardisDesktop.RADIUS;
     }
 
     public void setTardis(ServerTardis tardis) {
