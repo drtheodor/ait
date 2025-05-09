@@ -47,7 +47,7 @@ public class TardisDesktop extends TardisComponent {
     private DirectedBlockPos doorPos;
     private final Corners corners;
     private final Set<BlockPos> consolePos;
-    private static final int RADIUS = 500;
+    public static final int RADIUS = 500;
     private static final Corners CORNERS;
 
     static {
