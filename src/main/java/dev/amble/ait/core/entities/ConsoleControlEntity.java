@@ -378,7 +378,9 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
     }
 
     public boolean run(PlayerEntity player, World world, boolean leftClick) {
-        if (world.isClient())
+        Tardis tardis = this.tardis().get();
+
+        if (world.isClient() || tardis.isGrowth())
             return false;
 
         if (world.getRandom().nextBetween(1, 10_000) == 72)
@@ -395,8 +397,6 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
             this.discard();
             return false;
         }
-
-        Tardis tardis = this.tardis().get();
 
         if (player.getMainHandStack().isOf(AITItems.SONIC_SCREWDRIVER) && this.getDurability() < 1.0f
                 && SonicItem.mode(player.getMainHandStack()) == SonicMode.Modes.TARDIS) {
