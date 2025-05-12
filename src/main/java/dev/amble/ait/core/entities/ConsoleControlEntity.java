@@ -381,10 +381,6 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
         if (world.isClient())
             return false;
 
-        if (world.getRandom().nextBetween(1, 10_000) == 72)
-            this.getWorld().playSound(null, this.getBlockPos(), AITSounds.EVEN_MORE_SECRET_MUSIC, SoundCategory.MASTER,
-                    1F, 1F);
-
         if (player.getMainHandStack().isOf(AITItems.TARDIS_ITEM))
             this.discard();
 
@@ -415,6 +411,10 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
 
         if (!this.control.canRun(tardis, (ServerPlayerEntity) player))
             return false;
+
+        if (world.getRandom().nextBetween(1, 10_000) == 72)
+            this.getWorld().playSound(null, this.getBlockPos(), AITSounds.EVEN_MORE_SECRET_MUSIC, SoundCategory.MASTER,
+                    1F, 1F);
 
         boolean hasMallet = player.getMainHandStack().isOf(AITItems.HAMMER);
 
