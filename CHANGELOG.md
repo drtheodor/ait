@@ -27,3 +27,4 @@
 - perf: general performance improvements | by [@DrTheodor](https://github.com/DrTheodor) ([#1548](https://github.com/amblelabs/ait/pull/1548))
 - tweak: slightly improved biome check of the tardis world | by [@DrTheodor](https://github.com/DrTheodor) ([#1549](https://github.com/amblelabs/ait/pull/1549))
 - fix: controls were interact-able during growth state, but shouldn't | by [@Mansarde](https://github.com/Mansarde) ([#1551](https://github.com/amblelabs/ait/pull/1551))
+- fix: sticky keys could be bypassed via punching / left-clicking controls | by [@Mansarde](https://github.com/Mansarde) ([#1553](https://github.com/amblelabs/ait/pull/1553))
