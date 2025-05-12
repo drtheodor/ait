@@ -122,6 +122,9 @@ public class Control implements Identifiable {
     }
 
     public boolean canRun(Tardis tardis, ServerPlayerEntity user) {
+        if (tardis.isGrowth())
+            return false;
+
         if (this.requiresPower() && !tardis.fuel().hasPower())
             return false;
 

@@ -378,14 +378,8 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
     }
 
     public boolean run(PlayerEntity player, World world, boolean leftClick) {
-        Tardis tardis = this.tardis().get();
-
-        if (world.isClient() || tardis.isGrowth())
+        if (world.isClient())
             return false;
-
-        if (world.getRandom().nextBetween(1, 10_000) == 72)
-            this.getWorld().playSound(null, this.getBlockPos(), AITSounds.EVEN_MORE_SECRET_MUSIC, SoundCategory.MASTER,
-                    1F, 1F);
 
         if (player.getMainHandStack().isOf(AITItems.TARDIS_ITEM))
             this.discard();
@@ -397,6 +391,8 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
             this.discard();
             return false;
         }
+
+        Tardis tardis = this.tardis().get();
 
         if (player.getMainHandStack().isOf(AITItems.SONIC_SCREWDRIVER) && this.getDurability() < 1.0f
                 && SonicItem.mode(player.getMainHandStack()) == SonicMode.Modes.TARDIS) {
@@ -415,6 +411,10 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
 
         if (!this.control.canRun(tardis, (ServerPlayerEntity) player))
             return false;
+
+        if (world.getRandom().nextBetween(1, 10_000) == 72)
+            this.getWorld().playSound(null, this.getBlockPos(), AITSounds.EVEN_MORE_SECRET_MUSIC, SoundCategory.MASTER,
+                    1F, 1F);
 
         boolean hasMallet = player.getMainHandStack().isOf(AITItems.HAMMER);
 

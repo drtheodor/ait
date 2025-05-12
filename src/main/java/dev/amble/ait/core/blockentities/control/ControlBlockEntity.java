@@ -100,9 +100,6 @@ public abstract class ControlBlockEntity extends InteriorLinkableBlockEntity {
         if (!(found.get() instanceof ServerTardis tardis))
             return false;
 
-        if (found.get().isGrowth())
-            return false;
-
         if (!this.control.canRun(tardis, user))
             return false;
 
