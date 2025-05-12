@@ -192,27 +192,6 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
             return ActionResult.SUCCESS;
         }
 
-        if (isSticky()) {
-            if (player.getMainHandStack().isOf(Items.SHEARS)) {
-                this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1, 1);
-                this.dataTracker.set(STICKY, false);
-                return ActionResult.FAIL;
-            }
-
-            this.playSound(SoundEvents.BLOCK_SLIME_BLOCK_BREAK, 0.4f, 1);
-            player.getWorld().addParticle(
-                    new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.SLIME_BLOCK.getDefaultState()),
-                    this.getX(), this.getY(), this.getZ(),
-                    0.2, 0.5, -0.1
-            );
-
-            return ActionResult.FAIL;
-        } else if (player.getMainHandStack().isOf(Items.SLIME_BALL)) {
-            this.playSound(SoundEvents.BLOCK_SLIME_BLOCK_BREAK, 1, 1);
-            this.dataTracker.set(STICKY, true);
-            return ActionResult.FAIL;
-        }
-
         if (hand == Hand.MAIN_HAND && !this.run(player, player.getWorld(), false))
             this.playFailFx();
 
@@ -378,6 +357,27 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
     }
 
     public boolean run(PlayerEntity player, World world, boolean leftClick) {
+        if (isSticky()) {
+            if (player.getMainHandStack().isOf(Items.SHEARS)) {
+                this.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1, 1);
+                this.dataTracker.set(STICKY, false);
+                return true;
+            }
+
+            this.playSound(SoundEvents.BLOCK_SLIME_BLOCK_BREAK, 0.4f, 1);
+            player.getWorld().addParticle(
+                    new BlockStateParticleEffect(ParticleTypes.BLOCK, Blocks.SLIME_BLOCK.getDefaultState()),
+                    this.getX(), this.getY(), this.getZ(),
+                    0.2, 0.5, -0.1
+            );
+
+            return true;
+        } else if (player.getMainHandStack().isOf(Items.SLIME_BALL)) {
+            this.playSound(SoundEvents.BLOCK_SLIME_BLOCK_BREAK, 1, 1);
+            this.dataTracker.set(STICKY, true);
+            return true;
+        }
+
         if (world.isClient())
             return false;
 
