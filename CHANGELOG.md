@@ -26,3 +26,4 @@
 - fix: if a tardis fails to save it wont brick your world anymore | by [@DrTheodor](https://github.com/DrTheodor) ([#1547](https://github.com/amblelabs/ait/pull/1547))
 - perf: general performance improvements | by [@DrTheodor](https://github.com/DrTheodor) ([#1548](https://github.com/amblelabs/ait/pull/1548))
 - tweak: slightly improved biome check of the tardis world | by [@DrTheodor](https://github.com/DrTheodor) ([#1549](https://github.com/amblelabs/ait/pull/1549))
+- fix: controls were interact-able during growth state, but shouldn't | by [@Mansarde](https://github.com/Mansarde) ([#1551](https://github.com/amblelabs/ait/pull/1551))
