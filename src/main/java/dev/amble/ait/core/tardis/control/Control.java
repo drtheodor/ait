@@ -122,6 +122,9 @@ public class Control implements Identifiable {
     }
 
     public boolean canRun(Tardis tardis, ServerPlayerEntity user) {
+        if (tardis.isGrowth())
+            return false;
+
         if (this.requiresPower() && !tardis.fuel().hasPower())
             return false;
 
@@ -167,6 +170,7 @@ public class Control implements Identifiable {
         public boolean isSuccess() {
             return this == SUCCESS || this == SUCCESS_ALT;
         }
+
         public boolean isAltSound() {
             return this == SUCCESS_ALT || this == FAILURE;
         }

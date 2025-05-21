@@ -58,7 +58,7 @@ import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
 
 public class InteriorChangingHandler extends KeyedTardisComponent implements TardisTickable {
     public static final Identifier CHANGE_DESKTOP = AITMod.id("change_desktop");
-    private static final Property<Identifier> QUEUED_INTERIOR_PROPERTY = new Property<>(Property.Type.IDENTIFIER, "queued_interior", new Identifier(""));
+    private static final Property<Identifier> QUEUED_INTERIOR_PROPERTY = new Property<>(Property.IDENTIFIER, "queued_interior", new Identifier(""));
     private static final BoolProperty QUEUED = new BoolProperty("queued");
     private static final BoolProperty REGENERATING = new BoolProperty("regenerating");
 
@@ -244,7 +244,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
      * @param cPos The position of the console to replace.
      */
     private void replaceConsoleWithGrowth(BlockPos cPos) {
-        ServerWorld world = tardis.asServer().getInteriorWorld();
+        ServerWorld world = tardis.asServer().world();
 
         if (!(world.getBlockEntity(cPos) instanceof ConsoleBlockEntity console))
             return;
@@ -283,7 +283,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
         DirectedBlockPos door = this.tardis.getDesktop().getDoorPos();
 
         CachedDirectedGlobalPos safe = CachedDirectedGlobalPos.create(
-                this.tardis.asServer().getInteriorWorld(),
+                this.tardis.asServer().world(),
                 door.getPos().offset(door.toMinecraftDirection(), 2),
                 door.getRotation()
         );
@@ -328,7 +328,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
 
             if (!isQueued) {
                 if (server.getTicks() % 200 == 0 && this.hasEnoughPlasmicMaterial())
-                    this.tardis.asServer().getInteriorWorld().getPlayers().forEach(player ->
+                    this.tardis.asServer().world().getPlayers().forEach(player ->
                             player.sendMessage(HINT_TEXT, true));
 
                 if (this.tardis.door().isClosed()) {
@@ -352,7 +352,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
 
         if (!TardisUtil.isInteriorEmpty(tardis.asServer())) {
             if (this.regenerating.get()) {
-                PlayerEntity target = TardisUtil.getAnyPlayerInsideInterior(tardis.asServer().getInteriorWorld());
+                PlayerEntity target = TardisUtil.getAnyPlayerInsideInterior(tardis.asServer().world());
 
                 if (this.tardis().subsystems().lifeSupport().isEnabled()) {
                     TardisUtil.teleportOutside(tardis.asServer(), target);

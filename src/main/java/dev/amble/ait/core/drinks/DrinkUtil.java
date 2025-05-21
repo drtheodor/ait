@@ -8,6 +8,7 @@ import me.shedaniel.math.Color;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffect;
@@ -22,6 +23,8 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import dev.amble.ait.AITMod;
 
 public class DrinkUtil {
 
@@ -43,7 +46,7 @@ public class DrinkUtil {
         return list;
     }
 
-    public static List<StatusEffectInstance> getDrinkEffects(@Nullable NbtCompound nbt) {
+    public static List<StatusEffectInstance> getDrinkEffects(NbtCompound nbt) {
         ArrayList<StatusEffectInstance> list = Lists.newArrayList();
         list.addAll(DrinkUtil.getDrink(nbt).getEffects());
         DrinkUtil.getCustomDrinkEffects(nbt, list);
@@ -115,6 +118,26 @@ public class DrinkUtil {
         return (int)f << 16 | (int)g << 8 | (int)h;
     }
 
+    public static void applyEffects(ItemStack drinkStack, LivingEntity user) {
+        if (isMilk(getDrink(drinkStack))) {
+            user.clearStatusEffects();
+            return;
+        }
+
+        List<StatusEffectInstance> list = DrinkUtil.getDrinkEffects(drinkStack);
+        for (StatusEffectInstance statusEffectInstance : list) {
+            if (statusEffectInstance.getEffectType().isInstant()) {
+                statusEffectInstance.getEffectType().applyInstantEffect(null, null, user, statusEffectInstance.getAmplifier(), 1.0);
+                continue;
+            }
+            user.addStatusEffect(new StatusEffectInstance(statusEffectInstance));
+        }
+    }
+
+    private static boolean isMilk(Drink drink) {
+        return DrinkRegistry.getInstance().getOrFallback(AITMod.id("milk")).equals(drink);
+    }
+
     public static Drink getDrink(ItemStack stack) {
         return DrinkUtil.getDrink(stack.getNbt());
     }
@@ -127,11 +150,10 @@ public class DrinkUtil {
     }
 
     public static ItemStack setDrink(ItemStack stack, Drink drink) {
-        Identifier identifier = drink.id();
-        if (drink == EMPTY) {
+        if (drink == null || drink == EMPTY) {
             stack.removeSubNbt(DRINK_KEY);
         } else {
-            stack.getOrCreateNbt().putString(DRINK_KEY, identifier.toString());
+            stack.getOrCreateNbt().putString(DRINK_KEY, drink.id().toString());
         }
         return stack;
     }

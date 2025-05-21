@@ -13,7 +13,6 @@
     "client.experimental_screen.LevelSummaryMixin",
     "client.rendering.EntityMixin",
     "compat.gravity.EntityTagsMixin",
-    "fix.LivingEntityBrainFixMixin",
     "lookup.EntityTrackingSectionAccessor",
     "lookup.SectionedEntityCacheAccessor",
     "lookup.SimpleEntityLookupAccessor",
@@ -24,12 +23,14 @@
     "rwf.DismountEntityMixin",
     "rwf.LivingEntityAccessor",
     "server.BedInTardisMixin",
+    "server.BellBlockMixin",
     "server.EnderDragonFightAccessor",
     "server.ItemEntityMixin",
     "server.MinecraftServerMixin",
     "server.ServerPlayerMixin",
     "server.ServerWorldMixin",
     "server.StructureTemplateMixin",
+    "server.multidim.MultiDimLoadFix",
     "server.structure.StructureTemplateAccessor"
   ],
   "client": [

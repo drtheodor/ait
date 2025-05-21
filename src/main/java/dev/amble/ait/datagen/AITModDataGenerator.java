@@ -932,7 +932,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("sonic.ait.song", "Song");
         provider.addTranslation("sonic.ait.singularity", "Singularity");
         provider.addTranslation("sonic.ait.candy_cane", "Candy Cane");
-        provider.addTranslation("sonic.ait.type_100", "Type 100");
+        provider.addTranslation("sonic.ait.type_100", "Frontier");
 
         // Consoles
         provider.addTranslation("console.ait.alnico", "Alnico");
@@ -1014,6 +1014,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("item.sonic.scanning.stone_tool", "Stone Tool");
         provider.addTranslation("item.sonic.scanning.no_tool", "Hand (No Tool)");
         provider.addTranslation("item.sonic.scanning.cant_break", "Can't Break Block!");
+        provider.addTranslation("item.sonic.scanning.locator_message.title", "TARDIS location: %s");
+        provider.addTranslation("item.sonic.scanning.locator_message.coordinates", "Coordinates: %s %s %s");
 
 
         // Loyalty Messages In Bed
@@ -1032,6 +1034,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("tardis.message.console.has_sonic_in_port", "Cannot cache console with sonic in port");
         provider.addTranslation("tardis.message.control.antigravs.active", "Antigravs: ENGAGED");
         provider.addTranslation("tardis.message.control.antigravs.inactive", "Antigravs: DISENGAGED");
+        provider.addTranslation("tardis.message.control.electric.fail", "System Error: Not enough fuel present! Requires %sAU");
         provider.addTranslation("tardis.message.control.rwf_disabled", "RWF is disabled in SERVER config.");
         provider.addTranslation("tardis.message.control.rwf_creative_only", "RWF is CREATIVE only");
         provider.addTranslation("tardis.message.control.fast_return.destination_nonexistent",
@@ -1093,7 +1096,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("message.ait.cage.void_hint", "(Throw this into the END void)");
         provider.addTranslation("message.ait.cage.empty", "(Place this in a rift chunk)");
         provider.addTranslation("tardis.message.engine.system_is_weakened", "This System Is Showing Signs Of Weakness, But Is Still Functional!");
-        provider.addTranslation("tardis.message.subsystem.requires_link", "LINK TO ENGINE VIA FLUID LINKS");
+        provider.addTranslation("tardis.message.subsystem.requires_link", "LINK TO ENGINE VIA ARTRON CABLES");
         provider.addTranslation("tardis.message.engine.no_space", "Engine requires a 3x3 space to function!");
 
         // Achievements
@@ -1221,7 +1224,6 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("screen.ait.monitor.on", "ON");
         provider.addTranslation("screen.ait.monitor.off", "OFF");
         provider.addTranslation("screen.ait.monitor.apply", "Apply");
-        provider.addTranslation("screen.ait.monitor.gear_icon", "⚙");
         provider.addTranslation("screen.ait.monitor.fuel", "Fuel");
         provider.addTranslation("screen.ait.monitor.traveltime", "Travel Time");
         provider.addTranslation("screen.ait.interiorsettings.title", "Interior Settings");
