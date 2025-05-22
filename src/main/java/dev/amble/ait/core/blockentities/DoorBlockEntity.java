@@ -32,7 +32,6 @@ import dev.amble.ait.api.tardis.link.v2.block.InteriorLinkableBlockEntity;
 import dev.amble.ait.compat.DependencyChecker;
 import dev.amble.ait.core.AITBlockEntityTypes;
 import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.blocks.DoorBlock;
 import dev.amble.ait.core.blocks.ExteriorBlock;
 import dev.amble.ait.core.blocks.types.HorizontalDirectionalBlock;
 import dev.amble.ait.core.item.KeyItem;
@@ -42,7 +41,6 @@ import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.core.tardis.util.TardisUtil;
 import dev.amble.ait.core.world.TardisServerWorld;
-
 
 public class DoorBlockEntity extends InteriorLinkableBlockEntity {
 
@@ -67,6 +65,9 @@ public class DoorBlockEntity extends InteriorLinkableBlockEntity {
             return;
 
         CachedDirectedGlobalPos globalExteriorPos = tardis.travel().position();
+
+        if (globalExteriorPos == null)
+            return;
 
         BlockPos exteriorPos = globalExteriorPos.getPos();
         World exteriorWorld = globalExteriorPos.getWorld();

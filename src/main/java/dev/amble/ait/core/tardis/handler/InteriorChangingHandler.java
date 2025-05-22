@@ -6,8 +6,9 @@ import java.util.List;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.amble.lib.data.DirectedGlobalPos;
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
 import net.minecraft.block.Block;
@@ -21,7 +22,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -37,7 +37,6 @@ import dev.amble.ait.api.tardis.TardisEvents;
 import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.core.AITDamageTypes;
 import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.advancement.TardisCriterions;
 import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
 import dev.amble.ait.core.engine.SubSystem;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
@@ -177,18 +176,19 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
             return;
 
         if (tardis.fuel().getCurrentFuel() < 5000) {
-            for (PlayerEntity player : TardisUtil.getPlayersInsideInterior(tardis.asServer())) {
+            tardis.asServer().world().getPlayers().forEach(player -> {
                 player.sendMessage(
                         Text.translatable("tardis.message.interiorchange.not_enough_fuel").formatted(Formatting.RED),
                         true);
-                return;
-            }
+            });
+
+            return;
         }
         if (tardis.subsystems().isEnabled()) {
-            for (PlayerEntity player : TardisUtil.getPlayersInsideInterior(tardis.asServer())) {
+            tardis.asServer().world().getPlayers().forEach(player -> {
                 player.sendMessage(
                         Text.translatable("tardis.message.interiorchange.subsystems_enabled", tardis.subsystems().countEnabled()).formatted(Formatting.RED), false);
-            }
+            });
         }
 
         AITMod.LOGGER.info("Queueing interior change for {} to {}", this.tardis, schema);
@@ -235,7 +235,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
                     tardis.door().setDoorParticles(particle);
                     Scheduler.get().runTaskLater(() -> {
                         tardis.door().setDoorParticles(null);
-                    }, TimeUnit.SECONDS, 3);
+                    }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 3);
                 }).execute();
     }
 
@@ -262,15 +262,6 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
     private void replaceAllConsolesWithGrowth() {
         for (BlockPos cPos : tardis.getDesktop().getConsolePos()) {
             replaceConsoleWithGrowth(cPos);
-        }
-    }
-
-    private void warnPlayers() {
-        for (ServerPlayerEntity player : TardisUtil.getPlayersInsideInterior(this.tardis.asServer())) {
-            player.sendMessage(Text.translatable("tardis.message.interiorchange.warning").formatted(Formatting.RED),
-                    true);
-            if (!tardis.isGrowth())
-                TardisCriterions.REDECORATE.trigger(player);
         }
     }
 
@@ -370,7 +361,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
     private ServerAlarmHandler.Countdown startRegeneratingCountdown() {
         ServerAlarmHandler.Countdown cd = new ServerAlarmHandler.Countdown.Builder().bellTolls(5).message("tardis.message.interiorchange.regenerating").thenRun(() -> {
             tardis.getDesktop().startQueue(true);
-            Scheduler.get().runTaskLater(this::changeInterior, TimeUnit.SECONDS, 5);
+            Scheduler.get().runTaskLater(this::changeInterior, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 5);
 
             this.regenerating.set(true);
             this.countdownStarted = false;

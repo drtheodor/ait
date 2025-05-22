@@ -5,13 +5,15 @@ import java.util.Optional;
 
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.queue.api.ActionQueue;
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockState;
@@ -251,10 +253,15 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
         this.forcePosition(this.getProgress());
     }
 
+    @Override
+    public void tick(MinecraftServer server) {
+        super.tick(server);
+    }
+
     private void createCooldown() {
         this.travelCooldown = true;
 
-        Scheduler.get().runTaskLater(() -> this.travelCooldown = false, TimeUnit.SECONDS, 5);
+        Scheduler.get().runTaskLater(() -> this.travelCooldown = false, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 5);
     }
 
     /**

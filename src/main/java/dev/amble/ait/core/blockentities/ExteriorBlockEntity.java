@@ -5,9 +5,10 @@ import static dev.amble.ait.core.tardis.handler.InteriorChangingHandler.MAX_PLAS
 import java.util.UUID;
 
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
 
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -147,7 +148,7 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
                     world.playSound(null, pos, AITSounds.SONIC_MENDING, SoundCategory.BLOCKS, 1F, 1F);
                     Scheduler.get().runTaskLater(() -> {
                         world.playSound(null, pos, AITSounds.TARDIS_BLING, SoundCategory.BLOCKS, 1F, 1F);
-                    }, TimeUnit.SECONDS, 15);
+                    }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 15);
 
                 } else {
                     world.playSound(null, pos, SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.BLOCKS, 1F, 0.2F);
@@ -156,7 +157,7 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
                 return;
             }
 
-        // try to stop phasing
+            // try to stop phasing
             EngineSystem.Phaser phasing = tardis.subsystems().engine().phaser();
 
             if (phasing.isPhasing()) {
