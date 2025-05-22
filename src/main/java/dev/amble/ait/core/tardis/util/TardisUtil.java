@@ -6,8 +6,9 @@ import java.util.function.Predicate;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.amble.lib.util.TeleportUtil;
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import it.unimi.dsi.fastutil.longs.LongBidirectionalIterator;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.util.TriState;
@@ -235,7 +236,7 @@ public class TardisUtil {
                 TeleportUtil.teleport(living, tardis.travel().destination().getWorld(),
                         percentageOfDestination.getPos().toCenterPos(), living.getBodyYaw());
             }
-        }, TimeUnit.SECONDS, 4);
+        }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 4);
     }
 
     public static void teleportInside(ServerTardis tardis, Entity entity) {
@@ -299,7 +300,8 @@ public class TardisUtil {
                 }
             }
             if (entity instanceof ExtraPushableEntity pushable)
-                Scheduler.get().runTaskLater(() -> pushable.ait$setPushBehaviour(TriState.DEFAULT), TimeUnit.SECONDS, 3);
+                Scheduler.get().runTaskLater(() -> pushable.ait$setPushBehaviour(TriState.DEFAULT),
+                        TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 3);
         });
     }
 

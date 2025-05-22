@@ -6,8 +6,6 @@ import java.util.function.Function;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import dev.drtheo.scheduler.api.Scheduler;
-import dev.drtheo.scheduler.api.TimeUnit;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.dynamic.Codecs;
@@ -103,21 +101,14 @@ public abstract class TravelHandlerBase extends KeyedTardisComponent implements 
     }
 
     @Override
-    protected void onInit(InitContext ctx) {
-        super.onInit(ctx);
-
-        Scheduler.get().runTaskTimer(task -> {
-            if (this.hammerUses > 0)
-                this.hammerUses--;
-        }, TimeUnit.TICKS, 200);
-    }
-
-    @Override
     public void tick(MinecraftServer server) {
         TardisCrashHandler crash = tardis.crash();
 
         if (crash.getState() != TardisCrashHandler.State.NORMAL)
             crash.addRepairTicks(2 * this.speed());
+
+        if (server.getTicks() % 200 == 0)
+            this.hammerUses--;
     }
 
     public BoolValue leaveBehind() {

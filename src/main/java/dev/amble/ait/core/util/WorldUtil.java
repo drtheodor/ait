@@ -5,8 +5,9 @@ import java.util.function.Predicate;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.amble.lib.util.TeleportUtil;
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
@@ -97,7 +98,7 @@ public class WorldUtil {
         Scheduler.get().runTaskLater(() -> {
             if (entity.getWorld() == TIME_VORTEX)
                 TeleportUtil.teleport(entity, OPEN_WORLDS.get(worldIndex), entity.getPos(), entity.getYaw());
-        }, TimeUnit.SECONDS, 5);
+        }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 5);
     }
 
     public static ServerWorld getOverworld() {
