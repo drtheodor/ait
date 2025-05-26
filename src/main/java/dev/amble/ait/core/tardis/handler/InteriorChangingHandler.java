@@ -186,8 +186,16 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
         }
         if (tardis.subsystems().isEnabled()) {
             tardis.asServer().world().getPlayers().forEach(player -> {
+                int count = 0;
+
+                for (SubSystem subSystem : tardis.subsystems()) {
+                    if (subSystem.isEnabled())
+                        count++;
+                }
+
                 player.sendMessage(
-                        Text.translatable("tardis.message.interiorchange.subsystems_enabled", tardis.subsystems().countEnabled()).formatted(Formatting.RED), false);
+                        Text.translatable("tardis.message.interiorchange.subsystems_enabled", count)
+                                .formatted(Formatting.RED), false);
             });
         }
 
@@ -203,8 +211,8 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
 
         restorationChestContents = new ArrayList<>();
 
-        for (SubSystem system : tardis.subsystems().getEnabled()) {
-            if (system == null)
+        for (SubSystem system : tardis.subsystems()) {
+            if (system.isEnabled())
                 continue;
 
             restorationChestContents.addAll(system.toStacks());
