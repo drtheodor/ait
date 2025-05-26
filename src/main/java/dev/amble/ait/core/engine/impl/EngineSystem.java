@@ -2,9 +2,11 @@ package dev.amble.ait.core.engine.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import dev.amble.ait.core.engine.SubSystem;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import org.joml.Vector3f;
 
@@ -230,7 +232,15 @@ public class EngineSystem extends DurableSubSystem {
         CRITICAL(250, 33, 22) {
             @Override
             public boolean isViable(EngineSystem system) {
-                return system.phaser().isPhasing() || system.tardis.subsystems().findBrokenSubsystem().isPresent();
+                if (system.phaser().isPhasing())
+                    return true;
+
+                for (SubSystem next : system.tardis().subsystems()) {
+                    if (next instanceof DurableSubSystem durable && next.isEnabled() && durable.durability() <= 5)
+                        return true;
+                }
+
+                return false;
             }
         },
         ERROR(250, 242, 22) {
