@@ -1,8 +1,14 @@
 package dev.amble.ait.core.tardis.handler;
 
+import dev.amble.ait.AITMod;
+import dev.amble.ait.api.tardis.KeyedTardisComponent;
+import dev.amble.ait.api.tardis.TardisTickable;
+import dev.amble.ait.core.AITTags;
+import dev.amble.ait.core.tardis.util.TardisUtil;
+import dev.amble.ait.data.properties.Property;
+import dev.amble.ait.data.properties.Value;
+import dev.amble.ait.data.properties.integer.IntProperty;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import org.joml.Vector3f;
-
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -12,15 +18,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.KeyedTardisComponent;
-import dev.amble.ait.api.tardis.TardisTickable;
-import dev.amble.ait.core.AITTags;
-import dev.amble.ait.core.tardis.util.TardisUtil;
-import dev.amble.ait.data.properties.Property;
-import dev.amble.ait.data.properties.Value;
-import dev.amble.ait.data.properties.integer.IntProperty;
+import org.joml.Vector3f;
 
 public class TardisCrashHandler extends KeyedTardisComponent implements TardisTickable {
 

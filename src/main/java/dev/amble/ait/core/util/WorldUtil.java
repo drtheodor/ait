@@ -1,12 +1,14 @@
 package dev.amble.ait.core.util;
 
-import java.util.*;
-import java.util.function.Predicate;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.client.util.ClientTardisUtil;
+import dev.amble.ait.core.AITDimensions;
+import dev.amble.ait.core.world.TardisServerWorld;
+import dev.amble.ait.mixin.server.EnderDragonFightAccessor;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.amble.lib.util.TeleportUtil;
-import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +16,6 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.loader.api.FabricLoader;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,11 +38,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.client.util.ClientTardisUtil;
-import dev.amble.ait.core.AITDimensions;
-import dev.amble.ait.core.world.TardisServerWorld;
-import dev.amble.ait.mixin.server.EnderDragonFightAccessor;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 
 @SuppressWarnings("deprecation")
 public class WorldUtil {
@@ -110,8 +111,8 @@ public class WorldUtil {
     }
 
     private static void generateWorldCache(MinecraftServer server) {
-        generateWorldCache(server, AITMod.CONFIG.SERVER.WORLDS_BLACKLIST, OPEN_BLACKLIST, OPEN_WORLDS, WorldUtil::isOpen);
-        generateWorldCache(server, AITMod.CONFIG.SERVER.TRAVEL_BLACKLIST, TRAVEL_BLACKLIST, TRAVEL_WORLDS, WorldUtil::isTravelValid);
+        generateWorldCache(server, AITMod.CONFIG.worldBlacklist, OPEN_BLACKLIST, OPEN_WORLDS, WorldUtil::isOpen);
+        generateWorldCache(server, AITMod.CONFIG.travelBlacklist, TRAVEL_BLACKLIST, TRAVEL_WORLDS, WorldUtil::isTravelValid);
     }
 
     private static void generateWorldCache(MinecraftServer server, List<String> raw, Set<Identifier> blacklist, List<ServerWorld> worlds, Predicate<ServerWorld> predicate) {

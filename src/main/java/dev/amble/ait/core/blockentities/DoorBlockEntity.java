@@ -1,12 +1,20 @@
 package dev.amble.ait.core.blockentities;
 
+import dev.amble.ait.api.tardis.link.v2.block.InteriorLinkableBlockEntity;
+import dev.amble.ait.compat.DependencyChecker;
+import dev.amble.ait.core.AITBlockEntityTypes;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.blocks.ExteriorBlock;
+import dev.amble.ait.core.blocks.types.HorizontalDirectionalBlock;
+import dev.amble.ait.core.item.KeyItem;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.handler.SonicHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.core.tardis.util.TardisUtil;
+import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedBlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.chunk.ChunkStatus;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,24 +31,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationPropertyHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.event.GameEvent;
-
-import dev.amble.ait.api.tardis.link.v2.block.InteriorLinkableBlockEntity;
-import dev.amble.ait.compat.DependencyChecker;
-import dev.amble.ait.core.AITBlockEntityTypes;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.blocks.ExteriorBlock;
-import dev.amble.ait.core.blocks.types.HorizontalDirectionalBlock;
-import dev.amble.ait.core.item.KeyItem;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.handler.SonicHandler;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
-import dev.amble.ait.core.tardis.util.TardisUtil;
-import dev.amble.ait.core.world.TardisServerWorld;
+import org.jetbrains.annotations.Nullable;
 
 public class DoorBlockEntity extends InteriorLinkableBlockEntity {
 

@@ -1,7 +1,5 @@
 package dev.amble.ait.core.entities.base;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -13,6 +11,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class DummyAmbientEntity extends AmbientEntity {
 

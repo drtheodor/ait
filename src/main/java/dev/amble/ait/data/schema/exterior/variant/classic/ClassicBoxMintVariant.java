@@ -1,8 +1,8 @@
 package dev.amble.ait.data.schema.exterior.variant.classic;
 
-import java.util.Optional;
-
 import dev.amble.ait.data.Loyalty;
+
+import java.util.Optional;
 
 public class ClassicBoxMintVariant extends ClassicBoxVariant {
     public ClassicBoxMintVariant() {

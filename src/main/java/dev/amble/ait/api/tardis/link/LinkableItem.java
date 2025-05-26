@@ -1,12 +1,8 @@
 package dev.amble.ait.api.tardis.link;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.client.tardis.manager.ClientTardisManager;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.TardisManager;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
@@ -17,10 +13,12 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.client.tardis.manager.ClientTardisManager;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.TardisManager;
+import java.util.List;
+import java.util.UUID;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 public abstract class LinkableItem extends Item {
 

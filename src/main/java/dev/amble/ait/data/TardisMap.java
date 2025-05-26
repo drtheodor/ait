@@ -1,12 +1,11 @@
 package dev.amble.ait.data;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.mojang.datafixers.util.Either;
+import dev.amble.ait.core.tardis.Tardis;
 import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.core.tardis.Tardis;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class TardisMap<T> extends ConcurrentHashMap<UUID, T> {
 

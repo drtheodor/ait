@@ -1,16 +1,15 @@
 package dev.amble.ait.client.sounds.flight;
 
-import java.util.Random;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-
 import dev.amble.ait.client.sounds.ClientSoundManager;
 import dev.amble.ait.client.sounds.PositionedLoopingSound;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.client.util.ClientTardisUtil;
 import dev.amble.ait.core.sounds.flight.FlightSound;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+
+import java.util.Random;
 
 public class InteriorFlightSound extends PositionedLoopingSound {
     private static final Random rnd = new Random();

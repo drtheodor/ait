@@ -1,18 +1,5 @@
 package dev.amble.ait.core.tardis.handler;
 
-import java.util.*;
-
-import dev.drtheo.queue.api.ActionQueue;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.core.AITSounds;
@@ -22,6 +9,19 @@ import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.Loyalty;
 import dev.amble.ait.data.properties.bool.BoolProperty;
 import dev.amble.ait.data.properties.bool.BoolValue;
+import dev.drtheo.queue.api.ActionQueue;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.TntEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+
+import java.util.ArrayDeque;
+import java.util.Optional;
+import java.util.Queue;
 
 // use this as reference for starting other looping sounds on the exterior
 public class ServerAlarmHandler extends KeyedTardisComponent implements TardisTickable {

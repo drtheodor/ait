@@ -1,7 +1,10 @@
 package dev.amble.ait.core.blocks;
 
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.blockentities.EngineBlockEntity;
+import dev.amble.ait.core.engine.SubSystem;
+import dev.amble.ait.core.engine.block.SubSystemBlock;
+import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
@@ -14,12 +17,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.blockentities.EngineBlockEntity;
-import dev.amble.ait.core.engine.SubSystem;
-import dev.amble.ait.core.engine.block.SubSystemBlock;
-import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
+import org.jetbrains.annotations.Nullable;
 
 public class EngineBlock extends SubSystemBlock implements BlockEntityProvider {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;

@@ -1,14 +1,12 @@
 package dev.amble.ait.client.util;
 
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.client.renderers.AITRenderLayers;
+import dev.amble.ait.compat.DependencyChecker;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.util.Identifier;
-
-import dev.amble.ait.client.renderers.AITRenderLayers;
-import dev.amble.ait.compat.DependencyChecker;
+import org.jetbrains.annotations.Nullable;
 
 public class ClientLightUtil {
 

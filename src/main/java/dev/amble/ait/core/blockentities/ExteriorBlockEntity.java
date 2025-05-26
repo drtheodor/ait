@@ -1,13 +1,31 @@
 package dev.amble.ait.core.blockentities;
 
-import static dev.amble.ait.core.tardis.handler.InteriorChangingHandler.MAX_PLASMIC_MATERIAL_AMOUNT;
-
-import java.util.UUID;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.api.tardis.TardisComponent;
+import dev.amble.ait.api.tardis.link.v2.TardisRef;
+import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
+import dev.amble.ait.client.AITModClient;
+import dev.amble.ait.compat.DependencyChecker;
+import dev.amble.ait.core.AITBlockEntityTypes;
+import dev.amble.ait.core.AITBlocks;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.blocks.ExteriorBlock;
+import dev.amble.ait.core.engine.impl.EngineSystem;
+import dev.amble.ait.core.item.KeyItem;
+import dev.amble.ait.core.item.SiegeTardisItem;
+import dev.amble.ait.core.item.SonicItem;
+import dev.amble.ait.core.tardis.ServerTardis;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.handler.BiomeHandler;
+import dev.amble.ait.core.tardis.handler.SonicHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.core.tardis.util.TardisUtil;
+import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
-
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -31,28 +49,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.TardisComponent;
-import dev.amble.ait.api.tardis.link.v2.TardisRef;
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
-import dev.amble.ait.compat.DependencyChecker;
-import dev.amble.ait.core.AITBlockEntityTypes;
-import dev.amble.ait.core.AITBlocks;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.blocks.ExteriorBlock;
-import dev.amble.ait.core.engine.impl.EngineSystem;
-import dev.amble.ait.core.item.KeyItem;
-import dev.amble.ait.core.item.SiegeTardisItem;
-import dev.amble.ait.core.item.SonicItem;
-import dev.amble.ait.core.tardis.ServerTardis;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.handler.BiomeHandler;
-import dev.amble.ait.core.tardis.handler.SonicHandler;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
-import dev.amble.ait.core.tardis.util.TardisUtil;
-import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
+import java.util.UUID;
+
+import static dev.amble.ait.core.tardis.handler.InteriorChangingHandler.MAX_PLASMIC_MATERIAL_AMOUNT;
 
 public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements BlockEntityTicker<ExteriorBlockEntity> {
     private UUID seatEntityUUID = null;
@@ -312,7 +311,7 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
             return;
         }
 
-        if (AITMod.CONFIG.CLIENT.RENDER_DEMAT_PARTICLES && !tardis.travel().isLanded() && tardis.travel().isHitboxShown()) {
+        if (AITModClient.CONFIG.renderDematParticles && !tardis.travel().isLanded() && tardis.travel().isHitboxShown()) {
             for (int ji = 0; ji < 4; ji++) {
                 double offsetX = AITMod.RANDOM.nextGaussian() * 0.125f;
                 double offsetY = AITMod.RANDOM.nextGaussian() * 0.125f;

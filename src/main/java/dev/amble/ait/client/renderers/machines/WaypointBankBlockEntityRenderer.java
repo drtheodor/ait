@@ -1,7 +1,13 @@
 package dev.amble.ait.client.renderers.machines;
 
+import dev.amble.ait.AITMod;
+import dev.amble.ait.client.util.ClientItemUtil;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.blockentities.WaypointBankBlockEntity;
+import dev.amble.ait.core.blocks.WaypointBankBlock;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.util.WorldUtil;
 import dev.amble.lib.data.DirectedGlobalPos;
-
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -14,14 +20,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.OrderedText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.client.util.ClientItemUtil;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.blockentities.WaypointBankBlockEntity;
-import dev.amble.ait.core.blocks.WaypointBankBlock;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.util.WorldUtil;
 
 public class WaypointBankBlockEntityRenderer<T extends WaypointBankBlockEntity> implements BlockEntityRenderer<T> {
 

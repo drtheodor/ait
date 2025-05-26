@@ -1,11 +1,12 @@
 package dev.amble.ait.core.item;
 
-import static net.minecraft.block.entity.BeaconBlockEntity.playSound;
-
-import java.util.*;
-
+import dev.amble.ait.api.tardis.link.LinkableItem;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.util.WorldUtil;
+import dev.amble.ait.data.enummap.EnumSet;
+import dev.amble.ait.data.enummap.Ordered;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,12 +25,10 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import dev.amble.ait.api.tardis.link.LinkableItem;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.util.WorldUtil;
-import dev.amble.ait.data.enummap.EnumSet;
-import dev.amble.ait.data.enummap.Ordered;
+import java.util.Iterator;
+import java.util.Optional;
+
+import static net.minecraft.block.entity.BeaconBlockEntity.playSound;
 
 public class TardisGoatHorn extends LinkableItem {
 

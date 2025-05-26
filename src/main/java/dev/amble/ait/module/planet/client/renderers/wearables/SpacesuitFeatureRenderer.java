@@ -1,8 +1,10 @@
 package dev.amble.ait.module.planet.client.renderers.wearables;
 
+import dev.amble.ait.AITMod;
+import dev.amble.ait.module.planet.client.models.wearables.SpacesuitModel;
+import dev.amble.ait.module.planet.core.item.SpacesuitItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -10,17 +12,16 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.*;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.ModelWithArms;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.module.planet.client.models.wearables.SpacesuitModel;
-import dev.amble.ait.module.planet.core.item.SpacesuitItem;
 
 @Environment(value = EnvType.CLIENT)
 public class SpacesuitFeatureRenderer<T extends LivingEntity, M extends EntityModel<T> & ModelWithArms>
