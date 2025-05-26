@@ -41,10 +41,14 @@ public class SubSystemHandler extends KeyedTardisComponent implements TardisTick
     }
 
     @Override
+    public void onCreate() {
+        SubSystemRegistry.getInstance().fill(this::create);
+    }
+
+    @Override
     protected void onInit(InitContext ctx) {
         super.onInit(ctx);
 
-        SubSystemRegistry.getInstance().fill(this::create);
         this.forEach(component -> SubSystem.init(component, this.tardis, ctx));
     }
 
@@ -73,7 +77,7 @@ public class SubSystemHandler extends KeyedTardisComponent implements TardisTick
     }
 
     private void create(SubSystem subSystem) {
-        this.systems.put(subSystem.getId(), subSystem);
+        this.set(subSystem);
 
         if (this.tardis != null)
             SubSystem.init(subSystem, this.tardis, InitContext.createdAt(this.tardis.travel().position()));
@@ -185,7 +189,7 @@ public class SubSystemHandler extends KeyedTardisComponent implements TardisTick
                 SubSystem.IdLike id = registry.get(i);
                 AITMod.LOGGER.debug("Appending new subsystem {}", id);
 
-                manager.get(id);
+                manager.set(id.create());
             }
 
             return manager;
