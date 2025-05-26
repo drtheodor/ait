@@ -1,6 +1,5 @@
 package dev.amble.ait.core.world;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -8,7 +7,6 @@ import java.util.function.BooleanSupplier;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
-import dev.drtheo.multidim.MultiDimFileManager;
 import dev.drtheo.multidim.MultiDimMod;
 import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
@@ -81,7 +79,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return tardis;
     }
 
-    public static ServerWorld create(ServerTardis tardis) {
+    public static TardisServerWorld create(ServerTardis tardis) {
         AITMod.LOGGER.info("Creating a dimension for TARDIS {}", tardis.getUuid());
         TardisServerWorld created = (TardisServerWorld) MultiDim.get(ServerLifecycleHooks.get())
                 .add(AITDimensions.TARDIS_WORLD_BLUEPRINT, idForTardis(tardis));
@@ -90,22 +88,30 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return created;
     }
 
-    public static ServerWorld load(ServerTardis tardis) {
+    public static TardisServerWorld load(ServerTardis tardis) {
         long start = System.currentTimeMillis();
         MinecraftServer server = ServerLifecycleHooks.get();
         MultiDim multidim = MultiDim.get(server);
 
-        Path path = MultiDimFileManager.getSavePath(server, idForTardis(tardis));
-        MultiDimFileManager.Saved saved = MultiDimFileManager.readFromFile(multidim, NAMESPACE, path);
+        RegistryKey<World> key = keyForTardis(tardis);
+        TardisServerWorld result = (TardisServerWorld) server.getWorld(key);
 
-        multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
+        if (result != null) {
+            result.setTardis(tardis);
+            return result;
+        }
+
+        result = (TardisServerWorld) multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, key);
+
+        if (result == null) {
+            MultiDimMod.LOGGER.info("Failed to load the sub-world, creating a new one instead");
+            result = create(tardis);
+        } else {
+            result.setTardis(tardis);
+        }
 
         MultiDimMod.LOGGER.info("Time taken to load sub-world: {}", System.currentTimeMillis() - start);
-
-        TardisServerWorld world = (TardisServerWorld) server.getWorld(keyForTardis(tardis));
-        world.setTardis(tardis);
-
-        return world;
+        return result;
     }
 
     public static RegistryKey<World> keyForTardis(ServerTardis tardis) {
