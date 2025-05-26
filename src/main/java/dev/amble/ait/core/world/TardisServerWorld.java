@@ -81,7 +81,7 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return tardis;
     }
 
-    public static ServerWorld create(ServerTardis tardis) {
+    public static TardisServerWorld create(ServerTardis tardis) {
         AITMod.LOGGER.info("Creating a dimension for TARDIS {}", tardis.getUuid());
         TardisServerWorld created = (TardisServerWorld) MultiDim.get(ServerLifecycleHooks.get())
                 .add(AITDimensions.TARDIS_WORLD_BLUEPRINT, idForTardis(tardis));
@@ -90,20 +90,35 @@ public class TardisServerWorld extends MultiDimServerWorld {
         return created;
     }
 
-    public static ServerWorld load(ServerTardis tardis) {
+    public static TardisServerWorld load(ServerTardis tardis) {
         long start = System.currentTimeMillis();
         MinecraftServer server = ServerLifecycleHooks.get();
         MultiDim multidim = MultiDim.get(server);
 
+        TardisServerWorld result = get(server, tardis);
+
+        if (result != null)
+            return result;
+
         Path path = MultiDimFileManager.getSavePath(server, idForTardis(tardis));
         MultiDimFileManager.Saved saved = MultiDimFileManager.readFromFile(multidim, NAMESPACE, path);
 
-        multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
+        if (saved == null) {
+            MultiDimMod.LOGGER.info("Failed to load the sub-world, creating a new one instead");
+            result = (TardisServerWorld) create(tardis);
+        } else {
+            multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
+            result = get(server, tardis);
+        }
 
         MultiDimMod.LOGGER.info("Time taken to load sub-world: {}", System.currentTimeMillis() - start);
+        return result;
+    }
 
+    @Nullable
+    private static TardisServerWorld get(MinecraftServer server, ServerTardis tardis) {
         TardisServerWorld world = (TardisServerWorld) server.getWorld(keyForTardis(tardis));
-        world.setTardis(tardis);
+        if (world != null) world.setTardis(tardis);
 
         return world;
     }
