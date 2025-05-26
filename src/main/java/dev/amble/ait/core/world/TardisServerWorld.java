@@ -1,6 +1,5 @@
 package dev.amble.ait.core.world;
 
-import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -8,7 +7,6 @@ import java.util.function.BooleanSupplier;
 
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
-import dev.drtheo.multidim.MultiDimFileManager;
 import dev.drtheo.multidim.MultiDimMod;
 import dev.drtheo.multidim.api.MultiDimServerWorld;
 import dev.drtheo.multidim.api.WorldBlueprint;
@@ -95,32 +93,25 @@ public class TardisServerWorld extends MultiDimServerWorld {
         MinecraftServer server = ServerLifecycleHooks.get();
         MultiDim multidim = MultiDim.get(server);
 
-        TardisServerWorld result = get(server, tardis);
+        RegistryKey<World> key = keyForTardis(tardis);
+        TardisServerWorld result = (TardisServerWorld) server.getWorld(key);
 
-        if (result != null)
+        if (result != null) {
+            result.setTardis(tardis);
             return result;
+        }
 
-        Path path = MultiDimFileManager.getSavePath(server, idForTardis(tardis));
-        MultiDimFileManager.Saved saved = MultiDimFileManager.readFromFile(multidim, NAMESPACE, path);
+        result = (TardisServerWorld) multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, key);
 
-        if (saved == null) {
+        if (result == null) {
             MultiDimMod.LOGGER.info("Failed to load the sub-world, creating a new one instead");
-            result = (TardisServerWorld) create(tardis);
+            result = create(tardis);
         } else {
-            multidim.load(AITDimensions.TARDIS_WORLD_BLUEPRINT, saved.world());
-            result = get(server, tardis);
+            result.setTardis(tardis);
         }
 
         MultiDimMod.LOGGER.info("Time taken to load sub-world: {}", System.currentTimeMillis() - start);
         return result;
-    }
-
-    @Nullable
-    private static TardisServerWorld get(MinecraftServer server, ServerTardis tardis) {
-        TardisServerWorld world = (TardisServerWorld) server.getWorld(keyForTardis(tardis));
-        if (world != null) world.setTardis(tardis);
-
-        return world;
     }
 
     public static RegistryKey<World> keyForTardis(ServerTardis tardis) {
