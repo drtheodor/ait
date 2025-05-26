@@ -1,3 +1,4 @@
 - perf: improved door waterlog check performance | by [@DrTheodor](https://github.com/DrTheodor) ([#1559](https://github.com/amblelabs/ait/pull/1559))
 - perf: improved performance of queues/scheduled tasks for world-related jobs | by [@DrTheodor](https://github.com/DrTheodor) ([#1559](https://github.com/amblelabs/ait/pull/1559))
 - fix: make multidim less error-prone | by [@DrTheodor](https://github.com/DrTheodor) ([#1563](https://github.com/amblelabs/ait/pull/1563))
+- fix: no more crashes related to subsystems trying to sync themselves to the server | by [@DrTheodor](https://github.com/DrTheodor) ([#1564](https://github.com/amblelabs/ait/pull/1564))
