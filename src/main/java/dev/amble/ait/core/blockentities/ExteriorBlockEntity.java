@@ -167,7 +167,7 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
             }
         }
 
-        if (sneaking && tardis.siege().isActive() && !tardis.isSiegeBeingHeld()) {
+        if (sneaking && !tardis.isSiegeBeingHeld()) {
             SiegeTardisItem.pickupTardis(tardis, (ServerPlayerEntity) player);
             return;
         }
