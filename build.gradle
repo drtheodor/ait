@@ -25,6 +25,7 @@ repositories {
 
     // Dependency for GravityAPI
     maven { url "https://maven.ladysnake.org/releases" }
+    maven { url "https://maven.shedaniel.me/" }
 
     // YACL
     maven { url 'https://maven.isxander.dev/releases' }
@@ -80,7 +81,6 @@ dependencies {
 
     modApi("com.github.qouteall:GravityChanger:${project.gravity_version}") {
         exclude(group: "net.fabricmc.fabric-api")
-        exclude(group: "me.shedaniel.cloth")
     }
 
     modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
