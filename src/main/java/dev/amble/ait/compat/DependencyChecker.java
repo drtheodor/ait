@@ -12,6 +12,7 @@ public class DependencyChecker {
     private static final boolean HAS_SODIUM = doesModExist("sodium");
     private static final boolean HAS_GRAVITY = doesModExist("gravity_changer_q");
     private static final boolean HAS_INDIUM = doesModExist("indium");
+    private static final boolean HAS_PLAYER_ANIMATOR = doesModExist("player-animator");
 
     private static Boolean NVIDIA_CARD;
 
