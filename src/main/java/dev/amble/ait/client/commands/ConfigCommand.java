@@ -13,7 +13,8 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.lit
 public class ConfigCommand {
     public static void register(CommandDispatcher<FabricClientCommandSource> dispatcher) {
         dispatcher.register(literal(AITMod.MOD_ID + "-config").executes(context -> {
-            MinecraftClient.getInstance().send(() -> AITConfigScreen.create(null));
+            MinecraftClient client = MinecraftClient.getInstance();
+            client.send(() -> client.setScreen(AITConfigScreen.create(null)));
             return Command.SINGLE_SUCCESS;
         }));
     }
