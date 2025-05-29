@@ -21,11 +21,8 @@ public class AITConfigScreen {
                                         .action((yaclScreen, buttonOption) -> MinecraftClient.getInstance().setScreen(
                                                 AITClientConfig.INSTANCE.generateGui().generateScreen(yaclScreen))
                                         ).build())
-                                .build())
-                        .category(ConfigCategory.createBuilder()
-                                .name(Text.translatable("text.ait.config.categories"))
                                 .option(ButtonOption.createBuilder()
-                                        .name(Text.translatable("text.ait.config.categories"))
+                                        .name(Text.translatable("category.ait.config.server"))
                                         .action((yaclScreen, buttonOption) -> MinecraftClient.getInstance().setScreen(
                                                 AITServerConfig.INSTANCE.generateGui().generateScreen(yaclScreen))
                                         ).build())
