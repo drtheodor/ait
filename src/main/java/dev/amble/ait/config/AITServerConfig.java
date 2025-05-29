@@ -63,7 +63,10 @@ public class AITServerConfig {
     public boolean sendBulk = true;
     public int maxTardises = -1;
 
-    private static class StringListFactory implements ListGroup.ValueFactory<String>, ListGroup.ControllerFactory<String> {
+    public static class StringListFactory implements ListGroup.ValueFactory<String>, ListGroup.ControllerFactory<String> {
+
+        // used by the reflections
+        public StringListFactory() { }
 
         @Override
         public ControllerBuilder<String> createController(ListGroup annotation, ConfigField<List<String>> field, OptionAccess storage, Option<String> option) {
