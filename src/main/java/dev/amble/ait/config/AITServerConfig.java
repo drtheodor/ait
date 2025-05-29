@@ -56,17 +56,17 @@ public class AITServerConfig {
     @AutoGen(category = CATEGORY)
     @ListGroup(valueFactory = StringListFactory.class, controllerFactory = StringListFactory.class)
     @SerialEntry public List<String> travelBlacklist = Lists.newArrayList(
-            "ait-tardis", AITDimensions.TIME_VORTEX_WORLD.getValue().toString());
+            "ait-tardis", "ait:tardis_dimension_type", AITDimensions.TIME_VORTEX_WORLD.getValue().toString());
 
     @AutoGen(category = CATEGORY)
     @ListGroup(valueFactory = StringListFactory.class, controllerFactory = StringListFactory.class)
     @SerialEntry public List<String> riftSpawnBlacklist = Lists.newArrayList(
-            "ait-tardis", AITDimensions.TIME_VORTEX_WORLD.getValue().toString(), "minecraft:the_end");
+            "ait-tardis", "ait:tardis_dimension_type", AITDimensions.TIME_VORTEX_WORLD.getValue().toString(), "minecraft:the_end");
 
     @AutoGen(category = CATEGORY)
     @ListGroup(valueFactory = StringListFactory.class, controllerFactory = StringListFactory.class)
     @SerialEntry public List<String> riftDropBlacklist = Lists.newArrayList(
-            "ait-tardis", AITDimensions.TIME_VORTEX_WORLD.getValue().toString(), "minecraft:the_end");
+            "ait-tardis", "ait:tardis_dimension_type", AITDimensions.TIME_VORTEX_WORLD.getValue().toString(), "minecraft:the_end");
 
     @AutoGen(category = CATEGORY)
     @IntField(min = 1)
