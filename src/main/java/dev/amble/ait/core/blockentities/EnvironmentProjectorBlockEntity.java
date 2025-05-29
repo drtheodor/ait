@@ -15,6 +15,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.WorldPresetTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -121,7 +122,7 @@ public class EnvironmentProjectorBlockEntity extends InteriorLinkableBlockEntity
     }
 
     private static ServerWorld findNext(RegistryKey<World> last) {
-        Iterator<ServerWorld> iter = WorldUtil.getOpenWorlds().iterator();
+        Iterator<ServerWorld> iter = WorldUtil.getProjectorWorlds().iterator();
 
         ServerWorld first = iter.next();
         ServerWorld found = first;
