@@ -3,6 +3,7 @@ package dev.amble.ait.client.config;
 import dev.amble.ait.AITMod;
 import dev.isxander.yacl3.api.NameableEnum;
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
+import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.*;
 import dev.isxander.yacl3.config.v2.api.autogen.Boolean;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
@@ -25,55 +26,51 @@ public class AITClientConfig {
     @AutoGen(category = CATEGORY)
     @CustomFormat(ValueFormatters.PercentFormatter.class)
     @FloatSlider(min = 0f, max = 1f, step = 0.05f)
-    public float interiorHumVolume = 0.5f;
+    @SerialEntry public float interiorHumVolume = 0.5f;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean customMenu = true;
+    @SerialEntry public boolean customMenu = true;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean showExperimentalWarning = false;
+    @SerialEntry public boolean showExperimentalWarning = false;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean environmentProjector = true;
+    @SerialEntry public boolean environmentProjector = true;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean disableLoyaltyFog = false;
+    @SerialEntry public boolean enableTardisBOTI = true;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean enableTardisBOTI = true;
+    @SerialEntry public boolean shouldRenderBOTIInterior = false;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean shouldRenderBOTIInterior = false;
+    @SerialEntry public boolean greenScreenBOTI = false;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean greenScreenBOTI = false;
+    @SerialEntry public boolean showControlHitboxes = false;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean showControlHitboxes = false;
+    @SerialEntry public boolean renderDematParticles = true;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean renderDematParticles = true;
+    @SerialEntry public boolean animateConsole = true;
 
     @AutoGen(category = CATEGORY)
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean animateConsole = true;
-
-    @AutoGen(category = CATEGORY)
-    @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
-    public boolean animateDoors = true;
+    @SerialEntry public boolean animateDoors = true;
 
     @AutoGen(category = CATEGORY)
     @EnumCycler
-    public TemperatureType temperatureType = TemperatureType.CELSIUS;
+    @SerialEntry public TemperatureType temperatureType = TemperatureType.CELSIUS;
 
     public enum TemperatureType implements NameableEnum {
         CELSIUS,
