@@ -1,11 +1,5 @@
 package dev.amble.ait.core.tardis.util;
 
-import java.util.Objects;
-
-import org.apache.commons.lang3.NotImplementedException;
-
-import net.minecraft.util.Identifier;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.core.tardis.handler.ServerHumHandler;
@@ -18,6 +12,10 @@ import dev.amble.ait.registry.impl.DesktopRegistry;
 import dev.amble.ait.registry.impl.HumRegistry;
 import dev.amble.ait.registry.impl.console.variant.ConsoleVariantRegistry;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
+import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.NotImplementedException;
+
+import java.util.Objects;
 
 public enum DefaultThemes {
     CORAL("coral", "exterior/police_box/coral", "coral", "console/coral"),

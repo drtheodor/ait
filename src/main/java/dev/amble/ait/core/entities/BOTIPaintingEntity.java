@@ -1,9 +1,6 @@
 package dev.amble.ait.core.entities;
 
-import java.util.Optional;
-
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.module.planet.core.util.ISpaceImmune;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
@@ -16,8 +13,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.module.planet.core.util.ISpaceImmune;
+import java.util.Optional;
 
 public class BOTIPaintingEntity extends AbstractDecorationEntity implements ISpaceImmune {
     private static final int WIDTH = 48;

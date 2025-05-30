@@ -1,7 +1,8 @@
 package dev.amble.ait.core.engine.block;
 
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.core.engine.DurableSubSystem;
+import dev.amble.ait.core.engine.SubSystem;
+import dev.amble.ait.core.engine.link.block.FluidLinkBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -15,10 +16,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-
-import dev.amble.ait.core.engine.DurableSubSystem;
-import dev.amble.ait.core.engine.SubSystem;
-import dev.amble.ait.core.engine.link.block.FluidLinkBlock;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class SubSystemBlock extends FluidLinkBlock {
     private final SubSystem.IdLike id;

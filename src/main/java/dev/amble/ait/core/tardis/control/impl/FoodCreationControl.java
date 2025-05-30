@@ -1,8 +1,11 @@
 package dev.amble.ait.core.tardis.control.impl;
 
-import dev.drtheo.scheduler.api.common.Scheduler;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.control.Control;
 import dev.drtheo.scheduler.api.TimeUnit;
-
+import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -11,11 +14,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.Control;
 
 public class FoodCreationControl extends Control {
 

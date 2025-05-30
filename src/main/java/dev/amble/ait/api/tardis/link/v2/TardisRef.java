@@ -1,17 +1,16 @@
 package dev.amble.ait.api.tardis.link.v2;
 
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
+import dev.amble.ait.api.tardis.Disposable;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.TardisManager;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-import dev.amble.ait.api.tardis.Disposable;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.TardisManager;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SuppressWarnings({"deprecation", "unused"})
 public class TardisRef implements Disposable {

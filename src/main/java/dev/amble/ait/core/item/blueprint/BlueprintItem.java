@@ -1,11 +1,7 @@
 package dev.amble.ait.core.item.blueprint;
 
-import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
-
-import java.util.List;
-
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,9 +11,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITItems;
+import java.util.List;
+
+import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
 
 public class BlueprintItem extends Item {
 

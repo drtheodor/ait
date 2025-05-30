@@ -1,44 +1,9 @@
 package dev.amble.ait.client;
 
-import static dev.amble.ait.AITMod.*;
-import static dev.amble.ait.core.AITItems.isUnlockedOnThisDay;
-import static dev.amble.ait.core.item.PersonalityMatrixItem.colorToInt;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.UUID;
-
-import dev.amble.lib.register.AmbleRegistries;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.*;
-import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.block.DoorBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.particle.EndRodParticle;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.*;
-import net.minecraft.world.LightType;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.client.boti.*;
 import dev.amble.ait.client.commands.ConfigCommand;
+import dev.amble.ait.client.config.AITClientConfig;
 import dev.amble.ait.client.data.ClientLandingManager;
 import dev.amble.ait.client.models.boti.BotiPortalModel;
 import dev.amble.ait.client.models.decoration.GallifreyFallsModel;
@@ -96,14 +61,55 @@ import dev.amble.ait.registry.impl.console.ConsoleRegistry;
 import dev.amble.ait.registry.impl.console.variant.ClientConsoleVariantRegistry;
 import dev.amble.ait.registry.impl.door.ClientDoorRegistry;
 import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
+import dev.amble.lib.register.AmbleRegistries;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
+import net.fabricmc.fabric.api.event.client.player.ClientPreAttackCallback;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.particle.EndRodParticle;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.RotationPropertyHelper;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.LightType;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.UUID;
+
+import static dev.amble.ait.AITMod.*;
+import static dev.amble.ait.core.AITItems.isUnlockedOnThisDay;
+import static dev.amble.ait.core.item.PersonalityMatrixItem.colorToInt;
 
 @Environment(value = EnvType.CLIENT)
 public class AITModClient implements ClientModInitializer {
 
+    public static AITClientConfig CONFIG;
+
     @Override
     public void onInitializeClient() {
-        // TODO move to Registries
+        AITClientConfig.INSTANCE.load();
+        CONFIG = AITClientConfig.INSTANCE.instance();
 
+        // TODO move to Registries
         AmbleRegistries.getInstance().registerAll(
                 SonicRegistry.getInstance(),
                 DrinkRegistry.getInstance(),
@@ -121,7 +127,6 @@ public class AITModClient implements ClientModInitializer {
         entityRenderRegister();
         chargedZeitonCrystalPredicate();
         waypointPredicate();
-        personalityMatrixPredicate();
         hammerPredicate();
         siegeItemPredicate();
         adventItemPredicates();
@@ -282,26 +287,6 @@ public class AITModClient implements ClientModInitializer {
         ModelPredicateProviderRegistry.register(AITItems.WAYPOINT_CARTRIDGE, new Identifier("type"),
                 (stack, clientWorld, livingEntity, integer) ->
                         stack.getOrCreateNbt().contains(WaypointItem.POS_KEY) ? 1 : 0);
-
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-            if (tintIndex != 0)
-                return -1;
-
-            WaypointItem waypoint = (WaypointItem) stack.getItem();
-            return waypoint.getColor(stack);
-        }, AITItems.WAYPOINT_CARTRIDGE);
-    }
-
-    public static void personalityMatrixPredicate() {
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
-            if (tintIndex != 0)
-                return -1;
-
-            PersonalityMatrixItem personalityMatrixItem = (PersonalityMatrixItem) stack.getItem();
-            int[] integers = personalityMatrixItem.getColor(stack);
-            return colorToInt(integers[0], integers[1], integers[2]);
-        },
-                AITItems.PERSONALITY_MATRIX);
     }
 
     public static void hammerPredicate() {
@@ -442,8 +427,25 @@ public class AITModClient implements ClientModInitializer {
     }
 
     public void registerItemColors() {
-        ColorProviderRegistry.ITEM.register((stack, tintIndex) ->tintIndex > 0 ? -1 :
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
+                    if (tintIndex != 0)
+                        return -1;
+
+                    PersonalityMatrixItem personalityMatrixItem = (PersonalityMatrixItem) stack.getItem();
+                    int[] integers = personalityMatrixItem.getColor(stack);
+                    return colorToInt(integers[0], integers[1], integers[2]);
+                }, AITItems.PERSONALITY_MATRIX);
+
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex > 0 ? -1 :
                 DrinkUtil.getColor(stack), AITItems.MUG);
+
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> {
+            if (tintIndex != 0)
+                return -1;
+
+            WaypointItem waypoint = (WaypointItem) stack.getItem();
+            return waypoint.getColor(stack);
+        }, AITItems.WAYPOINT_CARTRIDGE);
     }
 
     public void registerParticles() {

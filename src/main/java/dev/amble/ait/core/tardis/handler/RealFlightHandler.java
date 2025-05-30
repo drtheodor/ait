@@ -1,22 +1,5 @@
 package dev.amble.ait.core.tardis.handler;
 
-import static dev.amble.ait.core.engine.SubSystem.Id.GRAVITATIONAL;
-
-import dev.drtheo.scheduler.api.common.Scheduler;
-import dev.drtheo.scheduler.api.TimeUnit;
-import dev.drtheo.scheduler.api.common.TaskStage;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-
-import net.minecraft.block.BlockState;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RotationPropertyHelper;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.api.tardis.TardisEvents;
@@ -28,6 +11,21 @@ import dev.amble.ait.core.entities.FlightTardisEntity;
 import dev.amble.ait.core.tardis.util.TardisUtil;
 import dev.amble.ait.data.properties.bool.BoolProperty;
 import dev.amble.ait.data.properties.bool.BoolValue;
+import dev.drtheo.scheduler.api.TimeUnit;
+import dev.drtheo.scheduler.api.common.Scheduler;
+import dev.drtheo.scheduler.api.common.TaskStage;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.BlockState;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RotationPropertyHelper;
+
+import static dev.amble.ait.core.engine.SubSystem.Id.GRAVITATIONAL;
 
 public class RealFlightHandler extends KeyedTardisComponent implements TardisTickable {
 
@@ -99,7 +97,7 @@ public class RealFlightHandler extends KeyedTardisComponent implements TardisTic
     }
 
     public void enterFlight(ServerPlayerEntity player) {
-        if (!AITMod.CONFIG.SERVER.RWF_ENABLED) return;
+        if (!AITMod.CONFIG.rwfEnabled) return;
         this.tardis.door().closeDoors();
         this.tardis().travel().autopilot(false);
         this.tardis.travel().handbrake(true);
@@ -119,7 +117,7 @@ public class RealFlightHandler extends KeyedTardisComponent implements TardisTic
     }
 
     private void sendEnterFlightPacket(ServerPlayerEntity player) {
-        if (!AITMod.CONFIG.SERVER.RWF_ENABLED) return;
+        if (!AITMod.CONFIG.rwfEnabled) return;
         ServerPlayNetworking.send(player, ENTER_FLIGHT, PacketByteBufs.create());
   }
 

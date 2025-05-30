@@ -1,12 +1,5 @@
 package dev.amble.ait.registry.impl.console.variant;
 
-import dev.amble.lib.register.datapack.DatapackRegistry;
-import org.joml.Vector3f;
-
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.client.models.consoles.ConsoleModel;
 import dev.amble.ait.data.datapack.DatapackConsole;
@@ -18,12 +11,20 @@ import dev.amble.ait.data.schema.console.variant.copper.client.ClientCopperVaria
 import dev.amble.ait.data.schema.console.variant.coral.client.*;
 import dev.amble.ait.data.schema.console.variant.crystalline.client.ClientCrystallineVariant;
 import dev.amble.ait.data.schema.console.variant.crystalline.client.ClientCrystallineZeitonVariant;
-import dev.amble.ait.data.schema.console.variant.hartnell.client.*;
+import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientKeltHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientMintHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientWoodenHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.renaissance.client.*;
 import dev.amble.ait.data.schema.console.variant.steam.client.*;
 import dev.amble.ait.data.schema.console.variant.toyota.client.ClientToyotaBlueVariant;
 import dev.amble.ait.data.schema.console.variant.toyota.client.ClientToyotaLegacyVariant;
 import dev.amble.ait.data.schema.console.variant.toyota.client.ClientToyotaVariant;
+import dev.amble.lib.register.datapack.DatapackRegistry;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
+import org.joml.Vector3f;
 
 public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsoleVariantSchema> {
     private static ClientConsoleVariantRegistry INSTANCE;

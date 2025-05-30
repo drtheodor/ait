@@ -1,13 +1,11 @@
 package dev.amble.ait.core.engine.block.generic;
 
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.core.engine.block.SubSystemBlock;
+import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-
-import dev.amble.ait.core.engine.block.SubSystemBlock;
-import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
+import org.jetbrains.annotations.Nullable;
 
 public class GenericSubSystemBlock extends SubSystemBlock {
 
