@@ -6,3 +6,4 @@
 - add: new splashes | by [@DrTheodor](https://github.com/DrTheodor) ([#1567](https://github.com/amblelabs/ait/pull/1567))
 - fix: bettercombat/playeranimator compat | by [@DrTheodor](https://github.com/DrTheodor) ([#1571](https://github.com/amblelabs/ait/pull/1571))
 - Durability for Stat Remotes | by [@Loqor](https://github.com/Loqor) ([#1572](https://github.com/amblelabs/ait/pull/1572))
+- refactor: moved to YACL from cloth | by [@DrTheodor](https://github.com/DrTheodor) ([#1568](https://github.com/amblelabs/ait/pull/1568))
