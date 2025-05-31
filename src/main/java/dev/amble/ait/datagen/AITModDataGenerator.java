@@ -924,6 +924,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("sonic.ait.crystalline", "Crystalline");
         provider.addTranslation("sonic.ait.renaissance", "Renaissance");
         provider.addTranslation("sonic.ait.coral", "Coral");
+        provider.addTranslation("sonic.ait.charon", "Charon");
         provider.addTranslation("sonic.ait.fob", "Fob");
         provider.addTranslation("sonic.ait.copper", "Copper");
         provider.addTranslation("sonic.ait.mechanical", "Mechanical");
