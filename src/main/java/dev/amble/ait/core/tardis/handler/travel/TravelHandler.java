@@ -374,8 +374,9 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
                 SoundCategory.AMBIENT);
         this.tardis.getDesktop().playSoundAtEveryConsole(AITSounds.ABORT_FLIGHT, SoundCategory.AMBIENT);
 
-        // TODO - cancel for subscribed players instead
-        NetworkUtil.sendToInterior(this.tardis.asServer(), CANCEL_DEMAT_SOUND, PacketByteBufs.empty());
+        NetworkUtil.getSubscribedPlayers(this.tardis.asServer()).forEach(player -> {;
+            NetworkUtil.send(player, CANCEL_DEMAT_SOUND, PacketByteBufs.empty());
+        });
     }
 
     public Optional<ActionQueue> rematerialize() {
