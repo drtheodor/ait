@@ -3,6 +3,7 @@ package dev.amble.ait.core.tardis.handler.travel;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisEvents;
 import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.client.tardis.manager.ClientTardisManager;
 import dev.amble.ait.client.util.ClientTardisUtil;
 import dev.amble.ait.core.AITBlocks;
 import dev.amble.ait.core.AITSounds;
@@ -10,7 +11,9 @@ import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
 import dev.amble.ait.core.blocks.ExteriorBlock;
 import dev.amble.ait.core.lock.LockedDimension;
 import dev.amble.ait.core.lock.LockedDimensionRegistry;
+import dev.amble.ait.core.tardis.TardisManager;
 import dev.amble.ait.core.tardis.animation.v2.TardisAnimation;
+import dev.amble.ait.core.tardis.animation.v2.datapack.TardisAnimationRegistry;
 import dev.amble.ait.core.tardis.control.impl.DirectionControl;
 import dev.amble.ait.core.tardis.control.impl.SecurityControl;
 import dev.amble.ait.core.tardis.handler.TardisCrashHandler;
@@ -32,6 +35,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -113,12 +117,13 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
     private static void initializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(TravelHandler.CANCEL_DEMAT_SOUND, (client, handler, buf,
                                                                                        responseSender) -> {
-            ClientTardis tardis = ClientTardisUtil.getCurrentTardis();
+            ClientTardisManager.getInstance().getTardis(buf.readUuid(), (tardis) -> {
+                if (tardis == null) return;
 
-            if (tardis == null)
-                return;
-
-            client.getSoundManager().stopSounds(tardis.travel().getAnimationIdFor(TravelHandlerBase.State.DEMAT), SoundCategory.BLOCKS);
+                TardisAnimationRegistry.getInstance().getOptional(tardis.travel().getAnimationIdFor(TravelHandlerBase.State.DEMAT)).ifPresent(animation -> {
+                    client.getSoundManager().stopSounds(animation.getSound().getId(), SoundCategory.BLOCKS);
+                });
+            });
         });
     }
 
@@ -374,8 +379,11 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
                 SoundCategory.AMBIENT);
         this.tardis.getDesktop().playSoundAtEveryConsole(AITSounds.ABORT_FLIGHT, SoundCategory.AMBIENT);
 
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeUuid(this.tardis().getUuid());
+
         NetworkUtil.getSubscribedPlayers(this.tardis.asServer()).forEach(player -> {
-            NetworkUtil.send(player, CANCEL_DEMAT_SOUND, PacketByteBufs.empty());
+            NetworkUtil.send(player, CANCEL_DEMAT_SOUND, buf);
         });
     }
 
