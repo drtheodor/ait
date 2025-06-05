@@ -51,6 +51,7 @@ public class InteriorFlightSound extends PositionedLoopingSound implements Fligh
 
         this.dirty = true;
     }
+
     @Override
     public FlightSound getData() {
         if (this.data == null && ClientTardisUtil.getCurrentTardis() != null)
@@ -58,10 +59,12 @@ public class InteriorFlightSound extends PositionedLoopingSound implements Fligh
 
         return this.data;
     }
+
     @Override
     public boolean isDirty() {
         return this.dirty;
     }
+
     @Override
     public void setDirty(boolean dirty) {
         this.dirty = dirty;

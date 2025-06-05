@@ -89,9 +89,10 @@ public class ClientFlightHandler extends SoundHandler {
     }
 
     public void tick(MinecraftClient client) {
-        ClientTardis tardis = ClientTardisUtil.getCurrentTardis() != null
-                ? ClientTardisUtil.getCurrentTardis()
-                : ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
+        ClientTardis tardis = ClientTardisUtil.getCurrentTardis();
+
+        if (tardis == null)
+            tardis = ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
 
         if (this.sounds == null)
             this.generate(tardis);

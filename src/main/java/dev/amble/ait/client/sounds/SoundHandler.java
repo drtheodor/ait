@@ -20,7 +20,7 @@ public class SoundHandler {
     protected List<SoundInstance> sounds;
 
     protected void ofSounds(SoundInstance... sound) {
-        if (Arrays.stream(sound).allMatch(Objects::isNull)) {
+        if (Arrays.stream(sound).anyMatch(Objects::isNull)) {
             this.sounds = EMPTY;
             return;
         }
