@@ -1,6 +1,5 @@
 package dev.amble.ait.client.sounds.flight;
 
-import dev.amble.ait.client.sounds.ClientSoundManager;
 import dev.amble.ait.client.sounds.PositionedLoopingSound;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.client.util.ClientTardisUtil;
@@ -9,9 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
-import java.util.Random;
-
-public class ExteriorFlightSound extends PositionedLoopingSound implements IFlightSoundPlayer {
+public class ExteriorFlightSound extends PositionedLoopingSound implements FlightSoundPlayer {
     private FlightSound data;
     private int ticks = 0;
     private boolean dirty = true;
@@ -45,7 +42,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements IFlig
     @Override
     public void refresh() {
         ClientTardis tardis = tardis();
-        this.pitch = IFlightSoundPlayer.getRandomPitch(tardis);
+        this.pitch = FlightSoundPlayer.getRandomPitch(tardis);
 
         BlockPos pos = tardis != null ? tardis.travel().position().getPos() : BlockPos.ORIGIN;
 

@@ -3,24 +3,23 @@ package dev.amble.ait.client.sounds.flight;
 import dev.amble.ait.client.sounds.SoundHandler;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.client.util.ClientTardisUtil;
-import dev.amble.ait.core.sounds.flight.FlightSound;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 
 public class ClientFlightHandler extends SoundHandler {
 
     public static double MAX_DISTANCE = 16; // distance from console before the sound stops
-    public static IFlightSoundPlayer FLIGHT;
-    public static IFlightSoundPlayer EXTERIOR;
+    public static FlightSoundPlayer FLIGHT;
+    public static FlightSoundPlayer EXTERIOR;
 
-    public IFlightSoundPlayer getFlightLoop(ClientTardis tardis) {
+    public FlightSoundPlayer getFlightLoop(ClientTardis tardis) {
         if (FLIGHT == null)
             this.generate(tardis);
 
         return FLIGHT;
     }
 
-    public IFlightSoundPlayer getExteriorLoop(ClientTardis tardis) {
+    public FlightSoundPlayer getExteriorLoop(ClientTardis tardis) {
         if (EXTERIOR == null)
             this.generate(tardis);
 
@@ -51,10 +50,10 @@ public class ClientFlightHandler extends SoundHandler {
         this.startIfNotPlaying(this.getFlightLoop(tardis));
         this.startIfNotPlaying(this.getExteriorLoop(tardis));
 
-        IFlightSoundPlayer interior = this.getFlightLoop(tardis);
+        FlightSoundPlayer interior = this.getFlightLoop(tardis);
         interior.tick();
 
-        IFlightSoundPlayer exterior = this.getExteriorLoop(tardis);
+        FlightSoundPlayer exterior = this.getExteriorLoop(tardis);
         exterior.tick();
 
         if (interior.isDirty()) {

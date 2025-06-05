@@ -6,9 +6,7 @@ import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.api.tardis.link.v2.Linkable;
 import dev.amble.ait.api.tardis.link.v2.TardisRef;
 import dev.amble.ait.client.sounds.ClientSoundManager;
-import dev.amble.ait.client.sounds.flight.ClientFlightHandler;
-import dev.amble.ait.client.sounds.flight.IFlightSoundPlayer;
-import dev.amble.ait.client.sounds.flight.InteriorFlightSound;
+import dev.amble.ait.client.sounds.flight.FlightSoundPlayer;
 import dev.amble.ait.core.effects.ZeitonHighEffect;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
@@ -256,7 +254,7 @@ public class AnimationHolder implements TardisTickable, Disposable, Linkable {
 
     @Environment(EnvType.CLIENT)
     private float getHandbrakeAlpha(Tardis tardis) {
-        IFlightSoundPlayer sfx = ClientSoundManager.getFlight().getExteriorLoop(tardis.asClient());
+        FlightSoundPlayer sfx = ClientSoundManager.getFlight().getExteriorLoop(tardis.asClient());
         if (sfx == null) {
             return 0.5F;
         }

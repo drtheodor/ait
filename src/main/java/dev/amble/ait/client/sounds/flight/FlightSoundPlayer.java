@@ -3,11 +3,10 @@ package dev.amble.ait.client.sounds.flight;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.client.sounds.ClientSoundManager;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.client.util.ClientTardisUtil;
 import dev.amble.ait.core.sounds.flight.FlightSound;
 import net.minecraft.client.sound.SoundInstance;
 
-public interface IFlightSoundPlayer extends SoundInstance {
+public interface FlightSoundPlayer extends SoundInstance {
 	void refresh();
 	void tick();
 	FlightSound getData();
