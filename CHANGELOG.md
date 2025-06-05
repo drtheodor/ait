@@ -9,3 +9,4 @@
 - refactor: moved to YACL from cloth | by [@DrTheodor](https://github.com/DrTheodor) ([#1568](https://github.com/amblelabs/ait/pull/1568))
 - feat: Rani Sonic Screwdriver
 - fix(travel): demat sound not cancelling on exterior | by [@duzos](https://github.com/duzos) ([#1573](https://github.com/amblelabs/ait/pull/1573))
+- fix: cancelling demat doesnt stop sound | by [@duzos](https://github.com/duzos) ([#1579](https://github.com/amblelabs/ait/pull/1579))
