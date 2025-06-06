@@ -94,6 +94,8 @@ public class ClientFlightHandler extends SoundHandler {
         if (tardis == null)
             tardis = ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
 
+        if (tardis == null) return;
+
         if (this.sounds == null)
             this.generate(tardis);
 
