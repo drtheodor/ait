@@ -8,14 +8,19 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
-public class InteriorFlightSound extends PositionedLoopingSound implements FlightSoundPlayer {
+public class ExteriorFlightSound extends PositionedLoopingSound implements FlightSoundPlayer {
     private FlightSound data;
     private int ticks = 0;
     private boolean dirty = true;
 
-    public InteriorFlightSound(FlightSound data, SoundCategory soundCategory) {
-        super(data.sound(), soundCategory, new BlockPos(0,0,0), 0.25F);
+    public ExteriorFlightSound(FlightSound data, SoundCategory soundCategory) {
+        super(data.sound(), soundCategory, new BlockPos(0,0,0));
         this.data = data;
+    }
+
+    @Override
+    public ClientTardis tardis() {
+        return ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
     }
 
     @Override
@@ -29,11 +34,6 @@ public class InteriorFlightSound extends PositionedLoopingSound implements Fligh
     }
 
     @Override
-    public ClientTardis tardis() {
-        return ClientTardisUtil.getCurrentTardis();
-    }
-
-    @Override
     public float getProgress() {
         if (this.data == null) return 0f;
         return (float) this.ticks / (this.data.length() / this.pitch);
@@ -41,11 +41,15 @@ public class InteriorFlightSound extends PositionedLoopingSound implements Fligh
 
     @Override
     public void refresh() {
-        this.pitch = FlightSoundPlayer.getRandomPitch(tardis());
-        this.setPosition(ClientTardisUtil.getNearestConsole());
+        ClientTardis tardis = tardis();
+        this.pitch = FlightSoundPlayer.getRandomPitch(tardis);
+
+        BlockPos pos = tardis != null ? tardis.travel().position().getPos() : BlockPos.ORIGIN;
+
+        this.setPosition(pos);
         this.ticks = 0;
 
-        if (this.dirty || tardis() == null) {
+        if (this.dirty || tardis == null) {
             MinecraftClient.getInstance().getSoundManager().stop(this);
         }
 
@@ -54,8 +58,8 @@ public class InteriorFlightSound extends PositionedLoopingSound implements Fligh
 
     @Override
     public FlightSound getData() {
-        if (this.data == null && ClientTardisUtil.getCurrentTardis() != null)
-            this.data = ClientTardisUtil.getCurrentTardis().stats().getFlightEffects();
+        if (this.data == null && tardis() != null)
+            this.data = tardis().stats().getFlightEffects();
 
         return this.data;
     }
