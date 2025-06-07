@@ -1,11 +1,15 @@
 package dev.amble.ait.core.tardis.control.impl;
 
-import java.util.Random;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.engine.SubSystem;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.control.Control;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import dev.drtheo.scheduler.api.Scheduler;
 import dev.drtheo.scheduler.api.TimeUnit;
-
+import dev.drtheo.scheduler.api.common.Scheduler;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -14,12 +18,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.engine.SubSystem;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.Control;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import java.util.Random;
 
 public class EngineOverloadControl extends Control {
 
@@ -70,7 +69,7 @@ public class EngineOverloadControl extends Control {
                     tardis.setRefueling(false);
                 }
 
-                Scheduler.get().runTaskLater(() -> triggerExplosion(world, console, tardis, 4), TimeUnit.SECONDS, 0);
+                Scheduler.get().runTaskLater(() -> triggerExplosion(world, console, tardis, 4), TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 0);
             });
         });
 
@@ -90,10 +89,10 @@ public class EngineOverloadControl extends Control {
         tardis.crash().addRepairTicks(999999999);
 
         spawnParticles(world, console);
-        Scheduler.get().runTaskLater(() -> spawnExteriorParticles(tardis), TimeUnit.SECONDS, 3);
+        Scheduler.get().runTaskLater(() -> spawnExteriorParticles(tardis), TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 3);
 
         int nextDelay = (stage == 4) ? 2 : 3;
-        Scheduler.get().runTaskLater(() -> triggerExplosion(world, console, tardis, stage - 1), TimeUnit.SECONDS, nextDelay);
+        Scheduler.get().runTaskLater(() -> triggerExplosion(world, console, tardis, stage - 1), TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, nextDelay);
     }
 
     private void runDumpingArtronSequence(ServerPlayerEntity player, Runnable onFinish) {
@@ -103,23 +102,25 @@ public class EngineOverloadControl extends Control {
                 String frame = SPINNER[delay % SPINNER.length];
 
                 // FIXME: use translations
+                // FIXME: use `#formatted`
                 player.sendMessage(Text.literal("§6DUMPING ARTRON " + frame), true);
-            }, TimeUnit.SECONDS, delay);
+            }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, delay);
         }
 
-        Scheduler.get().runTaskLater(() -> runFlashingFinalMessage(player, onFinish), TimeUnit.SECONDS, 3);
+        Scheduler.get().runTaskLater(() -> runFlashingFinalMessage(player, onFinish), TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 3);
     }
 
     private void runFlashingFinalMessage(ServerPlayerEntity player, Runnable onFinish) {
         for (int i = 0; i < 6; i++) {
             int delay = i + 1;
             Scheduler.get().runTaskLater(() -> {
+                // FIXME: use `#formatted`
                 String flashColor = (delay % 2 == 0) ? "§c" : "§f";
                 player.sendMessage(Text.literal(flashColor + "ARTRON DUMPED, ENGINES OVERLOADED, TRIGGERING EMERGENCY ARTRON RELEASE"), true);
-            }, TimeUnit.SECONDS, delay);
+            }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, delay);
         }
 
-        Scheduler.get().runTaskLater(onFinish, TimeUnit.SECONDS, 3);
+        Scheduler.get().runTaskLater(onFinish, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 3);
     }
 
     private void spawnParticles(ServerWorld world, BlockPos position) {

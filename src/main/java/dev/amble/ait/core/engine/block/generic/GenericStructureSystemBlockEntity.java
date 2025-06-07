@@ -1,7 +1,14 @@
 package dev.amble.ait.core.engine.block.generic;
 
-import java.util.Optional;
-
+import dev.amble.ait.core.AITBlockEntityTypes;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.engine.DurableSubSystem;
+import dev.amble.ait.core.engine.StructureHolder;
+import dev.amble.ait.core.engine.SubSystem;
+import dev.amble.ait.core.engine.block.multi.MultiBlockStructure;
+import dev.amble.ait.core.engine.block.multi.StructureSystemBlockEntity;
+import dev.amble.ait.core.engine.item.SubSystemItem;
+import dev.amble.ait.core.util.StackUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,15 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import dev.amble.ait.core.AITBlockEntityTypes;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.engine.DurableSubSystem;
-import dev.amble.ait.core.engine.StructureHolder;
-import dev.amble.ait.core.engine.SubSystem;
-import dev.amble.ait.core.engine.block.multi.MultiBlockStructure;
-import dev.amble.ait.core.engine.block.multi.StructureSystemBlockEntity;
-import dev.amble.ait.core.engine.item.SubSystemItem;
-import dev.amble.ait.core.util.StackUtil;
+import java.util.Optional;
 
 /**
  * a mutable version of the structure system block entity
@@ -51,7 +50,7 @@ public class GenericStructureSystemBlockEntity extends StructureSystemBlockEntit
                 }
                 StackUtil.spawn(world, pos, this.idSource.copyAndEmpty());
                 if (this.tardis().isPresent() && this.id() != null) {
-                    this.tardis().get().subsystems().remove(this.id(), false);
+                    system().setEnabled(false);
                 }
                 world.playSound(null, this.getPos(), AITSounds.WAYPOINT_ACTIVATE, SoundCategory.BLOCKS, 1.0f, 0.1f);
                 this.markDirty();
@@ -66,7 +65,7 @@ public class GenericStructureSystemBlockEntity extends StructureSystemBlockEntit
         if (hand.getItem() instanceof SubSystemItem link) {
             if (this.system() != null && this.idSource != null) {
                 if (tardis() != null) {
-                    tardis().get().subsystems().get(this.id()).setEnabled(false);
+                    system().setEnabled(false);
                 }
                 StackUtil.spawn(world, pos, this.idSource.copyAndEmpty());
             }

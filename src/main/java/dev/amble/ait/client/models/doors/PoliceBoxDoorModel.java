@@ -1,16 +1,15 @@
 package dev.amble.ait.client.models.doors;
 
+import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
+import dev.amble.ait.client.AITModClient;
+import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.core.tardis.handler.DoorHandler;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
-import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 
 public class PoliceBoxDoorModel extends DoorModel {
 
@@ -81,7 +80,7 @@ public class PoliceBoxDoorModel extends DoorModel {
                                      VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
         DoorHandler door = tardis.door();
 
-        if (!AITMod.CONFIG.CLIENT.ANIMATE_DOORS) {
+        if (!AITModClient.CONFIG.animateDoors) {
             this.TARDIS.getChild("Doors").getChild("left_door").yaw = (door.isLeftOpen() || door.isOpen()) ? -5F : 0.0F;
             this.TARDIS.getChild("Doors").getChild("right_door").yaw = (door.isRightOpen() || door.areBothOpen())
                     ? 5F

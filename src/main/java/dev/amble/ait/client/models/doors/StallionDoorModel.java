@@ -1,15 +1,14 @@
 package dev.amble.ait.client.models.doors;
 
+import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
+import dev.amble.ait.client.AITModClient;
+import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.core.tardis.handler.DoorHandler;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
-import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 
 public class StallionDoorModel extends DoorModel {
     private final ModelPart body;
@@ -77,7 +76,7 @@ public class StallionDoorModel extends DoorModel {
         matrices.translate(0, -1.5f, 0);
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(180f));
 
-        if (!AITMod.CONFIG.CLIENT.ANIMATE_DOORS) {
+        if (!AITModClient.CONFIG.animateDoors) {
             body.getChild("door").yaw = tardis.door().isOpen() ? -1.35f : 0f;
             body.getChild("door").getChild("door_two").yaw = tardis.door().isOpen() ? 2.65f : 0f;
         } else {

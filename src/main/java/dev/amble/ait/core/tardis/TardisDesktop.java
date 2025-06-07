@@ -1,15 +1,23 @@
 package dev.amble.ait.core.tardis;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.api.tardis.TardisComponent;
+import dev.amble.ait.api.tardis.TardisEvents;
+import dev.amble.ait.core.AITBlocks;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
+import dev.amble.ait.core.blockentities.ConsoleGeneratorBlockEntity;
+import dev.amble.ait.core.blockentities.DoorBlockEntity;
+import dev.amble.ait.core.tardis.manager.ServerTardisManager;
+import dev.amble.ait.core.tardis.util.TardisUtil;
+import dev.amble.ait.core.world.QueuedTardisStructureTemplate;
+import dev.amble.ait.data.Corners;
+import dev.amble.ait.data.schema.desktop.TardisDesktopSchema;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.drtheo.queue.api.ActionQueue;
 import dev.drtheo.queue.api.util.block.ChunkEraser;
 import dev.drtheo.queue.api.util.structure.QueuedStructureTemplate;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
@@ -25,19 +33,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.World;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.TardisComponent;
-import dev.amble.ait.api.tardis.TardisEvents;
-import dev.amble.ait.core.AITBlocks;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
-import dev.amble.ait.core.blockentities.ConsoleGeneratorBlockEntity;
-import dev.amble.ait.core.blockentities.DoorBlockEntity;
-import dev.amble.ait.core.tardis.manager.ServerTardisManager;
-import dev.amble.ait.core.tardis.util.TardisUtil;
-import dev.amble.ait.core.world.QueuedTardisStructureTemplate;
-import dev.amble.ait.data.Corners;
-import dev.amble.ait.data.schema.desktop.TardisDesktopSchema;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class TardisDesktop extends TardisComponent {
 

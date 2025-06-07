@@ -1,9 +1,18 @@
 package dev.amble.ait.client.boti;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.joml.Vector3f;
-import org.lwjgl.opengl.GL11;
-
+import dev.amble.ait.client.AITModClient;
+import dev.amble.ait.client.models.doors.DoorModel;
+import dev.amble.ait.client.renderers.AITRenderLayers;
+import dev.amble.ait.client.renderers.VortexUtil;
+import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.compat.DependencyChecker;
+import dev.amble.ait.core.blockentities.DoorBlockEntity;
+import dev.amble.ait.core.tardis.handler.StatsHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
+import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
+import dev.amble.ait.registry.impl.CategoryRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
@@ -17,26 +26,15 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.client.models.doors.DoorModel;
-import dev.amble.ait.client.renderers.AITRenderLayers;
-import dev.amble.ait.client.renderers.VortexUtil;
-import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.compat.DependencyChecker;
-import dev.amble.ait.core.blockentities.DoorBlockEntity;
-import dev.amble.ait.core.tardis.handler.StatsHandler;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
-import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
-import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
-import dev.amble.ait.registry.impl.CategoryRegistry;
+import org.joml.Vector3f;
+import org.lwjgl.opengl.GL11;
 
 public class TardisDoorBOTI extends BOTI {
     public static void renderInteriorDoorBoti(ClientTardis tardis, DoorBlockEntity door, ClientExteriorVariantSchema variant, MatrixStack stack, Identifier frameTex, SinglePartEntityModel frame, ModelPart mask, int light) {
         ExteriorVariantSchema parent = variant.parent();
         if (!parent.hasPortals()) return;
 
-        if (!AITMod.CONFIG.CLIENT.ENABLE_TARDIS_BOTI)
+        if (!AITModClient.CONFIG.enableTardisBOTI)
             return;
 
         if (MinecraftClient.getInstance().world == null
@@ -50,7 +48,7 @@ public class TardisDoorBOTI extends BOTI {
         BOTI_HANDLER.setupFramebuffer();
 
         Vec3d skyColor = MinecraftClient.getInstance().world.getSkyColor(MinecraftClient.getInstance().player.getPos(), MinecraftClient.getInstance().getTickDelta());
-        if (AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI)
+        if (AITModClient.CONFIG.greenScreenBOTI)
             BOTI.setFramebufferColor(BOTI_HANDLER.afbo, 0, 1, 0, 1);
         else
             BOTI.setFramebufferColor(BOTI_HANDLER.afbo, (float) skyColor.x, (float) skyColor.y, (float) skyColor.z, 1);
@@ -75,9 +73,9 @@ public class TardisDoorBOTI extends BOTI {
         Vec3d vec = parent.door().adjustPortalPos(new Vec3d(0, -0.55f, 0), Direction.NORTH);
         stack.translate(vec.x, vec.y, vec.z);
         if (tardis.travel().getState() == TravelHandlerBase.State.LANDED) {
-            RenderLayer whichOne = AITMod.CONFIG.CLIENT.SHOULD_RENDER_BOTI_INTERIOR || AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI ?
+            RenderLayer whichOne = AITModClient.CONFIG.shouldRenderBOTIInterior || AITModClient.CONFIG.greenScreenBOTI ?
                     RenderLayer.getDebugFilledBox() : RenderLayer.getEndGateway();
-            float[] colorsForGreenScreen = AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI ? new float[]{0, 1, 0, 1} : new float[] {(float) skyColor.x, (float) skyColor.y, (float) skyColor.z};
+            float[] colorsForGreenScreen = AITModClient.CONFIG.greenScreenBOTI ? new float[]{0, 1, 0, 1} : new float[] {(float) skyColor.x, (float) skyColor.y, (float) skyColor.z};
             mask.render(stack, botiProvider.getBuffer(whichOne), 0xf000f0, OverlayTexture.DEFAULT_UV, colorsForGreenScreen[0], colorsForGreenScreen[1], colorsForGreenScreen[2], 1);
         } else {
             mask.render(stack, botiProvider.getBuffer(RenderLayer.getEntityTranslucentCull(frameTex)), 0xf000f0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);

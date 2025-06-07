@@ -1,13 +1,14 @@
 package dev.amble.ait.core;
 
+import dev.amble.ait.AITMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.world.dimension.DimensionOptions;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.event.GameEvent;
-
-import dev.amble.ait.AITMod;
 
 public class AITTags {
 
@@ -52,6 +53,7 @@ public class AITTags {
 
     public static class GameEvents {
         public static final TagKey<GameEvent> MATRIX_CAN_LISTEN = createTag("matrix_can_listen");
+
         public static TagKey<GameEvent> createTag(String name) {
             return TagKey.of(RegistryKeys.GAME_EVENT, AITMod.id(name));
         }

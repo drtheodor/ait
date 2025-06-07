@@ -1,11 +1,14 @@
 package dev.amble.ait.core.blockentities;
 
 
-import java.util.List;
-import java.util.Optional;
-
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.api.tardis.link.v2.block.InteriorLinkableBlockEntity;
+import dev.amble.ait.core.AITBlockEntityTypes;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.item.blueprint.Blueprint;
+import dev.amble.ait.core.item.blueprint.BlueprintItem;
+import dev.amble.ait.core.item.blueprint.BlueprintSchema;
+import dev.amble.ait.core.util.StackUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,15 +21,10 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.api.tardis.link.v2.block.InteriorLinkableBlockEntity;
-import dev.amble.ait.core.AITBlockEntityTypes;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.item.blueprint.Blueprint;
-import dev.amble.ait.core.item.blueprint.BlueprintItem;
-import dev.amble.ait.core.item.blueprint.BlueprintSchema;
-import dev.amble.ait.core.util.StackUtil;
+import java.util.List;
+import java.util.Optional;
 
 public class FabricatorBlockEntity extends InteriorLinkableBlockEntity {
     private Blueprint blueprint;

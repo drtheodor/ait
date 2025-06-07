@@ -2,22 +2,8 @@ package dev.amble.ait.client.boti;
 
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.joml.Vector3f;
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.model.SinglePartEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-
-import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisComponent;
+import dev.amble.ait.client.AITModClient;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.tardis.ClientTardis;
@@ -28,11 +14,25 @@ import dev.amble.ait.core.tardis.handler.StatsHandler;
 import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.SinglePartEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.passive.SheepEntity;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
+import org.lwjgl.opengl.GL11;
 
 
 public class TardisExteriorBOTI extends BOTI {
     public void renderExteriorBoti(ExteriorBlockEntity exterior, ClientExteriorVariantSchema variant, MatrixStack stack, Identifier frameTex, SinglePartEntityModel frame, ModelPart mask, int light) {
-        if (!AITMod.CONFIG.CLIENT.ENABLE_TARDIS_BOTI)
+        if (!AITModClient.CONFIG.enableTardisBOTI)
             return;
 
         if (MinecraftClient.getInstance().world == null
@@ -50,7 +50,7 @@ public class TardisExteriorBOTI extends BOTI {
         BOTI_HANDLER.setupFramebuffer();
 
         Vec3d skyColor = MinecraftClient.getInstance().world.getSkyColor(MinecraftClient.getInstance().player.getPos(), MinecraftClient.getInstance().getTickDelta());
-        if (AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI)
+        if (AITModClient.CONFIG.greenScreenBOTI)
             BOTI.setFramebufferColor(BOTI_HANDLER.afbo, 0, 1, 0, 1);
         else
             BOTI.setFramebufferColor(BOTI_HANDLER.afbo, (float) skyColor.x, (float) skyColor.y, (float) skyColor.z, 1);
@@ -80,9 +80,9 @@ public class TardisExteriorBOTI extends BOTI {
                 (float) parent.portalHeight() * scale.y(), scale.z());
         Vec3d vec = parent.adjustPortalPos(new Vec3d(0, -0.4675f, 0), (byte) 0);
         stack.translate(vec.x, vec.y, vec.z);
-        RenderLayer whichOne = AITMod.CONFIG.CLIENT.SHOULD_RENDER_BOTI_INTERIOR || AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI ?
+        RenderLayer whichOne = AITModClient.CONFIG.shouldRenderBOTIInterior || AITModClient.CONFIG.greenScreenBOTI ?
                 RenderLayer.getDebugFilledBox() : RenderLayer.getEndGateway();
-        float[] colorsForGreenScreen = AITMod.CONFIG.CLIENT.GREEN_SCREEN_BOTI ? new float[]{0, 1, 0, 1} : new float[] {(float) skyColor.x, (float) skyColor.y, (float) skyColor.z};
+        float[] colorsForGreenScreen = AITModClient.CONFIG.greenScreenBOTI ? new float[]{0, 1, 0, 1} : new float[] {(float) skyColor.x, (float) skyColor.y, (float) skyColor.z};
         mask.render(stack, botiProvider.getBuffer(whichOne), light, OverlayTexture.DEFAULT_UV, colorsForGreenScreen[0], colorsForGreenScreen[1], colorsForGreenScreen[2], 1);
         botiProvider.draw();
         stack.pop();

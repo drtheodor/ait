@@ -1,11 +1,17 @@
 package dev.amble.ait.registry.impl;
 
-import java.util.HashMap;
-import java.util.List;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.handles.HandlesResponse;
+import dev.amble.ait.core.handles.HandlesSound;
+import dev.amble.ait.core.item.HandlesItem;
+import dev.amble.ait.core.tardis.ServerTardis;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.control.impl.SecurityControl;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.core.world.TardisServerWorld;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SignedMessage;
@@ -17,16 +23,8 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.handles.HandlesResponse;
-import dev.amble.ait.core.handles.HandlesSound;
-import dev.amble.ait.core.item.HandlesItem;
-import dev.amble.ait.core.tardis.ServerTardis;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.impl.SecurityControl;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
-import dev.amble.ait.core.world.TardisServerWorld;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Registry for Handles responses.

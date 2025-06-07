@@ -1,17 +1,15 @@
 package dev.amble.ait.client.screens;
 
 
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.client.sounds.PlayerFollowingLoopingSound;
+import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.core.AITSounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-
-import dev.amble.ait.client.sounds.PlayerFollowingLoopingSound;
-import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.AITSounds;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A screen that is opened from a console.

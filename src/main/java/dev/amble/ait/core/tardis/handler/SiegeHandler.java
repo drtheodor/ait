@@ -1,20 +1,5 @@
 package dev.amble.ait.core.tardis.handler;
 
-import java.util.Objects;
-import java.util.UUID;
-
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.api.tardis.TardisEvents;
@@ -28,6 +13,19 @@ import dev.amble.ait.data.properties.Property;
 import dev.amble.ait.data.properties.Value;
 import dev.amble.ait.data.properties.bool.BoolProperty;
 import dev.amble.ait.data.properties.bool.BoolValue;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+
+import java.util.Objects;
+import java.util.UUID;
 
 public class SiegeHandler extends KeyedTardisComponent implements TardisTickable {
 
@@ -85,6 +83,12 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
         active.of(this, ACTIVE);
         heldKey.of(this, HELD_KEY);
         texture.of(this, TEXTURE);
+
+        // fix old data using new UUID(0, 0) instead of null.
+        UUID held = this.getHeldPlayerUUID();
+
+        if (held != null && held.getMostSignificantBits() == 0 && held.getLeastSignificantBits() == 0)
+            this.setSiegeBeingHeld(null);
     }
 
     public boolean isActive() {
@@ -92,7 +96,7 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
     }
 
     public boolean isSiegeBeingHeld() {
-        return heldKey.get() != null;
+        return this.isActive() && heldKey.get() != null;
     }
 
     public UUID getHeldPlayerUUID() {
@@ -157,16 +161,16 @@ public class SiegeHandler extends KeyedTardisComponent implements TardisTickable
         boolean freeze = this.siegeTime > 60 * 20 && !this.isSiegeBeingHeld()
                 && !this.tardis.subsystems().lifeSupport().isEnabled();
 
-        for (ServerPlayerEntity player : TardisUtil.getPlayersInsideInterior(this.tardis.asServer())) {
+        this.tardis.asServer().world().getPlayers().forEach(player -> {
             if (!player.isAlive() || !player.canFreeze())
-                continue;
+                return;
 
             if (freeze) {
                 this.freeze(player);
             } else {
                 this.unfreeze(player);
             }
-        }
+        });
     }
 
     private void freeze(ServerPlayerEntity player) {

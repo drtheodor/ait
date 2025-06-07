@@ -1,11 +1,11 @@
 package dev.amble.ait.core.blocks;
 
-import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
-
-import java.util.List;
-
-import org.jetbrains.annotations.Nullable;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITBlockEntityTypes;
+import dev.amble.ait.core.AITBlocks;
+import dev.amble.ait.core.advancement.TardisCriterions;
+import dev.amble.ait.core.blockentities.MatrixEnergizerBlockEntity;
+import dev.amble.ait.core.item.PersonalityMatrixItem;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -41,13 +41,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.Vibrations;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITBlockEntityTypes;
-import dev.amble.ait.core.AITBlocks;
-import dev.amble.ait.core.advancement.TardisCriterions;
-import dev.amble.ait.core.blockentities.MatrixEnergizerBlockEntity;
-import dev.amble.ait.core.item.PersonalityMatrixItem;
+import java.util.List;
+
+import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
 
 public class MatrixEnergizerBlock extends Block implements BlockEntityProvider {
     private final VoxelShape DEFAULT = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 11.0, 16.0);

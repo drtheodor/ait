@@ -1,17 +1,15 @@
 package dev.amble.ait.core.commands;
 
-import static net.minecraft.server.command.CommandManager.literal;
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.util.TextUtil;
 import dev.amble.ait.core.world.TardisServerWorld;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
+
+import static net.minecraft.server.command.CommandManager.literal;
 
 public class ThisTardisCommand {
 

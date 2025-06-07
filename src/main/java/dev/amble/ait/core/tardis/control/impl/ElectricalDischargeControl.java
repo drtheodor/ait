@@ -1,8 +1,13 @@
 package dev.amble.ait.core.tardis.control.impl;
 
-import dev.drtheo.scheduler.api.Scheduler;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.engine.SubSystem;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.control.Control;
 import dev.drtheo.scheduler.api.TimeUnit;
-
+import dev.drtheo.scheduler.api.common.Scheduler;
+import dev.drtheo.scheduler.api.common.TaskStage;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -15,12 +20,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.engine.SubSystem;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.Control;
 
 public class ElectricalDischargeControl extends Control {
 
@@ -49,15 +48,14 @@ public class ElectricalDischargeControl extends Control {
 
         Scheduler.get().runTaskLater(() -> {
             spreadElectricalEffects(exteriorWorld, exteriorPos);
-        }, TimeUnit.TICKS, INITIAL_DELAY);
+        }, TaskStage.END_SERVER_TICK, TimeUnit.TICKS, INITIAL_DELAY);
 
         Scheduler.get().runTaskLater(() -> {
             world.playSound(null, console, AITSounds.DING, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        }, TimeUnit.TICKS, TOTAL_DURATION);
+        }, TaskStage.END_SERVER_TICK, TimeUnit.TICKS, TOTAL_DURATION);
 
         return Result.SUCCESS;
     }
-
 
     private void spreadElectricalEffects(ServerWorld world, BlockPos pos) {
         Box effectBox = new Box(pos).expand(EFFECT_RADIUS);

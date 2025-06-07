@@ -1,17 +1,5 @@
 package dev.amble.ait.core.tardis.handler.mood;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.api.tardis.TardisTickable;
@@ -19,6 +7,16 @@ import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.util.TardisUtil;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.registry.impl.MoodEventPoolRegistry;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MoodHandler extends TardisComponent implements TardisTickable {
 

@@ -1,29 +1,12 @@
 package dev.amble.ait.core.tardis.animation.v2;
 
-import java.util.UUID;
-
-import dev.amble.lib.util.ServerLifecycleHooks;
-import dev.drtheo.queue.api.ActionQueue;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.loader.api.FabricLoader;
-import org.joml.Math;
-import org.joml.Vector3f;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.Disposable;
 import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.api.tardis.link.v2.Linkable;
 import dev.amble.ait.api.tardis.link.v2.TardisRef;
+import dev.amble.ait.client.sounds.ClientSoundManager;
+import dev.amble.ait.client.sounds.flight.FlightSoundPlayer;
 import dev.amble.ait.core.effects.ZeitonHighEffect;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
@@ -32,6 +15,23 @@ import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.Loyalty;
+import dev.amble.lib.util.ServerLifecycleHooks;
+import dev.drtheo.queue.api.ActionQueue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import org.joml.Math;
+import org.joml.Vector3f;
+
+import java.util.UUID;
 
 public class AnimationHolder implements TardisTickable, Disposable, Linkable {
     public static final Identifier UPDATE_PACKET = AITMod.id("sync/ext_anim");
@@ -191,6 +191,9 @@ public class AnimationHolder implements TardisTickable, Disposable, Linkable {
             Tardis tardis = this.tardis().get();
             if (tardis.cloak().cloaked().get())
                 return cloakAlpha(tardis);
+
+            if (tardis.travel().handbrake() && tardis.travel().speed() > 0)
+                return handbrakeAlpha(tardis);
         }
 
         if (this.alphaOverride != -1) {
@@ -237,6 +240,34 @@ public class AnimationHolder implements TardisTickable, Disposable, Linkable {
         BlockPos pPos = player.getBlockPos();
         BlockPos tPos = tardis.travel().position().getPos();
         return Math.sqrt(tPos.getSquaredDistance(pPos));
+    }
+
+    /**
+     * The alpha when the handbrake & throttle is down, making the groaning noise and such.
+     */
+    private float handbrakeAlpha(Tardis tardis) {
+        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT)
+            return 0.5f;
+
+        return getHandbrakeAlpha(tardis);
+    }
+
+    @Environment(EnvType.CLIENT)
+    private float getHandbrakeAlpha(Tardis tardis) {
+        FlightSoundPlayer sfx = ClientSoundManager.getFlight().getExteriorLoop(tardis.asClient());
+        if (sfx == null) {
+            return 0.5F;
+        }
+
+        float progress = sfx.getProgress();
+        /*
+            How this works
+            0 -> 1
+            0.5 -> 0.5
+            1 -> 1
+            COS function is used to create a smooth transition
+         */
+	    return (float) (Math.cos(2 * (progress * Math.PI)) * 0.15f + 0.85f);
     }
 
     public Vector3f getScale(float delta) {

@@ -1,11 +1,7 @@
 package dev.amble.ait.core.entities.base;
 
-import java.util.Collections;
-
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Dynamic;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -22,6 +18,9 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collections;
 
 public abstract class DummyLivingEntity extends LivingEntity {
 

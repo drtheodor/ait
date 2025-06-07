@@ -1,8 +1,11 @@
 package dev.amble.ait.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.AITTags;
+import dev.amble.ait.core.item.SonicItem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
@@ -14,11 +17,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.AITTags;
-import dev.amble.ait.core.item.SonicItem;
 
 public class SonicOverlay implements HudRenderCallback {
     @Override

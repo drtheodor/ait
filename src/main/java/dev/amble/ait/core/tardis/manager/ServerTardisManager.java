@@ -1,19 +1,5 @@
 package dev.amble.ait.core.tardis.manager;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.ChunkPos;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.api.tardis.TardisComponent;
@@ -24,6 +10,18 @@ import dev.amble.ait.core.tardis.manager.old.DeprecatedServerTardisManager;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.ait.data.properties.Value;
 import dev.amble.ait.registry.impl.TardisComponentRegistry;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.ChunkPos;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class ServerTardisManager extends DeprecatedServerTardisManager {
 
@@ -40,7 +38,7 @@ public class ServerTardisManager extends DeprecatedServerTardisManager {
             if (this.fileManager.isLocked())
                 return;
 
-            if (AITMod.CONFIG.SERVER.SEND_BULK && tardisSet.size() >= 8) {
+            if (AITMod.CONFIG.sendBulk && tardisSet.size() >= 8) {
                 this.sendTardisBulk(player, tardisSet);
                 return;
             }
@@ -218,8 +216,8 @@ public class ServerTardisManager extends DeprecatedServerTardisManager {
     }
 
     public boolean isFull() {
-        int max = AITMod.CONFIG.SERVER.MAX_TARDISES;
-        return this.lookup.size() >= max && max > 0;
+        int max = AITMod.CONFIG.maxTardises;
+        return max > 0 && this.lookup.size() >= max;
     }
 
     private static boolean isInvalid(ServerTardis tardis) {

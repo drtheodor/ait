@@ -1,13 +1,11 @@
 package dev.amble.ait.mixin.server;
 
+import dev.amble.ait.client.util.ClientTardisUtil;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.data.Loyalty;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,12 +16,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.client.util.ClientTardisUtil;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.data.Loyalty;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BedBlock.class)
 public class BedInTardisMixin {
@@ -36,7 +33,7 @@ public class BedInTardisMixin {
     @Unique @Environment(EnvType.CLIENT)
     private void onClientSleep(PlayerEntity player) {
         Tardis tardis = ClientTardisUtil.getCurrentTardis();
-        if (tardis == null || AITMod.CONFIG.CLIENT.DISABLE_LOYALTY_BED_MESSAGE) return;
+        if (tardis == null) return;
 
         Loyalty loyalty = tardis.loyalty().get(player);
 

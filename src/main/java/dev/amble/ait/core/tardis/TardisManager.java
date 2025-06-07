@@ -1,30 +1,9 @@
 package dev.amble.ait.core.tardis;
 
-import java.util.Collection;
-import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.amble.lib.data.DirectedBlockPos;
-import dev.amble.lib.data.DirectedGlobalPos;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.world.World;
-
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.client.tardis.manager.ClientTardisManager;
@@ -52,6 +31,25 @@ import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorCategorySchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.registry.impl.TardisComponentRegistry;
+import dev.amble.lib.data.DirectedBlockPos;
+import dev.amble.lib.data.DirectedGlobalPos;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
+import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public abstract class TardisManager<T extends Tardis, C> {
 
@@ -123,7 +121,7 @@ public abstract class TardisManager<T extends Tardis, C> {
     }
 
     protected GsonBuilder getFileGson(GsonBuilder builder) {
-        if (!AITMod.CONFIG.SERVER.MINIFY_JSON)
+        if (!AITMod.CONFIG.minifyJson)
             builder.setPrettyPrinting();
 
         return builder.registerTypeAdapter(Value.class, Value.serializer())

@@ -1,11 +1,26 @@
 package dev.amble.ait.core.item.sonic;
 
+import dev.amble.ait.api.tardis.link.v2.Linkable;
+import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.AITTags;
+import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
+import dev.amble.ait.core.tardis.ServerTardis;
+import dev.amble.ait.core.tardis.control.Control;
+import dev.amble.ait.core.tardis.control.impl.HADSControl;
+import dev.amble.ait.core.tardis.control.impl.HandBrakeControl;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.data.Loyalty;
+import dev.amble.ait.data.schema.sonic.SonicSchema;
+import dev.amble.ait.registry.impl.ControlRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
@@ -17,10 +32,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.AITTags;
-import dev.amble.ait.data.schema.sonic.SonicSchema;
 
 public class OverloadSonicMode extends SonicMode {
 
@@ -57,6 +68,16 @@ public class OverloadSonicMode extends SonicMode {
 
         if (!canMakeRedstoneTweak(ticks))
             return;
+
+        if (world.getBlockEntity(pos) instanceof AbstractLinkableBlockEntity ext && ext.isLinked()) {
+            // flick handbrake
+            ServerTardis tardis = ext.tardis().get().asServer();
+            if (tardis.loyalty().get((PlayerEntity) user).smallerThan(Loyalty.fromLevel(Loyalty.Type.COMPANION.level))) return;
+
+            getExpectedControl(tardis).handleRun(tardis, (ServerPlayerEntity) user, world, pos, false);
+            this.playFx(world, pos);
+            return;
+        }
 
         if (block instanceof DaylightDetectorBlock) {
             activateBlock(world, pos, user, state, blockHit);
@@ -106,6 +127,20 @@ public class OverloadSonicMode extends SonicMode {
                 world.emitGameEvent(user, GameEvent.BLOCK_PLACE, pos);
             }
         }
+    }
+
+    /**
+     * Interprets the control that the player is most likely trying to use
+     * @return Control
+     */
+    private static Control getExpectedControl(ServerTardis tardis) {
+        TravelHandler travel = tardis.travel();
+
+        if (travel.getState() == TravelHandlerBase.State.DEMAT || tardis.subsystems().engine().phaser().isPhasing()) {
+            return new HandBrakeControl();
+        }
+
+        return new HADSControl(); // ( alarm toggle )
     }
 
     private void activateBlock(ServerWorld world, BlockPos pos, LivingEntity user, BlockState state, BlockHitResult blockHitResult) {

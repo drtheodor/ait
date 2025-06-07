@@ -1,12 +1,11 @@
 package dev.amble.ait.core;
 
 
-import static dev.amble.ait.core.AITItems.*;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.blocks.*;
+import dev.amble.ait.core.blocks.DoorBlock;
+import dev.amble.ait.core.blocks.control.RedstoneControlBlock;
+import dev.amble.ait.core.engine.block.generic.GenericSubSystemBlock;
 import dev.amble.lib.block.ABlockSettings;
 import dev.amble.lib.container.impl.BlockContainer;
 import dev.amble.lib.container.impl.NoBlockItem;
@@ -17,7 +16,6 @@ import dev.amble.lib.datagen.util.PickaxeMineable;
 import dev.amble.lib.item.AItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
@@ -27,11 +25,11 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.BlockSoundGroup;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.blocks.*;
-import dev.amble.ait.core.blocks.DoorBlock;
-import dev.amble.ait.core.blocks.control.RedstoneControlBlock;
-import dev.amble.ait.core.engine.block.generic.GenericSubSystemBlock;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import static dev.amble.ait.core.AITItems.*;
 
 
 public class AITBlocks extends BlockContainer {

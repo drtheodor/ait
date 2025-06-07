@@ -1,10 +1,14 @@
 package dev.amble.ait.core.tardis.control.impl;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.lock.LockedDimensionRegistry;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.control.Control;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
+import dev.amble.ait.core.tardis.util.AsyncLocatorUtil;
+import dev.amble.ait.core.util.WorldUtil;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -14,14 +18,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.lock.LockedDimensionRegistry;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.Control;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
-import dev.amble.ait.core.tardis.util.AsyncLocatorUtil;
-import dev.amble.ait.core.util.WorldUtil;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DimensionControl extends Control {
 
@@ -40,9 +38,7 @@ public class DimensionControl extends Control {
 
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             List<ServerWorld> dims = WorldUtil.getTravelWorlds();
-
-            int index = WorldUtil.travelWorldIndex(!WorldUtil.isTravelValid(dest.getWorld())
-                    ? WorldUtil.getOverworld() : dest.getWorld());
+            int index = Math.max(0, WorldUtil.travelWorldIndex(dest.getWorld()));
 
             if (leftClick) {
                 index = (dims.size() + index - 1) % dims.size();

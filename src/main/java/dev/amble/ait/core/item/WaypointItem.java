@@ -1,13 +1,11 @@
 package dev.amble.ait.core.item;
 
-import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
-
-import java.util.List;
-
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.tardis.control.impl.DirectionControl;
+import dev.amble.ait.core.util.WorldUtil;
+import dev.amble.ait.data.Waypoint;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedGlobalPos;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.item.Item;
@@ -19,11 +17,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.tardis.control.impl.DirectionControl;
-import dev.amble.ait.core.util.WorldUtil;
-import dev.amble.ait.data.Waypoint;
+import java.util.List;
+
+import static dev.amble.ait.client.util.TooltipUtil.addShiftHiddenTooltip;
 
 public class WaypointItem extends Item implements DyeableItem {
 

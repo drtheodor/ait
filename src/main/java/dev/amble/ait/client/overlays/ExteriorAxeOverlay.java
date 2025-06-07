@@ -1,8 +1,11 @@
 package dev.amble.ait.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
+import dev.amble.ait.core.blocks.ExteriorBlock;
+import dev.amble.ait.core.tardis.Tardis;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -10,11 +13,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.AxeItem;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
-import dev.amble.ait.core.blocks.ExteriorBlock;
-import dev.amble.ait.core.tardis.Tardis;
 
 public class ExteriorAxeOverlay implements HudRenderCallback {
     @Override
