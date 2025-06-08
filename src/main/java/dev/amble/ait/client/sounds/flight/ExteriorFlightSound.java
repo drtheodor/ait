@@ -44,7 +44,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
         ClientTardis tardis = tardis();
         this.pitch = FlightSoundPlayer.getRandomPitch(tardis);
 
-        BlockPos pos = tardis != null ? tardis.travel().position().getPos() : BlockPos.ORIGIN;
+        BlockPos pos = tardis != null && tardis.travel().isLanded() ? tardis.travel().position().getPos() : BlockPos.ORIGIN;
 
         this.setPosition(pos);
         this.ticks = 0;
