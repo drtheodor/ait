@@ -13,11 +13,18 @@ import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.registry.impl.CategoryRegistry;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
+import dev.amble.lib.util.ServerLifecycleHooks;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Optional;
 
@@ -134,5 +141,29 @@ public class TardisExterior extends TardisComponent {
 
     public void playSound(SoundEvent sound) {
         this.playSound(sound, SoundCategory.BLOCKS);
+    }
+
+    /**
+     * Plays a sound at the tardis position, ignoring whether it exists on the server
+     * @author duzo
+     */
+    public void playSound(Identifier soundId, SoundCategory category) {
+        BlockPos pos = tardis.travel().position().getPos();
+        RegistryKey<World> worldKey = tardis.travel().position().getDimension();
+        RegistryEntry<SoundEvent> soundEntry = RegistryEntry.of(SoundEvent.of(soundId));
+        long seed = ServerLifecycleHooks.get().getOverworld().getRandom().nextLong();
+
+        final float distance = 8f; // default distance for exterior sounds
+        ServerLifecycleHooks.get()
+                .getPlayerManager()
+                .sendToAround(
+                        null,
+                        pos.getX(),
+                        pos.getY(),
+                        pos.getZ(),
+                        distance,
+                        worldKey,
+                        new PlaySoundS2CPacket(soundEntry, category, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f, seed)
+                );
     }
 }
