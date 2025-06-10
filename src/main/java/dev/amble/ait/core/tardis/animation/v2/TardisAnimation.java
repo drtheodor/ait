@@ -16,6 +16,7 @@ import org.joml.Vector3f;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
@@ -101,7 +102,7 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
         playSound = playSound && this.tryStart(this.rotation, new Vector3f());
 
         if (playSound) {
-            tardis.getExterior().playSound(this.getSound());
+            tardis.getExterior().playSound(this.getSoundId().orElse(AITSounds.ERROR.getId()), SoundCategory.BLOCKS);
         }
 
         if (this.isAged() && this.doneQueue != null) {
@@ -127,6 +128,11 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
         return true;
     }
 
+    /**
+     * Gets the sound event for this animation.
+     * If the sound event is not found, it will log an error and return a default error sound.
+     * @return the sound event
+     */
     public SoundEvent getSound() {
         SoundEvent sfx = null;
 
