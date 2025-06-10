@@ -114,7 +114,7 @@ public class Control implements Identifiable {
     }
 
     public boolean shouldHaveDelay(Tardis tardis) {
-        return this.shouldHaveDelay();
+        return !this.shouldBeAddedToSequence(tardis) && this.shouldHaveDelay();
     }
 
     public boolean ignoresSecurity() {
