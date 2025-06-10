@@ -186,7 +186,7 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
             return ActionResult.SUCCESS;
         }
 
-        if (handStack.isOf(AITBlocks.REDSTONE_CONTROL_BLOCK.asItem())) {
+        if (handStack.isOf(AITBlocks.REDSTONE_CONTROL_BLOCK.asItem()) && this.getControl() != null) {
             NbtCompound nbt = handStack.getOrCreateNbt();
             nbt.putString(ControlBlockItem.CONTROL_ID_KEY, this.getControl().id().toString());
             this.getConsole().ifPresent(be -> nbt.putString(ControlBlockItem.CONSOLE_TYPE_ID_KEY, be.getTypeSchema().id().toString()));
