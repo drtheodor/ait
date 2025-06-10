@@ -192,8 +192,12 @@ public class FuelHandler extends KeyedTardisComponent implements ArtronHolder, T
             this.addFuel(20 * toAdd);
         }
 
-        if (!this.refueling().get() && tardis.fuel().hasPower() && !tardis.isGrowth())
-            this.removeFuel(20 * 0.25 * tardis.travel().instability());
+
+        if (!this.refueling().get() && tardis.fuel().hasPower() && !tardis.isGrowth()) {
+            System.out.println(this.getCurrentFuel());
+            double instability = tardis.travel().instability();
+            this.removeFuel(20d * 0.25d * instability < 1 ? 1 : instability);
+        }
     }
 
     public BoolValue refueling() {
