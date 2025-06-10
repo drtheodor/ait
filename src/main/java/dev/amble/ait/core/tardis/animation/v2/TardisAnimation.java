@@ -16,6 +16,7 @@ import org.joml.Vector3f;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
@@ -33,7 +34,6 @@ import dev.amble.ait.core.tardis.animation.v2.datapack.TardisAnimationRegistry;
 import dev.amble.ait.core.tardis.animation.v2.keyframe.KeyframeTracker;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.data.Exclude;
-import net.minecraft.sound.SoundCategory;
 
 /**
  * Represents an exterior animation for the TARDIS.
