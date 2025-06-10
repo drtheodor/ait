@@ -1,6 +1,24 @@
 package dev.amble.ait.core.tardis.animation.v2;
 
+import java.lang.reflect.Type;
+import java.util.Optional;
+import java.util.UUID;
+
 import com.google.gson.*;
+import dev.amble.lib.api.Identifiable;
+import dev.amble.lib.util.ServerLifecycleHooks;
+import dev.drtheo.queue.api.ActionQueue;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.registry.Registries;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
+
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.Nameable;
 import dev.amble.ait.api.tardis.Disposable;
