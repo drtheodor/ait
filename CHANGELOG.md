@@ -1,0 +1,1 @@
+- fix: demat alpha being broken & noise playing | by [@duzos](https://github.com/duzos) ([#1585](https://github.com/amblelabs/ait/pull/1585))
