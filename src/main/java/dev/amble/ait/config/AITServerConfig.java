@@ -50,6 +50,10 @@ public class AITServerConfig {
     @SerialEntry public boolean tntCanTeleportThroughDoors = true;
 
     @AutoGen(category = CATEGORY)
+    @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
+    @SerialEntry public boolean hypercubesEnabled = true;
+
+    @AutoGen(category = CATEGORY)
     @ListGroup(valueFactory = StringListFactory.class, controllerFactory = StringListFactory.class)
     @SerialEntry public List<String> projectorBlacklist = Lists.newArrayList(
             "ait-tardis");
