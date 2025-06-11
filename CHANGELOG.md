@@ -1,2 +1,3 @@
 - fix: demat alpha being broken & noise playing | by [@duzos](https://github.com/duzos) ([#1585](https://github.com/amblelabs/ait/pull/1585))
 - fix: datapack sfx not playing | by [@duzos](https://github.com/duzos), [@Loqor](https://github.com/Loqor) ([#1586](https://github.com/amblelabs/ait/pull/1586))
+- feat: power converter achievement | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1599](https://github.com/amblelabs/ait/pull/1599))
