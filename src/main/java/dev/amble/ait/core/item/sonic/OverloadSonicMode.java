@@ -128,7 +128,7 @@ public class OverloadSonicMode extends SonicMode {
             higherFuelPlayer.damage(world.getDamageSources().magic(), 1.0F);
 
             player.getItemCooldownManager().set(userStack.getItem(), 60);
-            other.getItemCooldownManager().set(otherStack.getItem(), 60);
+            other.getItemCooldownManager().set(otherStack.getItem(), 500);
 
         }
     }
