@@ -35,9 +35,9 @@ public class SonicSound extends PositionedLoopingSound {
             return;
         }
 
-        if (checkAndPlayDuelSound()) {
+        if (checkAndPlayDuelSound())
             return;
-        }
+
 
         this.updatePosition();
         this.updatePitchBasedOnCameraMovement();
@@ -53,7 +53,7 @@ public class SonicSound extends PositionedLoopingSound {
             if (this.player.squaredDistanceTo(other) > 10.0D * 10.0D) continue;
 
             if (!hasPlayedOnSound) {
-                playSoundAtPlayer(AITSounds.SONIC_DUAL);
+                playSoundAtPlayer(AITSounds.SONIC_DUEL);
                 hasPlayedOnSound = true;
                 hasPlayedOffSound = false;
             }

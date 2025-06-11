@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -62,11 +63,10 @@ public class OverloadSonicMode extends SonicMode {
         ItemStack main = player.getMainHandStack();
         ItemStack off = player.getOffHandStack();
 
+        // Dual sonic overload in main and offhand
         if (main.getItem() instanceof SonicItem mainSonic &&
                 off.getItem() instanceof SonicItem offSonic &&
-                SonicItem.mode(main) == Modes.OVERLOAD &&
-                SonicItem.mode(off) == Modes.OVERLOAD &&
-                SonicItem.isBeingUsed(player, main)) {
+                SonicItem.mode(off) == Modes.OVERLOAD) {
 
             double mainFuel = mainSonic.getCurrentFuel(main);
             double offFuel = offSonic.getCurrentFuel(off);
@@ -80,24 +80,24 @@ public class OverloadSonicMode extends SonicMode {
                 player.damage(world.getDamageSources().magic(), 2.0F);
 
                 playSparkEffect(world, player);
+
                 player.getItemCooldownManager().set(main.getItem(), 60);
                 player.getItemCooldownManager().set(off.getItem(), 60);
             }
         }
 
-        for (PlayerEntity other : world.getPlayers()) {
-            if (other == player) continue;
+        // Overload transfer between two players via targeting
+        if (hitResult instanceof EntityHitResult entityHit &&
+                entityHit.getEntity() instanceof PlayerEntity other &&
+                other != player) {
 
             ItemStack userStack = player.getMainHandStack();
             ItemStack otherStack = other.getMainHandStack();
 
-            if (!(userStack.getItem() instanceof SonicItem userSonic)) continue;
-            if (!(otherStack.getItem() instanceof SonicItem otherSonic)) continue;
+            if (!(userStack.getItem() instanceof SonicItem userSonic)) return;
+            if (!(otherStack.getItem() instanceof SonicItem otherSonic)) return;
 
-            if (SonicItem.mode(otherStack) != Modes.OVERLOAD || SonicItem.mode(userStack) != Modes.OVERLOAD) continue;
-            if (!SonicItem.isBeingUsed(player, userStack) || !SonicItem.isBeingUsed(other, otherStack)) continue;
-            if (player.squaredDistanceTo(other) > 100.0D) continue;
-            if (!lookingAtEachOther(player, other)) continue;
+            if (SonicItem.mode(otherStack) != Modes.OVERLOAD) return;
 
             double userFuel = userSonic.getCurrentFuel(userStack);
             double otherFuel = otherSonic.getCurrentFuel(otherStack);
@@ -111,14 +111,16 @@ public class OverloadSonicMode extends SonicMode {
             ItemStack higherStack = higherFuelPlayer.getMainHandStack();
 
             double transferAmount = 10.0;
-            double actualRemoved = Math.min(transferAmount, ((SonicItem) higherStack.getItem()).getCurrentFuel(higherStack));
+            double actualRemoved = Math.min(transferAmount,
+                    ((SonicItem) higherStack.getItem()).getCurrentFuel(higherStack));
 
             ((SonicItem) higherStack.getItem()).removeFuel(actualRemoved, higherStack);
             ((SonicItem) lowerStack.getItem()).addFuel(actualRemoved, lowerStack);
 
             playSparkEffect(world, lowerFuelPlayer);
 
-            Vec3d pushDir = lowerFuelPlayer.getPos().subtract(higherFuelPlayer.getPos()).normalize().multiply(0.5);
+            Vec3d pushDir = lowerFuelPlayer.getPos()
+                    .subtract(higherFuelPlayer.getPos()).normalize().multiply(0.5);
             lowerFuelPlayer.addVelocity(pushDir.x, 0.1, pushDir.z);
             higherFuelPlayer.addVelocity(-pushDir.x, 0.1, -pushDir.z);
 
@@ -128,17 +130,7 @@ public class OverloadSonicMode extends SonicMode {
             player.getItemCooldownManager().set(userStack.getItem(), 60);
             other.getItemCooldownManager().set(otherStack.getItem(), 60);
 
-            break;
         }
-    }
-
-    private boolean lookingAtEachOther(LivingEntity a, LivingEntity b) {
-        Vec3d aLook = a.getRotationVec(1.0F).normalize();
-        Vec3d bLook = b.getRotationVec(1.0F).normalize();
-        Vec3d aToB = b.getPos().subtract(a.getPos()).normalize();
-        Vec3d bToA = a.getPos().subtract(b.getPos()).normalize();
-
-        return aLook.dotProduct(aToB) > 0.85 && bLook.dotProduct(bToA) > 0.85;
     }
 
     private void overloadBlock(BlockPos pos, ServerWorld world, LivingEntity user, int ticks, BlockHitResult blockHit) {
