@@ -1,8 +1,5 @@
 package dev.amble.ait.core.blockentities;
 
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.nextConsole;
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.nextVariant;
-
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
@@ -33,6 +30,8 @@ import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
 import dev.amble.ait.registry.impl.console.ConsoleRegistry;
 import dev.amble.ait.registry.impl.console.variant.ConsoleVariantRegistry;
 
+import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.*;
+
 public class ConsoleGeneratorBlockEntity extends FluidLinkBlockEntity {
     public static final Identifier SYNC_TYPE = AITMod.id("sync_gen_type");
     public static final Identifier SYNC_VARIANT = AITMod.id("sync_gen_variant");
@@ -52,7 +51,7 @@ public class ConsoleGeneratorBlockEntity extends FluidLinkBlockEntity {
         this.variant = variant;
     }
 
-    public void useOn(World world, boolean sneaking, PlayerEntity player) {
+    public void useOn(World world, boolean sneaking, boolean punching, PlayerEntity player) {
         if (!TardisServerWorld.isTardisDimension(world))
             return;
 
@@ -76,9 +75,17 @@ public class ConsoleGeneratorBlockEntity extends FluidLinkBlockEntity {
         world.playSound(null, this.pos, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5f, 1.0f);
 
         if (sneaking) {
-            this.changeConsole(nextVariant(this.getConsoleVariant()));
+            if (punching) {
+                this.changeConsole(previousVariant(this.getConsoleVariant()));
+            } else {
+                this.changeConsole(nextVariant(this.getConsoleVariant()));
+            }
         } else {
-            this.changeConsole(nextConsole(this.getConsoleSchema()));
+            if (punching) {
+                this.changeConsole(previousConsole(this.getConsoleSchema()));
+            } else {
+                this.changeConsole(nextConsole(this.getConsoleSchema()));
+            }
         }
     }
 

@@ -303,6 +303,17 @@ public class ConsoleBlockEntity extends InteriorLinkableBlockEntity implements B
         }
     }
 
+    public static ConsoleTypeSchema previousConsole(ConsoleTypeSchema current) {
+        List<ConsoleTypeSchema> list = ConsoleRegistry.REGISTRY.stream().toList();
+
+        int idx = list.indexOf(current);
+
+        if (idx < 0 || idx - 1 < 0)
+            return list.get(list.size() - 1);
+
+        return list.get(idx - 1);
+    }
+
     public static ConsoleTypeSchema nextConsole(ConsoleTypeSchema current) {
         List<ConsoleTypeSchema> list = ConsoleRegistry.REGISTRY.stream().toList();
 
@@ -312,6 +323,17 @@ public class ConsoleBlockEntity extends InteriorLinkableBlockEntity implements B
             return list.get(0);
 
         return list.get(idx + 1);
+    }
+
+    public static ConsoleVariantSchema previousVariant(ConsoleVariantSchema current) {
+        List<ConsoleVariantSchema> list = ConsoleVariantRegistry.withParent(current.parent());
+
+        int idx = list.indexOf(current);
+
+        if (idx < 0 || idx - 1 < 0)
+            return list.get(list.size() - 1);
+
+        return list.get(idx - 1);
     }
 
     public static ConsoleVariantSchema nextVariant(ConsoleVariantSchema current) {
