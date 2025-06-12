@@ -5,6 +5,8 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -44,20 +46,21 @@ public class SonicSound extends PositionedLoopingSound {
     }
 
     private boolean checkAndPlayDuelSound() {
-        World world = this.player.getWorld();
 
-        for (PlayerEntity other : world.getPlayers()) {
-            if (other == this.player || !(other instanceof AbstractClientPlayerEntity otherClient)) continue;
-            if (!shouldPlay(other)) continue;
-            if (!isLookingAtEachOther(this.player, other)) continue;
-            if (this.player.squaredDistanceTo(other) > 10.0D * 10.0D) continue;
+        HitResult hitResult = this.player.raycast(10, 0.0f, false);
 
-            if (!hasPlayedOnSound) {
-                playSoundAtPlayer(AITSounds.SONIC_DUEL);
-                hasPlayedOnSound = true;
-                hasPlayedOffSound = false;
-            }
+        if (hitResult.getType() != HitResult.Type.ENTITY) return false;
 
+        EntityHitResult entityHitResult = (EntityHitResult) hitResult;
+
+        if (!(entityHitResult.getEntity() instanceof AbstractClientPlayerEntity otherPlayer)) return false;
+
+        if (!shouldPlay(otherPlayer)) return false;
+
+        if (!hasPlayedOnSound) {
+            playSoundAtPlayer(AITSounds.SONIC_DUEL);
+            hasPlayedOnSound = true;
+            hasPlayedOffSound = false;
             return true;
         }
 
