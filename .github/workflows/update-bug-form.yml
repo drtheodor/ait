@@ -44,6 +44,6 @@ jobs:
         run: |
           git config user.name "AIT Updater"
           git config user.email "github-actions@github.com"
-          git add .github/ISSUE_TEMPLATE/bug_report.yml
+          git add .github/ISSUE_TEMPLATE/1-bug-report.yaml
           git commit -m "Update bug report template with mod version $MOD_VERSION"
           git push
