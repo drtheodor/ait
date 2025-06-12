@@ -64,6 +64,7 @@ public class OverloadSonicMode extends SonicMode {
         ItemStack off = player.getOffHandStack();
 
         // Dual sonic overload in main and offhand
+        /// I ain't never seen more overcomplicated code in my life bruh and I work for fucking DALEK MOD - Loqor
         if (main.getItem() instanceof SonicItem mainSonic &&
                 off.getItem() instanceof SonicItem offSonic &&
                 SonicItem.mode(off) == Modes.OVERLOAD) {
@@ -159,7 +160,7 @@ public class OverloadSonicMode extends SonicMode {
         else if (block instanceof GlassBlock || block instanceof StainedGlassPaneBlock) {
             breakBlock(world, pos, user, state, blockHit);
         }
-        else if (canLit(ticks) && block instanceof TntBlock) {
+        else if (canLight(ticks) && block instanceof TntBlock) {
             TntBlock.primeTnt(world, pos);
             world.removeBlock(pos, false);
             world.emitGameEvent(user, GameEvent.BLOCK_DESTROY, pos);
@@ -218,7 +219,7 @@ public class OverloadSonicMode extends SonicMode {
         world.spawnParticles(ParticleTypes.LAVA, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 3, 0.1, 0.1, 0.1, 0.01);
     }
 
-    private static boolean canLit(int ticks) {
+    private static boolean canLight(int ticks) {
         return ticks >= 10;
     }
 

@@ -65,16 +65,11 @@ public class SonicSound extends PositionedLoopingSound {
     }
 
     private boolean isLookingAtEachOther(PlayerEntity a, PlayerEntity b) {
-        Vec3d aLook = a.getRotationVec(1.0F).normalize();
-        Vec3d bLook = b.getRotationVec(1.0F).normalize();
-
-        Vec3d aToB = b.getPos().subtract(a.getPos()).normalize();
-        Vec3d bToA = a.getPos().subtract(b.getPos()).normalize();
-
-        return aLook.dotProduct(aToB) > 0.85 && bLook.dotProduct(bToA) > 0.85;
+        Vec3d aLook = a.getRotationVec(1.0F);
+        Vec3d bLook = b.getRotationVec(1.0F);
+        Vec3d delta = b.getPos().subtract(a.getPos()).normalize();
+        return aLook.dotProduct(delta) > 0.85 && bLook.dotProduct(delta.multiply(-1)) > 0.85;
     }
-
-
 
     public static boolean shouldPlay(PlayerEntity player) {
         return player.isUsingItem() && player.getActiveItem().isOf(AITItems.SONIC_SCREWDRIVER);
