@@ -7,7 +7,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import dev.amble.ait.client.sounds.PositionedLoopingSound;
@@ -47,7 +46,7 @@ public class SonicSound extends PositionedLoopingSound {
 
     private boolean checkAndPlayDuelSound() {
 
-        HitResult hitResult = this.player.raycast(10, 0.0f, false);
+        HitResult hitResult = this.player.raycast(16, 0.0f, false);
 
         if (hitResult.getType() != HitResult.Type.ENTITY) return false;
 
@@ -65,13 +64,6 @@ public class SonicSound extends PositionedLoopingSound {
         }
 
         return false;
-    }
-
-    private boolean isLookingAtEachOther(PlayerEntity a, PlayerEntity b) {
-        Vec3d aLook = a.getRotationVec(1.0F);
-        Vec3d bLook = b.getRotationVec(1.0F);
-        Vec3d delta = b.getPos().subtract(a.getPos()).normalize();
-        return aLook.dotProduct(delta) > 0.85 && bLook.dotProduct(delta.multiply(-1)) > 0.85;
     }
 
     public static boolean shouldPlay(PlayerEntity player) {
