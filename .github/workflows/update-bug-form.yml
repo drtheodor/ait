@@ -22,7 +22,7 @@ jobs:
 
       - name: Update Bug Report Template
         run: |
-          FILE=".github/ISSUE_TEMPLATE/bug_report.yml"
+          FILE=".github/ISSUE_TEMPLATE/1-bug-report.yaml"
           VERSION_LINE="    - $MOD_VERSION"
 
           if grep -q "$VERSION_LINE" "$FILE"; then
