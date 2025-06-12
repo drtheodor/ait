@@ -1,2 +1,3 @@
 - feat: power converter achievement | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1599](https://github.com/amblelabs/ait/pull/1599))
 - feat/monitor-skins | by [@MaketendoDev](https://github.com/MaketendoDev) ([#1601](https://github.com/amblelabs/ait/pull/1601))
+- tweak: Merge Hail Mary toggle-cost into trigger-cost | by [@Mansarde](https://github.com/Mansarde) ([#1605](https://github.com/amblelabs/ait/pull/1605))
