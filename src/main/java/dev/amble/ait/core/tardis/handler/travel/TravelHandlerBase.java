@@ -98,6 +98,9 @@ public abstract class TravelHandlerBase extends KeyedTardisComponent implements 
         this.position.ifPresent(cached -> cached.init(current), false);
         this.destination.ifPresent(cached -> cached.init(current), false);
         this.previousPosition.ifPresent(cached -> cached.init(current), false);
+
+        // fix a bug of old versions having negative hammer uses.
+        this.hammerUses = Math.max(this.hammerUses, 1);
     }
 
     @Override
@@ -107,7 +110,7 @@ public abstract class TravelHandlerBase extends KeyedTardisComponent implements 
         if (crash.getState() != TardisCrashHandler.State.NORMAL)
             crash.addRepairTicks(2 * this.speed());
 
-        if (server.getTicks() % 200 == 0)
+        if (server.getTicks() % 200 == 0 && this.hammerUses > 0)
             this.hammerUses--;
     }
 
