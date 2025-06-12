@@ -158,8 +158,7 @@ public class FuelHandler extends KeyedTardisComponent implements ArtronHolder, T
         if (tardis.isGrowth())
             return;
 
-        double instability = tardis.travel().instability();
-        this.removeFuel(20 * 5 * instability < 1 ? 1 : instability);
+        this.removeFuel(20 * 5 * tardis.travel().instability());
     }
 
     private void tickFlight() {
@@ -167,8 +166,7 @@ public class FuelHandler extends KeyedTardisComponent implements ArtronHolder, T
             return;
 
         TravelHandler travel = this.tardis.travel();
-        double instability = tardis.travel().instability();
-        this.removeFuel(20 * (4 ^ (Math.max(travel.speed(), 1))) * instability < 1 ? 1 : instability);
+        this.removeFuel(20 * (4 ^ (Math.max(travel.speed(), 1))) * travel.instability());
 
         if (!tardis.fuel().hasPower())
             travel.crash();
