@@ -1,1 +1,2 @@
 - feat: power converter achievement | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1599](https://github.com/amblelabs/ait/pull/1599))
+- feat/monitor-skins | by [@MaketendoDev](https://github.com/MaketendoDev) ([#1601](https://github.com/amblelabs/ait/pull/1601))
