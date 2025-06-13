@@ -2,3 +2,4 @@
 - feat/monitor-skins | by [@MaketendoDev](https://github.com/MaketendoDev) ([#1601](https://github.com/amblelabs/ait/pull/1601))
 - tweak: Merge Hail Mary toggle-cost into trigger-cost | by [@Mansarde](https://github.com/Mansarde) ([#1605](https://github.com/amblelabs/ait/pull/1605))
 - Cave Johnson is now 1 of the possible TARDIS names | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1608](https://github.com/amblelabs/ait/pull/1608))
+- Bug Report Automatic Updater | by [@MaketendoDev](https://github.com/MaketendoDev), [@invalid-email-address](https://github.com/invalid-email-address) ([#1606](https://github.com/amblelabs/ait/pull/1606))
