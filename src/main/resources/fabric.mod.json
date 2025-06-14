@@ -45,7 +45,8 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.amble.ait.AITMod"
+			"dev.amble.ait.AITMod",
+			"dev.amble.ait.compat.permissionapi.PermissionAPICompat"
 		],
 		"client": [
 			"dev.amble.ait.client.AITModClient",
@@ -65,9 +66,6 @@
 		],
 		"amblekit-client": [
 			"dev.amble.ait.init.client.AmbleClientInitializer"
-		],
-		"permission-api-compat": [
-			"dev.amble.ait.compat.permissionapi.PermissionAPICompat"
 		]
 	},
 	"mixins": [
