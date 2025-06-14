@@ -37,8 +37,7 @@ public class ConsoleGeneratorBlock extends FluidLinkBlock implements BlockEntity
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
             BlockHitResult hit) {
 
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof ConsoleGeneratorBlockEntity be)
+        if (world.getBlockEntity(pos) instanceof ConsoleGeneratorBlockEntity be)
             be.useOn(world, player.isSneaking(), false, player);
 
         return ActionResult.SUCCESS;
@@ -46,8 +45,7 @@ public class ConsoleGeneratorBlock extends FluidLinkBlock implements BlockEntity
 
     @Override
     public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-        BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof ConsoleGeneratorBlockEntity be)
+        if (world.getBlockEntity(pos) instanceof ConsoleGeneratorBlockEntity be)
             be.useOn(world, player.isSneaking(), true, player);
     }
 }
