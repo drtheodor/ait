@@ -1,0 +1,1 @@
+- fix: render unpowered exterior emission properly | by [@DrTheodor](https://github.com/DrTheodor) ([#1619](https://github.com/amblelabs/ait/pull/1619))
