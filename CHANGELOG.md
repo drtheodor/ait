@@ -5,3 +5,4 @@
 - Bug Report Automatic Updater | by [@MaketendoDev](https://github.com/MaketendoDev), [@invalid-email-address](https://github.com/invalid-email-address) ([#1606](https://github.com/amblelabs/ait/pull/1606))
 - fix: datapack sounds on servers meowing/erroneous | by [@duzos](https://github.com/duzos) ([#1615](https://github.com/amblelabs/ait/pull/1615))
 - add: backwards navigation to console generator | by [@Mansarde](https://github.com/Mansarde) ([#1607](https://github.com/amblelabs/ait/pull/1607))
+- Fabric permissions api support | by [@MaketendoDev](https://github.com/MaketendoDev), [@duzos](https://github.com/duzos), [@bot](https://github.com/bot), [@Loqor](https://github.com/Loqor), [@DrTheodor](https://github.com/DrTheodor) ([#1602](https://github.com/amblelabs/ait/pull/1602))
