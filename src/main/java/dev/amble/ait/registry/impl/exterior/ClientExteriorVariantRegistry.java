@@ -2,6 +2,8 @@ package dev.amble.ait.registry.impl.exterior;
 
 
 import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxCoralVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomAltVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.client.ClientBoothWandererVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
