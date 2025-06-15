@@ -4,3 +4,4 @@
 - Cave Johnson is now 1 of the possible TARDIS names | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1608](https://github.com/amblelabs/ait/pull/1608))
 - Bug Report Automatic Updater | by [@MaketendoDev](https://github.com/MaketendoDev), [@invalid-email-address](https://github.com/invalid-email-address) ([#1606](https://github.com/amblelabs/ait/pull/1606))
 - fix: datapack sounds on servers meowing/erroneous | by [@duzos](https://github.com/duzos) ([#1615](https://github.com/amblelabs/ait/pull/1615))
+- add: backwards navigation to console generator | by [@Mansarde](https://github.com/Mansarde) ([#1607](https://github.com/amblelabs/ait/pull/1607))
