@@ -45,7 +45,8 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.amble.ait.AITMod"
+			"dev.amble.ait.AITMod",
+			"dev.amble.ait.compat.permissionapi.PermissionAPICompat"
 		],
 		"client": [
 			"dev.amble.ait.client.AITModClient",
@@ -83,7 +84,8 @@
 		"amblekit": "*"
 	},
 	"suggests": {
-		"k9-mod": "*"
+		"k9-mod": "*",
+		"fabric-permissions-api": "*"
 	},
 	"custom": {
 		"modmenu": {
