@@ -120,7 +120,7 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
                 if (tardis == null) return;
 
                 TardisAnimationRegistry.getInstance().getOptional(tardis.travel().getAnimationIdFor(TravelHandlerBase.State.DEMAT)).ifPresent(animation -> {
-                    client.getSoundManager().stopSounds(animation.getSound().getId(), SoundCategory.BLOCKS);
+                    client.getSoundManager().stopSounds(animation.getSoundIdOrDefault(), SoundCategory.BLOCKS);
                 });
             });
         });
@@ -343,7 +343,7 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
             this.queueFor(State.LANDED).thenRun(() -> this.setAnimationFor(State.MAT, finalRematPrevious.id()));
         }
 
-        this.tardis.getDesktop().playSoundAtEveryConsole(anim.getSound(), SoundCategory.BLOCKS, 2f, 1f);
+        this.tardis.getDesktop().forcePlaySoundAtEveryConsole(anim.getSoundIdOrDefault(), SoundCategory.BLOCKS);
 
         this.runAnimations();
 
@@ -427,12 +427,12 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
         this.waiting = false;
         this.tardis.door().closeDoors();
 
-        SoundEvent sound = this.getAnimationFor(this.getState()).getSound();
+        Identifier sound = this.getAnimationFor(this.getState()).getSoundIdOrDefault();
 
         if (this.isCrashing())
-            sound = AITSounds.EMERG_MAT;
+            sound = AITSounds.EMERG_MAT.getId();
 
-        this.tardis.getDesktop().playSoundAtEveryConsole(sound, SoundCategory.BLOCKS, 2f, 1f);
+        this.tardis.getDesktop().forcePlaySoundAtEveryConsole(sound, SoundCategory.BLOCKS);
 
         this.destination(pos);
         this.forcePosition(this.destination());
