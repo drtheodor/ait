@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxCoralVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxTomAltVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxTomVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.BoothWandererVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import dev.amble.lib.register.unlockable.UnlockableRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -29,7 +34,7 @@ import dev.amble.ait.data.schema.exterior.variant.capsule.CapsuleFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.capsule.CapsuleSoulVariant;
 import dev.amble.ait.data.schema.exterior.variant.classic.*;
 import dev.amble.ait.data.schema.exterior.variant.dalek_mod.*;
-import dev.amble.ait.data.schema.exterior.variant.doom.DoomVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.doom.DoomVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadDefaultVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadSoulVariant;
@@ -174,8 +179,6 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
     public static ExteriorVariantSchema HEAD_SOUL;
     public static ExteriorVariantSchema HEAD_FIRE;
     public static ExteriorVariantSchema CORAL_GROWTH;
-    public static ExteriorVariantSchema DOOM;
-    public static ExteriorVariantSchema BOOTH_WANDERER;
     public static ExteriorVariantSchema PLINTH_DEFAULT;
     public static ExteriorVariantSchema PLINTH_SOUL;
     public static ExteriorVariantSchema PLINTH_FIRE;
@@ -197,14 +200,17 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
     public static ExteriorVariantSchema DALEK_MOD_1970;
     public static ExteriorVariantSchema DALEK_MOD_1976;
     public static ExteriorVariantSchema DALEK_MOD_1980;
-//    public static ExteriorVariantSchema JAKE_DEFAULT;
-//    public static ExteriorVariantSchema PRESENT_DEFAULT;
-//    public static ExteriorVariantSchema PRESENT_GREEN;
-//    public static ExteriorVariantSchema PRESENT_BLUE;
     public static ExteriorVariantSchema PIPE_DEFAULT;
     public static ExteriorVariantSchema PIPE_RED;
-    //public static ExteriorVariantSchema PIPE_YELLOW;
     public static ExteriorVariantSchema PIPE_BLUE;
+
+    // Exclusives
+    public static ExteriorVariantSchema DOOM;
+    public static ExteriorVariantSchema WANDERER;
+    public static ExteriorVariantSchema BLUE_BOX_DEFAULT;
+    public static ExteriorVariantSchema BLUE_BOX_CORAL;
+    public static ExteriorVariantSchema BLUE_BOX_TOM;
+    public static ExteriorVariantSchema BLUE_BOX_TOM_ALT;
 
     @Override
     protected void defaults() {
@@ -255,9 +261,6 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
         // Coral Growth
         CORAL_GROWTH = register(new CoralGrowthVariant());
 
-        // Dev Exclusives
-        DOOM = register(new DoomVariant());
-        BOOTH_WANDERER = register(new BoothWandererVariant());
 
         // Plinth
         PLINTH_DEFAULT = register(new PlinthDefaultVariant());
@@ -294,18 +297,18 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
         DALEK_MOD_1976 = register(new DalekMod1976Variant());
         DALEK_MOD_1980 = register(new DalekMod1980Variant());
 
-        // Jake
-        //JAKE_DEFAULT = init(new JakeDefaultVariant());
-
-        // Present
-//        PRESENT_DEFAULT = register(new PresentDefaultVariant());
-//        PRESENT_GREEN = register(new PresentGreenVariant());
-//        PRESENT_BLUE = register(new PresentBlueVariant());
-
         // Pipe
         PIPE_DEFAULT = register(new PipeDefaultVariant());
         PIPE_RED = register(new PipeRedVariant());
         //PIPE_YELLOW = register(new PipeYellowVariant());
         PIPE_BLUE = register(new PipeBlueVariant());
+
+        // Dev Exclusives
+        DOOM = register(new DoomVariant());
+        WANDERER = register(new BoothWandererVariant());
+        BLUE_BOX_DEFAULT = register(new BlueBoxVariant());
+        BLUE_BOX_CORAL = register(new BlueBoxCoralVariant());
+        BLUE_BOX_TOM = register(new BlueBoxTomVariant());
+        BLUE_BOX_TOM_ALT = register(new BlueBoxTomAltVariant());
     }
 }

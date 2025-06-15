@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.google.common.collect.Lists;
+import dev.amble.ait.data.schema.exterior.category.ExclusiveCategory;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedGlobalPos;
 
@@ -46,7 +47,6 @@ import dev.amble.ait.data.schema.exterior.category.PoliceBoxCategory;
 import dev.amble.ait.registry.impl.CategoryRegistry;
 import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
-import java.util.UUID;
 
 public class MonitorScreen extends ConsoleScreen {
     private static final Identifier TEXTURE = new Identifier(AITMod.MOD_ID,
@@ -195,13 +195,10 @@ public class MonitorScreen extends ConsoleScreen {
         else
             setCategory(previousCategory());
 
-        if (CategoryRegistry.CORAL_GROWTH.equals(this.category) ||
-                (!player.getUuid().equals(LOQOR) && CategoryRegistry.DOOM.equals(this.category)))
+        if ((this.category instanceof ExclusiveCategory && ExclusiveCategory.isUnlocked(player.getUuid()))
+                || CategoryRegistry.CORAL_GROWTH.equals(this.category))
             changeCategory(direction);
     }
-
-    private static final UUID LOQOR = UUID.fromString("ad504e7c-22a0-4b3f-94e3-5b6ad5514cb6");
-    private static final UUID OURO = UUID.fromString("07e6b550-be92-4422-a269-345593df5a10");
 
     public ExteriorCategorySchema nextCategory() {
         List<ExteriorCategorySchema> list = CategoryRegistry.getInstance().toList();
@@ -229,9 +226,6 @@ public class MonitorScreen extends ConsoleScreen {
             setCurrentVariant(nextVariant());
         else
             setCurrentVariant(previousVariant());
-
-        if (!player.getUuid().equals(OURO) && ClientExteriorVariantRegistry.BOOTH_WANDERER.equals(currentVariant))
-            whichDirectionVariant(direction);
     }
 
     public ExteriorVariantSchema nextVariant() {

@@ -1,5 +1,6 @@
-package dev.amble.ait.client.models.doors;
+package dev.amble.ait.client.models.doors.exclusive;
 
+import dev.amble.ait.client.models.doors.DoorModel;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;

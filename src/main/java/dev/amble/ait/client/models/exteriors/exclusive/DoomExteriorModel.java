@@ -1,5 +1,6 @@
-package dev.amble.ait.client.models.exteriors;
+package dev.amble.ait.client.models.exteriors.exclusive;
 
+import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;

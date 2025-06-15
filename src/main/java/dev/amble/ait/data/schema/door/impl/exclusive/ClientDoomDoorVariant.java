@@ -1,6 +1,6 @@
-package dev.amble.ait.data.schema.door.impl;
+package dev.amble.ait.data.schema.door.impl.exclusive;
 
-import dev.amble.ait.client.models.doors.DoomDoorModel;
+import dev.amble.ait.client.models.doors.exclusive.DoomDoorModel;
 import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.data.schema.door.ClientDoorSchema;
 
