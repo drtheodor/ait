@@ -102,7 +102,7 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
         playSound = playSound && this.tryStart(this.rotation, new Vector3f());
 
         if (playSound) {
-            tardis.getExterior().playSound(this.getSoundId().orElse(AITSounds.ERROR.getId()), SoundCategory.BLOCKS);
+            tardis.getExterior().playSound(this.getSoundIdOrDefault(), SoundCategory.BLOCKS);
         }
 
         if (this.isAged() && this.doneQueue != null) {
@@ -143,7 +143,6 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
         if (sfx == null) {
             AITMod.LOGGER.error("Unknown sound event: {} in tardis animation {}", this.soundId, this.id());
             sfx = AITSounds.ERROR;
-            this.soundId = sfx.getId();
         }
 
         return sfx;
@@ -155,6 +154,10 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
 
     public Optional<Identifier> getSoundId() {
         return Optional.ofNullable(this.soundId);
+    }
+
+    public Identifier getSoundIdOrDefault() {
+        return this.getSoundId().orElse(AITSounds.ERROR.getId());
     }
 
     @Override

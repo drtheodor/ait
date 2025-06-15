@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.drtheo.queue.api.ActionQueue;
 import dev.drtheo.queue.api.util.block.ChunkEraser;
@@ -13,6 +14,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -243,6 +245,15 @@ public class TardisDesktop extends TardisComponent {
 
         this.getConsolePos().forEach(consolePos ->
                 playSoundAtConsole(world, consolePos, sound, category, volume, pitch));
+    }
+
+    public void forcePlaySoundAtEveryConsole(Identifier soundId, SoundCategory category) {
+        if (!this.isServer()) return;
+
+        RegistryKey<World> worldKey = this.tardis.asServer().world().getRegistryKey();
+        this.getConsolePos().forEach(consolePos -> {
+            NetworkUtil.playSound(worldKey, consolePos, soundId, category);
+        });
     }
 
     public void playSoundAtEveryConsole(SoundEvent sound, SoundCategory category) {
