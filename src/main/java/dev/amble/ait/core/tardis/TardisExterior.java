@@ -2,6 +2,7 @@ package dev.amble.ait.core.tardis;
 
 import java.util.Optional;
 
+import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -149,22 +150,7 @@ public class TardisExterior extends TardisComponent {
      * @author duzo
      */
     public void playSound(Identifier soundId, SoundCategory category) {
-        BlockPos pos = tardis.travel().position().getPos();
-        RegistryKey<World> worldKey = tardis.travel().position().getDimension();
-        RegistryEntry<SoundEvent> soundEntry = RegistryEntry.of(SoundEvent.of(soundId));
-        long seed = ServerLifecycleHooks.get().getOverworld().getRandom().nextLong();
-
-        final float distance = 8f; // default distance for exterior sounds
-        ServerLifecycleHooks.get()
-                .getPlayerManager()
-                .sendToAround(
-                        null,
-                        pos.getX(),
-                        pos.getY(),
-                        pos.getZ(),
-                        distance,
-                        worldKey,
-                        new PlaySoundS2CPacket(soundEntry, category, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f, seed)
-                );
+        CachedDirectedGlobalPos pos = tardis.travel().position();
+        NetworkUtil.playSound(pos.getDimension(), pos.getPos(), soundId, category);
     }
 }
