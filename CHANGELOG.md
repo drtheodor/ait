@@ -1,1 +1,2 @@
 - fix: render unpowered exterior emission properly | by [@DrTheodor](https://github.com/DrTheodor) ([#1619](https://github.com/amblelabs/ait/pull/1619))
+- chore: add 1.2.7 to version list | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1623](https://github.com/amblelabs/ait/pull/1623))
