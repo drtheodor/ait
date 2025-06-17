@@ -3,7 +3,10 @@ package dev.amble.ait.core.devteam;
 import java.util.Set;
 import java.util.UUID;
 
-// Don't worry, we're not pulling a Dalek Mod and forcing creative for ourselves. Lol. - Loqor
+/**
+ * @author Loqor
+ * Don't worry, we're not pulling a Dalek Mod and forcing creative for ourselves. Lol. - Loqor
+ */
 public class DevTeam {
     public static final UUID LOQOR = UUID.fromString("ad504e7c-22a0-4b3f-94e3-5b6ad5514cb6");
     public static final UUID DUZO = UUID.fromString("743a01d8-25e1-4da2-af2b-643587fe86e7");

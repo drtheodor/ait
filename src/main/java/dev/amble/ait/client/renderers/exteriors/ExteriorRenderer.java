@@ -13,10 +13,7 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.RotationPropertyHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.profiler.Profiler;
 
 import dev.amble.ait.AITMod;
@@ -74,8 +71,11 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             this.renderExterior(profiler, tardis, entity, tickDelta, matrices, vertexConsumers, light, overlay);
 
         if ((tardis.door().getLeftRot() > 0 || variant.hasTransparentDoors()) && !tardis.isGrowth() && tardis.travel().isLanded() &&
-        !tardis.siege().isActive())
-            BOTI.EXTERIOR_RENDER_QUEUE.add(entity);
+        !tardis.siege().isActive()) {
+            if (!variant.equals(ClientExteriorVariantRegistry.DOOM)) {
+                BOTI.EXTERIOR_RENDER_QUEUE.add(entity);
+            }
+        }
 
         profiler.pop();
 
@@ -121,6 +121,8 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
         int k = blockState.get(ExteriorBlock.ROTATION);
         float h = RotationPropertyHelper.toDegrees(k);
 
+        boolean isDoom = this.variant.equals(ClientExteriorVariantRegistry.DOOM);
+
         matrices.push();
 
         // adjust based off animation position
@@ -145,21 +147,26 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             return;
         }
 
-        float wrappedDegrees = MathHelper.wrapDegrees(MinecraftClient.getInstance().player.getHeadYaw() + h);
+        int rotation = travel.position().getRotation();
+        boolean isDiagonal = rotation > 0 && rotation < 4 || rotation > 4 && rotation < 8 || rotation > 8 && rotation < 12
+                || rotation > 12 && rotation < 16;
+        float wrappedDegrees = MathHelper.wrapDegrees(MinecraftClient.getInstance().player.getHeadYaw() + h + (isDiagonal ? 90f : 0));
 
-        if (this.variant.equals(ClientExteriorVariantRegistry.DOOM)) {
+        if (isDoom) {
             texture = DoomConstants.getTextureForRotation(wrappedDegrees, tardis);
             emission = DoomConstants.getEmissionForRotation(DoomConstants.getTextureForRotation(wrappedDegrees, tardis),
                     tardis);
         }
 
-        matrices.multiply(
-                RotationAxis.NEGATIVE_Y.rotationDegrees(!this.variant.equals(ClientExteriorVariantRegistry.DOOM)
-                        ? h + 180f
-                        : MinecraftClient.getInstance().player.getHeadYaw() + 180f
-                                + ((wrappedDegrees > -135 && wrappedDegrees < 135) ? 180f : 0f)));
-
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
+
+        matrices.multiply(
+                RotationAxis.POSITIVE_Y.rotationDegrees(!isDoom
+                        ? h + 180f
+                        : MinecraftClient.getInstance().player.getHeadYaw()
+                        + ((wrappedDegrees > -135 && wrappedDegrees < 135) ? 180f : 0f)
+                + (travel.position().getRotationDirection() == Direction.EAST ||
+                        travel.position().getRotationDirection() == Direction.WEST ? 180f : 0f)));
 
         if (model == null) {
             profiler.pop();

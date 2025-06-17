@@ -212,6 +212,10 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
 
     public static ClientExteriorVariantSchema DOOM;
     public static ClientExteriorVariantSchema BOOTH_WANDERER;
+
+    // TODO fix the fucking awful "blue box" exteriors, and remove the rest of the variants. Only one variant per person.
+    //  They are horrible models and improperly positioned. They will not be accepted until they are finished and fixed by Krang or Ouro.
+    //  Classic you're just not there yet in terms of artistry, sorry. - Loqor
     public static ClientExteriorVariantSchema BLUE_BOX;
     public static ClientExteriorVariantSchema BLUE_BOX_CORAL;
     public static ClientExteriorVariantSchema BLUE_BOX_TOM;
