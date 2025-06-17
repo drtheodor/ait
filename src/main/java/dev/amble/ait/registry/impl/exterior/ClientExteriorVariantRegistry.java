@@ -29,10 +29,6 @@ import dev.amble.ait.data.schema.exterior.variant.dalek_mod.client.*;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadDefaultVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadSoulVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxCoralVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomAltVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.doom.client.ClientDoomVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.client.ClientBoothWandererVariant;
 import dev.amble.ait.data.schema.exterior.variant.geometric.client.ClientGeometricDefaultVariant;
@@ -213,14 +209,6 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
     public static ClientExteriorVariantSchema DOOM;
     public static ClientExteriorVariantSchema BOOTH_WANDERER;
 
-    // TODO fix the fucking awful "blue box" exteriors, and remove the rest of the variants. Only one variant per person.
-    //  They are horrible models and improperly positioned. They will not be accepted until they are finished and fixed by Krang or Ouro.
-    //  Classic you're just not there yet in terms of artistry, sorry. - Loqor
-    public static ClientExteriorVariantSchema BLUE_BOX;
-    public static ClientExteriorVariantSchema BLUE_BOX_CORAL;
-    public static ClientExteriorVariantSchema BLUE_BOX_TOM;
-    public static ClientExteriorVariantSchema BLUE_BOX_TOM_ALT;
-
     @Override
     public void onClientInit() {
         // TARDIM
@@ -271,10 +259,6 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
         // Dev Exclusives
         DOOM = register(new ClientDoomVariant());
         BOOTH_WANDERER = register(new ClientBoothWandererVariant());
-        BLUE_BOX = register(new ClientBlueBoxVariant());
-        BLUE_BOX_CORAL = register(new ClientBlueBoxCoralVariant());
-        BLUE_BOX_TOM = register(new ClientBlueBoxTomVariant());
-        BLUE_BOX_TOM_ALT = register(new ClientBlueBoxTomAltVariant());
 
         // Plinth
         PLINTH_DEFAULT = register(new ClientPlinthDefaultVariant());

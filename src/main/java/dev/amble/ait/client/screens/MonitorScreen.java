@@ -355,11 +355,7 @@ public class MonitorScreen extends ConsoleScreen {
         boolean isPoliceBox = category.equals(CategoryRegistry.getInstance().get(PoliceBoxCategory.REFERENCE))
                 || category.equals(CategoryRegistry.getInstance().get(ClassicCategory.REFERENCE));
 
-        boolean isHorriblyUnscaled = variant.equals(ClientExteriorVariantRegistry.BLUE_BOX) ||
-                variant.equals(ClientExteriorVariantRegistry.BLUE_BOX_CORAL) ||
-                variant.equals(ClientExteriorVariantRegistry.BLUE_BOX_TOM) ||
-                variant.equals(ClientExteriorVariantRegistry.BLUE_BOX_TOM_ALT) ||
-                variant.equals(ClientExteriorVariantRegistry.DOOM);
+        boolean isHorriblyUnscaled = variant.equals(ClientExteriorVariantRegistry.DOOM);
 
         boolean isExtUnlocked = tardis.isUnlocked(variant.parent());
         boolean hasPower = tardis.fuel().hasPower();

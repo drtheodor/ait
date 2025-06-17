@@ -32,10 +32,6 @@ import dev.amble.ait.data.schema.exterior.variant.dalek_mod.*;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadDefaultVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.EasterHeadSoulVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxCoralVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxTomAltVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxTomVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.BlueBoxVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.doom.DoomVariant;
 import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.BoothWandererVariant;
 import dev.amble.ait.data.schema.exterior.variant.geometric.GeometricDefaultVariant;
@@ -207,10 +203,6 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
     // Exclusives
     public static ExteriorVariantSchema DOOM;
     public static ExteriorVariantSchema WANDERER;
-    public static ExteriorVariantSchema BLUE_BOX_DEFAULT;
-    public static ExteriorVariantSchema BLUE_BOX_CORAL;
-    public static ExteriorVariantSchema BLUE_BOX_TOM;
-    public static ExteriorVariantSchema BLUE_BOX_TOM_ALT;
 
     @Override
     protected void defaults() {
@@ -306,9 +298,5 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
         // Dev Exclusives
         DOOM = register(new DoomVariant());
         WANDERER = register(new BoothWandererVariant());
-        BLUE_BOX_DEFAULT = register(new BlueBoxVariant());
-        BLUE_BOX_CORAL = register(new BlueBoxCoralVariant());
-        BLUE_BOX_TOM = register(new BlueBoxTomVariant());
-        BLUE_BOX_TOM_ALT = register(new BlueBoxTomAltVariant());
     }
 }
