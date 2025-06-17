@@ -230,6 +230,7 @@ public class AITMod implements ModInitializer {
             FuelCommand.register(dispatcher);
             SetRepairTicksCommand.register(dispatcher);
             RiftChunkCommand.register(dispatcher);
+            ScaleCommand.register(dispatcher);
             TriggerMoodRollCommand.register(dispatcher);
             SetNameCommand.register(dispatcher);
             GetNameCommand.register(dispatcher);

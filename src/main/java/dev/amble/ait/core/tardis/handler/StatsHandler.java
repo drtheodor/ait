@@ -295,6 +295,12 @@ public class StatsHandler extends KeyedTardisComponent {
         this.tardisZScale.set(scale);
     }
 
+    public void setScale(double x, double y, double z) {
+        this.setXScale(x);
+        this.setYScale(y);
+        this.setZScale(z);
+    }
+
     public String getCreationString() {
         return DateFormat.getDateTimeInstance(DateFormat.LONG, 3).format(this.getDateCreated());
     }
