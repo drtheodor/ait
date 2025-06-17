@@ -1,7 +1,6 @@
 package dev.amble.ait.client.sounds.flight;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.Sound;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.WeightedSoundSet;
 import net.minecraft.sound.SoundCategory;
