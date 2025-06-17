@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 
 import com.google.common.collect.Lists;
-import dev.amble.ait.data.schema.exterior.category.ExclusiveCategory;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedGlobalPos;
 
@@ -43,6 +42,7 @@ import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorCategorySchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.category.ClassicCategory;
+import dev.amble.ait.data.schema.exterior.category.ExclusiveCategory;
 import dev.amble.ait.data.schema.exterior.category.PoliceBoxCategory;
 import dev.amble.ait.registry.impl.CategoryRegistry;
 import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;

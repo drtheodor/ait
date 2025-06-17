@@ -1,9 +1,9 @@
 package dev.amble.ait.core.blockentities;
 
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousConsole;
 import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.nextConsole;
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousVariant;
 import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.nextVariant;
+import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousConsole;
+import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousVariant;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

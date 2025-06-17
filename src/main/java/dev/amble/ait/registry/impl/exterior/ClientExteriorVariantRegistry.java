@@ -1,11 +1,6 @@
 package dev.amble.ait.registry.impl.exterior;
 
 
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxCoralVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomAltVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxVariant;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.client.ClientBoothWandererVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -31,10 +26,15 @@ import dev.amble.ait.data.schema.exterior.variant.capsule.client.ClientCapsuleFi
 import dev.amble.ait.data.schema.exterior.variant.capsule.client.ClientCapsuleSoulVariant;
 import dev.amble.ait.data.schema.exterior.variant.classic.client.*;
 import dev.amble.ait.data.schema.exterior.variant.dalek_mod.client.*;
-import dev.amble.ait.data.schema.exterior.variant.exclusive.doom.client.ClientDoomVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadDefaultVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.easter_head.client.ClientEasterHeadSoulVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxCoralVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomAltVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxTomVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box.client.ClientBlueBoxVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.doom.client.ClientDoomVariant;
+import dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer.client.ClientBoothWandererVariant;
 import dev.amble.ait.data.schema.exterior.variant.geometric.client.ClientGeometricDefaultVariant;
 import dev.amble.ait.data.schema.exterior.variant.geometric.client.ClientGeometricFireVariant;
 import dev.amble.ait.data.schema.exterior.variant.geometric.client.ClientGeometricGildedVariant;

@@ -1,17 +1,17 @@
 package dev.amble.ait.data.schema.exterior.variant.exclusive.blue_box;
 
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
 import dev.amble.ait.core.tardis.animation.ExteriorAnimation;
 import dev.amble.ait.core.tardis.animation.PulsatingAnimation;
 import dev.amble.ait.data.schema.door.DoorSchema;
-import dev.amble.ait.data.schema.door.impl.BoothDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.BlueBoxDoorVariant;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.category.ExclusiveCategory;
 import dev.amble.ait.registry.impl.door.DoorRegistry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 public class BlueBoxVariant extends ExteriorVariantSchema {
 

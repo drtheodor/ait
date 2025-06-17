@@ -1,8 +1,6 @@
 package dev.amble.ait.registry.impl.door;
 
 
-import dev.amble.ait.data.schema.door.impl.exclusive.BlueBoxDoorVariant;
-import dev.amble.ait.data.schema.door.impl.exclusive.DoomDoorVariant;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 
 import net.minecraft.registry.Registry;
@@ -12,6 +10,8 @@ import net.minecraft.registry.SimpleRegistry;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.door.impl.*;
+import dev.amble.ait.data.schema.door.impl.exclusive.BlueBoxDoorVariant;
+import dev.amble.ait.data.schema.door.impl.exclusive.DoomDoorVariant;
 
 public class DoorRegistry {
     public static final SimpleRegistry<DoorSchema> REGISTRY = FabricRegistryBuilder
