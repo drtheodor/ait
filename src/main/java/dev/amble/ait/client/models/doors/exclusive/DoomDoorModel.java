@@ -1,4 +1,4 @@
-package dev.amble.ait.client.models.doors;
+package dev.amble.ait.client.models.doors.exclusive;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
+import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
 
