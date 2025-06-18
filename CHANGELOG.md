@@ -3,3 +3,4 @@
 - Fix: Assorted Bugs | by [@Loqor](https://github.com/Loqor) ([#1609](https://github.com/amblelabs/ait/pull/1609))
 - Dev Exclusive Exteriors | by [@DrTheodor](https://github.com/DrTheodor), [@Loqor](https://github.com/Loqor) ([#1625](https://github.com/amblelabs/ait/pull/1625))
 - BOTI Paintings are now a lot cheaper | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1631](https://github.com/amblelabs/ait/pull/1631))
+- fix: textures for some dev exteriors not appearing | by [@Mansarde](https://github.com/Mansarde) ([#1630](https://github.com/amblelabs/ait/pull/1630))
