@@ -101,7 +101,7 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
 
         Identifier emissive = this.variant.emission();
 
-        if (emissive != null && !emissive.equals(DatapackConsole.EMPTY)) {
+        if (!variant.equals(ClientExteriorVariantRegistry.DOOM) && emissive != null && !emissive.equals(DatapackConsole.EMPTY)) {
             boolean power = tardis.fuel().hasPower();
             boolean alarms = tardis.alarm().isEnabled();
 
