@@ -742,7 +742,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("control.ait.refreshment_control", "Refreshment Selector");
         provider.addTranslation("control.ait.food_creation", "Refreshment Dispenser");
         provider.addTranslation("control.ait.protocol_116", "Protocol 116 - Stabiliser");
-        provider.addTranslation("control.ait.protocol_3", "Protocol 3 - Exterior Cloak");
+        provider.addTranslation("control.ait.protocol_3", "Protocol 3 - Cloak");
         provider.addTranslation("control.ait.dimension", "Dimension");
         provider.addTranslation("control.ait.direction", "Direction");
         provider.addTranslation("control.ait.door_control", "Door Control");
