@@ -741,23 +741,23 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("control.ait.antigravs", "Antigravs");
         provider.addTranslation("control.ait.refreshment_control", "Refreshment Selector");
         provider.addTranslation("control.ait.food_creation", "Refreshment Dispenser");
-        provider.addTranslation("control.ait.protocol_116", "Protocol 116");
-        provider.addTranslation("control.ait.protocol_3", "Protocol 3");
+        provider.addTranslation("control.ait.protocol_116", "Protocol 116 - Stabiliser");
+        provider.addTranslation("control.ait.protocol_3", "Protocol 3 - Shell Phaser");
         provider.addTranslation("control.ait.dimension", "Dimension");
         provider.addTranslation("control.ait.direction", "Direction");
         provider.addTranslation("control.ait.door_control", "Door Control");
         provider.addTranslation("control.ait.door_lock", "Door Lock");
         provider.addTranslation("control.ait.fast_return", "Fast Return");
         provider.addTranslation("control.ait.alarms", "Alarms");
-        provider.addTranslation("control.ait.protocol_813", "Protocol 813");
+        provider.addTranslation("control.ait.protocol_813", "Protocol 813 - Hail Mary");
         provider.addTranslation("control.ait.handbrake", "Handbrake");
         provider.addTranslation("control.ait.land_type", "Land Type");
         provider.addTranslation("control.ait.monitor", "Monitor");
         provider.addTranslation("control.ait.power", "Power");
         provider.addTranslation("control.ait.randomiser", "Randomiser");
         provider.addTranslation("control.ait.refueler", "Refueler");
-        provider.addTranslation("control.ait.protocol_19", "Protocol 19");
-        provider.addTranslation("control.ait.protocol_1913", "Protocol 1913");
+        provider.addTranslation("control.ait.protocol_19", "Protocol 19 - Isomorphic Security");
+        provider.addTranslation("control.ait.protocol_1913", "Protocol 1913 - Siege Mode");
         provider.addTranslation("control.ait.sonic_port", "Sonic Port");
         provider.addTranslation("control.ait.telepathic_circuit", "Telepathic Circuit");
         provider.addTranslation("control.ait.throttle", "Throttle");
@@ -773,8 +773,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("control.ait.y", "Y");
         provider.addTranslation("control.ait.z", "Z");
         provider.addTranslation("control.ait.shields", "Shields");
-        provider.addTranslation("control.ait.engine_overload", "Protocol 515");
-        provider.addTranslation("control.ait.electrical_discharge", "Protocol 54");
+        provider.addTranslation("control.ait.engine_overload", "Protocol 515 - Engine Overload");
+        provider.addTranslation("control.ait.electrical_discharge", "Protocol 54 - Electric Discharge");
         provider.addTranslation("control.ait.hammer_hanger", "Hammer Hanger");
 
         // Tabs
