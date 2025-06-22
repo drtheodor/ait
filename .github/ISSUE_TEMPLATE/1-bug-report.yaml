@@ -39,17 +39,17 @@ body:
     - 1.2.6
     - 1.2.7
     default: 0
-  validations:
+      validations:
     required: true
-    - type: dropdown
-  id: version
+- type: dropdown
+  id: modloader
   attributes:
     label: Modloader
-    description: What modloader you're using?
+    description: What version of the mod you're running?
     options:
     - fabric
     - forge
-    default: fabric
+    default: 0
   validations:
     required: true
 - type: input
