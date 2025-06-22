@@ -795,6 +795,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
         // new translation shit
         provider.addTranslation("yacl3.config.ait:server.hypercubesEnabled", "Enable Hypercubes?");
+        provider.addTranslation("yacl3.config.ait:server.travelPerTick", "Travel Per Tick");
         //
 
         provider.addTranslation("text.autoconfig.aitconfig.category.client", "Client");
