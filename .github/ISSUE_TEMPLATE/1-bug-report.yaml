@@ -41,6 +41,17 @@ body:
     default: 0
   validations:
     required: true
+    - type: dropdown
+  id: mod loader
+  attributes:
+    label: Version
+    description: What mod loader you're using?
+    options:
+    - fabric
+    - forge
+    default: 0
+  validations:
+    required: true
 - type: input
   id: build
   attributes:
