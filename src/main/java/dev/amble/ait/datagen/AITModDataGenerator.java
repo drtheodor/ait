@@ -812,6 +812,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("text.autoconfig.aitconfig.option.CLIENT.GREEN_SCREEN_BOTI", "Enable Green Screen Boti");
 
         provider.addTranslation(AITMod.TARDIS_GRIEFING.getTranslationKey(), "TARDIS Griefing");
+        provider.addTranslation(AITMod.TARDIS_FIRE_GRIEFING.getTranslationKey(), "TARDIS Fire Griefing");
         provider.addTranslation("entity.minecraft.villager.fabricator_engineer", "Fabricator Engineer");
 
         // Entitys
