@@ -21,13 +21,13 @@ body:
       2. Click on '....'
       3. Place down '...'
       4. See error
-      validations:
+ validations:
     required: true
 - type: dropdown
-  id: modloader
+  id: version
   attributes:
     label: Modloader
-    description: What version of the mod you're running?
+    description: What modloader you're running?
     options:
     - fabric
     - forge
