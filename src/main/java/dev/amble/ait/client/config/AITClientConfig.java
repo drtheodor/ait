@@ -85,17 +85,12 @@ public class AITClientConfig {
             String key1;
             key1 = this.toString().toLowerCase();
             key1 = key1.substring(0, 1).toUpperCase() + key1.substring(1);
-            switch (key1) {
-                case "Celsius":
-                    key1 = key1 + " (°C)";
-                    break;
-                case "Fahrenheit":
-                    key1 = key1 + " (°F)";
-                    break;
-                case "Kelvin":
-                    key1 = key1 + " (K)";
-                    break;
-            }
+            key1 = switch (key1) {
+                case "Celsius" -> key1 + " (°C)";
+                case "Fahrenheit" -> key1 + " (°F)";
+                case "Kelvin" -> key1 + " (K)";
+                default -> key1;
+            };
             this.key = key1;
         }
 
