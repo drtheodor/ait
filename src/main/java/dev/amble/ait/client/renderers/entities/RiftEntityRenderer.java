@@ -37,6 +37,7 @@ public class RiftEntityRenderer
     public void render(RiftEntity riftEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         if (AITModClient.CONFIG.enableTardisBOTI) {
             BOTI.RIFT_RENDERING_QUEUE.add(riftEntity);
+            return;
         }
 
         matrixStack.push();
