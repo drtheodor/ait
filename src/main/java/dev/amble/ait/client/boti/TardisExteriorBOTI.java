@@ -160,7 +160,7 @@ public class TardisExteriorBOTI extends BOTI {
             }
 
             boolean power = tardis.fuel().hasPower();
-            boolean alarms = tardis.alarm().enabled().get();
+            boolean alarms = tardis.alarm().isEnabled();
 
             float red = power ? s : alarms ? 0.3f : 0;
             float green = power ? alarms ? 0.3f : t : 0;

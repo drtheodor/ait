@@ -1696,8 +1696,8 @@ public class ToyotaConsoleModel extends ConsoleModel {
         // Alarm Control and Lights
         ModelPart alarms = this.toyota.getChild("panel4").getChild("controls4").getChild("coloredlever2");
         ModelPart alarmsLight = this.toyota.getChild("panel4").getChild("yellow3");
-        alarmsLight.pivotY = (tardis.alarm().enabled().get()) ? alarmsLight.pivotY : alarmsLight.pivotY + 1;
-        alarms.pitch = tardis.alarm().enabled().get() ? alarms.pitch + 1f : alarms.pitch;
+        alarmsLight.pivotY = (tardis.alarm().isEnabled()) ? alarmsLight.pivotY : alarmsLight.pivotY + 1;
+        alarms.pitch = tardis.alarm().isEnabled() ? alarms.pitch + 1f : alarms.pitch;
 
         ModelPart security = this.toyota.getChild("panel4").getChild("controls4").getChild("coloredlever5");
         security.pitch = tardis.stats().security().get() ? security.pitch + 1f : security.pitch;

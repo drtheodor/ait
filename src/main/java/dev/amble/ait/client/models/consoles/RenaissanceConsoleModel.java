@@ -1390,7 +1390,7 @@ public class RenaissanceConsoleModel extends ConsoleModel {
 
         // Alarm Control and Lights
         ModelPart alarms = this.console.getChild("panelf5").getChild("alarms");
-        alarms.yaw = tardis.alarm().enabled().get() ? alarms.yaw + 0.2f : alarms.yaw;
+        alarms.yaw = tardis.alarm().isEnabled() ? alarms.yaw + 0.2f : alarms.yaw;
 
         // Shields
         ModelPart shields = this.console.getChild("panelf5").getChild("rwf").getChild("bone56");

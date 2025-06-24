@@ -251,7 +251,7 @@ public class ClientTardisUtil {
     public static void tickAlarmDelta() {
         Tardis tardis = getCurrentTardis();
 
-        if (tardis == null || !tardis.alarm().enabled().get()) {
+        if (tardis == null || !tardis.alarm().isEnabled()) {
             alarmDeltaTick = MAX_ALARM_DELTA_TICKS;
             return;
         }
