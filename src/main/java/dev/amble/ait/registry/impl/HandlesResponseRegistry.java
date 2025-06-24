@@ -393,6 +393,7 @@ public class HandlesResponseRegistry {
 				}
 
 				sendChat(player, Text.literal("Enabling Refueling."));
+				tardis.travel().handbrake(true);
 				tardis.setRefueling(true);
 				return success(source);
 			}
@@ -417,6 +418,7 @@ public class HandlesResponseRegistry {
 				}
 
 				sendChat(player, Text.literal("Disabling Refueling."));
+				tardis.travel().handbrake(false);
 				tardis.setRefueling(false);
 				return success(source);
 			}
