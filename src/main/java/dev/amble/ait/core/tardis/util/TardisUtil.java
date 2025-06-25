@@ -3,6 +3,7 @@ package dev.amble.ait.core.tardis.util;
 import java.util.*;
 import java.util.function.Predicate;
 
+import dev.amble.ait.core.tardis.handler.FuelHandler;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.amble.lib.util.TeleportUtil;
@@ -485,7 +486,7 @@ public class TardisUtil {
     public static double estimatedFuelCost(PlayerEntity player, Tardis tardis, double distance){
         double speed = Math.max(tardis.travel().speed(), 1);
         double ticksRequired = distance / speed;
-        double perTickFuelCost = 20 * Math.pow(4, speed) * tardis.travel().instability();
-        return perTickFuelCost * ticksRequired;
+        double perTick = FuelHandler.getPerTickFuelCost(speed, tardis.travel().instability());
+        return perTick * ticksRequired;
     }
 }

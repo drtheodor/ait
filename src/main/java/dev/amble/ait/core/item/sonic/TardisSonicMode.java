@@ -73,8 +73,6 @@ public class TardisSonicMode extends SonicMode {
         return true;
     }
 
-    private static boolean hasEnoughFuelToSummon = true;
-
     private boolean interactBlock(ItemStack stack, World world, ServerPlayerEntity player, BlockPos pos) {
         // summon tardis to block
         Tardis tardis = SonicItem.getTardisStatic(world, stack);
@@ -100,7 +98,6 @@ public class TardisSonicMode extends SonicMode {
         double distance = TardisUtil.distanceFromTardis(player, tardis);
 
         if (tardis.fuel().getCurrentFuel() <= TardisUtil.estimatedFuelCost(player, tardis, distance)) {
-            hasEnoughFuelToSummon = false;
             player.sendMessage(Text.translatable("sonic.ait.mode.tardis.insufficient_fuel"), true);
             return false;
         }
@@ -113,16 +110,11 @@ public class TardisSonicMode extends SonicMode {
         tardis.travel().destination(targetPos);
         tardis.travel().autopilot(true);
         tardis.travel().dematerialize();
-        hasEnoughFuelToSummon = true;
 
         // inform player
         player.sendMessage(Text.translatable("sonic.ait.mode.tardis.location_summon"), true);
 
         return true;
-    }
-
-    public static boolean getHasEnoughFuelToSummon() {
-        return hasEnoughFuelToSummon;
     }
 
     @Override
