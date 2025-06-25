@@ -101,7 +101,7 @@ public class TardisSonicMode extends SonicMode {
 
         if (tardis.fuel().getCurrentFuel() <= TardisUtil.estimatedFuelCost(player, tardis, distance)) {
             hasEnoughFuelToSummon = false;
-            player.sendMessage(Text.translatable("sonic.ait.mode.tardis.not_enough_fuel"), true);
+            player.sendMessage(Text.translatable("sonic.ait.mode.tardis.insufficient_fuel"), true);
             return false;
         }
 
