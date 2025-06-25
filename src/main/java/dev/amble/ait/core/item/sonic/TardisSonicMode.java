@@ -97,14 +97,9 @@ public class TardisSonicMode extends SonicMode {
         World tardisWorld = tardis.travel().position().getWorld();
         boolean inSameWorld = player.getWorld().equals(tardisWorld);
         boolean isNearTardis = TardisUtil.isNearTardis(player, tardis, 256);
-        // fuel and distance calculations
         double distance = TardisUtil.distanceFromTardis(player, tardis);
-        double speed = Math.max(tardis.travel().speed(), 1);
-        double ticksRequired = distance / speed;
-        double perTickFuelCost = 20 * Math.pow(4, speed) * tardis.travel().instability();
-        double estimatedFuelCost = perTickFuelCost * ticksRequired;
 
-        if (tardis.fuel().getCurrentFuel() <= estimatedFuelCost) {
+        if (tardis.fuel().getCurrentFuel() <= TardisUtil.estimatedFuelCost(player, tardis, distance)) {
             hasEnoughFuelToSummon = false;
             player.sendMessage(Text.translatable("sonic.ait.mode.tardis.not_enough_fuel"), true);
             return false;

@@ -481,4 +481,11 @@ public class TardisUtil {
         BlockPos tPos = tardis.travel().position().getPos();
         return Math.sqrt(tPos.getSquaredDistance(pPos));
     }
+
+    public static double estimatedFuelCost(PlayerEntity player, Tardis tardis, double distance){
+        double speed = Math.max(tardis.travel().speed(), 1);
+        double ticksRequired = distance / speed;
+        double perTickFuelCost = 20 * Math.pow(4, speed) * tardis.travel().instability();
+        return perTickFuelCost * ticksRequired;
+    }
 }
