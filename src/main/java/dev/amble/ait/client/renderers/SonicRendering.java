@@ -1,7 +1,8 @@
 package dev.amble.ait.client.renderers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.amble.ait.core.item.sonic.TardisSonicMode;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.util.TardisUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -134,7 +135,10 @@ public class SonicRendering {
             return;
         }
 
-        boolean hasEnoughFuel = TardisSonicMode.getHasEnoughFuelToSummon();
+
+        Tardis tardis = SonicItem.getTardisStatic(client.world, client.player.getMainHandStack());
+        double distance = TardisUtil.distanceFromTardis(client.player, tardis);
+        boolean hasEnoughFuel = tardis.fuel().getCurrentFuel() > TardisUtil.estimatedFuelCost(client.player, tardis, distance);
 
         if(!hasEnoughFuel) {
             renderFloorTexture(targetPos, SELECTED_RED, null, false);
