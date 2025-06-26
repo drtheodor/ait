@@ -22,6 +22,7 @@ import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
 import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -411,6 +412,260 @@ public class PlanetModule extends Module {
                                 RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MOON_SANDSTONE, 0.7f, 200)
                         .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)),
                 new Identifier("ait", "cracked_moon_sandstone_from_moon_sandstone_smelted"));
+
+                // martian section
+
+                // martian ores
+                //coal
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_COAL_ORE),
+                                RecipeCategory.MISC, Items.COAL, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COAL_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_COAL_ORE)),
+                new Identifier("ait", "coal_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_COAL_ORE),
+                                RecipeCategory.MISC, Items.COAL, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COAL_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_COAL_ORE)),
+                new Identifier("ait", "coal_from_martian_blasted"));
+                //copper
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_COPPER_ORE),
+                                RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COPPER_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_COPPER_ORE)),
+                new Identifier("ait", "copper_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_COPPER_ORE),
+                                RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COPPER_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_COPPER_ORE)),
+                new Identifier("ait", "copper_from_martian_blasted"));
+                //iron
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_IRON_ORE),
+                                RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_IRON_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_IRON_ORE)),
+                new Identifier("ait", "iron_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_IRON_ORE),
+                                RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_IRON_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_IRON_ORE)),
+                new Identifier("ait", "iron_from_martian_blasted"));
+                //gold
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_GOLD_ORE),
+                                RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_GOLD_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_GOLD_ORE)),
+                new Identifier("ait", "gold_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_GOLD_ORE),
+                                RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_GOLD_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_GOLD_ORE)),
+                new Identifier("ait", "gold_from_martian_blasted"));
+                //redstone
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_REDSTONE_ORE),
+                                RecipeCategory.MISC, Items.REDSTONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_REDSTONE_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_REDSTONE_ORE)),
+                new Identifier("ait", "redstone_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_REDSTONE_ORE),
+                                RecipeCategory.MISC, Items.REDSTONE, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_REDSTONE_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_REDSTONE_ORE)),
+                new Identifier("ait", "redstone_from_martian_blasted"));
+                //lapis
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_LAPIS_ORE),
+                                RecipeCategory.MISC, Items.LAPIS_LAZULI, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_LAPIS_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_LAPIS_ORE)),
+                new Identifier("ait", "lapis_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_LAPIS_ORE),
+                                RecipeCategory.MISC, Items.LAPIS_LAZULI, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_LAPIS_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_LAPIS_ORE)),
+                new Identifier("ait", "lapis_from_martian_blasted"));
+                //diamond
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_DIAMOND_ORE),
+                                RecipeCategory.MISC, Items.DIAMOND, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_DIAMOND_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_DIAMOND_ORE)),
+                new Identifier("ait", "diamond_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_DIAMOND_ORE),
+                                RecipeCategory.MISC, Items.DIAMOND, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_DIAMOND_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_DIAMOND_ORE)),
+                new Identifier("ait", "diamond_from_martian_blasted"));
+                //emerald
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_EMERALD_ORE),
+                                RecipeCategory.MISC, Items.EMERALD, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_EMERALD_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_EMERALD_ORE)),
+                new Identifier("ait", "emerald_from_martian_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.MARTIAN_EMERALD_ORE),
+                                RecipeCategory.MISC, Items.EMERALD, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_EMERALD_ORE), conditionsFromItem(PlanetBlocks.MARTIAN_EMERALD_ORE)),
+                new Identifier("ait", "emerald_from_martian_blasted"));
+
+                // martian stones
+                provider.addShapelessRecipe(ShapelessRecipeJsonBuilder.create(RecipeCategory.REDSTONE, PlanetBlocks.MARTIAN_STONE_BUTTON, 1)
+                        .input(PlanetBlocks.MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_STONE), conditionsFromItem(PlanetBlocks.MARTIAN_STONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_STONE_PRESSURE_PLATE, 1)
+                        .pattern("##")
+                        .input('#', PlanetBlocks.MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_STONE), conditionsFromItem(PlanetBlocks.MARTIAN_STONE)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_COBBLESTONE),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_STONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MARTIAN_COBBLESTONE)),
+                new Identifier("ait", "martian_stone_from_martian_cobblestone_smelted"));
+                // martian cobblestones
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_COBBLESTONE_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MARTIAN_COBBLESTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_COBBLESTONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MARTIAN_COBBLESTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_COBBLESTONE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MARTIAN_COBBLESTONE)));
+                // polished martian stone
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_MARTIAN_STONE, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_STONE), conditionsFromItem(PlanetBlocks.MARTIAN_STONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_MARTIAN_STONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.POLISHED_MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MARTIAN_STONE), conditionsFromItem(PlanetBlocks.POLISHED_MARTIAN_STONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_MARTIAN_STONE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.POLISHED_MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MARTIAN_STONE), conditionsFromItem(PlanetBlocks.POLISHED_MARTIAN_STONE)));
+                // smooth martian stone
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_STONE),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.SMOOTH_MARTIAN_STONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_STONE), conditionsFromItem(PlanetBlocks.MARTIAN_STONE)),
+                new Identifier("ait", "smooth_martian_stone_from_martian_stone_smelted"));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.SMOOTH_MARTIAN_STONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.SMOOTH_MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.SMOOTH_MARTIAN_STONE), conditionsFromItem(PlanetBlocks.SMOOTH_MARTIAN_STONE)));
+                // martian sandstone
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE, 1)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.MARTIAN_SAND)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SAND), conditionsFromItem(PlanetBlocks.MARTIAN_SAND)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_MARTIAN_SANDSTONE, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_SANDSTONE),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MARTIAN_SANDSTONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE)),
+                new Identifier("ait", "cracked_martian_sandstone_from_martian_sandstone_smelted"));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_PILLAR, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.POLISHED_MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.POLISHED_MARTIAN_SANDSTONE)));
+                // martian sandstone bricks, martian sandstone brick wall, slab, stairs, cracked, chiseled
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_BRICKS, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.POLISHED_MARTIAN_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MARTIAN_SANDSTONE), conditionsFromItem(PlanetBlocks.POLISHED_MARTIAN_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_BRICK_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_BRICK_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_SANDSTONE_BRICK_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MARTIAN_SANDSTONE_BRICKS, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE_BRICKS)),
+                new Identifier("ait", "cracked_martian_sandstone_bricks_from_martian_sandstone_bricks_smelted"));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CHISELED_MARTIAN_SANDSTONE, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.MARTIAN_SANDSTONE_SLAB)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_SANDSTONE_SLAB), conditionsFromItem(PlanetBlocks.MARTIAN_SANDSTONE_SLAB)));
+                // martian bricks
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_BRICKS, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.SMOOTH_MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.SMOOTH_MARTIAN_STONE), conditionsFromItem(PlanetBlocks.SMOOTH_MARTIAN_STONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_BRICK_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_BRICK_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_BRICK_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MARTIAN_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_BRICKS)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MARTIAN_BRICKS),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MARTIAN_BRICKS, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_BRICKS), conditionsFromItem(PlanetBlocks.MARTIAN_BRICKS)),
+                new Identifier("ait", "cracked_martian_bricks_from_martian_bricks_smelted"));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MARTIAN_PILLAR, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.POLISHED_MARTIAN_STONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MARTIAN_STONE), conditionsFromItem(PlanetBlocks.POLISHED_MARTIAN_STONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CHISELED_MARTIAN_STONE, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.MARTIAN_BRICK_SLAB)
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_BRICK_SLAB), conditionsFromItem(PlanetBlocks.MARTIAN_BRICK_SLAB)));
+                // mossy martian cobblestone
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE, 1)
+                        .pattern("#M")
+                        .input('#', PlanetBlocks.MARTIAN_COBBLESTONE)
+                        .input('M', Ingredient.ofItems(Items.MOSS_BLOCK, Items.VINE))
+                        .criterion(hasItem(PlanetBlocks.MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MARTIAN_COBBLESTONE))
+                        .criterion(hasItem(Items.MOSS_BLOCK), conditionsFromItem(Items.MOSS_BLOCK))
+                        .criterion(hasItem(Items.VINE), conditionsFromItem(Items.VINE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)
+                        .criterion(hasItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE), conditionsFromItem(PlanetBlocks.MOSSY_MARTIAN_COBBLESTONE)));
+
 
                 // Spacesuits
                 provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, PlanetItems.SPACESUIT_BOOTS, 1)
