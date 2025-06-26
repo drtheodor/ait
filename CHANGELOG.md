@@ -11,3 +11,4 @@
 - fix: Sonic's locator incorrectly showed the player's dimension instead the TARDIS' one. | by [@Mansarde](https://github.com/Mansarde) ([#1639](https://github.com/amblelabs/ait/pull/1639))
 - fix: The dimension control can no longer be used to land outside the valid Y range or outside the worldborder. | by [@Mansarde](https://github.com/Mansarde) ([#1646](https://github.com/amblelabs/ait/pull/1646))
 - fix: rifts now render when BOTI is off. | by [@Loqor](https://github.com/Loqor) ([#1666](https://github.com/amblelabs/ait/pull/1666))
+- Planet block recipes | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1674](https://github.com/amblelabs/ait/pull/1674))
