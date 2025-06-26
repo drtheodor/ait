@@ -1,8 +1,5 @@
 package dev.amble.ait.module.planet;
 
-import static net.minecraft.data.server.recipe.RecipeProvider.conditionsFromItem;
-import static net.minecraft.data.server.recipe.RecipeProvider.hasItem;
-
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -23,10 +20,12 @@ import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
+import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -48,6 +47,7 @@ import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.space.planet.PlanetRegistry;
 import dev.amble.ait.module.planet.core.util.PlanetCustomTrades;
 
+import static net.minecraft.data.server.recipe.RecipeProvider.*;
 
 public class PlanetModule extends Module {
     private static final PlanetModule INSTANCE = new PlanetModule();
@@ -195,6 +195,164 @@ public class PlanetModule extends Module {
                         .criterion(hasItem(Items.RED_WOOL), conditionsFromItem(Items.RED_WOOL))
                         .criterion(hasItem(Items.BLUE_WOOL), conditionsFromItem(Items.BLUE_WOOL))
                         .criterion(hasItem(Items.WHITE_WOOL), conditionsFromItem(Items.WHITE_WOOL)));
+
+                // tendo count your fucking days
+
+                // anorthosite section
+                // polished anorthosite
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_ANORTHOSITE, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE), conditionsFromItem(PlanetBlocks.ANORTHOSITE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_ANORTHOSITE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.POLISHED_ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_ANORTHOSITE), conditionsFromItem(PlanetBlocks.POLISHED_ANORTHOSITE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_ANORTHOSITE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.POLISHED_ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_ANORTHOSITE), conditionsFromItem(PlanetBlocks.POLISHED_ANORTHOSITE)));
+                // smooth anorthosite
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.SMOOTH_ANORTHOSITE, 0.3f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE), conditionsFromItem(PlanetBlocks.ANORTHOSITE)),
+                new Identifier("ait", "smooth_anorthosite_from_anorthosite_smelted"));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.SMOOTH_ANORTHOSITE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.SMOOTH_ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.SMOOTH_ANORTHOSITE), conditionsFromItem(PlanetBlocks.SMOOTH_ANORTHOSITE)));
+                //normal anorthosite
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE), conditionsFromItem(PlanetBlocks.ANORTHOSITE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE), conditionsFromItem(PlanetBlocks.ANORTHOSITE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE), conditionsFromItem(PlanetBlocks.ANORTHOSITE)));
+                // anorthosite bricks
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_BRICKS, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.SMOOTH_ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.SMOOTH_ANORTHOSITE), conditionsFromItem(PlanetBlocks.SMOOTH_ANORTHOSITE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_BRICK_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_BRICKS), conditionsFromItem(PlanetBlocks.ANORTHOSITE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_BRICK_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_BRICKS), conditionsFromItem(PlanetBlocks.ANORTHOSITE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_BRICK_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.ANORTHOSITE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_BRICKS), conditionsFromItem(PlanetBlocks.ANORTHOSITE_BRICKS)));
+                //chiseled anorthosite, anorthosite pillar, cracked anorthosite brick
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CHISELED_ANORTHOSITE, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.ANORTHOSITE_SLAB)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_SLAB), conditionsFromItem(PlanetBlocks.ANORTHOSITE_SLAB)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.ANORTHOSITE_PILLAR, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.SMOOTH_ANORTHOSITE)
+                        .criterion(hasItem(PlanetBlocks.SMOOTH_ANORTHOSITE), conditionsFromItem(PlanetBlocks.SMOOTH_ANORTHOSITE)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_BRICKS),
+                                        RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_ANORTHOSITE_BRICKS, 0.7f, 200)
+                                .criterion(hasItem(PlanetBlocks.ANORTHOSITE_BRICKS), conditionsFromItem(PlanetBlocks.ANORTHOSITE_BRICKS)),
+                        new Identifier("ait", "cracked_anorthosite_bricks_from_anorthosite_bricks_smelted"));
+
+                // anorthosite ores
+                //coal
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_COAL_ORE),
+                                RecipeCategory.MISC, Items.COAL, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_COAL_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_COAL_ORE)),
+                new Identifier("ait", "coal_from_anorthosite_smelted"));
+
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_COAL_ORE),
+                                RecipeCategory.MISC, Items.COAL, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_COAL_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_COAL_ORE)),
+                new Identifier("ait", "coal_from_anorthosite_blasted"));
+                //copper
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_COPPER_ORE),
+                                RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_COPPER_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_COPPER_ORE)),
+                new Identifier("ait", "copper_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_COPPER_ORE),
+                                RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_COPPER_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_COPPER_ORE)),
+                new Identifier("ait", "copper_from_anorthosite_blasted"));
+                //iron
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_IRON_ORE),
+                                RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_IRON_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_IRON_ORE)),
+                new Identifier("ait", "iron_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_IRON_ORE),
+                                RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_IRON_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_IRON_ORE)),
+                new Identifier("ait", "iron_from_anorthosite_blasted"));
+                //gold
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_GOLD_ORE),
+                                RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_GOLD_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_GOLD_ORE)),
+                new Identifier("ait", "gold_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_GOLD_ORE),
+                                RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_GOLD_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_GOLD_ORE)),
+                new Identifier("ait", "gold_from_anorthosite_blasted"));
+                //redstone
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE),
+                                RecipeCategory.MISC, Items.REDSTONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE)),
+                new Identifier("ait", "redstone_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE),
+                                RecipeCategory.MISC, Items.REDSTONE, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_REDSTONE_ORE)),
+                new Identifier("ait", "redstone_from_anorthosite_blasted"));
+                //lapis
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_LAPIS_ORE),
+                                RecipeCategory.MISC, Items.LAPIS_LAZULI, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_LAPIS_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_LAPIS_ORE)),
+                new Identifier("ait", "lapis_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_LAPIS_ORE),
+                                RecipeCategory.MISC, Items.LAPIS_LAZULI, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_LAPIS_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_LAPIS_ORE)),
+                new Identifier("ait", "lapis_from_anorthosite_blasted"));
+                //diamond
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE),
+                                RecipeCategory.MISC, Items.DIAMOND, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE)),
+                new Identifier("ait", "diamond_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE),
+                                RecipeCategory.MISC, Items.DIAMOND, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_DIAMOND_ORE)),
+                new Identifier("ait", "diamond_from_anorthosite_blasted"));
+                //emerald
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_EMERALD_ORE),
+                                RecipeCategory.MISC, Items.EMERALD, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE)),
+                new Identifier("ait", "emerald_from_anorthosite_smelted"));
+                provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(PlanetBlocks.ANORTHOSITE_EMERALD_ORE),
+                                RecipeCategory.MISC, Items.EMERALD, 0.7f, 100)
+                        .criterion(hasItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE)),
+                new Identifier("ait", "emerald_from_anorthosite_blasted"));
+
+
 
                 // Spacesuits
                 provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, PlanetItems.SPACESUIT_BOOTS, 1)
