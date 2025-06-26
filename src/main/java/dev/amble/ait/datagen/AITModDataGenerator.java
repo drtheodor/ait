@@ -39,6 +39,7 @@ import dev.amble.ait.module.planet.core.PlanetBlocks;
 import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.world.PlanetConfiguredFeatures;
 import dev.amble.ait.module.planet.core.world.PlanetPlacedFeatures;
+import net.minecraft.util.Identifier;
 
 public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
@@ -118,7 +119,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
             provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(AITItems.ZEITON_SHARD),
                             RecipeCategory.MISC, AITItems.SUPERHEATED_ZEITON, 0.2f, 500)
-                    .criterion(hasItem(AITItems.ZEITON_SHARD), conditionsFromItem(AITItems.ZEITON_SHARD)));
+                    .criterion(hasItem(AITItems.ZEITON_SHARD), conditionsFromItem(AITItems.ZEITON_SHARD)),
+            new Identifier("ait", "superheated_zeiton_from_zeiton_shard_blasting"));
 
             provider.addShapedRecipe(
                     ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, AITBlocks.ZEITON_BLOCK, 1)
