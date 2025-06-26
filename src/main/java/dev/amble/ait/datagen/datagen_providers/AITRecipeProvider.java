@@ -23,7 +23,7 @@ public class AITRecipeProvider extends FabricRecipeProvider {
     public HashMap<ShapelessRecipeJsonBuilder, Identifier> shapelessRecipesWithNameHashMap = new HashMap<>();
     public HashMap<SingleItemRecipeJsonBuilder, Identifier> stonecutting = new HashMap<>();
     public List<CookingRecipeJsonBuilder> blasting = new ArrayList<>();
-
+    public List<CookingRecipeJsonBuilder> smelting = new ArrayList<>();
 
     public AITRecipeProvider(FabricDataOutput output) {
         super(output);
@@ -49,6 +49,9 @@ public class AITRecipeProvider extends FabricRecipeProvider {
         });
 
         for (CookingRecipeJsonBuilder cookingRecipeJsonBuilder : blasting) {
+            cookingRecipeJsonBuilder.offerTo(exporter);
+        }
+        for (CookingRecipeJsonBuilder cookingRecipeJsonBuilder : smelting) {
             cookingRecipeJsonBuilder.offerTo(exporter);
         }
     }
@@ -95,4 +98,11 @@ public class AITRecipeProvider extends FabricRecipeProvider {
             blasting.add(cookingBuilder);
         }
     }
+
+    public void addFurnaceRecipe(CookingRecipeJsonBuilder cookingBuilder) {
+        if (!smelting.contains(cookingBuilder)) {
+            smelting.add(cookingBuilder);
+        }
+    }
+
 }
