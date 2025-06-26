@@ -352,7 +352,65 @@ public class PlanetModule extends Module {
                         .criterion(hasItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE), conditionsFromItem(PlanetBlocks.ANORTHOSITE_EMERALD_ORE)),
                 new Identifier("ait", "emerald_from_anorthosite_blasted"));
 
-
+                // moon sandstone section
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.POLISHED_MOON_SANDSTONE, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_BRICKS, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .input('#', PlanetBlocks.POLISHED_MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.POLISHED_MOON_SANDSTONE)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_BRICK_WALL, 6)
+                        .pattern("###")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_BRICK_SLAB, 6)
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_BRICK_STAIRS, 4)
+                        .pattern("#  ")
+                        .pattern("## ")
+                        .pattern("###")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE_BRICKS)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE_BRICKS)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CHISELED_MOON_SANDSTONE, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.MOON_SANDSTONE_SLAB)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE_SLAB), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE_SLAB)));
+                provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.MOON_SANDSTONE_PILLAR, 1)
+                        .pattern("#")
+                        .pattern("#")
+                        .input('#', PlanetBlocks.POLISHED_MOON_SANDSTONE)
+                        .criterion(hasItem(PlanetBlocks.POLISHED_MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.POLISHED_MOON_SANDSTONE)));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MOON_SANDSTONE_BRICKS),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MOON_SANDSTONE_BRICKS, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE_BRICKS), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE_BRICKS)),
+                new Identifier("ait", "cracked_moon_sandstone_bricks_from_moon_sandstone_bricks_smelted"));
+                provider.addFurnaceRecipe(CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(PlanetBlocks.MOON_SANDSTONE),
+                                RecipeCategory.BUILDING_BLOCKS, PlanetBlocks.CRACKED_MOON_SANDSTONE, 0.7f, 200)
+                        .criterion(hasItem(PlanetBlocks.MOON_SANDSTONE), conditionsFromItem(PlanetBlocks.MOON_SANDSTONE)),
+                new Identifier("ait", "cracked_moon_sandstone_from_moon_sandstone_smelted"));
 
                 // Spacesuits
                 provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, PlanetItems.SPACESUIT_BOOTS, 1)
