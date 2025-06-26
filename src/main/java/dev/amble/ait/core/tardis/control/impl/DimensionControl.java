@@ -19,6 +19,7 @@ import dev.amble.ait.core.AITSounds;
 import dev.amble.ait.core.lock.LockedDimensionRegistry;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.control.Control;
+import dev.amble.ait.core.tardis.control.impl.pos.PosType;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
 import dev.amble.ait.core.tardis.util.AsyncLocatorUtil;
 import dev.amble.ait.core.util.WorldUtil;
@@ -50,7 +51,11 @@ public class DimensionControl extends Control {
 
             return dims.get(index);
         }).thenAccept(destWorld -> {
-            travel.forceDestination(cached -> cached.world(destWorld));
+            travel.destination(cached -> {
+                CachedDirectedGlobalPos cachedPos = cached.world(destWorld);
+                BlockPos clampedPos = PosType.clamp(cachedPos.getPos(), 0, destWorld);
+                return cachedPos.pos(clampedPos);
+            });
             messagePlayer(player, destWorld, LockedDimensionRegistry.getInstance().isUnlocked(tardis, destWorld));
         });
 

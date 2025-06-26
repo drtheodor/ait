@@ -792,6 +792,10 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("text.autoconfig.aitconfig.option.SERVER.SEND_BULK", "Send Bulk");
         provider.addTranslation("text.autoconfig.aitconfig.option.SERVER.MAX_TARDISES", "Max TARDISES (-1 = Infinite)");
         provider.addTranslation("text.autoconfig.aitconfig.option.SERVER.TNT_CAN_TELEPORT_THROUGH_DOOR", "Tnt Can Teleport Through Doors");
+        provider.addTranslation("yacl3.config.ait:server.hypercubesEnabled", "Enable Hypercubes?");
+        provider.addTranslation("yacl3.config.ait:server.travelPerTick", "Travel Per Tick");
+        provider.addTranslation("yacl3.config.ait:server.sendBulk", "Send Bulk?");
+        provider.addTranslation("yacl3.config.ait:server.maxTardises", "Max Amount Of Tardises");
 
         provider.addTranslation("text.autoconfig.aitconfig.category.client", "Client");
         provider.addTranslation("text.autoconfig.aitconfig.option.CLIENT.SHOW_EXPERIMENTAL_WARNING", "Show Experimental Warning");

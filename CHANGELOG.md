@@ -6,3 +6,8 @@
 - fix: textures for some dev exteriors not appearing | by [@Mansarde](https://github.com/Mansarde) ([#1630](https://github.com/amblelabs/ait/pull/1630))
 - fix: missing translation for the tardis fire griefing game rule | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1651](https://github.com/amblelabs/ait/pull/1651))
 - chore: added forge version to bug report list | by [@Addi3](https://github.com/Addi3), [@duzos](https://github.com/duzos) ([#1654](https://github.com/amblelabs/ait/pull/1654))
+- fix: missing translations for ait-config | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1659](https://github.com/amblelabs/ait/pull/1659))
+- fix: Sonic's locator function crashed the game when the linked TARDIS didn't exist anymore. | by [@Mansarde](https://github.com/Mansarde) ([#1639](https://github.com/amblelabs/ait/pull/1639))
+- fix: Sonic's locator incorrectly showed the player's dimension instead the TARDIS' one. | by [@Mansarde](https://github.com/Mansarde) ([#1639](https://github.com/amblelabs/ait/pull/1639))
+- fix: The dimension control can no longer be used to land outside the valid Y range or outside the worldborder. | by [@Mansarde](https://github.com/Mansarde) ([#1646](https://github.com/amblelabs/ait/pull/1646))
+- fix: rifts now render when BOTI is off. | by [@Loqor](https://github.com/Loqor) ([#1666](https://github.com/amblelabs/ait/pull/1666))

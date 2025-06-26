@@ -142,7 +142,7 @@ public class TardisDoorBOTI extends BOTI {
                 }
 
                 boolean power = tardis.fuel().hasPower();
-                boolean alarm = tardis.alarm().enabled().get();
+                boolean alarm = tardis.alarm().isEnabled();
 
                 float red = power ? s : 0;
                 float green = power ? alarm ? 0.3f : t : 0;
