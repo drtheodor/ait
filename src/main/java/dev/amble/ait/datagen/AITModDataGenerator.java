@@ -117,6 +117,30 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
                     .input('C', AITItems.CORAL_FRAGMENT)
                     .criterion(hasItem(AITItems.CORAL_FRAGMENT), conditionsFromItem(AITItems.CORAL_FRAGMENT)));
 
+            provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, AITBlocks.TARDIS_CORAL_BLOCK, 1)
+                    .pattern("##")
+                    .pattern("##")
+                    .input('#', AITItems.CORAL_FRAGMENT)
+                    .criterion(hasItem(AITItems.CORAL_FRAGMENT), conditionsFromItem(AITItems.CORAL_FRAGMENT)));
+
+            provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, AITBlocks.TARDIS_CORAL_SLAB, 6)
+                    .pattern("###")
+                    .input('#', AITBlocks.TARDIS_CORAL_BLOCK)
+                    .criterion(hasItem(AITBlocks.TARDIS_CORAL_BLOCK), conditionsFromItem(AITBlocks.TARDIS_CORAL_BLOCK)));
+
+            provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, AITBlocks.TARDIS_CORAL_STAIRS, 4)
+                    .pattern("#  ")
+                    .pattern("## ")
+                    .pattern("###")
+                    .input('#', AITBlocks.TARDIS_CORAL_BLOCK)
+                    .criterion(hasItem(AITBlocks.TARDIS_CORAL_BLOCK), conditionsFromItem(AITBlocks.TARDIS_CORAL_BLOCK)));
+            provider.addShapedRecipe(ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, AITBlocks.TARDIS_CORAL_FAN, 3)
+                    .pattern(" # ")
+                    .pattern("###")
+                    .pattern(" # ")
+                    .input('#', AITItems.CORAL_FRAGMENT)
+                    .criterion(hasItem(AITItems.CORAL_FRAGMENT), conditionsFromItem(AITItems.CORAL_FRAGMENT)));
+
             provider.addBlastFurnaceRecipe(CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(AITItems.ZEITON_SHARD),
                             RecipeCategory.MISC, AITItems.SUPERHEATED_ZEITON, 0.2f, 500)
                     .criterion(hasItem(AITItems.ZEITON_SHARD), conditionsFromItem(AITItems.ZEITON_SHARD)),
