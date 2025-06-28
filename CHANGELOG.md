@@ -15,3 +15,4 @@
 - Re-ballanced fabricator villager trades | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1676](https://github.com/amblelabs/ait/pull/1676))
 - feat: tardis coral decor blocks and crafting | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1679](https://github.com/amblelabs/ait/pull/1679))
 - Removed dupe layer from files | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1681](https://github.com/amblelabs/ait/pull/1681))
+- Made protocol names way more clear. | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1647](https://github.com/amblelabs/ait/pull/1647))
