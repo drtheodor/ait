@@ -1,6 +1,8 @@
 package dev.amble.ait.client.renderers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.util.TardisUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -33,6 +35,7 @@ import dev.amble.ait.core.world.TardisServerWorld;
 
 public class SonicRendering {
     private static final Identifier SELECTED = AITMod.id("textures/marker/landing.png");
+    public static final Identifier SELECTED_RED = AITMod.id("textures/marker/landing_red.png");
 
     private final MinecraftClient client;
     private final Profiler profiler;
@@ -129,6 +132,16 @@ public class SonicRendering {
         BlockState state = client.world.getBlockState(targetPos.down());
         if (state.isAir()) {
             profiler.pop();
+            return;
+        }
+
+
+        Tardis tardis = SonicItem.getTardisStatic(client.world, client.player.getMainHandStack());
+        double distance = TardisUtil.distanceFromTardis(client.player, tardis);
+        boolean hasEnoughFuel = tardis.fuel().getCurrentFuel() > TardisUtil.estimatedFuelCost(client.player, tardis, distance);
+
+        if(!hasEnoughFuel) {
+            renderFloorTexture(targetPos, SELECTED_RED, null, false);
             return;
         }
 

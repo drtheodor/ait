@@ -1118,6 +1118,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("screen.ait.sonic_casing", "Sonic Casing");
         provider.addTranslation("sonic.ait.mode.tardis.location_summon", "Summoned TARDIS To Your Location, Please Wait...");
         provider.addTranslation("sonic.ait.mode.tardis.is_not_in_range",  "TARDIS is out of range!");
+        provider.addTranslation("sonic.ait.mode.tardis.insufficient_fuel",  "TARDIS doesn't have enough fuel!");
         provider.addTranslation("sonic.ait.mode.tardis.does_not_have_stabilisers",  "Remote Summoning Requires Stabilisers!");
         provider.addTranslation("sonic.ait.mode.tardis.refuel", "Engaged Handbrake, TARDIS Refueling...");
         provider.addTranslation("sonic.ait.mode.tardis.flight", "Disengaged Handbrake, TARDIS Dematerialising...");

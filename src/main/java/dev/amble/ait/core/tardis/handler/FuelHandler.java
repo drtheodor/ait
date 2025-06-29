@@ -161,12 +161,20 @@ public class FuelHandler extends KeyedTardisComponent implements ArtronHolder, T
         this.removeFuel(20 * 5 * tardis.travel().instability());
     }
 
+    public static double getPerTickFuelCost(double speed, double instability) {
+        return 20 * Math.pow(4, speed) * instability;
+    }
+
+    public static double getPerTickFuelCost(TravelHandler travel){
+        return getPerTickFuelCost(Math.max(travel.speed(), 1), travel.instability());
+    }
+
     private void tickFlight() {
         if (tardis.isGrowth())
             return;
 
         TravelHandler travel = this.tardis.travel();
-        this.removeFuel(20 * (4 ^ (Math.max(travel.speed(), 1))) * travel.instability());
+        this.removeFuel(FuelHandler.getPerTickFuelCost(travel));
 
         if (!tardis.fuel().hasPower())
             travel.crash();
