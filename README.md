@@ -163,3 +163,17 @@ We also have some extra compatibility but for this you would have to install a s
 
 <div style="text-align: center; font-size: 1.5em; margin-top: 1em; white-space: nowrap;">
   <a href="https://amblelabs.github.io/ait-wiki/" style="text-decoration: none; color: inherit; display: inline-block; margin: 0 8px;">Wiki</a>
+  <span style="display: inline-block; margin: 0 4px;">•</span>
+  <a href="https://github.com/amblelabs/ait/" style="text-decoration: none; color: inherit; display: inline-block; margin: 0 8px;">GitHub</a>
+  <span style="display: inline-block; margin: 0 4px;">•</span>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/adventures-in-time" style="text-decoration: none; color: inherit; display: inline-block; margin: 0 8px;">CurseForge</a>
+  <span style="display: inline-block; margin: 0 4px;">•</span>
+  <a href="https://modrinth.com/mod/ait" style="text-decoration: none; color: inherit; display: inline-block; margin: 0 8px;">Modrinth</a>
+  <span style="display: inline-block; margin: 0 4px;">•</span>
+  <a href="https://discord.com/invite/WjKhRjavCj" style="text-decoration: none; color: inherit; display: inline-block; margin: 0 8px;">Discord</a>
+</div>
+
+&nbsp;
+
+![Join our Minecraft Server!](https://cdn.modrinth.com/data/cached_images/2c9f228e916187fcc47e6ad92e09ab9ad52c1949.png)
+
