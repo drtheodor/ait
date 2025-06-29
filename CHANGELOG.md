@@ -18,3 +18,4 @@
 - Made protocol names way more clear. | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1647](https://github.com/amblelabs/ait/pull/1647))
 - add attack eyebrow advancement reference | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1649](https://github.com/amblelabs/ait/pull/1649))
 - indicate sufficient fuel levels on tardis mode for sonic screwdriver | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1668](https://github.com/amblelabs/ait/pull/1668))
+- chore: add BETA to version dropdown | by [@Mansarde](https://github.com/Mansarde) ([#1635](https://github.com/amblelabs/ait/pull/1635))
