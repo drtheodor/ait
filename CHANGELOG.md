@@ -21,3 +21,4 @@
 - chore: add BETA to version dropdown | by [@Mansarde](https://github.com/Mansarde) ([#1635](https://github.com/amblelabs/ait/pull/1635))
 - fix: Randomizer now chooses coordinates relative to the TARDIS' position | by [@Mansarde](https://github.com/Mansarde) ([#1694](https://github.com/amblelabs/ait/pull/1694))
 - fix/redstone-console/exterior-emitting | by [@MaketendoDev](https://github.com/MaketendoDev) ([#1696](https://github.com/amblelabs/ait/pull/1696))
+- fix: console monitors (with a visible display) now show the same info and travel progress as the CRT monitor. | by [@Mansarde](https://github.com/Mansarde) ([#1697](https://github.com/amblelabs/ait/pull/1697))
