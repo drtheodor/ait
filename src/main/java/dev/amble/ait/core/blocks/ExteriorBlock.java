@@ -125,7 +125,19 @@ public class ExteriorBlock extends Block implements BlockEntityProvider, ICantBr
 
     @Override
     public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
-        return 15;
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof ExteriorBlockEntity exterior && exterior.isLinked()) {
+            Tardis tardis = exterior.tardis().get();
+            if (tardis != null && tardis.fuel().hasPower()) {
+                return 15;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return getWeakRedstonePower(state, world, pos, direction);
     }
 
     @Override
