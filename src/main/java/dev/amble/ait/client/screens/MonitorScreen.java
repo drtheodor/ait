@@ -42,6 +42,7 @@ import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorCategorySchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.data.schema.exterior.category.ClassicCategory;
+import dev.amble.ait.data.schema.exterior.category.ExclusiveCategory;
 import dev.amble.ait.data.schema.exterior.category.PoliceBoxCategory;
 import dev.amble.ait.registry.impl.CategoryRegistry;
 import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
@@ -194,11 +195,9 @@ public class MonitorScreen extends ConsoleScreen {
         else
             setCategory(previousCategory());
 
-        if (CategoryRegistry.CORAL_GROWTH.equals(this.category)
-                || (!("ad504e7c-22a0-4b3f-94e3-5b6ad5514cb6".equalsIgnoreCase(player.getUuidAsString()))
-                        && CategoryRegistry.DOOM.equals(this.category))) {
+        if ((this.category instanceof ExclusiveCategory && ExclusiveCategory.isUnlocked(player.getUuid()))
+                || CategoryRegistry.CORAL_GROWTH.equals(this.category))
             changeCategory(direction);
-        }
     }
 
     public ExteriorCategorySchema nextCategory() {
@@ -218,6 +217,11 @@ public class MonitorScreen extends ConsoleScreen {
     }
 
     public void whichDirectionVariant(boolean direction) {
+        PlayerEntity player = MinecraftClient.getInstance().player;
+
+        if (player == null)
+            return;
+
         if (direction)
             setCurrentVariant(nextVariant());
         else
@@ -351,9 +355,11 @@ public class MonitorScreen extends ConsoleScreen {
         boolean isPoliceBox = category.equals(CategoryRegistry.getInstance().get(PoliceBoxCategory.REFERENCE))
                 || category.equals(CategoryRegistry.getInstance().get(ClassicCategory.REFERENCE));
 
+        boolean isHorriblyUnscaled = variant.equals(ClientExteriorVariantRegistry.DOOM);
+
         boolean isExtUnlocked = tardis.isUnlocked(variant.parent());
         boolean hasPower = tardis.fuel().hasPower();
-        boolean alarms = tardis.alarm().enabled().get();
+        boolean alarms = tardis.alarm().isEnabled();
 
         stack.push();
         stack.translate(0, 0, 500f);
@@ -383,9 +389,11 @@ public class MonitorScreen extends ConsoleScreen {
          */
 
         stack.push();
-        stack.translate(x, isPoliceBox ? y + 11 : y, 100f);
+        stack.translate(x, isPoliceBox || isHorriblyUnscaled ? y + 11 : y, 100f);
 
         if (isPoliceBox) {
+            stack.scale(-12, 12, 12);
+        } else if (isHorriblyUnscaled) {
             stack.scale(-12, 12, 12);
         } else {
             stack.scale(-scale, scale, scale);

@@ -21,7 +21,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -208,6 +207,10 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
 
     private ExteriorBlockEntity placeExterior(CachedDirectedGlobalPos globalPos, boolean animate, boolean schedule) {
         ServerWorld world = globalPos.getWorld();
+        if (world == null) {
+            AITMod.LOGGER.error("Failed to place exterior: world is null for position {}", globalPos);
+            return null;
+        } // This should be fine for now
         BlockPos pos = globalPos.getPos();
 
         boolean hasPower = this.tardis.fuel().hasPower();

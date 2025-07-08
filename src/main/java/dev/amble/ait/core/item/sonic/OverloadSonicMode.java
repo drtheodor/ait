@@ -165,6 +165,10 @@ public class OverloadSonicMode extends SonicMode {
             world.removeBlock(pos, false);
             world.emitGameEvent(user, GameEvent.BLOCK_DESTROY, pos);
         }
+        else if (state.getBlock() instanceof AbstractCandleBlock) {
+            world.setBlockState(pos, state.with(AbstractCandleBlock.LIT, true), Block.NOTIFY_ALL);
+            world.emitGameEvent(user, GameEvent.BLOCK_CHANGE, pos);
+        }
         else if (state.isOf(Blocks.OBSIDIAN)) {
             BlockPos blockPos2 = pos.offset(blockHit.getSide());
             if (AbstractFireBlock.canPlaceAt(world, blockPos2, user.getHorizontalFacing())) {

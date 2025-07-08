@@ -1,4 +1,4 @@
-package dev.amble.ait.data.schema.door.impl;
+package dev.amble.ait.data.schema.door.impl.exclusive;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;

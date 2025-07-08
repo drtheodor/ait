@@ -45,7 +45,7 @@ public class SelfDestructHandler extends KeyedTardisComponent implements TardisT
             return;
 
         this.queued.set(true);
-        this.tardis.alarm().enabled().set(true);
+        this.tardis.alarm().enable();
     }
 
     private void complete() {
@@ -95,7 +95,7 @@ public class SelfDestructHandler extends KeyedTardisComponent implements TardisT
         if (!this.canSelfDestruct()) {
             this.queued.set(false);
 
-            tardis.alarm().enabled().set(false);
+            tardis.alarm().disable();
             return;
         }
 

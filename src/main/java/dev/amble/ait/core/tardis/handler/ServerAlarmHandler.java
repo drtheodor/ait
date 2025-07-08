@@ -130,7 +130,7 @@ public class ServerAlarmHandler extends KeyedTardisComponent implements TardisTi
                 if (entity instanceof TntEntity || (entity instanceof HostileEntity && !entity.hasCustomName())
                         || entity instanceof ServerPlayerEntity player
                         && tardis.loyalty().get(player).level() == Loyalty.Type.REJECT.level) {
-                    tardis.alarm().enabled().set(true);
+                    tardis.alarm().enable();
                 }
             }
 
