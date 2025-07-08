@@ -693,7 +693,7 @@
   "tardis.loyalty.message.owner": "A Tardis canta uma canção para você, como se mostrasse que sempre estará ao seu lado. [DONO]",
   "tardis.loyalty.message.pilot": "A Tardis zune suavemente, demonstrando confiança. [PILOTO]",
   "tardis.loyalty.message.reject": "Você ouve sussurros ao seu redor, você não é bem-vindo. [REJEITADO]",
-  "tardis.message.alarm.crashing": "Alerta do Sistema: A Tardis está passando por uma falha crítica.",
+  "tardis.message.alarm.crashing": "Alerta do Sistema: A Tardis está passando por uma falha crítica",
   "tardis.message.console.has_sonic_in_port": "Não é possível armazenar console com sônico na porta",
   "tardis.message.control.antigravs.active": "Antigravidade: Ativada",
   "tardis.message.control.antigravs.inactive": "Antigravidade: Desativada",
