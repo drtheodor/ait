@@ -664,7 +664,7 @@
   "sonic.ait.mode.inactive": "INATIVO",
   "sonic.ait.mode.interaction": "INTERAÇÃO",
   "sonic.ait.mode.overload": "SOBRECARGA",
-  "sonic.ait.mode.scanning": "ESCANEANDO",
+  "sonic.ait.mode.scanning": "ESCANEAMENTO",
   "sonic.ait.mode.tardis": "TARDIS",
   "sonic.ait.mode.tardis.does_not_have_stabilisers": "Invocação Remota Requer Estabilizadores!",
   "sonic.ait.mode.tardis.flight": "Freio de Mão Desengatado, A TARDIS está Desmaterializando...",
