@@ -165,7 +165,7 @@ public class FuelHandler extends KeyedTardisComponent implements ArtronHolder, T
         return speed + instability - 1;
     }
 
-    public static double getPerTickFuelCost(TravelHandler travel){
+    public static double getPerTickFuelCost(TravelHandler travel) {
         return getPerTickFuelCost(Math.max(travel.speed(), 1), travel.instability());
     }
 
