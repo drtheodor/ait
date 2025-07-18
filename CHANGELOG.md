@@ -1,0 +1,2 @@
+- fix: hammer now boosts travel speed again | by [@DrTheodor](https://github.com/DrTheodor) ([#1706](https://github.com/amblelabs/ait/pull/1706))
+- fix: flying on max speed doesn't drain your tardis to 0 artron | by [@DrTheodor](https://github.com/DrTheodor) ([#1706](https://github.com/amblelabs/ait/pull/1706))
