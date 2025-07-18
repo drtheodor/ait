@@ -136,6 +136,7 @@ public class SonicRendering {
         }
 
         Tardis tardis = SonicItem.getTardisStatic(client.world, client.player.getMainHandStack());
+
         if (tardis == null) {
             profiler.pop();
             return;
