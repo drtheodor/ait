@@ -1,5 +1,7 @@
 package dev.amble.ait.module.planet;
 
+import static net.minecraft.data.server.recipe.RecipeProvider.*;
+
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -47,8 +49,6 @@ import dev.amble.ait.module.planet.core.PlanetBlocks;
 import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.space.planet.PlanetRegistry;
 import dev.amble.ait.module.planet.core.util.PlanetCustomTrades;
-
-import static net.minecraft.data.server.recipe.RecipeProvider.*;
 
 public class PlanetModule extends Module {
     private static final PlanetModule INSTANCE = new PlanetModule();

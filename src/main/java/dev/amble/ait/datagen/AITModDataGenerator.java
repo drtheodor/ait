@@ -24,6 +24,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.AITBlocks;
@@ -39,7 +40,6 @@ import dev.amble.ait.module.planet.core.PlanetBlocks;
 import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.world.PlanetConfiguredFeatures;
 import dev.amble.ait.module.planet.core.world.PlanetPlacedFeatures;
-import net.minecraft.util.Identifier;
 
 public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
