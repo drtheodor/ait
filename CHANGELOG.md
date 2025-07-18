@@ -1,1 +1,2 @@
 - add: safeguard circumvention option | by [@DrTheodor](https://github.com/DrTheodor) ([#1686](https://github.com/amblelabs/ait/pull/1686))
+- + fix anorthosite stonecutting | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1718](https://github.com/amblelabs/ait/pull/1718))
