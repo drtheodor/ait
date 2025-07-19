@@ -76,18 +76,18 @@ public class ConsoleGeneratorRenderer<T extends ConsoleGeneratorBlockEntity> imp
             Matrix4f matrix4f = matrices.peek().getPositionMatrix();
 
             textRenderer.draw(text, h + 0.35f, 0.0F, 0xFFFFFFFF, false, matrix4f, vertexConsumers,
-                    TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 0xf000f0);
+                    TextRenderer.TextLayerType.NORMAL, 0x000000, 0xf000f0);
             matrices.push();
             matrices.scale(0.2f, 0.2f, 0.2f);
             Matrix4f matrixcf = matrices.peek().getPositionMatrix();
             textRenderer.draw(type, l - 0.35f, 42.5F, ColorHelper.Argb.getArgb(1, 0, 175, 235), false, matrixcf, vertexConsumers,
-                    TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 0xf000f0);
+                    TextRenderer.TextLayerType.NORMAL, 0x000000, 0xf000f0);
             matrices.pop();
             matrices.push();
             matrices.scale(0.2f, 0.2f, 0.2f);
             Matrix4f matrixdf = matrices.peek().getPositionMatrix();
             textRenderer.draw(requirement, p - 0.35f, 55F, ColorHelper.Argb.getArgb(1, 255, 205, 0), false, matrixdf, vertexConsumers,
-                    TextRenderer.TextLayerType.SEE_THROUGH, 0x000000, 0xf000f0);
+                    TextRenderer.TextLayerType.NORMAL, 0x000000, 0xf000f0);
             matrices.pop();
             matrices.pop();
         }
