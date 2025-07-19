@@ -128,6 +128,12 @@ public class SonicRendering {
             profiler.pop();
             return;
         }
+
+        if (client.player == null || client.world == null) {
+            profiler.pop();
+            return;
+        }
+
         BlockPos targetPos = crosshair.getBlockPos();
         BlockState state = client.world.getBlockState(targetPos.down());
         if (state.isAir()) {
@@ -135,7 +141,7 @@ public class SonicRendering {
             return;
         }
 
-        Tardis tardis = SonicItem.getTardisStatic(client.world, client.player.getMainHandStack());
+        Tardis tardis = SonicItem.getTardisStatic(client.world, getSonicStack(client.player));
 
         if (tardis == null) {
             profiler.pop();
