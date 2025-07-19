@@ -209,7 +209,7 @@ public class SonicRendering {
         Text text = Text.empty();
 
         if (system instanceof DurableSubSystem) {
-            text = Text.literal((Math.round(((DurableSubSystem) be.system()).durability())) + " / 1250");
+            text = Text.literal((Math.round(((DurableSubSystem) be.system()).durability())) + " / " + DurableSubSystem.MAX_DURABILITY);
         }
         if (!system.isEnabled() && !(system instanceof EngineSystem)) {
             text = Text.translatable("tardis.message.subsystem.requires_link");
