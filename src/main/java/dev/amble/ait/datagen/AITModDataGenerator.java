@@ -971,6 +971,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("console.ait.alnico", "Alnico");
         provider.addTranslation("console.ait.steam_steel", "Steel Steam");
         provider.addTranslation("console.ait.toyota", "Toyota");
+        provider.addTranslation("console.ait.hartnell", "Hartnell");
         provider.addTranslation("console.ait.hartnell_wooden", "Wooden Hartnell");
         provider.addTranslation("console.ait.coral", "Coral");
         provider.addTranslation("console.ait.coral_blue", "Blue Coral");
@@ -989,6 +990,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("console.ait.steam_cherry", "Cherry Steam");
         provider.addTranslation("console.ait.renaissance_industrious", "Industrious Renaissance");
         provider.addTranslation("console.ait.hartnell_mint", "Mint Hartnell");
+        provider.addTranslation("console.ait.hartnell_mint_green_console", "Mint Green Hartnell");
+        provider.addTranslation("console.ait.exile", "Exile");
         provider.addTranslation("console.ait.crystalline_zeiton", "Zeiton Crystalline");
         provider.addTranslation("console.ait.steam_copper", "Copper Steam");
         provider.addTranslation("console.ait.toyota_blue", "Blue Toyota");
