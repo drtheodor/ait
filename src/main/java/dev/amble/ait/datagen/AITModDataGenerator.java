@@ -968,6 +968,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("sonic.ait.type_100", "Frontier");
 
         // Consoles
+        provider.addTranslation("console.ait.variant_label", "Console Type: ");
         provider.addTranslation("console.ait.alnico", "Alnico");
         provider.addTranslation("console.ait.steam_steel", "Steel Steam");
         provider.addTranslation("console.ait.toyota", "Toyota");
