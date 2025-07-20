@@ -16,9 +16,10 @@ public class DevTeam {
     public static final UUID ADDIE = UUID.fromString("ae93f403-bf4a-4fb9-89db-2826ae9a4508");
     public static final UUID JELLY = UUID.fromString("5a9bb737-ceb2-4d45-876c-b0e4531a811f"); // Not sure if he should get one - Loqor
     public static final UUID VENWHOVIAN = UUID.fromString("a77b585c-368d-4285-b536-42fd612a6e1e"); // Not sure if he should get one either - Loqor
+    public static final UUID MONKE = UUID.fromString("b8d4a6f0-93be-4e8a-b521-a1906a737c1a");
 
     public static final Set<UUID> PLAYERS = Set.of(
-            LOQOR, DUZO, OURO, CLASSIC, KRANG, ADDIE, JELLY, VENWHOVIAN
+            LOQOR, DUZO, OURO, CLASSIC, KRANG, ADDIE, JELLY, VENWHOVIAN, MONKE
     );
 
     public static boolean isDev(UUID uuid) {
