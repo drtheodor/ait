@@ -23,7 +23,7 @@ public class DevTeam {
 
     // junior devs not sure about these ones
     public static final UUID CROW = UUID.fromString("d6ec02fa-f335-47cb-8081-80270bd5f5ab"); // crow
-    public static final UUID K_KING = UUID.fromString("73df41fb-7ffb-417e-beab-f9589aaffe74"); // crow
+    public static final UUID K_KING = UUID.fromString("73df41fb-7ffb-417e-beab-f9589aaffe74"); // K_king
 
 
     public static final Set<UUID> PLAYERS = Set.of(
