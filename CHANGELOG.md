@@ -2,3 +2,5 @@
 - + fix anorthosite stonecutting | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1718](https://github.com/amblelabs/ait/pull/1718))
 - update bug report version drop down to 1.2.9 | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1721](https://github.com/amblelabs/ait/pull/1721))
 - fix: holographic text of console generator was clipped by entities behind the console | by [@Mansarde](https://github.com/Mansarde) ([#1722](https://github.com/amblelabs/ait/pull/1722))
+- add: Console Generator now shows selected variant name for unlocked consoles as well. | by [@Mansarde](https://github.com/Mansarde) ([#1723](https://github.com/amblelabs/ait/pull/1723))
+- fix: missing console variant translatables | by [@Mansarde](https://github.com/Mansarde) ([#1723](https://github.com/amblelabs/ait/pull/1723))
