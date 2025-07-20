@@ -1,5 +1,9 @@
 package dev.amble.ait.module.planet.mixin.gravity;
 
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.world.TardisServerWorld;
+import dev.amble.ait.data.Loyalty;
+import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -131,9 +135,24 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
     private void ait$handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        Planet planet = PlanetRegistry.getInstance().get(this.getWorld());
+        World world = this.getWorld();
+        Planet planet = PlanetRegistry.getInstance().get(world);
 
         if (planet != null && planet.hasNoFallDamage())
             cir.setReturnValue(false);
+
+        // Prevent fall damage in TARDIS for loyalty OWNER (and working life support)
+        if (!(world instanceof ClientWorld)
+                && TardisServerWorld.isTardisDimension(world)) {
+
+            Tardis tardis = ((TardisServerWorld) world).getTardis();
+            boolean hasLifeSupport = tardis.subsystems().lifeSupport().isUsable();
+            LivingEntity entity = (LivingEntity)(Object) this;
+
+            if (hasLifeSupport
+                    && entity instanceof PlayerEntity player
+                    && tardis.loyalty().get(player).isOf(Loyalty.Type.OWNER))
+                cir.setReturnValue(false);
+        }
     }
 }
