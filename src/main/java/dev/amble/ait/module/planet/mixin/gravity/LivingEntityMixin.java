@@ -138,20 +138,21 @@ public abstract class LivingEntityMixin extends Entity {
         World world = this.getWorld();
         Planet planet = PlanetRegistry.getInstance().get(world);
 
-        if (planet != null && planet.hasNoFallDamage())
-            cir.setReturnValue(false);
+        if (planet != null) {
+            if (planet.hasNoFallDamage())
+                cir.setReturnValue(false);
+            return;
+        }
 
         // Prevent fall damage in TARDIS for loyalty OWNER (and working life support)
-        if (!(world instanceof ClientWorld)
-                && TardisServerWorld.isTardisDimension(world)) {
+        LivingEntity entity = (LivingEntity)(Object) this;
+        if (world instanceof TardisServerWorld tardisWorld
+                && entity instanceof PlayerEntity player) {
 
-            Tardis tardis = ((TardisServerWorld) world).getTardis();
+            Tardis tardis = tardisWorld.getTardis();
             boolean hasLifeSupport = tardis.subsystems().lifeSupport().isUsable();
-            LivingEntity entity = (LivingEntity)(Object) this;
 
-            if (hasLifeSupport
-                    && entity instanceof PlayerEntity player
-                    && tardis.loyalty().get(player).isOf(Loyalty.Type.OWNER))
+            if (hasLifeSupport && tardis.loyalty().get(player).isOf(Loyalty.Type.OWNER))
                 cir.setReturnValue(false);
         }
     }
