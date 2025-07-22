@@ -1,6 +1,13 @@
-/*
 package dev.amble.ait.data.schema.console.variant.hudolin.client;
 
+
+import dev.amble.ait.AITMod;
+import dev.amble.ait.client.models.consoles.ConsoleModel;
+import dev.amble.ait.client.models.consoles.HudolinConsoleModel;
+import dev.amble.ait.data.schema.console.ClientConsoleVariantSchema;
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinVariant;
+import net.minecraft.util.Identifier;
+import org.joml.Vector3f;
 
 public class ClientHudolinVariant extends ClientConsoleVariantSchema {
     public static final Identifier TEXTURE = new Identifier(AITMod.MOD_ID,
@@ -36,14 +43,14 @@ public class ClientHudolinVariant extends ClientConsoleVariantSchema {
     public float[] sonicItemRotations() {
         return new float[]{29f, 46.25f};
     }
-        @Override
-        public Vector3f handlesTranslations() {
-            return new Vector3f(-0.305f, 0.45f, -0.125f);
-        }
 
-        @Override
-        public float[] handlesRotations() {
-            return new float[]{29f, 46.25f};
-        }
+    @Override
+    public Vector3f handlesTranslations() {
+        return new Vector3f(-0.305f, 0.45f, -0.125f);
+    }
+
+    @Override
+    public float[] handlesRotations() {
+        return new float[]{29f, 46.25f};
+    }
 }
-*/

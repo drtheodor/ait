@@ -1,14 +1,35 @@
-/*
 package dev.amble.ait.data.schema.console.type;
 
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.tardis.control.ControlTypes;
+import dev.amble.ait.core.tardis.control.impl.*;
+import dev.amble.ait.core.tardis.control.impl.pos.IncrementControl;
+import dev.amble.ait.core.tardis.control.impl.pos.XControl;
+import dev.amble.ait.core.tardis.control.impl.pos.YControl;
+import dev.amble.ait.core.tardis.control.impl.pos.ZControl;
+import dev.amble.ait.core.tardis.control.impl.waypoint.MarkWaypointControl;
+import dev.amble.ait.core.tardis.control.impl.waypoint.SetWaypointControl;
+import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
+import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
+import dev.amble.ait.registry.impl.console.variant.ConsoleVariantRegistry;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.util.Identifier;
+import org.joml.Vector3f;
 
 public class HudolinType extends ConsoleTypeSchema {
     public static final Identifier REFERENCE = AITMod.id("console/hudolin");
     private static final ControlTypes[] TYPES = new ControlTypes[]{
             new ControlTypes(new HandBrakeControl(), EntityDimensions.changing(0.16249998f, 0.31249997f),
                     new Vector3f(-0.48203126061707735f, 0.48750004917383194f, 0.5136718945577741f)),
-            new ControlTypes(new ThrottleControl(), EntityDimensions.changing(0.15f, 0.18750001f),
-                    new Vector3f(0.5609371401369572f, 0.5000000968575478f, -0.6234378945082426f)),
+            new ControlTypes(new ThrottleControl(), EntityDimensions.changing(
+                    0.0625f,
+                    0.25f
+            ),
+                    new Vector3f(
+                            -0.710222f,
+                            0.468391f,
+                            0.130692f
+                    )),
             new ControlTypes(new AutoPilotControl(), EntityDimensions.changing(0.1375f, 0.1875f),
                     new Vector3f(0.5476560769602656f, 0.4624997144564986f, 0.5855467021465302f)),
             new ControlTypes(new FastReturnControl(), EntityDimensions.changing(0.18750001f, 0.15f),
@@ -85,4 +106,3 @@ public class HudolinType extends ConsoleTypeSchema {
         return ConsoleVariantRegistry.HUDOLIN;
     }
 }
-*/

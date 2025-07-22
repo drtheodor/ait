@@ -3,6 +3,7 @@ package dev.amble.ait.registry.impl.console.variant;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinVariant;
 import dev.amble.lib.register.unlockable.UnlockableRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -186,9 +187,9 @@ public class ConsoleVariantRegistry extends UnlockableRegistry<ConsoleVariantSch
         STEAM_COPPER = registerStatic(new SteamCopperVariant());
 
         // Hudolin variants
-   /*     HUDOLIN = registerStatic(new HudolinVariant());
-        HUDOLIN_NATURE = registerStatic(new HudolinNatureVariant());
-        HUDOLIN_SHALKA = registerStatic(new HudolinShalkaVariant());*/
+        HUDOLIN = registerStatic(new HudolinVariant());
+        //HUDOLIN_NATURE = registerStatic(new HudolinNatureVariant());
+        //HUDOLIN_SHALKA = registerStatic(new HudolinShalkaVariant());
 
         // Copper variants
         COPPER = registerStatic(new CopperVariant());
