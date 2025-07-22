@@ -64,7 +64,7 @@ public class EngineSystem extends DurableSubSystem {
 
     @Override
     protected int changeFrequency() {
-        return 1200; // drain 0.05 durability every minute
+        return 24000; // drain 0.05 durability every minute
     }
 
     @Override
