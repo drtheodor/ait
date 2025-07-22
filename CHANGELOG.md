@@ -5,3 +5,4 @@
 - add: Console Generator now shows selected variant name for unlocked consoles as well. | by [@Mansarde](https://github.com/Mansarde) ([#1723](https://github.com/amblelabs/ait/pull/1723))
 - fix: missing console variant translatables | by [@Mansarde](https://github.com/Mansarde) ([#1723](https://github.com/amblelabs/ait/pull/1723))
 - fix: monitor idle sound has gap in loop | by [@Mansarde](https://github.com/Mansarde) ([#1732](https://github.com/amblelabs/ait/pull/1732))
+- fix: the check for interior change did not include the increased fuel cost due to instability | by [@Mansarde](https://github.com/Mansarde) ([#1727](https://github.com/amblelabs/ait/pull/1727))
