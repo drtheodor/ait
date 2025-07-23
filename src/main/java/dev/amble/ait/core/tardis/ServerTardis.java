@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import com.google.gson.InstanceCreator;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
 
@@ -18,6 +19,8 @@ import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.schema.desktop.TardisDesktopSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
+
+import static dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase.State.LANDED;
 
 public class ServerTardis extends Tardis {
 
@@ -102,8 +105,8 @@ public class ServerTardis extends Tardis {
 
         TravelHandler travel = this.travel();
 
-        if (travel == null)
-            return false;
+        if (!travel.isLanded())
+            return true;
 
         return travel.position().getWorld().shouldTickEntity(travel.position().getPos());
     }
