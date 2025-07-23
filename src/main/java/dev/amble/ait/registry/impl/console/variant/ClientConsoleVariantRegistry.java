@@ -1,5 +1,6 @@
 package dev.amble.ait.registry.impl.console.variant;
 
+import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinNatureVariant;
 import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import org.joml.Vector3f;
@@ -201,7 +202,7 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
     public static ClientConsoleVariantSchema STEAM_PLAYPAL;
     public static ClientConsoleVariantSchema STEAM_COPPER;
     public static ClientConsoleVariantSchema HUDOLIN;
-   // public static ClientConsoleVariantSchema HUDOLIN_NATURE;
+    public static ClientConsoleVariantSchema HUDOLIN_NATURE;
    // public static ClientConsoleVariantSchema HUDOLIN_SHALKA;
     public static ClientConsoleVariantSchema COPPER;
     public static ClientConsoleVariantSchema CRYSTALLINE;
@@ -250,7 +251,7 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
         // Hudolin variants
         HUDOLIN = register(new ClientHudolinVariant());
         // HUDOLIN_SHALKA = register(new ClientHudolinShalkaVariant());
-        // HUDOLIN_NATURE = register(new ClientHudolinNatureVariant());
+        HUDOLIN_NATURE = register(new ClientHudolinNatureVariant());
 
         // Copper variants
         COPPER = register(new ClientCopperVariant());
