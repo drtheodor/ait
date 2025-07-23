@@ -65,7 +65,7 @@ public class ConsoleGeneratorRenderer<T extends ConsoleGeneratorBlockEntity> imp
         matrices.translate(0.5F, 2.75F, 0.5F);
         matrices.multiply(this.dispatcher.getRotation());
         matrices.scale(-0.1F, -0.1F, 0.1F);
-        
+
         Text type = Text.translatable("console.ait.variant_label").append(entity.getConsoleVariant().text());
         TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
         float l = (float) (-textRenderer.getWidth(type) / 2);

@@ -1,9 +1,5 @@
 package dev.amble.ait.module.planet.mixin.gravity;
 
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.world.TardisServerWorld;
-import dev.amble.ait.data.Loyalty;
-import net.minecraft.client.world.ClientWorld;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,6 +20,9 @@ import net.minecraft.world.World;
 import dev.amble.ait.core.AITDimensions;
 import dev.amble.ait.core.AITStatusEffects;
 import dev.amble.ait.core.entities.FlightTardisEntity;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.world.TardisServerWorld;
+import dev.amble.ait.data.Loyalty;
 import dev.amble.ait.module.planet.core.space.planet.Planet;
 import dev.amble.ait.module.planet.core.space.planet.PlanetRegistry;
 import dev.amble.ait.module.planet.core.util.ISpaceImmune;
