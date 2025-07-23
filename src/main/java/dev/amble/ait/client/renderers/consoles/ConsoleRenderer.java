@@ -19,7 +19,6 @@ import dev.amble.ait.client.models.consoles.HartnellConsoleModel;
 import dev.amble.ait.client.models.items.HandlesModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.client.util.ClientLightUtil;
 import dev.amble.ait.compat.DependencyChecker;
 import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
 import dev.amble.ait.core.item.HandlesItem;
@@ -115,6 +114,16 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
 
+        if (hasPower) {
+            profiler.swap("emission"); // emission {
+
+            if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
+                model.renderWithAnimations(entity, tardis, model.getPart(),
+                        matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), 0xF000F0, overlay,
+                        1, 1, 1, 1);
+            }
+        }
+
         profiler.swap("animate");
         model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
 
@@ -128,16 +137,6 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         matrices.push();
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
-
-        if (hasPower) {
-            profiler.swap("emission"); // emission {
-
-            if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
-                ClientLightUtil.renderEmissive((vertices, l) -> model.renderWithAnimations(
-                        entity, tardis, model.getPart(), matrices, vertices, l, overlay, 1, 1, 1,
-                        1), variant.emission(), vertexConsumers);
-            }
-        }
 
         matrices.pop();
 

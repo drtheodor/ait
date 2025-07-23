@@ -8,7 +8,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.util.Identifier;
 
 import dev.amble.ait.client.renderers.AITRenderLayers;
-import dev.amble.ait.compat.DependencyChecker;
 
 public class ClientLightUtil {
 
@@ -29,9 +28,7 @@ public class ClientLightUtil {
         if (emissive == null)
             return;
 
-        RenderLayer layer = DependencyChecker.hasIris()
-                ? AITRenderLayers.tardisEmissiveCullZOffset(emissive, true)
-                : AITRenderLayers.getText(emissive);
+        RenderLayer layer = AITRenderLayers.tardisEmissiveCullZOffset(emissive, true);
 
         ClientLightUtil.render(renderable, layer, vertices);
     }
