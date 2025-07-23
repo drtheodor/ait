@@ -100,13 +100,15 @@ public class ServerTardis extends Tardis {
     }
 
     public boolean shouldTick() {
-        if (!travel().isLanded())
-            return true;
-
         if (!MultiDim.get(ServerLifecycleHooks.get()).isWorldUnloaded(world))
             return true;
 
-        return travel().position().getWorld().shouldTickEntity(travel().position().getPos());
+        TravelHandler travel = this.travel();
+
+        if (!travel.isLanded())
+            return true;
+
+        return travel.position().getWorld().shouldTickEntity(travel.position().getPos());
     }
 
     public static Object creator() {
