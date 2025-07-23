@@ -1,7 +1,5 @@
 package dev.amble.ait.registry.impl.console.variant;
 
-import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinNatureVariant;
-import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import org.joml.Vector3f;
 
@@ -24,6 +22,8 @@ import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientHartnellV
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientKeltHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientMintHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientWoodenHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinNatureVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinVariant;
 import dev.amble.ait.data.schema.console.variant.renaissance.client.*;
 import dev.amble.ait.data.schema.console.variant.steam.client.*;
 import dev.amble.ait.data.schema.console.variant.toyota.client.ClientToyotaBlueVariant;
