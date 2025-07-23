@@ -1,5 +1,6 @@
 package dev.amble.ait.client.models.consoles;
 
+import dev.amble.ait.core.tardis.control.impl.pos.IncrementManager;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.animation.Animation;
@@ -1670,25 +1671,21 @@ public class HudolinConsoleModel extends ConsoleModel {
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(180f));
 
         // Throttle Control
-//		ModelPart throttle = this.console.getChild("panel4").getChild("controls4").getChild("throttle");
-//		ModelPart throttleLights = this.console.getChild("panel4").getChild("flightlights").getChild("flightlights2");
-//
-//		throttle.pitch = throttle.pitch + ((tardis.travel().speed() / (float) tardis.travel().maxSpeed().get()) * 1.5f);
+		ModelPart throttle = this.console.getChild("pannel3").getChild("dematlever");
+		throttle.roll = throttle.roll - ((tardis.travel().speed() / (float) tardis.travel().maxSpeed().get()) * 1.5f);
 //		throttleLights.pivotY = !(tardis.travel().speed() > 0) ? throttleLights.pivotY + 1 : throttleLights.pivotY;
 //
-//		// Handbrake Control and Lights
-//		ModelPart handbrake = this.console.getChild("panel4").getChild("controls4").getChild("handbrake")
-//				.getChild("pivot");
-//		handbrake.yaw = !tardis.travel().handbrake() ? handbrake.yaw - 1.57f : handbrake.yaw;
+		// Handbrake Control and Lights
+		ModelPart handbrake = this.console.getChild("fix6");
+		handbrake.pitch = !tardis.travel().handbrake() ? handbrake.pitch + 1.2f : handbrake.pitch;
 //		ModelPart handbrakeLights = this.console.getChild("panel4").getChild("flightlights").getChild("handbrakelights")
 //				.getChild("handbrakelights2");
 //
 //		handbrakeLights.pivotY = !tardis.travel().handbrake() ? handbrakeLights.pivotY + 1 : handbrakeLights.pivotY;
 //
-//		// @TODO MONSTER THE ONE ON THE LEFT IS THE POWER NOT THE RIGHT SMH
 //		// Power Switch and Lights
-//		ModelPart power = this.console.getChild("panel1").getChild("controls").getChild("dooropen");
-//		power.pitch = tardis.fuel().hasPower() ? power.pitch : power.pitch - 1.55f;
+		ModelPart power = this.console.getChild("pannel4").getChild("spin2").getChild("bone2");
+		power.yaw = tardis.fuel().hasPower() ? power.yaw : power.yaw - 1.55f;
 //
 //		// Anti Gravity Control
 //		ModelPart antigravs = this.console.getChild("panel1").getChild("controls").getChild("faucettaps1")
@@ -1706,10 +1703,10 @@ public class HudolinConsoleModel extends ConsoleModel {
 //		doorlock.yaw = tardis.door().locked() ? doorlock.yaw + 0.5f : doorlock.yaw;
 //
 //		// Door Control
-//		ModelPart doorControl = this.console.getChild("panel1").getChild("controls").getChild("power");
-//		doorControl.pitch = tardis.door().isLeftOpen()
-//				? doorControl.pitch - 1f
-//				: tardis.door().isRightOpen() ? doorControl.pitch - 1.55f : doorControl.pitch;
+		ModelPart doorControl = this.console.getChild("panel1").getChild("controls").getChild("power");
+		doorControl.pitch = tardis.door().isLeftOpen()
+				? doorControl.pitch - 1f
+				: tardis.door().isRightOpen() ? doorControl.pitch - 1.55f : doorControl.pitch;
 //		ModelPart doorControlLights = this.console.getChild("panel1").getChild("controls").getChild("powerlights")
 //				.getChild("powerlights2");
 //		doorControlLights.pivotY = !(tardis.door().isOpen()) ? doorControlLights.pivotY : doorControlLights.pivotY + 1;
@@ -1754,22 +1751,31 @@ public class HudolinConsoleModel extends ConsoleModel {
 //				? groundSearch.pitch + 1f
 //				: groundSearch.pitch - 0.75f; // FIXME use TravelHandler#horizontalSearch/#verticalSearch
 //
-//		// Direction Control
-//		ModelPart direction = this.console.getChild("panel6").getChild("controls2").getChild("smallnob2");
-//		direction.pitch = direction.pitch + tardis.travel().destination().getRotation();
-//
-//		// Increment Control
-//		ModelPart increment = this.console.getChild("panel2").getChild("controls3").getChild("gears")
-//				.getChild("largegear2");
-//		increment.yaw = IncrementManager.increment(tardis) >= 10
-//				? IncrementManager.increment(tardis) >= 100
-//				? IncrementManager.increment(tardis) >= 1000
-//				? IncrementManager.increment(tardis) >= 10000
-//				? increment.yaw + 1.5f
-//				: increment.yaw + 1.25f
-//				: increment.yaw + 1f
-//				: increment.yaw + 0.5f
-//				: increment.yaw;
+		// Direction Control
+		ModelPart direction = this.console.getChild("pannel3").getChild("dial");
+		direction.pitch = direction.pitch + tardis.travel().destination().getRotation();
+
+		// Increment Control
+		ModelPart increment = this.console.getChild("slide2");
+        ModelPart increment2 = this.console.getChild("slide");
+		increment.pivotX = IncrementManager.increment(tardis) >= 10
+				? IncrementManager.increment(tardis) >= 100
+				? IncrementManager.increment(tardis) >= 1000
+				? IncrementManager.increment(tardis) >= 10000
+				? increment.pivotX - 1.5f
+				: increment.pivotX - 1.25f
+				: increment.pivotX - 1f
+				: increment.pivotX - 0.5f
+				: increment.pivotX - 1;
+        increment2.pivotX = IncrementManager.increment(tardis) >= 10
+                ? IncrementManager.increment(tardis) >= 100
+                ? IncrementManager.increment(tardis) >= 1000
+                ? IncrementManager.increment(tardis) >= 10000
+                ? increment2.pivotX + 1.3f
+                : increment2.pivotX + 1.15f
+                : increment2.pivotX + 1f
+                : increment2.pivotX + 0.2f
+                : increment2.pivotX;
 //
 //		// Refuel Light
 //		ModelPart refuelLight = this.console.getChild("panel4").getChild("yellow6");
@@ -1782,7 +1788,13 @@ public class HudolinConsoleModel extends ConsoleModel {
 //		ModelPart fastReturnCover = this.console.getChild("panel4").getChild("controls4").getChild("tinyswitchcover");
 //		ModelPart fastReturnLever = this.console.getChild("panel4").getChild("controls4").getChild("tinyswitch");
 
+        // Hammer
+        ModelPart hammer = this.toolbox.getChild("hammer");
+        hammer.hidden = tardis.extra().getConsoleHammer() == null || tardis.extra().getConsoleHammer().isEmpty();
+
         super.renderWithAnimations(console, tardis, root, matrices, vertices, light, overlay, red, green, blue, pAlpha);
+		toolbox.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
+
         matrices.pop();
     }
 
