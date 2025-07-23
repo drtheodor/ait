@@ -119,7 +119,7 @@ public class KeyItem extends LinkableItem {
         if (tardis == null)
             return;
 
-        tardis.loyalty().subLevel(player, 35);
+        tardis.loyalty().subLevel(player, 10);
         tardis.getDesktop().playSoundAtEveryConsole(AITSounds.CLOISTER);
     }
 
