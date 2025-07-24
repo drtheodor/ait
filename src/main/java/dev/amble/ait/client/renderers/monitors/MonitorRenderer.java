@@ -1,5 +1,6 @@
 package dev.amble.ait.client.renderers.monitors;
 
+import dev.amble.ait.client.AITModClient;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 
 import net.minecraft.block.BlockState;
@@ -81,6 +82,9 @@ public class MonitorRenderer<T extends MonitorBlockEntity> implements BlockEntit
         Tardis tardis = entity.tardis().get();
 
         if (!tardis.fuel().hasPower())
+            return;
+
+        if (!AITModClient.CONFIG.showCRTMonitorText)
             return;
 
         matrices.push();
