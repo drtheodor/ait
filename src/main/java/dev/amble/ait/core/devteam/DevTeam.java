@@ -10,6 +10,7 @@ import java.util.UUID;
 public class DevTeam {
     public static final UUID LOQOR = UUID.fromString("ad504e7c-22a0-4b3f-94e3-5b6ad5514cb6");
     public static final UUID DUZO = UUID.fromString("743a01d8-25e1-4da2-af2b-643587fe86e7");
+    public static final UUID THEO = UUID.fromString("2bd06cb3-2e37-4e53-a3e9-3ad29a55c455");
     public static final UUID OURO = UUID.fromString("07e6b550-be92-4422-a269-345593df5a10");
     public static final UUID CLASSIC = UUID.fromString("ba21f64b-35e3-4b4f-b04c-9ceb814ad533");
     public static final UUID KRANG = UUID.fromString("248808c9-4057-4d36-938b-3554d2e2123e");
@@ -26,7 +27,7 @@ public class DevTeam {
 
 
     public static final Set<UUID> PLAYERS = Set.of(
-            LOQOR, DUZO, OURO, CLASSIC, KRANG, ADDIE, JELLY, VENWHOVIAN, MONKE, PAN, SATURN, MAGGIE, CROW, K_KING
+            LOQOR, DUZO, THEO, OURO, CLASSIC, KRANG, ADDIE, JELLY, VENWHOVIAN, MONKE, PAN, SATURN, MAGGIE, CROW, K_KING
     );
 
     public static boolean isDev(UUID uuid) {
