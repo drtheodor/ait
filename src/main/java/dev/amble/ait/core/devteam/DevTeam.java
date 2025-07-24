@@ -14,7 +14,6 @@ public class DevTeam {
     public static final UUID CLASSIC = UUID.fromString("ba21f64b-35e3-4b4f-b04c-9ceb814ad533");
     public static final UUID KRANG = UUID.fromString("248808c9-4057-4d36-938b-3554d2e2123e");
     public static final UUID ADDIE = UUID.fromString("ae93f403-bf4a-4fb9-89db-2826ae9a4508");
-    public static final UUID JELLY = UUID.fromString("5a9bb737-ceb2-4d45-876c-b0e4531a811f"); // Not sure if he should get one - Loqor
     public static final UUID VENWHOVIAN = UUID.fromString("a77b585c-368d-4285-b536-42fd612a6e1e"); // Not sure if he should get one either - Loqor
     public static final UUID MONKE = UUID.fromString("b8d4a6f0-93be-4e8a-b521-a1906a737c1a");
     public static final UUID PAN = UUID.fromString("70c90ff6-46e7-4481-987b-53dd79595a4a");
