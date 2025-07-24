@@ -1,0 +1,1 @@
+- update bug report version drop down to 1.2.10 | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1748](https://github.com/amblelabs/ait/pull/1748))
