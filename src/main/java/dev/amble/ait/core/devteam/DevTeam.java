@@ -27,7 +27,7 @@ public class DevTeam {
 
 
     public static final Set<UUID> PLAYERS = Set.of(
-            LOQOR, DUZO, THEO, OURO, CLASSIC, KRANG, ADDIE, JELLY, VENWHOVIAN, MONKE, PAN, SATURN, MAGGIE, CROW, K_KING
+            LOQOR, DUZO, THEO, OURO, CLASSIC, KRANG, ADDIE, VENWHOVIAN, MONKE, PAN, SATURN, MAGGIE, CROW, K_KING
     );
 
     public static boolean isDev(UUID uuid) {
