@@ -11,3 +11,4 @@
 - Re-balanced loss of loyalty. | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1739](https://github.com/amblelabs/ait/pull/1739))
 - chore: blacklist space from travel | by [@DrTheodor](https://github.com/DrTheodor) ([#1746](https://github.com/amblelabs/ait/pull/1746))
 - fix: the check for interior change did not include the increased fuel cost due to instability | by [@Mansarde](https://github.com/Mansarde) ([#1726](https://github.com/amblelabs/ait/pull/1726))
+- fix: water (from landing underwater and opening the doors) kept flowing into the TARDIS despite closing the doors or activating the shields | by [@Mansarde](https://github.com/Mansarde) ([#1738](https://github.com/amblelabs/ait/pull/1738))
