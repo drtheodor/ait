@@ -19,6 +19,7 @@ import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.schema.desktop.TardisDesktopSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 
+
 public class ServerTardis extends Tardis {
 
     @Exclude(strategy = Exclude.Strategy.NETWORK)
@@ -102,8 +103,8 @@ public class ServerTardis extends Tardis {
 
         TravelHandler travel = this.travel();
 
-        if (travel == null)
-            return false;
+        if (!travel.isLanded())
+            return true;
 
         return travel.position().getWorld().shouldTickEntity(travel.position().getPos());
     }

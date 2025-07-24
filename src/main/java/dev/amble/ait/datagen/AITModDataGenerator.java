@@ -24,6 +24,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.AITBlocks;
@@ -39,7 +40,6 @@ import dev.amble.ait.module.planet.core.PlanetBlocks;
 import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.world.PlanetConfiguredFeatures;
 import dev.amble.ait.module.planet.core.world.PlanetPlacedFeatures;
-import net.minecraft.util.Identifier;
 
 public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
@@ -822,6 +822,12 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("yacl3.config.ait:server.travelPerTick", "Travel Per Tick");
         provider.addTranslation("yacl3.config.ait:server.sendBulk", "Send Bulk?");
         provider.addTranslation("yacl3.config.ait:server.maxTardises", "Max Amount Of Tardises");
+        provider.addTranslation("yacl3.config.ait:client.showConsoleMonitorText", "Show text on console monitors?");
+        provider.addTranslation("yacl3.config.ait:client.showCRTMonitorText", "Show text on CRT monitors?");
+        provider.addTranslation("yacl3.config.ait:client.renderDematParticles", "Render demat particles?");
+        provider.addTranslation("yacl3.config.ait:client.animateConsole", "Animate console?");
+        provider.addTranslation("yacl3.config.ait:client.animateDoors", "Animate doors?");
+        provider.addTranslation("yacl3.config.ait:client.temperatureType", "Temperature type");
 
         provider.addTranslation("text.autoconfig.aitconfig.category.client", "Client");
         provider.addTranslation("text.autoconfig.aitconfig.option.CLIENT.SHOW_EXPERIMENTAL_WARNING", "Show Experimental Warning");
@@ -968,9 +974,11 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("sonic.ait.type_100", "Frontier");
 
         // Consoles
+        provider.addTranslation("console.ait.variant_label", "Console Type: ");
         provider.addTranslation("console.ait.alnico", "Alnico");
         provider.addTranslation("console.ait.steam_steel", "Steel Steam");
         provider.addTranslation("console.ait.toyota", "Toyota");
+        provider.addTranslation("console.ait.hartnell", "Hartnell");
         provider.addTranslation("console.ait.hartnell_wooden", "Wooden Hartnell");
         provider.addTranslation("console.ait.coral", "Coral");
         provider.addTranslation("console.ait.coral_blue", "Blue Coral");
@@ -989,6 +997,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("console.ait.steam_cherry", "Cherry Steam");
         provider.addTranslation("console.ait.renaissance_industrious", "Industrious Renaissance");
         provider.addTranslation("console.ait.hartnell_mint", "Mint Hartnell");
+        provider.addTranslation("console.ait.hartnell_mint_green_console", "Mint Green Hartnell");
+        provider.addTranslation("console.ait.exile", "Exile");
         provider.addTranslation("console.ait.crystalline_zeiton", "Zeiton Crystalline");
         provider.addTranslation("console.ait.steam_copper", "Copper Steam");
         provider.addTranslation("console.ait.toyota_blue", "Blue Toyota");

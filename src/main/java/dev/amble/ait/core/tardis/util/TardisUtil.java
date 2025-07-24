@@ -3,7 +3,6 @@ package dev.amble.ait.core.tardis.util;
 import java.util.*;
 import java.util.function.Predicate;
 
-import dev.amble.ait.core.tardis.handler.FuelHandler;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.amble.lib.util.TeleportUtil;
@@ -45,6 +44,7 @@ import dev.amble.ait.core.entities.FlightTardisEntity;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisDesktop;
+import dev.amble.ait.core.tardis.handler.FuelHandler;
 import dev.amble.ait.core.tardis.handler.permissions.PermissionHandler;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.util.WorldUtil;

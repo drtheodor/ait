@@ -1,8 +1,6 @@
 package dev.amble.ait.client.renderers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.util.TardisUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -31,6 +29,8 @@ import dev.amble.ait.core.engine.block.SubSystemBlockEntity;
 import dev.amble.ait.core.engine.impl.EngineSystem;
 import dev.amble.ait.core.item.SonicItem;
 import dev.amble.ait.core.item.sonic.SonicMode;
+import dev.amble.ait.core.tardis.Tardis;
+import dev.amble.ait.core.tardis.util.TardisUtil;
 import dev.amble.ait.core.world.TardisServerWorld;
 
 public class SonicRendering {
@@ -128,6 +128,12 @@ public class SonicRendering {
             profiler.pop();
             return;
         }
+
+        if (client.player == null || client.world == null) {
+            profiler.pop();
+            return;
+        }
+
         BlockPos targetPos = crosshair.getBlockPos();
         BlockState state = client.world.getBlockState(targetPos.down());
         if (state.isAir()) {
@@ -135,7 +141,7 @@ public class SonicRendering {
             return;
         }
 
-        Tardis tardis = SonicItem.getTardisStatic(client.world, client.player.getMainHandStack());
+        Tardis tardis = SonicItem.getTardisStatic(client.world, getSonicStack(client.player));
 
         if (tardis == null) {
             profiler.pop();
@@ -203,7 +209,7 @@ public class SonicRendering {
         Text text = Text.empty();
 
         if (system instanceof DurableSubSystem) {
-            text = Text.literal((Math.round(((DurableSubSystem) be.system()).durability())) + " / 1250");
+            text = Text.literal((Math.round(((DurableSubSystem) be.system()).durability())) + " / " + DurableSubSystem.MAX_DURABILITY);
         }
         if (!system.isEnabled() && !(system instanceof EngineSystem)) {
             text = Text.translatable("tardis.message.subsystem.requires_link");

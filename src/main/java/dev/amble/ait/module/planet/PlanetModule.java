@@ -1,5 +1,7 @@
 package dev.amble.ait.module.planet;
 
+import static net.minecraft.data.server.recipe.RecipeProvider.*;
+
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -47,8 +49,6 @@ import dev.amble.ait.module.planet.core.PlanetBlocks;
 import dev.amble.ait.module.planet.core.PlanetItems;
 import dev.amble.ait.module.planet.core.space.planet.PlanetRegistry;
 import dev.amble.ait.module.planet.core.util.PlanetCustomTrades;
-
-import static net.minecraft.data.server.recipe.RecipeProvider.*;
 
 public class PlanetModule extends Module {
     private static final PlanetModule INSTANCE = new PlanetModule();
@@ -173,9 +173,9 @@ public class PlanetModule extends Module {
                 provider.addStonecutting(PlanetBlocks.MOON_SANDSTONE_BRICKS, PlanetBlocks.MOON_SANDSTONE_BRICK_STAIRS);
                 provider.addStonecutting(PlanetBlocks.MOON_SANDSTONE_BRICKS, PlanetBlocks.MOON_SANDSTONE_BRICK_WALL);
 
-                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.MARTIAN_BRICK_WALL);
-                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.MARTIAN_BRICK_STAIRS);
-                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.MARTIAN_BRICK_SLAB);
+                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.ANORTHOSITE_BRICK_WALL);
+                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.ANORTHOSITE_BRICK_STAIRS);
+                provider.addStonecutting(PlanetBlocks.ANORTHOSITE_BRICKS, PlanetBlocks.ANORTHOSITE_BRICK_SLAB);
 
                 provider.addStonecutting(PlanetBlocks.SMOOTH_ANORTHOSITE, PlanetBlocks.SMOOTH_ANORTHOSITE_SLAB);
 
