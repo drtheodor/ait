@@ -1,5 +1,6 @@
 package dev.amble.ait.mixin.server.multidim;
 
+import dev.amble.lib.data.CachedDirectedGlobalPos;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,6 +16,8 @@ import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.world.TardisServerWorld;
 
+import java.util.Optional;
+
 @Mixin(PlayerManager.class)
 public class MultiDimLoadFix {
 
@@ -25,11 +28,28 @@ public class MultiDimLoadFix {
         if (result != null)
             return result;
 
-        if (TardisServerWorld.isTardisDimension(key)) {
-            return ServerTardisManager.getInstance().loadTardis(instance, TardisServerWorld.getTardisId(key))
-                    .map(ServerTardis::world, e -> null);
-        }
+        return ait$loadTardisFromWorld(instance, key);
+    }
 
-        return null;
+    public ServerWorld ait$loadTardisFromWorld(MinecraftServer server, RegistryKey<World> key) {
+        if (!TardisServerWorld.isTardisDimension(key))
+            return null;
+
+        Optional<ServerTardis> maybeTardis = ServerTardisManager.getInstance()
+                .loadTardis(server, TardisServerWorld.getTardisId(key)).left();
+
+        if (maybeTardis.isEmpty())
+            return null;
+
+        ServerTardis tardis = maybeTardis.get();
+        CachedDirectedGlobalPos pos = tardis.travel().position();
+
+        ServerWorld targetWorld = this.ait$loadTardisFromWorld(
+                server, pos.getDimension());
+
+        if (targetWorld != null)
+            pos.init(server);
+
+        return tardis.world();
     }
 }
