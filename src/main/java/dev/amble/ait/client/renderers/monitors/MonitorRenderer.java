@@ -1,6 +1,5 @@
 package dev.amble.ait.client.renderers.monitors;
 
-import dev.amble.ait.client.AITModClient;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 
 import net.minecraft.block.BlockState;
@@ -19,6 +18,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.RotationPropertyHelper;
 
 import dev.amble.ait.AITMod;
+import dev.amble.ait.client.AITModClient;
 import dev.amble.ait.client.models.monitors.CRTMonitorModel;
 import dev.amble.ait.core.blockentities.MonitorBlockEntity;
 import dev.amble.ait.core.blocks.MonitorBlock;

@@ -22,6 +22,8 @@ import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientHartnellV
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientKeltHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientMintHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.client.ClientWoodenHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinNatureVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.client.ClientHudolinVariant;
 import dev.amble.ait.data.schema.console.variant.renaissance.client.*;
 import dev.amble.ait.data.schema.console.variant.steam.client.*;
 import dev.amble.ait.data.schema.console.variant.toyota.client.ClientToyotaBlueVariant;
@@ -199,8 +201,8 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
     public static ClientConsoleVariantSchema STEAM_GILDED;
     public static ClientConsoleVariantSchema STEAM_PLAYPAL;
     public static ClientConsoleVariantSchema STEAM_COPPER;
-   // public static ClientConsoleVariantSchema HUDOLIN;
-   // public static ClientConsoleVariantSchema HUDOLIN_NATURE;
+    public static ClientConsoleVariantSchema HUDOLIN;
+    public static ClientConsoleVariantSchema HUDOLIN_NATURE;
    // public static ClientConsoleVariantSchema HUDOLIN_SHALKA;
     public static ClientConsoleVariantSchema COPPER;
     public static ClientConsoleVariantSchema CRYSTALLINE;
@@ -247,9 +249,9 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
         STEAM_PLAYPAL = register(new ClientSteamPlaypalVariant());
 
         // Hudolin variants
-       // HUDOLIN = register(new ClientHudolinVariant());
-       // HUDOLIN_SHALKA = register(new ClientHudolinShalkaVariant());
-       // HUDOLIN_NATURE = register(new ClientHudolinNatureVariant());
+        HUDOLIN = register(new ClientHudolinVariant());
+        // HUDOLIN_SHALKA = register(new ClientHudolinShalkaVariant());
+        HUDOLIN_NATURE = register(new ClientHudolinNatureVariant());
 
         // Copper variants
         COPPER = register(new ClientCopperVariant());

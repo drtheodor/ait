@@ -1,13 +1,11 @@
 package dev.amble.ait.core.tardis.handler;
 
-import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.lib.data.DirectedBlockPos;
 import net.fabricmc.fabric.api.util.TriState;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Properties;
 import org.jetbrains.annotations.Nullable;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -15,6 +13,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -25,6 +24,7 @@ import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.core.AITDimensions;
 import dev.amble.ait.core.AITSounds;
 import dev.amble.ait.core.blockentities.DoorBlockEntity;
+import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.core.tardis.util.TardisUtil;
 import dev.amble.ait.data.Exclude;

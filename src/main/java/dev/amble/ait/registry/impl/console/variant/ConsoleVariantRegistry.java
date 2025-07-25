@@ -28,6 +28,8 @@ import dev.amble.ait.data.schema.console.variant.hartnell.HartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.KeltHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.MintHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.WoodenHartnellVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinNatureVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinVariant;
 import dev.amble.ait.data.schema.console.variant.renaissance.*;
 import dev.amble.ait.data.schema.console.variant.steam.*;
 import dev.amble.ait.data.schema.console.variant.toyota.ToyotaBlueVariant;
@@ -186,9 +188,9 @@ public class ConsoleVariantRegistry extends UnlockableRegistry<ConsoleVariantSch
         STEAM_COPPER = registerStatic(new SteamCopperVariant());
 
         // Hudolin variants
-   /*     HUDOLIN = registerStatic(new HudolinVariant());
+        HUDOLIN = registerStatic(new HudolinVariant());
         HUDOLIN_NATURE = registerStatic(new HudolinNatureVariant());
-        HUDOLIN_SHALKA = registerStatic(new HudolinShalkaVariant());*/
+        //HUDOLIN_SHALKA = registerStatic(new HudolinShalkaVariant());
 
         // Copper variants
         COPPER = registerStatic(new CopperVariant());

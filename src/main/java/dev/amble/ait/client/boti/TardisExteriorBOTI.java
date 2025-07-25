@@ -23,7 +23,6 @@ import dev.amble.ait.client.AITModClient;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.compat.DependencyChecker;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
 import dev.amble.ait.core.tardis.handler.BiomeHandler;
 import dev.amble.ait.core.tardis.handler.StatsHandler;
@@ -122,7 +121,7 @@ public class TardisExteriorBOTI extends BOTI {
             Identifier biomeTexture = handler.getBiomeKey().get(variant.overrides());
             if (biomeTexture != null)
                 ((ExteriorModel) frame).renderDoors(tardis, exterior, frame.getPart(), stack,
-                        botiProvider.getBuffer(AITRenderLayers.getEntityCutoutNoCullZOffset(biomeTexture)),
+                        botiProvider.getBuffer(AITRenderLayers.getEntityTranslucentCull(biomeTexture)),
                         light, OverlayTexture.DEFAULT_UV, 1, 1F, 1.0F, 1.0F, true);
         }
         botiProvider.draw();
@@ -166,7 +165,7 @@ public class TardisExteriorBOTI extends BOTI {
             float green = power ? alarms ? 0.3f : t : 0;
             float blue = power ? alarms ? 0.3f : u : 0;
 
-            ((ExteriorModel) frame).renderDoors(tardis, exterior, frame.getPart(), stack, botiProvider.getBuffer(DependencyChecker.hasIris() ? AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true) : AITRenderLayers.getText(variant.emission())), 0xf000f0,
+            ((ExteriorModel) frame).renderDoors(tardis, exterior, frame.getPart(), stack, botiProvider.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), 0xf000f0,
                     OverlayTexture.DEFAULT_UV, red, green, blue, 1, true);
             botiProvider.draw();
         }

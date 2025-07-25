@@ -19,7 +19,6 @@ import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.models.machines.ShieldsModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.renderers.VortexUtil;
-import dev.amble.ait.client.util.ClientLightUtil;
 import dev.amble.ait.core.AITDimensions;
 import dev.amble.ait.core.entities.FlightTardisEntity;
 import dev.amble.ait.core.tardis.Tardis;
@@ -102,9 +101,7 @@ public class FlightTardisRenderer extends EntityRenderer<FlightTardisEntity> {
 
             float color = alarms ? 0.3f : 1f;
 
-            ClientLightUtil.renderEmissivable(tardis.fuel().hasPower(), (v, l) -> model.renderEntity(
-                    entity, this.model.getPart(), matrices, v, l, OverlayTexture.DEFAULT_UV, color, color, color, 1
-            ), variant.emission(), vertexConsumers);
+            model.renderEntity(entity, this.model.getPart(), matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), 0xf000f0, OverlayTexture.DEFAULT_UV, color, color, color, 1);
         }
 
         BiomeHandler biome = tardis.handler(TardisComponent.Id.BIOME);
