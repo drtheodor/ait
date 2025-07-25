@@ -49,6 +49,7 @@ public class MultiDimLoadFix {
 		ServerWorld targetWorld;
 		
 		if (pos.getDimension().equals(key)) {
+			System.out.println("Tardis inside itself! " + id);
 			targetWorld = tardis.world();
 		} else {
 			targetWorld = this.ait$loadTardisFromWorld(
@@ -58,6 +59,7 @@ public class MultiDimLoadFix {
         if (targetWorld != null)
             pos.world(targetWorld);
 
+		System.out.println("Patched tardis " + id);
         return tardis.world();
     }
 }

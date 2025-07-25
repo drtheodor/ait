@@ -94,8 +94,12 @@ public class ServerTardis extends Tardis {
     }
 
     public TardisServerWorld world() {
-        if (this.world == null)
-            this.world = TardisServerWorld.load(this);
+        if (this.world == null) {
+            System.out.println("Loading world for " + id);
+			this.world = TardisServerWorld.load(this);
+			System.out.println("Loaded world for " + id);
+			new Throwable().printStackTrace();
+		}
 
         return world;
     }
