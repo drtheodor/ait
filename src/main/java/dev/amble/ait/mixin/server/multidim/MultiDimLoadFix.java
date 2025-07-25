@@ -50,7 +50,7 @@ public class MultiDimLoadFix {
 
 		System.out.println("patching world for " + id);
 
-        ServerTardis tardis = either.map(tardis -> tardis, o -> null);
+        ServerTardis tardis = either.map(t -> t, o -> null);
 		
 		TravelHandler travel = tardis.travel();
         CachedDirectedGlobalPos pos = travel.position();
