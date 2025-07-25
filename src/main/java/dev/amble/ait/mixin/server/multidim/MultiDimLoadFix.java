@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import com.mojang.datafixers.util.Either;
 
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
@@ -37,15 +38,19 @@ public class MultiDimLoadFix {
         if (!TardisServerWorld.isTardisDimension(key))
             return null;
 
+		ServerTardisManager manager = ServerTardisManager.getInstance();
 		UUID id = TardisServerWorld.getTardisId(key);
-        ServerTardis maybeTardis = ServerTardisManager.getInstance().demandTardis(server, id);
+		
+		Either<ServerTardis, ?> either = manager.lookup()
+			.computeIfAbsent(uuid, k -> manager.loadTardis(server, k));
 
-        if (maybeTardis != null)
+		// TODO: add a AITMod#warn here
+        if (either == null)
             return null;
 
 		System.out.println("patching world for " + id);
 
-        ServerTardis tardis = maybeTardis;
+        ServerTardis tardis = either.map(tardis -> tardis, o -> null);
 		
 		TravelHandler travel = tardis.travel();
         CachedDirectedGlobalPos pos = travel.position();
