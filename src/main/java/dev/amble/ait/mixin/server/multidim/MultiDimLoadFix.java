@@ -1,7 +1,7 @@
 package dev.amble.ait.mixin.server.multidim;
 
 import dev.amble.lib.data.CachedDirectedGlobalPos;
-import dev.amnle.ait.AITMod;
+import dev.amble.ait.AITMod;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
