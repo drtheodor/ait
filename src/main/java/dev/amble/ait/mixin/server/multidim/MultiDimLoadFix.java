@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.world.TardisServerWorld;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
 
 import java.util.Optional;
 import java.util.UUID;
