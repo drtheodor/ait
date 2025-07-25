@@ -47,7 +47,6 @@ public class MultiDimLoadFix {
         if (either == null)
             either = manager.loadTardis(server, id);
 
-		// TODO: add a AITMod#warn here
         if (either == null) {
             AITMod.LOGGER.error("Failed to load world for {}", id);
             return null;
