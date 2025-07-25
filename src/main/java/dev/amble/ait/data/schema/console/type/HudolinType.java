@@ -53,8 +53,8 @@ public class HudolinType extends ConsoleTypeSchema {
                     new Vector3f(-0.710936738178134f, 0.37499971222132444f, 0.4132820088416338f)),
             new ControlTypes(new ElectricalDischargeControl(), EntityDimensions.changing(0.125f, 0.15f), // fin
                     new Vector3f(0.08593673445284367f, 0.4125152602791786f, 0.7128898622468114f)),
-            new ControlTypes(new RandomiserControl(), EntityDimensions.changing(0.1375f, 0.16250001f),
-                    new Vector3f(-1.0531250098720193f, 0.39999942295253277f, 0.23867206927388906f)),
+            new ControlTypes(new RandomiserControl(), EntityDimensions.changing(0.21250002f, 0.1125f), // Fin
+                    new Vector3f(0.7843746459111571f, 0.32499961741268635f, -0.6988277575001121f)),
             new ControlTypes(new DirectionControl(), EntityDimensions.changing(0.1125f, 0.099999994f), // fin
                     new Vector3f(-0.6953121209517121f, 0.3625005688518286f, -0.3617179971188307f)),
             new ControlTypes(new HailMaryControl(), EntityDimensions.changing(0.08749999f, 0.08749999f), // fin
@@ -73,8 +73,8 @@ public class HudolinType extends ConsoleTypeSchema {
                     new Vector3f(-0.5359386596828699f, 0.3750006640329957f, 0.5656257756054401f)),
             new ControlTypes(new ConsolePortControl(), EntityDimensions.changing(0.15f, 0.125f), // fin
                     new Vector3f(-0.10078201442956924f, 0.3250004705041647f, 0.7671871352940798f)),
-            new ControlTypes(new MarkWaypointControl(), EntityDimensions.changing(0.17500001f, 0.1f),
-                    new Vector3f(0.08750039339065552f, 0.5250003822147846f, -0.8335935743525624f)),
+            new ControlTypes(new MarkWaypointControl(), EntityDimensions.changing(0.06249999f, 0.074999996f), // fin
+                    new Vector3f(0.08749961853027344f, 0.37499961629509926f, -0.8210933683440089f)),
             new ControlTypes(new SetWaypointControl(), EntityDimensions.changing(0.06249999f, 0.07499999f), // fin
                     new Vector3f(0.02656326163560152f, 0.3750002831220627f, -0.8226570151746273f)),
             new ControlTypes(new SonicPortControl(),EntityDimensions.changing(0.1375f, 0.15f), // fin
