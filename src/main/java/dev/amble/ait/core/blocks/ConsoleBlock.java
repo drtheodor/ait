@@ -73,11 +73,6 @@ public class ConsoleBlock extends HorizontalDirectionalBlock implements BlockEnt
         return SHAPE;
     }
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.empty();
-    }
-
     @Nullable @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new ConsoleBlockEntity(pos, state);
