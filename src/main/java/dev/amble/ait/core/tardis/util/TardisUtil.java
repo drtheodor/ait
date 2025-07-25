@@ -314,7 +314,7 @@ public class TardisUtil {
     }
 
     public static void giveEffectToInteriorPlayers(ServerTardis tardis, StatusEffectInstance effect) {
-        for (PlayerEntity player : getPlayersInsideInterior(tardis)) {
+        for (PlayerEntity player : tardis.world().getPlayers()) {
             player.addStatusEffect(effect);
         }
     }
@@ -324,14 +324,6 @@ public class TardisUtil {
             return player;
         }
         return null;
-    }
-
-    /**
-     * @deprecated Use the {@link ServerTardis#world()} instead.
-     */
-    @Deprecated(forRemoval = true)
-    public static List<ServerPlayerEntity> getPlayersInsideInterior(ServerTardis tardis) {
-        return tardis.world().getPlayers();
     }
 
     public static <T extends Entity> List<T> getEntitiesInBox(Class<T> clazz, World world, Box box,
@@ -447,7 +439,7 @@ public class TardisUtil {
     }
 
     public static void sendMessageToInterior(ServerTardis tardis, Text text) {
-        for (ServerPlayerEntity player : getPlayersInsideInterior(tardis)) {
+        for (ServerPlayerEntity player : tardis.world().getPlayers()) {
             player.sendMessage(text, true);
         }
     }

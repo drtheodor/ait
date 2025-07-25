@@ -159,7 +159,7 @@ public class ServerAlarmHandler extends KeyedTardisComponent implements TardisTi
                     AITSounds.CLOISTER, SoundCategory.AMBIENT, volume, pitch);
 
             if (currentAlarm != null) {
-                TardisUtil.getPlayersInsideInterior(tardis.asServer()).forEach(player -> {
+                tardis.asServer().world().getPlayers().forEach(player -> {
                     currentAlarm.sendMessage(player);
                 });
             }

@@ -58,7 +58,7 @@ public class NetworkUtil {
     }
 
     public static void sendToInterior(ServerTardis tardis, Identifier id, PacketByteBuf buf) {
-        for (ServerPlayerEntity player : TardisUtil.getPlayersInsideInterior(tardis)) {
+        for (ServerPlayerEntity player : tardis.world().getPlayers()) {
             send(player, id, buf);
         }
     }
@@ -114,7 +114,7 @@ public class NetworkUtil {
     }
 
     public static Stream<ServerPlayerEntity> getSubscribedPlayers(ServerTardis tardis) {
-        Stream<ServerPlayerEntity> result = TardisUtil.getPlayersInsideInterior(tardis).stream();
+        Stream<ServerPlayerEntity> result = tardis.world().getPlayers().stream();
         CachedDirectedGlobalPos exteriorPos = tardis.travel().position();
 
         if (exteriorPos == null || exteriorPos.getWorld() == null)

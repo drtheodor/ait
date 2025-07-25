@@ -18,9 +18,6 @@ import net.minecraft.util.math.Vec3d;
 import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.screens.interior.InteriorSettingsScreen;
-import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
-import dev.amble.ait.core.tardis.animation.ExteriorAnimation;
-import dev.amble.ait.core.tardis.animation.PulsatingAnimation;
 import dev.amble.ait.data.Loyalty;
 import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.door.ClientDoorSchema;
@@ -130,11 +127,6 @@ public class AddonExterior extends ExteriorVariantSchema {
     @Override
     public Vec3d seatTranslations() {
         return this.seatTranslations = seatTranslations();
-    }
-
-    @Override
-    public ExteriorAnimation animation(ExteriorBlockEntity exterior) {
-        return new PulsatingAnimation(exterior);
     }
 
     @Override
