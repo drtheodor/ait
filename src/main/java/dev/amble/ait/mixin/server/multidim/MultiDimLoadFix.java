@@ -17,6 +17,7 @@ import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.world.TardisServerWorld;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Mixin(PlayerManager.class)
 public class MultiDimLoadFix {
