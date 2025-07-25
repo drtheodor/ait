@@ -1,6 +1,7 @@
 package dev.amble.ait.mixin.server.multidim;
 
 import dev.amble.lib.data.CachedDirectedGlobalPos;
+import dev.amnle.ait.AITMod;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,8 +48,10 @@ public class MultiDimLoadFix {
             either = manager.loadTardis(server, id);
 
 		// TODO: add a AITMod#warn here
-        if (either == null)
+        if (either == null) {
+            AITMod.LOGGER.error("Failed to load world for {}", id);
             return null;
+        }
 
 		System.out.println("patching world for " + id);
 
@@ -60,22 +63,17 @@ public class MultiDimLoadFix {
 		if (TardisServerWorld.isTardisDimension(pos.getDimension())) {
 			ServerWorld targetWorld;
 			if (pos.getDimension().equals(key)) {
-				System.out.println("Tardis inside itself! " + id);
 				targetWorld = tardis.world();
 			} else {
-				System.out.println(id + " inside " + pos.getDimension());
 				targetWorld = this.ait$loadTardisFromWorld(
 					server, pos.getDimension());
 			}
 			
 			if (targetWorld != null) {
 				pos.init(server);
-			} else {
-				System.out.println("target world was null for " + id);
 			}
 		}
 
-		System.out.println("Patched tardis " + id);
         return tardis.world();
     }
 }
