@@ -49,6 +49,7 @@ public class MultiDimLoadFix {
         CachedDirectedGlobalPos pos = tardis.travel().position();
 		
 		if (TardisServerWorld.isTardisDimension(key)) {
+			ServerWorld targetWorld;
 			if (pos.getDimension().equals(key)) {
 				System.out.println("Tardis inside itself! " + id);
 				targetWorld = tardis.world();
@@ -58,7 +59,6 @@ public class MultiDimLoadFix {
 					server, pos.getDimension());
 			}
 			
-			ServerWorld targetWorld;
 			if (targetWorld != null) {
 				pos.world(targetWorld);
 			} else {
