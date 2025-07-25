@@ -47,7 +47,7 @@ public class MultiDimLoadFix {
         ServerWorld targetWorld = this.ait$loadTardisFromWorld(
                 server, pos.getDimension());
 
-        if (targetWorld != null)
+        if (targetWorld != null && targetWorld != tardis.world())
             pos.world(targetWorld);
 
         return tardis.world();
