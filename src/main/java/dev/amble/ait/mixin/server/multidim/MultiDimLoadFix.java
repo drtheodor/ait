@@ -48,7 +48,7 @@ public class MultiDimLoadFix {
 
         ServerTardis tardis = maybeTardis.get();
 		
-		TardisTravel travel = tardis.travel();
+		TravelHandler travel = tardis.travel();
         CachedDirectedGlobalPos pos = travel.position();
 		
 		if (TardisServerWorld.isTardisDimension(pos.getDimension())) {
