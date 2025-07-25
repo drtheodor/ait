@@ -48,10 +48,6 @@ public class ServerTardis extends Tardis {
         this.world = TardisServerWorld.create(this);
     }
 
-    @Override
-    public void onLoaded() {
-    }
-
     public void setRemoved(boolean removed) {
         this.removed = removed;
     }
