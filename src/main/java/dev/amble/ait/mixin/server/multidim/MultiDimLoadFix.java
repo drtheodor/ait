@@ -41,8 +41,10 @@ public class MultiDimLoadFix {
 		ServerTardisManager manager = ServerTardisManager.getInstance();
 		UUID id = TardisServerWorld.getTardisId(key);
 		
-		Either<ServerTardis, ?> either = manager.lookup()
-			.computeIfAbsent(id, k -> manager.loadTardis(server, k));
+		Either<ServerTardis, ?> either = manager.lookup().get(id);
+
+        if (either == null)
+            either = manager.loadTardis(server, id);
 
 		// TODO: add a AITMod#warn here
         if (either == null)
