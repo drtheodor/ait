@@ -35,8 +35,9 @@ public class MultiDimLoadFix {
         if (!TardisServerWorld.isTardisDimension(key))
             return null;
 
+		UUID id = TardisServerWorld.getTardisId(key);
         Optional<ServerTardis> maybeTardis = ServerTardisManager.getInstance()
-                .loadTardis(server, TardisServerWorld.getTardisId(key)).left();
+                .loadTardis(server, id).left();
 
         if (maybeTardis.isEmpty())
             return null;
@@ -44,10 +45,16 @@ public class MultiDimLoadFix {
         ServerTardis tardis = maybeTardis.get();
         CachedDirectedGlobalPos pos = tardis.travel().position();
 
-        ServerWorld targetWorld = this.ait$loadTardisFromWorld(
+		ServerWorld targetWorld;
+		
+		if (pos.getDimension().equals(key)) {
+			targetWorld = tardis.world();
+		} else {
+			targetWorld = this.ait$loadTardisFromWorld(
                 server, pos.getDimension());
+		}
 
-        if (targetWorld != null && targetWorld != tardis.world())
+        if (targetWorld != null)
             pos.world(targetWorld);
 
         return tardis.world();
