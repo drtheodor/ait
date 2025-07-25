@@ -38,15 +38,14 @@ public class MultiDimLoadFix {
             return null;
 
 		UUID id = TardisServerWorld.getTardisId(key);
-        Optional<ServerTardis> maybeTardis = ServerTardisManager.getInstance()
-                .loadTardis(server, id).left();
+        ServerTardis maybeTardis = ServerTardisManager.getInstance().demandTardis(server, id);
 
-        if (maybeTardis.isEmpty())
+        if (maybeTardis != null)
             return null;
 
 		System.out.println("patching world for " + id);
 
-        ServerTardis tardis = maybeTardis.get();
+        ServerTardis tardis = maybeTardis;
 		
 		TravelHandler travel = tardis.travel();
         CachedDirectedGlobalPos pos = travel.position();
