@@ -48,7 +48,7 @@ public class MultiDimLoadFix {
                 server, pos.getDimension());
 
         if (targetWorld != null)
-            pos.init(server);
+            pos.world(targetWorld);
 
         return tardis.world();
     }
