@@ -46,9 +46,11 @@ public class MultiDimLoadFix {
 		System.out.println("patching world for " + id);
 
         ServerTardis tardis = maybeTardis.get();
-        CachedDirectedGlobalPos pos = tardis.travel().position();
 		
-		if (TardisServerWorld.isTardisDimension(key)) {
+		TardisTravel travel = tardis.travel();
+        CachedDirectedGlobalPos pos = travel.position();
+		
+		if (TardisServerWorld.isTardisDimension(pos.getDimension())) {
 			ServerWorld targetWorld;
 			if (pos.getDimension().equals(key)) {
 				System.out.println("Tardis inside itself! " + id);
@@ -60,7 +62,7 @@ public class MultiDimLoadFix {
 			}
 			
 			if (targetWorld != null) {
-				pos.world(targetWorld);
+				pos.init(server);
 			} else {
 				System.out.println("target world was null for " + id);
 			}

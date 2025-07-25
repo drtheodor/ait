@@ -177,7 +177,7 @@ public abstract class TravelHandlerBase extends KeyedTardisComponent implements 
     public void forcePosition(CachedDirectedGlobalPos cached) {
         cached.init(TravelHandlerBase.server());
         this.previousPosition.set(this.position);
-        this.position.set(cached);
+		this.internal$forcePos(cached);
     }
 
     public void forcePosition(Function<CachedDirectedGlobalPos, CachedDirectedGlobalPos> position) {
