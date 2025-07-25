@@ -60,6 +60,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
     private static final Property<Identifier> QUEUED_INTERIOR_PROPERTY = new Property<>(Property.IDENTIFIER, "queued_interior", new Identifier(""));
     private static final BoolProperty QUEUED = new BoolProperty("queued");
     private static final BoolProperty REGENERATING = new BoolProperty("regenerating");
+    private static final int MIN_FUEL_COST = 5000;
 
     public static final int MAX_PLASMIC_MATERIAL_AMOUNT = 8;
     private static final Text HINT_TEXT = Text.translatable("tardis.message.growth.hint").formatted(Formatting.DARK_GRAY, Formatting.ITALIC);
@@ -175,7 +176,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
         if (!this.canQueue())
             return;
 
-        if (tardis.fuel().getCurrentFuel() < 5000) {
+        if (tardis.fuel().getCurrentFuel() < (MIN_FUEL_COST * tardis.travel().instability())) {
             tardis.asServer().world().getPlayers().forEach(player -> {
                 player.sendMessage(
                         Text.translatable("tardis.message.interiorchange.not_enough_fuel").formatted(Formatting.RED),
@@ -233,7 +234,7 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
                         travel.forceDemat();
                         this.replaceAllConsolesWithGrowth();
                     } else {
-                        tardis.removeFuel(5000 * tardis.travel().instability());
+                        tardis.removeFuel(MIN_FUEL_COST * tardis.travel().instability());
                     }
 
                     TardisUtil.sendMessageToLinked(tardis.asServer(), Text.translatable("tardis.message.interiorchange.success", tardis.stats().getName(), tardis.getDesktop().getSchema().name()));
