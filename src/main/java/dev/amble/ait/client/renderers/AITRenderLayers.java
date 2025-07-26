@@ -2,7 +2,6 @@ package dev.amble.ait.client.renderers;
 
 import java.util.function.BiFunction;
 
-import dev.amble.ait.compat.DependencyChecker;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 

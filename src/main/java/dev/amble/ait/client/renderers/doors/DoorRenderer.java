@@ -1,6 +1,5 @@
 package dev.amble.ait.client.renderers.doors;
 
-import dev.amble.ait.compat.DependencyChecker;
 import org.joml.Vector3f;
 
 import net.minecraft.block.BlockState;
@@ -24,6 +23,7 @@ import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.models.doors.exclusive.DoomDoorModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.compat.DependencyChecker;
 import dev.amble.ait.core.blockentities.DoorBlockEntity;
 import dev.amble.ait.core.blocks.DoorBlock;
 import dev.amble.ait.core.tardis.Tardis;
