@@ -37,10 +37,10 @@ import dev.amble.ait.data.properties.flt.FloatValue;
 import dev.amble.ait.data.schema.door.DoorSchema;
 
 public class DoorHandler extends KeyedTardisComponent implements TardisTickable {
-    private static final long KNOCK_RESET_TIME_MS = 5000;
-    private static final int KNOCKS_BEFORE_QUIET = 4;
+    private static final long KNOCK_RESET_TIME_MS = 2500;
+    private static final int KNOCKS_BEFORE_QUIET = 8;
     private static final float KNOCK_VOLUME_FULL = 1f;
-    private static final float KNOCK_VOLUME_QUIET = 0.1f;
+    private static final float KNOCK_VOLUME_QUIET = 0.3f;
 
     private int knockCount = 0;
     private long lastKnockTime = 0;
