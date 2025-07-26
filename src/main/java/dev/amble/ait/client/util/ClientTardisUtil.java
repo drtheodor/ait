@@ -2,9 +2,9 @@ package dev.amble.ait.client.util;
 
 import static dev.amble.ait.core.tardis.util.TardisUtil.*;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 import net.fabricmc.api.EnvType;
@@ -190,7 +190,7 @@ public class ClientTardisUtil {
 
         BlockPos pos = player.getBlockPos();
         double lowest = Double.MAX_VALUE;
-        
+
         for (BlockPos console : consoles) {
             double distance = Math.sqrt(pos.getSquaredDistance(console));
 

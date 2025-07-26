@@ -49,9 +49,7 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
             HartnellConsoleModel model = new HartnellConsoleModel(HartnellConsoleModel.getTexturedModelData().createModel());
             model.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(ClientConsoleVariantRegistry.HARTNELL.texture())),
                     light, overlay, 1, 1, 1, 1);
-            RenderLayer layer = DependencyChecker.hasIris()
-                    ? AITRenderLayers.tardisEmissiveCullZOffset(ClientConsoleVariantRegistry.HARTNELL.emission(), true)
-                    : AITRenderLayers.getBeaconBeam(ClientConsoleVariantRegistry.HARTNELL.emission(), true);
+            RenderLayer layer = AITRenderLayers.tardisEmissiveCullZOffset(ClientConsoleVariantRegistry.HARTNELL.emission(), true);
             model.render(matrices, vertexConsumers.getBuffer(layer),
                     0xf000f0, overlay, 1, 1, 1, 1);
             matrices.pop();
@@ -115,9 +113,6 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
 
-        profiler.swap("animate");
-        model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
-
         if (!DependencyChecker.hasIris()) {
             model.renderWithAnimations(entity, tardis, model.getPart(),
                     matrices, vertexConsumers.getBuffer(variant.equals(ClientConsoleVariantRegistry.COPPER) ? RenderLayer.getEntityTranslucent(variant.texture()) :
@@ -134,6 +129,9 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
                         1, 1, 1, 1);
             }
         }
+
+        profiler.swap("animate");
+        model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
 
         profiler.swap("render");
         if (DependencyChecker.hasIris()) {
