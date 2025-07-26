@@ -115,6 +115,13 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
 
+        if (!DependencyChecker.hasIris()) {
+            model.renderWithAnimations(entity, tardis, model.getPart(),
+                    matrices, vertexConsumers.getBuffer(variant.equals(ClientConsoleVariantRegistry.COPPER) ? RenderLayer.getEntityTranslucent(variant.texture()) :
+                            RenderLayer.getEntityTranslucentCull(variant.texture())), light, overlay,
+                    1, 1, 1, 1);
+        }
+
         if (hasPower) {
             profiler.swap("emission"); // emission {
 
@@ -129,11 +136,12 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
 
         profiler.swap("render");
-        model.renderWithAnimations(entity, tardis, model.getPart(),
-                matrices, vertexConsumers.getBuffer(variant.equals(ClientConsoleVariantRegistry.COPPER) ? RenderLayer.getEntityTranslucent(variant.texture()) :
-                        RenderLayer.getEntityTranslucentCull(variant.texture())), light, overlay,
-                1, 1, 1, 1);
-
+        if (DependencyChecker.hasIris()) {
+            model.renderWithAnimations(entity, tardis, model.getPart(),
+                    matrices, vertexConsumers.getBuffer(variant.equals(ClientConsoleVariantRegistry.COPPER) ? RenderLayer.getEntityTranslucent(variant.texture()) :
+                            RenderLayer.getEntityTranslucentCull(variant.texture())), light, overlay,
+                    1, 1, 1, 1);
+        }
         matrices.pop();
         matrices.push();
 

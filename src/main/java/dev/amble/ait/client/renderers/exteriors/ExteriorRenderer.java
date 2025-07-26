@@ -1,6 +1,7 @@
 package dev.amble.ait.client.renderers.exteriors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.amble.ait.compat.DependencyChecker;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import org.joml.Vector3f;
 
@@ -177,9 +178,11 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             matrices.translate(0, sinFunc, 0);
         }
 
-        //model.renderWithAnimations(tardis, entity, this.model.getPart(),
-        //        matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-        //        1, alpha);
+        if (!DependencyChecker.hasIris()) {
+            model.renderWithAnimations(tardis, entity, this.model.getPart(),
+                    matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
+                    1, alpha);
+        }
 
         profiler.push("emission");
 
@@ -234,10 +237,11 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
            model.renderWithAnimations(tardis, entity, this.model.getPart(), matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)),
                    0xF000F0, OverlayTexture.DEFAULT_UV, red, green, blue, alpha);
         }
-
-        model.renderWithAnimations(tardis, entity, this.model.getPart(),
-                matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                1, alpha);
+        if (DependencyChecker.hasIris()) {
+            model.renderWithAnimations(tardis, entity, this.model.getPart(),
+                    matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
+                    1, alpha);
+        }
 
         profiler.swap("biome");
 

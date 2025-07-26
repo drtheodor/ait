@@ -1,5 +1,6 @@
 package dev.amble.ait.client.renderers.doors;
 
+import dev.amble.ait.compat.DependencyChecker;
 import org.joml.Vector3f;
 
 import net.minecraft.block.BlockState;
@@ -87,9 +88,11 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(k));
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
 
-        //model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
-        //        vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-        //        1, 1);
+        if (!DependencyChecker.hasIris()) {
+            model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
+                    vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
+                    1, 1);
+        }
 
         /*if (tardis.overgrown().overgrown().get())
             model.renderWithAnimations(entity, model.getPart(), matrices,
@@ -138,9 +141,11 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
                     0xf000f0, OverlayTexture.DEFAULT_UV, red, green, blue, colorAlpha);
         }
 
-        model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
-                vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                1, 1);
+        if (DependencyChecker.hasIris()) {
+            model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
+                    vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
+                    1, 1);
+        }
 
         profiler.swap("biome");
 

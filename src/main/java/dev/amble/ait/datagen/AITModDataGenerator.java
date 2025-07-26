@@ -989,6 +989,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("console.ait.renaissance_fire", "Fire Renaissance");
         provider.addTranslation("console.ait.steam_gilded", "Gilded Steam");
         provider.addTranslation("console.ait.coral_sith", "Sith Coral");
+        provider.addTranslation("console.ait.hudolin", "Hudolin");
+        provider.addTranslation("console.ait.hudolin_nature", "Human Nature");
         provider.addTranslation("console.ait.crystalline", "Crystalline");
         provider.addTranslation("console.ait.steam_playpal", "Playpal Steam");
         provider.addTranslation("console.ait.renaissance_tokamak", "Tokamak Renaissance");
