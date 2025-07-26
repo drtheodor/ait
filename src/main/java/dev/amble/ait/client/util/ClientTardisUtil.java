@@ -4,6 +4,7 @@ import static dev.amble.ait.core.tardis.util.TardisUtil.*;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
 import net.fabricmc.api.EnvType;
@@ -182,10 +183,15 @@ public class ClientTardisUtil {
         if (tardis == null)
             return 0;
 
+        Collection<BlockPos> consoles = tardis.getDesktop().getConsolePos();
+
+        if (consoles.isEmpty())
+            return 0;
+
         BlockPos pos = player.getBlockPos();
         double lowest = Double.MAX_VALUE;
-
-        for (BlockPos console : tardis.getDesktop().getConsolePos()) {
+        
+        for (BlockPos console : consoles) {
             double distance = Math.sqrt(pos.getSquaredDistance(console));
 
             if (distance < lowest)
