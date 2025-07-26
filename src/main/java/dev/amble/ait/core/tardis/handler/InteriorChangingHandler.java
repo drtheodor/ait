@@ -213,8 +213,8 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
         restorationChestContents = new ArrayList<>();
 
         for (SubSystem system : tardis.subsystems()) {
-            /*if (system.isEnabled())
-                continue;*/
+            if (!system.isReal())
+                continue;
 
             restorationChestContents.addAll(system.toStacks());
             AITMod.LOGGER.debug("Storing Subsystem, {} ({}) => {}", system.getId(), system.isEnabled(), system.toStacks());
@@ -239,7 +239,6 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
 
                     TardisUtil.sendMessageToLinked(tardis.asServer(), Text.translatable("tardis.message.interiorchange.success", tardis.stats().getName(), tardis.getDesktop().getSchema().name()));
                     this.tardis.getDesktop().getConsolePos().stream().findFirst().ifPresent(blockPos -> {
-                        System.out.println("unfortunately a bar" + restorationChestContents);
                         if (restorationChestContents == null || restorationChestContents.isEmpty()) {
                             AITMod.LOGGER.debug("No contents to save in recovery inventory in console for {}", this.tardis);
                             return;

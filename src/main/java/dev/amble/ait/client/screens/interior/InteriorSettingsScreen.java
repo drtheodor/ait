@@ -115,7 +115,7 @@ public class InteriorSettingsScreen extends ConsoleScreen {
                 .formatted(this.console != null ? Formatting.WHITE : Formatting.GRAY), button -> sendCachePacket());
         createTextButton(Text.translatable("screen.ait.security.button"), (button -> toSecurityScreen()));
         if (!(MinecraftClient.getInstance().world.getBlockEntity(console) instanceof ConsoleBlockEntity consoleBlockEntity)) return;
-        boolean bl = consoleBlockEntity.getSonicScrewdriver() != null;
+        boolean bl = consoleBlockEntity.getSonicScrewdriver() != null && !consoleBlockEntity.getSonicScrewdriver().isEmpty();
         createTextButton(Text.translatable("screen.ait.sonic.button")
                 .formatted(bl ? Formatting.WHITE : Formatting.GRAY), button -> {
                     if (bl)
