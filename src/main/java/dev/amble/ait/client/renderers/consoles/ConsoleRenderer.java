@@ -115,6 +115,9 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
         matrices.push();
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180f));
 
+        profiler.swap("animate");
+        model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
+
         if (!DependencyChecker.hasIris()) {
             model.renderWithAnimations(entity, tardis, model.getPart(),
                     matrices, vertexConsumers.getBuffer(variant.equals(ClientConsoleVariantRegistry.COPPER) ? RenderLayer.getEntityTranslucent(variant.texture()) :
@@ -131,9 +134,6 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
                         1, 1, 1, 1);
             }
         }
-
-        profiler.swap("animate");
-        model.animateBlockEntity(entity, tardis.travel().getState(), hasPower);
 
         profiler.swap("render");
         if (DependencyChecker.hasIris()) {

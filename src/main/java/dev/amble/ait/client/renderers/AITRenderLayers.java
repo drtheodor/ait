@@ -20,7 +20,7 @@ public class AITRenderLayers extends RenderLayer {
                 RenderPhase.Texture texture2 = new RenderPhase.Texture(texture, false, false);
                 MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder().program(RenderPhase.EYES_PROGRAM).texture(texture2)
                         .cull(RenderPhase.ENABLE_CULLING)
-                        .transparency(ADDITIVE_TRANSPARENCY).layering(RenderPhase.VIEW_OFFSET_Z_LAYERING).writeMaskState(COLOR_MASK).build(false);
+                        .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY).layering(RenderPhase.VIEW_OFFSET_Z_LAYERING).writeMaskState(COLOR_MASK).build(false);
                 return RenderLayer.of("emissive_cull_z_offset",
                         VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256,
                         false, true, multiPhaseParameters);

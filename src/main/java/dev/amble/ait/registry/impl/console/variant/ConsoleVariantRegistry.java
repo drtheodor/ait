@@ -29,6 +29,8 @@ import dev.amble.ait.data.schema.console.variant.hartnell.KeltHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.MintHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hartnell.WoodenHartnellVariant;
 import dev.amble.ait.data.schema.console.variant.hudolin.HudolinNatureVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinShortVariant;
+import dev.amble.ait.data.schema.console.variant.hudolin.HudolinTallVariant;
 import dev.amble.ait.data.schema.console.variant.hudolin.HudolinVariant;
 import dev.amble.ait.data.schema.console.variant.renaissance.*;
 import dev.amble.ait.data.schema.console.variant.steam.*;
@@ -140,8 +142,9 @@ public class ConsoleVariantRegistry extends UnlockableRegistry<ConsoleVariantSch
     public static ConsoleVariantSchema STEAM_COPPER;
     public static ConsoleVariantSchema STEAM_PLAYPAL;
     public static ConsoleVariantSchema HUDOLIN;
-    public static ConsoleVariantSchema HUDOLIN_SHALKA;
     public static ConsoleVariantSchema HUDOLIN_NATURE;
+    public static ConsoleVariantSchema HUDOLIN_TALL;
+    public static ConsoleVariantSchema HUDOLIN_SHORT;
     public static ConsoleVariantSchema COPPER;
     public static ConsoleVariantSchema BOREALIS;
     public static ConsoleVariantSchema CRYSTALLINE;
@@ -190,7 +193,8 @@ public class ConsoleVariantRegistry extends UnlockableRegistry<ConsoleVariantSch
         // Hudolin variants
         HUDOLIN = registerStatic(new HudolinVariant());
         HUDOLIN_NATURE = registerStatic(new HudolinNatureVariant());
-        //HUDOLIN_SHALKA = registerStatic(new HudolinShalkaVariant());
+        HUDOLIN_TALL = registerStatic(new HudolinTallVariant());
+        HUDOLIN_SHORT = registerStatic(new HudolinShortVariant());
 
         // Copper variants
         COPPER = registerStatic(new CopperVariant());
