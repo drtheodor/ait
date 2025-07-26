@@ -155,8 +155,7 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
 
         profiler.swap("sonic_port"); // } emission / sonic {
 
-        /*ItemStack stack = tardis.sonic().getConsoleSonic() == null ? tardis.butler().getHandles() : tardis.sonic().getConsoleSonic();*/
-        ItemStack stack = entity.getSonicScrewdriver();
+        ItemStack stack = entity.getSonicScrewdriver() == null || entity.getSonicScrewdriver().isEmpty() ? tardis.butler().getHandles() : entity.getSonicScrewdriver();
 
         if (stack == null) {
             profiler.pop(); // } sonic
@@ -185,7 +184,7 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
             matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(variant.sonicItemRotations()[0]));
             matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(variant.sonicItemRotations()[1]));
             matrices.scale(0.9f, 0.9f, 0.9f);
-            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.GROUND, lightAbove,
+            MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformationMode.GROUND, light,
                     overlay, matrices, vertexConsumers, entity.getWorld(), 0);
             matrices.pop();
         }

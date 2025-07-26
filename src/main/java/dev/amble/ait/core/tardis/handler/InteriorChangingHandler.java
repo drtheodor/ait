@@ -213,8 +213,8 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
         restorationChestContents = new ArrayList<>();
 
         for (SubSystem system : tardis.subsystems()) {
-            if (system.isEnabled())
-                continue;
+            /*if (system.isEnabled())
+                continue;*/
 
             restorationChestContents.addAll(system.toStacks());
             AITMod.LOGGER.debug("Storing Subsystem, {} ({}) => {}", system.getId(), system.isEnabled(), system.toStacks());
@@ -245,7 +245,9 @@ public class InteriorChangingHandler extends KeyedTardisComponent implements Tar
                             return;
                         }
                         if (this.tardis.asServer().world().getBlockEntity(blockPos) instanceof ConsoleBlockEntity consoleBlockEntity) {
-                            consoleBlockEntity.getInventory().addAll(restorationChestContents);
+                            for (int i = 0; i < restorationChestContents.size() && i < consoleBlockEntity.getInventory().size(); i++) {
+                                consoleBlockEntity.getInventory().set(i, restorationChestContents.get(i));
+                            }
                         }
                     });//createChestAtInteriorDoor(restorationChestContents);
 

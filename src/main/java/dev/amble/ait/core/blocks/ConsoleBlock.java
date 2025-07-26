@@ -96,8 +96,10 @@ public class ConsoleBlock extends HorizontalDirectionalBlock implements BlockEnt
         }
 
         if (blockEntity instanceof ConsoleBlockEntity consoleBlockEntity) {
-            player.openHandledScreen(consoleBlockEntity);
-            world.playSound(null, pos, AITSounds.DOOM_DOOR_OPEN, SoundCategory.BLOCKS, 1.0f, 0.7f);
+            if (!consoleBlockEntity.isEmpty()) { // This is to ensure that the console doesnt get used as an extra chest and accidental misclicks
+                player.openHandledScreen(consoleBlockEntity);
+                world.playSound(null, pos, AITSounds.DOOM_DOOR_OPEN, SoundCategory.BLOCKS, 1.0f, 0.7f);
+            }
         }
 
         return ActionResult.SUCCESS;

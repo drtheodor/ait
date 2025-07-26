@@ -3,6 +3,7 @@ package dev.amble.ait.core.blockentities;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.amble.lib.util.ServerLifecycleHooks;
 import org.joml.Vector3f;
 
 import net.minecraft.block.BlockState;
@@ -27,11 +28,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import dev.amble.ait.AITMod;
+import dev.amble.ait.api.ArtronHolderItem;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.AITBlockEntityTypes;
 import dev.amble.ait.core.AITBlocks;
 import dev.amble.ait.core.entities.ConsoleControlEntity;
 import dev.amble.ait.core.item.ChargedZeitonCrystalItem;
+import dev.amble.ait.core.item.SonicItem;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisDesktop;
@@ -47,7 +50,7 @@ import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
 import dev.amble.ait.registry.impl.console.ConsoleRegistry;
 import dev.amble.ait.registry.impl.console.variant.ConsoleVariantRegistry;
 
-public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements BlockEntityTicker<ConsoleBlockEntity> {
+public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements BlockEntityTicker<ConsoleBlockEntity>, ArtronHolderItem {
 
     private ItemStack sonicScrewdriver = ItemStack.EMPTY;
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(54, ItemStack.EMPTY);
@@ -96,7 +99,7 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
 
     @Override
     protected Text getContainerName() {
-        return Text.translatable("ait.console.inventory");
+        return Text.translatable(tardis().isPresent() ? tardis().get().stats().getName() : "ait.console.inventory");
     }
 
     @Override
@@ -333,6 +336,19 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
                     (isRiftChunk) ? 0.05f : 0.025f);
         }
 
+        if (ServerLifecycleHooks.get().getTicks() % 10 != 0)
+            return;
+
+        if (sonicScrewdriver != null) {
+            if (this.hasMaxFuel(sonicScrewdriver))
+                return;
+
+            if (!tardis.fuel().hasPower())
+                return;
+
+            this.addFuel(10, sonicScrewdriver);
+            tardis.fuel().removeFuel(10);
+        }
     }
 
     public static ConsoleTypeSchema previousConsole(ConsoleTypeSchema current) {
@@ -409,8 +425,13 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
     }
 
     @Override
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return false;
+    }
+
+    @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player); //&& !this.isEmpty();
+        return Inventory.canPlayerUse(this, player) && !this.isEmpty();
     }
 
     @Override
@@ -426,5 +447,10 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
 
     public ItemStack getSonicScrewdriver() {
         return this.sonicScrewdriver;
+    }
+
+    @Override
+    public double getMaxFuel(ItemStack stack) {
+        return SonicItem.MAX_FUEL;
     }
 }
