@@ -18,6 +18,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.RotationPropertyHelper;
 
 import dev.amble.ait.AITMod;
+import dev.amble.ait.client.AITModClient;
 import dev.amble.ait.client.models.monitors.CRTMonitorModel;
 import dev.amble.ait.core.blockentities.MonitorBlockEntity;
 import dev.amble.ait.core.blocks.MonitorBlock;
@@ -81,6 +82,9 @@ public class MonitorRenderer<T extends MonitorBlockEntity> implements BlockEntit
         Tardis tardis = entity.tardis().get();
 
         if (!tardis.fuel().hasPower())
+            return;
+
+        if (!AITModClient.CONFIG.showCRTMonitorText)
             return;
 
         matrices.push();

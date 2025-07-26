@@ -30,7 +30,6 @@ import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.screens.interior.InteriorSettingsScreen;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.client.util.ClientLightUtil;
 import dev.amble.ait.client.util.ClientTardisUtil;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.handler.FuelHandler;
@@ -411,9 +410,8 @@ public class MonitorScreen extends ConsoleScreen {
                 LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, base, base, base, 1f);
 
         if (hasPower && emissive != null && !(emissive.equals(DatapackConsole.EMPTY))) {
-            ClientLightUtil.renderEmissive((v, l) -> model.render(
-                    stack, v, l, OverlayTexture.DEFAULT_UV, base, tinted, tinted, 1
-            ), emissive, context.getVertexConsumers());
+            model.render(stack, context.getVertexConsumers().getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(emissive, true)),
+                    LightmapTextureManager.MAX_LIGHT_COORDINATE, OverlayTexture.DEFAULT_UV, base, base, base, 1f);
         }
 
         stack.pop();

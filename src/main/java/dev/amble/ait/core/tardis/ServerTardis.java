@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 import com.google.gson.InstanceCreator;
+import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.amble.lib.util.ServerLifecycleHooks;
 import dev.drtheo.multidim.MultiDim;
 
@@ -18,6 +19,7 @@ import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.schema.desktop.TardisDesktopSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
+
 
 public class ServerTardis extends Tardis {
 
@@ -44,11 +46,6 @@ public class ServerTardis extends Tardis {
     @Override
     public void onCreate() {
         this.world = TardisServerWorld.create(this);
-    }
-
-    @Override
-    public void onLoaded() {
-        this.world = TardisServerWorld.load(this);
     }
 
     public void setRemoved(boolean removed) {
@@ -93,19 +90,28 @@ public class ServerTardis extends Tardis {
     }
 
     public TardisServerWorld world() {
+        if (this.world == null) {
+            this.world = TardisServerWorld.load(this);
+        }
+
         return world;
     }
 
     public boolean shouldTick() {
+        if (world == null)
+            return false;
+
         if (!MultiDim.get(ServerLifecycleHooks.get()).isWorldUnloaded(world))
             return true;
 
         TravelHandler travel = this.travel();
 
-        if (travel == null)
-            return false;
+        if (!travel.isLanded())
+            return true;
 
-        return travel.position().getWorld().shouldTickEntity(travel.position().getPos());
+        CachedDirectedGlobalPos pos = travel.position();
+        return pos.getWorld() != null && pos.getWorld()
+                .shouldTickEntity(travel.position().getPos());
     }
 
     public static Object creator() {

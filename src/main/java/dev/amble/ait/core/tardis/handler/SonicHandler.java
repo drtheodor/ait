@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.ArtronHolderItem;
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
+import dev.amble.ait.api.tardis.TardisEvents;
 import dev.amble.ait.api.tardis.TardisTickable;
 import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
 import dev.amble.ait.core.item.SonicItem;
@@ -48,6 +49,8 @@ public class SonicHandler extends KeyedTardisComponent implements ArtronHolderIt
 
                         SonicItem.setSchema(consoleBlockEntity.getSonicScrewdriver()/*tardis.sonic().getConsoleSonic()*/, id);});
                 }));
+        TardisEvents.DEMAT.register(tardis ->
+                !tardis.sonic().getExteriorSonic().isEmpty() ? TardisEvents.Interaction.FAIL : TardisEvents.Interaction.PASS);
     }
 
     public SonicHandler() {

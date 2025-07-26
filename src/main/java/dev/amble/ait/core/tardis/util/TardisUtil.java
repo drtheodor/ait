@@ -44,6 +44,7 @@ import dev.amble.ait.core.entities.FlightTardisEntity;
 import dev.amble.ait.core.tardis.ServerTardis;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisDesktop;
+import dev.amble.ait.core.tardis.handler.FuelHandler;
 import dev.amble.ait.core.tardis.handler.permissions.PermissionHandler;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.ait.core.util.WorldUtil;
@@ -313,7 +314,7 @@ public class TardisUtil {
     }
 
     public static void giveEffectToInteriorPlayers(ServerTardis tardis, StatusEffectInstance effect) {
-        for (PlayerEntity player : getPlayersInsideInterior(tardis)) {
+        for (PlayerEntity player : tardis.world().getPlayers()) {
             player.addStatusEffect(effect);
         }
     }
@@ -323,14 +324,6 @@ public class TardisUtil {
             return player;
         }
         return null;
-    }
-
-    /**
-     * @deprecated Use the {@link ServerTardis#world()} instead.
-     */
-    @Deprecated(forRemoval = true)
-    public static List<ServerPlayerEntity> getPlayersInsideInterior(ServerTardis tardis) {
-        return tardis.world().getPlayers();
     }
 
     public static <T extends Entity> List<T> getEntitiesInBox(Class<T> clazz, World world, Box box,
@@ -446,7 +439,7 @@ public class TardisUtil {
     }
 
     public static void sendMessageToInterior(ServerTardis tardis, Text text) {
-        for (ServerPlayerEntity player : getPlayersInsideInterior(tardis)) {
+        for (ServerPlayerEntity player : tardis.world().getPlayers()) {
             player.sendMessage(text, true);
         }
     }
@@ -480,5 +473,12 @@ public class TardisUtil {
         BlockPos pPos = player.getBlockPos();
         BlockPos tPos = tardis.travel().position().getPos();
         return Math.sqrt(tPos.getSquaredDistance(pPos));
+    }
+
+    public static double estimatedFuelCost(PlayerEntity player, Tardis tardis, double distance){
+        int speed = Math.max(tardis.travel().speed(), 1);
+        double ticksRequired = distance / speed;
+        double perTick = FuelHandler.getPerTickFuelCost(speed, tardis.travel().instability());
+        return perTick * ticksRequired;
     }
 }

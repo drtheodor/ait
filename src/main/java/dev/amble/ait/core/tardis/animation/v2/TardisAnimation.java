@@ -84,14 +84,6 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
     @Override
     public void tick(MinecraftServer server) {
         this.tickCommon();
-
-        this.alpha.tick(server);
-        this.scale.tick(server);
-        this.position.tick(server);
-        this.rotation.tick(server);
-    }
-
-    protected void tickCommon() {
         if (!this.isLinked()) return;
 
         Tardis tardis = this.tardis().get();
@@ -105,6 +97,15 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
             tardis.getExterior().playSound(this.getSoundIdOrDefault(), SoundCategory.BLOCKS);
         }
 
+        this.alpha.tick(server);
+        this.scale.tick(server);
+        this.position.tick(server);
+        this.rotation.tick(server);
+
+        this.isServer = true;
+    }
+
+    protected void tickCommon() {
         if (this.isAged() && this.doneQueue != null) {
             this.doneQueue.execute();
             this.doneQueue = null;

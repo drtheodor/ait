@@ -3,9 +3,6 @@ package dev.amble.ait.data.schema.exterior.variant.exclusive.wanderer;
 import net.minecraft.util.math.Vec3d;
 
 import dev.amble.ait.AITMod;
-import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
-import dev.amble.ait.core.tardis.animation.ExteriorAnimation;
-import dev.amble.ait.core.tardis.animation.PulsatingAnimation;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.door.impl.BoothDoorVariant;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
@@ -16,11 +13,6 @@ public class BoothWandererVariant extends ExteriorVariantSchema {
 
     public BoothWandererVariant() {
         super(ExclusiveCategory.REFERENCE, AITMod.id("exterior/exclusive/wanderer"));
-    }
-
-    @Override
-    public ExteriorAnimation animation(ExteriorBlockEntity exterior) {
-        return new PulsatingAnimation(exterior);
     }
 
     @Override

@@ -287,6 +287,8 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
             }
         }
 
+        world.updateNeighborsAlways(pos, state.getBlock());
+
         ServerTardis tardis = (ServerTardis) this.tardis().get();
         boolean isRiftChunk = RiftChunkManager.isRiftChunk(tardis.travel().position());
 
@@ -330,6 +332,7 @@ public class ConsoleBlockEntity extends AbstractConsoleBlockEntity implements Bl
                     pos.getX() + 0.5f, pos.getY() + 1.25, pos.getZ() + 0.5f, 1, 0, 0, 0,
                     (isRiftChunk) ? 0.05f : 0.025f);
         }
+
     }
 
     public static ConsoleTypeSchema previousConsole(ConsoleTypeSchema current) {

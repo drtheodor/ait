@@ -29,6 +29,7 @@ body:
     label: Version
     description: What version of the mod you're running?
     options:
+    - BETA
     - 1.1.0
     - 1.2.0
     - 1.2.1
@@ -38,6 +39,9 @@ body:
     - 1.2.5
     - 1.2.6
     - 1.2.7
+    - 1.2.8
+    - 1.2.9
+    - 1.2.10
     default: 0
   validations:
     required: true
