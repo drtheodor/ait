@@ -6,3 +6,5 @@
 - fix: weird emission bug with the War TARDIS! | by [@MaketendoDev](https://github.com/MaketendoDev), [@Loqor](https://github.com/Loqor) ([#1749](https://github.com/amblelabs/ait/pull/1749))
 - fix: fix circular multidim lazy world loading | by [@DrTheodor](https://github.com/DrTheodor) ([#1750](https://github.com/amblelabs/ait/pull/1750))
 - fix: no more extreme screen shaking when there are no consoles during flight | by [@DrTheodor](https://github.com/DrTheodor) ([#1757](https://github.com/amblelabs/ait/pull/1757))
+- add: Console Inventory for storing components! | by [@Loqor](https://github.com/Loqor) ([#1665](https://github.com/amblelabs/ait/pull/1665))
+- add: Sonics are now independent of the TARDIS and are stored within the console's data itself! | by [@Loqor](https://github.com/Loqor) ([#1665](https://github.com/amblelabs/ait/pull/1665))
