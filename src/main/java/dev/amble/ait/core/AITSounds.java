@@ -114,7 +114,7 @@ public class AITSounds {
     public static final SoundEvent DOOR_CONTROLALT = register("controls/door_controlalt");
     public static final SoundEvent POWER_FLICK = register("controls/power_flick");
     public static final SoundEvent PROTOCOL_19 = register("controls/protocol_19");
-    public static final SoundEvent MARK_WAYPOINT = register("controls/mark_waypoint");
+    public static final SoundEvent SAVE_WAYPOINT = register("controls/save_waypoint");
     public static final SoundEvent ANTI_GRAVS = register("controls/anti_gravs");
     public static final SoundEvent FAST_RETURN = register("controls/fast_return");
     public static final SoundEvent PROTOCOL_116_ON = register("controls/protocol_116_on");
@@ -127,7 +127,7 @@ public class AITSounds {
     public static final SoundEvent SIEGE = register("controls/siege");
     public static final SoundEvent DIRECTION = register("controls/direction");
     public static final SoundEvent THROTTLE_SNAP = register("controls/throttle_snap");
-    public static final SoundEvent SET_WAYPOINT = register("controls/waypoint_set");
+    public static final SoundEvent LOAD_WAYPOINT = register("controls/waypoint_load");
     public static final SoundEvent XYZ = register("controls/xyz");
     public static final SoundEvent RANDOMIZE = register("controls/randomize");
     public static final SoundEvent INCREMENT = register("controls/increment");
