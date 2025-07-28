@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.core.item.WaypointItem;
-import dev.amble.ait.core.tardis.handler.travel.TravelUtil;
 import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.ait.data.Waypoint;
 import dev.amble.ait.data.properties.bool.BoolProperty;
@@ -47,7 +46,7 @@ public class WaypointHandler extends KeyedTardisComponent {
     /**
      * Sets the new waypoint
      *
-     * @return The optional of the previous waypoiint
+     * @return The optional of the previous waypoint
      */
     public Optional<Waypoint> set(Waypoint var, BlockPos console, boolean spawnItem) {
         Optional<Waypoint> prev = Optional.ofNullable(this.current);
@@ -72,27 +71,20 @@ public class WaypointHandler extends KeyedTardisComponent {
         this.clearCartridge();
     }
 
-    public void gotoWaypoint() {
+    public void loadWaypoint() {
         if (!this.hasWaypoint())
-            return; // todo move this check to the DEMAT event so the fail to takeoff happens
-
-        //this.tardis.travel().autopilot(true);
-        CachedDirectedGlobalPos cached = this.get().getPos();
-        if (cached == null)
             return;
 
-        if (cached.getWorld() instanceof TardisServerWorld) {
-            cached = CachedDirectedGlobalPos.create(TardisServerWorld.OVERWORLD, cached.getPos(), cached.getRotation());
+        CachedDirectedGlobalPos cachedPos = this.get().getPos();
+
+        if (cachedPos == null || !this.hasWaypoint())
+            return;
+
+        if (cachedPos.getWorld() instanceof TardisServerWorld) {
+            cachedPos = CachedDirectedGlobalPos.create(TardisServerWorld.OVERWORLD, cachedPos.getPos(), cachedPos.getRotation());
         }
-        TravelUtil.travelTo(tardis, cached);
-    }
 
-    public void setDestination() {
-        if (!this.hasWaypoint())
-            return;
-
-        this.tardis.travel().forceDestination(this.get().getPos());
-
+        tardis.travel().destination(cachedPos);
     }
 
     public void spawnItem(BlockPos console) {

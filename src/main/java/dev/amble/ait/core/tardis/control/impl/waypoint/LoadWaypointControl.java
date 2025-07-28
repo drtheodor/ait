@@ -30,7 +30,7 @@ public class LoadWaypointControl extends Control {
 
 
         if (!tardis.travel().handbrake()) {
-            waypoints.gotoWaypoint();
+            waypoints.loadWaypoint();
             TardisDesktop.playSoundAtConsole(world, console, AITSounds.NAV_NOTIFICATION, SoundCategory.PLAYERS, 6f, 1);
         } else {
             player.sendMessage(Text.translatable("control.ait.load_waypoint.error"), true);
