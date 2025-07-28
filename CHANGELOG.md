@@ -10,3 +10,5 @@
 - add: Sonics are now independent of the TARDIS and are stored within the console's data itself! | by [@Loqor](https://github.com/Loqor) ([#1665](https://github.com/amblelabs/ait/pull/1665))
 - fix sonic- and console-port throwing exceptions | by [@Mansarde](https://github.com/Mansarde) ([#1762](https://github.com/amblelabs/ait/pull/1762))
 - fix console part eating cartridges when swapping | by [@Mansarde](https://github.com/Mansarde) ([#1762](https://github.com/amblelabs/ait/pull/1762))
+- add: rhyno, tendo and dian to the dev team list | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
+- add: alarms stop when repairing via sonic | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
