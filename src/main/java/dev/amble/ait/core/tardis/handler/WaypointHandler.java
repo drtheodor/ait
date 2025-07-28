@@ -77,6 +77,9 @@ public class WaypointHandler extends KeyedTardisComponent {
 
         //this.tardis.travel().autopilot(true);
         CachedDirectedGlobalPos cached = this.get().getPos();
+        if (cached == null)
+            return;
+
         if (cached.getWorld() instanceof TardisServerWorld) {
             cached = CachedDirectedGlobalPos.create(TardisServerWorld.OVERWORLD, cached.getPos(), cached.getRotation());
         }
