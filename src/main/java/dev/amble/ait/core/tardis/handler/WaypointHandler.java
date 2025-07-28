@@ -36,7 +36,7 @@ public class WaypointHandler extends KeyedTardisComponent {
         return hasCartridge.get();
     }
 
-    public void markHasCartridge() {
+    public void setHasCartridge() {
         hasCartridge.set(true);
     }
 
