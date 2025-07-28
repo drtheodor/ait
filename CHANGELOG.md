@@ -8,3 +8,5 @@
 - fix: no more extreme screen shaking when there are no consoles during flight | by [@DrTheodor](https://github.com/DrTheodor) ([#1757](https://github.com/amblelabs/ait/pull/1757))
 - add: Console Inventory for storing components! | by [@Loqor](https://github.com/Loqor) ([#1665](https://github.com/amblelabs/ait/pull/1665))
 - add: Sonics are now independent of the TARDIS and are stored within the console's data itself! | by [@Loqor](https://github.com/Loqor) ([#1665](https://github.com/amblelabs/ait/pull/1665))
+- fix sonic- and console-port throwing exceptions | by [@Mansarde](https://github.com/Mansarde) ([#1762](https://github.com/amblelabs/ait/pull/1762))
+- fix console part eating cartridges when swapping | by [@Mansarde](https://github.com/Mansarde) ([#1762](https://github.com/amblelabs/ait/pull/1762))
