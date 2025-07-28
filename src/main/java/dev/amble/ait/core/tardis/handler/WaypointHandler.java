@@ -69,6 +69,7 @@ public class WaypointHandler extends KeyedTardisComponent {
 
     public void clear(BlockPos console, boolean spawnItem) {
         this.set(null, console, spawnItem);
+        this.clearCartridge();
     }
 
     public void gotoWaypoint() {
@@ -77,6 +78,9 @@ public class WaypointHandler extends KeyedTardisComponent {
 
         //this.tardis.travel().autopilot(true);
         CachedDirectedGlobalPos cached = this.get().getPos();
+        if (cached == null)
+            return;
+
         if (cached.getWorld() instanceof TardisServerWorld) {
             cached = CachedDirectedGlobalPos.create(TardisServerWorld.OVERWORLD, cached.getPos(), cached.getRotation());
         }
@@ -107,7 +111,6 @@ public class WaypointHandler extends KeyedTardisComponent {
                 console.getZ(), createWaypointItem(waypoint));
 
         tardis.asServer().world().spawnEntity(entity);
-        this.clearCartridge();
     }
 
     public static ItemStack createWaypointItem(Waypoint waypoint) {
