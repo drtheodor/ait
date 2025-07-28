@@ -12,3 +12,4 @@
 - fix console part eating cartridges when swapping | by [@Mansarde](https://github.com/Mansarde) ([#1762](https://github.com/amblelabs/ait/pull/1762))
 - add: rhyno, tendo and dian to the dev team list | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
 - add: alarms stop when repairing via sonic | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
+- fix occupied slots in waypoint banks from being overridden when trying to insert another cartridge there | by [@Mansarde](https://github.com/Mansarde) ([#1764](https://github.com/amblelabs/ait/pull/1764))
