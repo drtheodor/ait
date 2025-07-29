@@ -793,7 +793,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("control.ait.console_port", "Console Port");
         provider.addTranslation("control.ait.save_waypoint", "Save Waypoint");
         provider.addTranslation("control.ait.load_waypoint", "Load Waypoint");
-        provider.addTranslation("control.ait.load_waypoint.error", "Cannot travel to waypoint with handbrake engaged");
+        provider.addTranslation("control.ait.load_waypoint.error", "Cartridge contains no waypoint");
         provider.addTranslation("control.ait.increment", "Increment");
         provider.addTranslation("control.ait.x", "X");
         provider.addTranslation("control.ait.y", "Y");

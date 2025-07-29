@@ -71,20 +71,21 @@ public class WaypointHandler extends KeyedTardisComponent {
         this.clearCartridge();
     }
 
-    public void loadWaypoint() {
+    public boolean loadWaypoint() {
         if (!this.hasWaypoint())
-            return;
+            return false;
 
         CachedDirectedGlobalPos cachedPos = this.get().getPos();
 
         if (cachedPos == null || !this.hasWaypoint())
-            return;
+            return false;
 
         if (cachedPos.getWorld() instanceof TardisServerWorld) {
             cachedPos = CachedDirectedGlobalPos.create(TardisServerWorld.OVERWORLD, cachedPos.getPos(), cachedPos.getRotation());
         }
 
         tardis.travel().destination(cachedPos);
+        return true;
     }
 
     public void spawnItem(BlockPos console) {
