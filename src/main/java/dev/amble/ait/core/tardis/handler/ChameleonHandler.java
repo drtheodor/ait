@@ -11,6 +11,7 @@ import dev.drtheo.gaslighter.Gaslighter3000;
 import dev.drtheo.gaslighter.api.FakeBlockEvents;
 
 import dev.drtheo.gaslighter.impl.FakeStructureWorldAccess;
+import net.minecraft.block.BlockState;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
@@ -153,19 +154,36 @@ public class ChameleonHandler extends TardisComponent {
         long start = System.currentTimeMillis();
         CachedDirectedGlobalPos cached = tardis.travel().position();
         ServerWorld world = cached.getWorld();
+        BlockPos pos = cached.getPos();
 
-        if (!this.testBiome(world, cached.getPos()) || this.gaslighter == null) {
-            Text text = Text.translatable("tardis.message.chameleon.failed")
-                    .formatted(Formatting.RED);
+        boolean success = this.testBiome(world, pos);
 
-            NetworkUtil.getSubscribedPlayers(tardis.asServer()).forEach(player ->
-                    player.sendMessage(text, true));
+        if (!success) {
+            if (this.gaslighter == null) {
+                this.notifyFailure();
+                return false;
+            }
 
-            return false;
+            BlockState below = world.getBlockState(pos.down());
+
+            if (below.isAir()) {
+                this.notifyFailure();
+                return false;
+            }
+
+            this.gaslighter.spreadLies(cached.getPos(), below);
         }
 
         AITMod.LOGGER.debug("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
         return true;
+    }
+
+    private void notifyFailure() {
+        Text text = Text.translatable("tardis.message.chameleon.failed")
+                .formatted(Formatting.RED);
+
+        NetworkUtil.getSubscribedPlayers(tardis.asServer()).forEach(player ->
+                player.sendMessage(text, true));
     }
 
     private void applyDisguise(ServerPlayerEntity player) {
