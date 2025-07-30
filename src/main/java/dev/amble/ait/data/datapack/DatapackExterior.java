@@ -24,6 +24,7 @@ import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
+import org.apache.http.impl.io.IdentityInputStream;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class DatapackExterior extends ExteriorVariantSchema {
@@ -38,6 +39,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
     protected final Vec3d seatTranslations;
     protected final boolean initiallyDatapack;
     protected final boolean hasTransparentDoors;
+    protected final Identifier model;
 
     public static final Codec<DatapackExterior> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ExteriorVariantSchema::id),
@@ -50,11 +52,12 @@ public class DatapackExterior extends ExteriorVariantSchema {
                             .forGetter(DatapackExterior::overrides),
                     Vec3d.CODEC.optionalFieldOf("seat_translations", new Vec3d(0.5, 1, 0.5)).forGetter(DatapackExterior::seatTranslations),
                     Codec.BOOL.optionalFieldOf("has_transparent_doors", false).forGetter(DatapackExterior::hasTransparentDoors),
+                    Identifier.CODEC.optionalFieldOf("model").forGetter(DatapackExterior::model),
                     Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack))
             .apply(instance, DatapackExterior::new));
 
     public DatapackExterior(Identifier id, Identifier category, Identifier parent, Identifier texture,
-                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, boolean isDatapack) {
+                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, boolean isDatapack) {
         super(category, id, loyalty);
         this.parent = parent;
         this.texture = texture;
@@ -63,6 +66,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
         this.hasTransparentDoors = hasTransparentDoors;
         this.initiallyDatapack = isDatapack;
         this.overrides = overrides;
+        this.model = model.orElse(null);
     }
 
     public static DatapackExterior fromInputStream(InputStream stream) {
@@ -141,5 +145,12 @@ public class DatapackExterior extends ExteriorVariantSchema {
 
     public Identifier emission() {
         return this.emission;
+    }
+
+    /**
+     * A possible identifier for a bedrock model in the BedrockModelRegistry.
+     */
+    public Optional<Identifier> model() {
+        return Optional.ofNullable(this.model);
     }
 }

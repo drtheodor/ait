@@ -2,6 +2,8 @@ package dev.amble.ait.registry.impl.exterior;
 
 
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.exterior.BedrockExteriorModel;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -120,6 +122,10 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
 
             @Override
             public ExteriorModel model() {
+                if (variant.model().isPresent()) {
+                    return new BedrockExteriorModel(BedrockModelRegistry.getInstance().get(variant.model().get()));
+                }
+
                 var parent = getInstance().get(variant.getParentId());
 
                 if (parent == null) return ClientExteriorVariantRegistry.CAPSULE_DEFAULT.model();

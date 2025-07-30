@@ -8,7 +8,7 @@
  * This code is MPL, due to it referencing this code: https://gitlab.com/cable-mc/cobblemon/-/blob/main/common/src/main/kotlin/com/cobblemon/mod/common/client/render/models/blockbench/TexturedModel.kt
  */
 
-package dev.amble.ait.core.tardis.animation.v2.blockbench;
+package dev.amble.ait.core.tardis.animation.v2.bedrock;
 
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;

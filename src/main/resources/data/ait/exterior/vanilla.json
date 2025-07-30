@@ -1,0 +1,8 @@
+{
+  "id": "ait:vanilla",
+  "category": "ait:exterior/police_box",
+  "parent": "ait:exterior/police_box/coral",
+  "texture": "ait:textures/blockentities/exteriors/police_box/vanilla.png",
+  "emission": "ait:textures/blockentities/exteriors/police_box/vanilla_emission.png",
+  "model": "ait:vanilla"
+}
