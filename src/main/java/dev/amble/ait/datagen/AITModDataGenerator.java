@@ -825,6 +825,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("yacl3.config.ait:client.showConsoleMonitorText", "Show text on console monitors?");
         provider.addTranslation("yacl3.config.ait:client.showCRTMonitorText", "Show text on CRT monitors?");
         provider.addTranslation("yacl3.config.ait:client.renderDematParticles", "Render demat particles?");
+        provider.addTranslation("yacl3.config.ait:client.powerOffDarkness", "Darkness effect when TARDIS powers off?");
         provider.addTranslation("yacl3.config.ait:client.animateConsole", "Animate console?");
         provider.addTranslation("yacl3.config.ait:client.animateDoors", "Animate doors?");
         provider.addTranslation("yacl3.config.ait:client.temperatureType", "Temperature type");
