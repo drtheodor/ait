@@ -22,3 +22,4 @@
 - fix: spots rendering at the wrong position | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
 - fix: landing marker failing in unloaded chunks | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
 - Update README.md | by [@MaketendoDev](https://github.com/MaketendoDev), [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1648](https://github.com/amblelabs/ait/pull/1648))
+- Add changelog for PR #1775 to CHANGELOG.md | by [@Mansarde](https://github.com/Mansarde) ([#1776](https://github.com/amblelabs/ait/pull/1776))
