@@ -30,17 +30,23 @@ public class ChameleonHandler extends TardisComponent {
 
     static {
         TardisEvents.ENTER_FLIGHT.register(tardis -> {
-            if (isDisguised(tardis))
-                tardis.chameleon().clearDisguise();
+            tardis.chameleon().clearDisguise();
         });
 
         TardisEvents.START_FALLING.register(tardis -> {
-            if (isDisguised(tardis))
+            tardis.chameleon().clearDisguise();
+        });
+
+        TardisEvents.TOGGLE_SIEGE.register((tardis, active) -> {
+            if (shouldNotBeDisguised(tardis)) {
                 tardis.chameleon().clearDisguise();
+            } else {
+                tardis.chameleon().applyDisguise();
+            }
         });
 
         TardisEvents.LANDED.register(tardis -> {
-            if (isDisguised(tardis))
+            if (!shouldNotBeDisguised(tardis))
                 tardis.chameleon().applyDisguise();
         });
 
@@ -48,33 +54,30 @@ public class ChameleonHandler extends TardisComponent {
             if (player.isInTeleportationState())
                 return;
 
+            if (shouldNotBeDisguised(tardis))
+                return;
+
             CachedDirectedGlobalPos pos = tardis.travel().position();
 
             if (pos == null || pos.getWorld() != player.getServerWorld())
                 return;
 
-            if (isDisguised(tardis))
-                tardis.chameleon().applyDisguise(player);
+            tardis.chameleon().applyDisguise(player);
         });
 
         TardisEvents.EXTERIOR_CHANGE.register(tardis -> {
-            ChameleonHandler chameleon = tardis.chameleon();
-
-            if (isDisguised(tardis)) {
-                chameleon.applyDisguise();
+            if (shouldNotBeDisguised(tardis)) {
+                tardis.chameleon().clearDisguise();
             } else {
-                chameleon.clearDisguise();
+                tardis.chameleon().applyDisguise();
             }
         });
 
         TardisEvents.DOOR_USED.register((tardis,  player) -> {
-            if (player == null)
+            if (player == null || !isDisguised(tardis))
                 return DoorHandler.InteractionResult.CONTINUE;
 
-            if (!isDisguised(tardis))
-                return DoorHandler.InteractionResult.CONTINUE;
-
-            if (tardis.door().isClosed()) {
+            if (!shouldNotBeDisguised(tardis)) {
                 tardis.chameleon().applyDisguise(player);
                 return DoorHandler.InteractionResult.CONTINUE;
             }
@@ -88,6 +91,7 @@ public class ChameleonHandler extends TardisComponent {
             player.networkHandler.sendPacket(new BlockUpdateS2CPacket(cached.getWorld(), cached.getPos()));
             player.networkHandler.sendPacket(new BlockUpdateS2CPacket(cached.getWorld(), cached.getPos().up()));
             player.networkHandler.sendPacket(BlockEntityUpdateS2CPacket.create(blockEntity.get()));
+
             return DoorHandler.InteractionResult.CONTINUE;
         });
 
@@ -107,6 +111,11 @@ public class ChameleonHandler extends TardisComponent {
         super(Id.CHAMELEON);
     }
 
+    private static boolean shouldNotBeDisguised(Tardis tardis) {
+        return !isDisguised(tardis) || tardis.flight().falling().get()
+                || tardis.siege().isActive() || tardis.door().isOpen();
+    }
+
     private static boolean isDisguised(Tardis tardis) {
         return tardis.getExterior().getVariant() instanceof AdaptiveVariant;
     }
@@ -121,30 +130,35 @@ public class ChameleonHandler extends TardisComponent {
         this.gaslighter = null;
     }
 
+    /**
+     * @return Whether the recalculation was successful
+     */
     public boolean recalcDisguise() {
+        if (this.gaslighter != null)
+            return true;
+
         long start = System.currentTimeMillis();
         CachedDirectedGlobalPos cached = tardis.travel().position();
         ServerWorld world = cached.getWorld();
 
-        if (this.gaslighter == null)
-            this.gaslighter = tardis.<BiomeHandler>handler(Id.BIOME).testBiome(world, cached.getPos());
+        this.gaslighter = tardis.<BiomeHandler>handler(Id.BIOME).testBiome(world, cached.getPos());
 
         if (this.gaslighter == null)
             return false;
 
-        AITMod.LOGGER.info("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
+        AITMod.LOGGER.debug("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
         return true;
     }
 
     private void applyDisguise(ServerPlayerEntity player) {
-        if (this.gaslighter == null && !this.recalcDisguise())
+        if (!this.recalcDisguise())
             return;
 
         this.gaslighter.tweet(player);
     }
 
     private void applyDisguise() {
-        if (this.gaslighter == null && !this.recalcDisguise())
+        if (!this.recalcDisguise())
             return;
 
         this.gaslighter.tweet();
