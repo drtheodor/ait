@@ -6,8 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.AITMod;
-import dev.amble.ait.data.Loyalty;
-import dev.amble.ait.data.schema.MachineRecipeSchema;
+import dev.amble.ait.core.util.PortalOffsets;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -15,7 +14,6 @@ import net.minecraft.util.math.Vec3d;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.EnumMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DatapackDoor extends DoorSchema {
@@ -25,7 +23,7 @@ public class DatapackDoor extends DoorSchema {
 			Identifier.CODEC.fieldOf("close_sound").forGetter(DatapackDoor::getCloseSoundId),
 			Identifier.CODEC.fieldOf("model").forGetter(DatapackDoor::getModelId),
 			Codec.BOOL.fieldOf("is_double").forGetter(DoorSchema::isDouble),
-			PortalOffsets.CODEC.optionalFieldOf("offsets", new PortalOffsets()).forGetter(DatapackDoor::getOffsets),
+			PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackDoor::getOffsets),
 			Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackDoor::wasDatapack)
 		).apply(instance, DatapackDoor::new)
 	);
@@ -105,32 +103,4 @@ public class DatapackDoor extends DoorSchema {
 		return created.get();
 	}
 
-	public static class PortalOffsets extends EnumMap<Direction, Vec3d> {
-		public static final Codec<PortalOffsets> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				Vec3d.CODEC.optionalFieldOf("north", Vec3d.ZERO).forGetter(map -> ((PortalOffsets) map).get(Direction.NORTH)),
-				Vec3d.CODEC.optionalFieldOf("south", Vec3d.ZERO).forGetter(map -> ((PortalOffsets) map).get(Direction.SOUTH)),
-				Vec3d.CODEC.optionalFieldOf("east", Vec3d.ZERO).forGetter(map -> ((PortalOffsets) map).get(Direction.EAST)),
-				Vec3d.CODEC.optionalFieldOf("west", Vec3d.ZERO).forGetter(map -> ((PortalOffsets) map).get(Direction.WEST))
-			).apply(instance, PortalOffsets::new));
-
-		public PortalOffsets() {
-			super(Direction.class);
-		}
-
-		public PortalOffsets(Vec3d north, Vec3d south, Vec3d east, Vec3d west) {
-			this();
-			this.put(Direction.NORTH, north);
-			this.put(Direction.SOUTH, south);
-			this.put(Direction.EAST, east);
-			this.put(Direction.WEST, west);
-		}
-
-		public Vec3d apply(Direction dir, Vec3d pos) {
-			Vec3d offset = this.get(dir);
-			if (offset == null) {
-				return pos;
-			}
-			return pos.add(offset);
-		}
-	}
 }

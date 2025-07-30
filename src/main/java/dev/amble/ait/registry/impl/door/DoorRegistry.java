@@ -1,19 +1,14 @@
 package dev.amble.ait.registry.impl.door;
 
 
+import dev.amble.ait.core.util.PortalOffsets;
 import dev.amble.ait.data.datapack.DatapackConsole;
-import dev.amble.ait.data.datapack.DatapackExterior;
-import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.door.DatapackDoor;
-import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.lib.register.datapack.SimpleDatapackRegistry;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.SimpleRegistry;
 
 import dev.amble.ait.AITMod;
 import dev.amble.ait.data.schema.door.DoorSchema;
@@ -21,9 +16,6 @@ import dev.amble.ait.data.schema.door.impl.*;
 import dev.amble.ait.data.schema.door.impl.exclusive.BlueBoxDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.DoomDoorVariant;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
-
-import java.util.Optional;
 
 public class DoorRegistry extends SimpleDatapackRegistry<DoorSchema> {
     private static DoorRegistry INSTANCE;
@@ -79,7 +71,7 @@ public class DoorRegistry extends SimpleDatapackRegistry<DoorSchema> {
             }
 
             buf.encodeAsJson(DatapackDoor.CODEC, // todo
-                    new DatapackDoor(schema.id(), schema.openSound().getId(), schema.closeSound().getId(), DatapackConsole.EMPTY, schema.isDouble(), new DatapackDoor.PortalOffsets(), false));
+                    new DatapackDoor(schema.id(), schema.openSound().getId(), schema.closeSound().getId(), DatapackConsole.EMPTY, schema.isDouble(), new PortalOffsets(1, 2), false));
         }
 
         ServerPlayNetworking.send(player, this.packet, buf);

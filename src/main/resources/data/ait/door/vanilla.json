@@ -3,5 +3,8 @@
   "open_sound": "minecraft:block.wooden_door.open",
   "close_sound": "minecraft:block.wooden_door.close",
   "model": "ait:vanilla_door",
-  "is_double": false
+  "is_double": false,
+  "portal_info": {
+    "enabled": false
+  }
 }

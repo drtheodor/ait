@@ -5,5 +5,8 @@
   "texture": "ait:textures/blockentities/exteriors/police_box/vanilla.png",
   "emission": "ait:textures/blockentities/exteriors/police_box/vanilla_emission.png",
   "model": "ait:vanilla",
-  "door": "ait:vanilla"
+  "door": "ait:vanilla",
+  "portal_info": {
+    "enabled": false
+  }
 }

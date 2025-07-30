@@ -13,6 +13,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import dev.amble.ait.core.util.PortalOffsets;
 import dev.amble.ait.registry.impl.door.DoorRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -42,6 +43,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
     protected final boolean hasTransparentDoors;
     protected final Identifier model;
     protected final Identifier doorId;
+    protected final PortalOffsets portalOffsets;
 
     public static final Codec<DatapackExterior> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ExteriorVariantSchema::id),
@@ -56,11 +58,12 @@ public class DatapackExterior extends ExteriorVariantSchema {
                     Codec.BOOL.optionalFieldOf("has_transparent_doors", false).forGetter(DatapackExterior::hasTransparentDoors),
                     Identifier.CODEC.optionalFieldOf("model").forGetter(DatapackExterior::model),
                     Identifier.CODEC.optionalFieldOf("door").forGetter(DatapackExterior::getDoorId),
+                    PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackExterior::getPortalOffsets),
                     Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack))
             .apply(instance, DatapackExterior::new));
 
     public DatapackExterior(Identifier id, Identifier category, Identifier parent, Identifier texture,
-                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, boolean isDatapack) {
+                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, PortalOffsets offsets, boolean isDatapack) {
         super(category, id, loyalty);
         this.parent = parent;
         this.texture = texture;
@@ -71,6 +74,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
         this.overrides = overrides;
         this.model = model.orElse(null);
         this.doorId = door.orElse(null);
+        this.portalOffsets = offsets;
     }
 
     public static DatapackExterior fromInputStream(InputStream stream) {
@@ -129,21 +133,37 @@ public class DatapackExterior extends ExteriorVariantSchema {
 
     @Override
     public boolean hasPortals() {
+        if (this.getPortalOffsets() != null) {
+            return this.getPortalOffsets().isEnabled();
+        }
+
         return this.getParent().hasPortals();
     }
 
     @Override
     public Vec3d adjustPortalPos(Vec3d pos, byte direction) {
+        if (this.getPortalOffsets() != null) {
+            return this.getPortalOffsets().apply(pos, direction);
+        }
+
         return this.getParent().adjustPortalPos(pos, direction);
     }
 
     @Override
     public double portalWidth() {
+        if (this.getPortalOffsets() != null) {
+            return this.getPortalOffsets().getWidth();
+        }
+
         return this.getParent().portalWidth();
     }
 
     @Override
     public double portalHeight() {
+        if (this.getPortalOffsets() != null) {
+            return this.getPortalOffsets().getHeight();
+        }
+
         return this.getParent().portalHeight();
     }
 
@@ -164,5 +184,9 @@ public class DatapackExterior extends ExteriorVariantSchema {
      */
     public Optional<Identifier> model() {
         return Optional.ofNullable(this.model);
+    }
+
+    public PortalOffsets getPortalOffsets() {
+        return this.portalOffsets;
     }
 }
