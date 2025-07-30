@@ -1,6 +1,9 @@
 package dev.amble.ait.client.renderers.exteriors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.core.tardis.animation.v2.blockbench.BedrockModel;
+import dev.amble.ait.core.tardis.animation.v2.blockbench.BedrockModelRegistry;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import org.joml.Vector3f;
 
@@ -19,7 +22,7 @@ import net.minecraft.util.profiler.Profiler;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.client.boti.BOTI;
-import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.client.models.exteriors.SimpleExteriorModel;
 import dev.amble.ait.client.models.exteriors.SiegeModeModel;
 import dev.amble.ait.client.models.machines.ShieldsModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
@@ -177,6 +180,12 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             float sinFunc = (float) Math.sin((MinecraftClient.getInstance().player.age / 400f * 220f) * 0.2f + 0.2f);
             matrices.translate(0, sinFunc, 0);
         }
+
+        matrices.push();
+        BedrockModel bedrockModel = BedrockModelRegistry.getInstance().get(AITMod.id("war"));
+        bedrockModel.create().createModel().render(matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)),
+                light, overlay, 1, 1, 1, alpha);
+        matrices.pop();
 
         if (!DependencyChecker.hasIris()) {
             model.renderWithAnimations(tardis, entity, this.model.getPart(),
