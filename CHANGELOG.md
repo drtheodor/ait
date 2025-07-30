@@ -13,3 +13,5 @@
 - add: rhyno, tendo and dian to the dev team list | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
 - add: alarms stop when repairing via sonic | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1763](https://github.com/amblelabs/ait/pull/1763))
 - fix occupied slots in waypoint banks from being overridden when trying to insert another cartridge there | by [@Mansarde](https://github.com/Mansarde) ([#1764](https://github.com/amblelabs/ait/pull/1764))
+- add sonic screwdriver summon notify if no power | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1770](https://github.com/amblelabs/ait/pull/1770))
+- fix: loading of waypoint cartridges now only loads the coordinates instead of starting flight | by [@Mansarde](https://github.com/Mansarde) ([#1769](https://github.com/amblelabs/ait/pull/1769))
