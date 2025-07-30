@@ -1,16 +1,27 @@
 package dev.amble.ait.core.tardis.handler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.gaslighter.Gaslighter3000;
 import dev.drtheo.gaslighter.api.FakeBlockEvents;
 
+import dev.drtheo.gaslighter.impl.FakeStructureWorldAccess;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
@@ -22,6 +33,8 @@ import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.schema.exterior.variant.adaptive.AdaptiveVariant;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.*;
 
 public class ChameleonHandler extends TardisComponent {
 
@@ -141,10 +154,15 @@ public class ChameleonHandler extends TardisComponent {
         CachedDirectedGlobalPos cached = tardis.travel().position();
         ServerWorld world = cached.getWorld();
 
-        this.gaslighter = tardis.<BiomeHandler>handler(Id.BIOME).testBiome(world, cached.getPos());
+        if (!this.testBiome(world, cached.getPos()) || this.gaslighter == null) {
+            Text text = Text.translatable("tardis.message.chameleon.failed")
+                    .formatted(Formatting.RED);
 
-        if (this.gaslighter == null)
+            NetworkUtil.getSubscribedPlayers(tardis.asServer()).forEach(player ->
+                    player.sendMessage(text, true));
+
             return false;
+        }
 
         AITMod.LOGGER.debug("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
         return true;
@@ -167,5 +185,72 @@ public class ChameleonHandler extends TardisComponent {
     private static void shitParticles(ServerWorld world, BlockPos pos) {
         Vec3d center = pos.toCenterPos();
         world.spawnParticles(ParticleTypes.END_ROD, center.getX(), center.getY(), center.getZ(), 12, 0.3, 0.3, 0.3, 0);
+    }
+
+    public boolean testBiome(ServerWorld world, BlockPos pos) {
+        RegistryEntry<Biome> biome = world.getBiome(pos);
+        List<ConfiguredFeature<?, ?>> trees = this.findTrees(world, biome);
+
+        if (trees.isEmpty())
+            return false;
+
+        this.gaslighter = new Gaslighter3000(world);
+
+        ConfiguredFeature<?, ?> tree = trees.get(world.random.nextInt(trees.size()));
+        FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
+
+        return tree.generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
+    }
+
+    private static final Set<Class<? extends Feature<?>>> TREES = Set.of(
+            TreeFeature.class, HugeMushroomFeature.class, HugeFungusFeature.class, DesertWellFeature.class, ChorusPlantFeature.class
+    );
+
+    private static final Identifier CACTUS = AITMod.id("cactus");
+
+    private List<ConfiguredFeature<?, ?>> findTrees(ServerWorld world, RegistryEntry<Biome> biome) {
+        BiomeHandler biomeHandler = this.tardis.handler(Id.BIOME);
+        if (biomeHandler.getBiomeKey() == BiomeHandler.BiomeType.SANDY && world.random.nextInt(5) != 0)
+            return List.of(world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).get(CACTUS));
+
+        List<ConfiguredFeature<?, ?>> trees = new ArrayList<>();
+
+        for (RegistryEntryList<PlacedFeature> feature : biome.value().getGenerationSettings().getFeatures()) {
+            for (RegistryEntry<PlacedFeature> entry : feature) {
+                ConfiguredFeature<?, ?> configured = entry.value().feature().value();
+
+                if (isTree(configured, biome)) {
+                    trees.add(configured);
+                    break;
+                } else {
+                    boolean shouldBreak = false;
+
+                    for (ConfiguredFeature<?, ?> configuredFeature : configured.config().getDecoratedFeatures().toList()) {
+                        if (!isTree(configuredFeature, biome))
+                            continue;
+
+                        trees.add(configured);
+                        shouldBreak = true;
+                        break;
+                    }
+
+                    if (shouldBreak)
+                        break;
+                }
+            }
+        }
+
+        return trees;
+    }
+
+    private static boolean isTree(ConfiguredFeature<?, ?> configured, RegistryEntry<Biome> biome) {
+        Feature<?> feature = configured.feature();
+
+        for (Class<?> clazz : TREES) {
+            if (clazz.isInstance(feature))
+                return true;
+        }
+
+        return false;
     }
 }
