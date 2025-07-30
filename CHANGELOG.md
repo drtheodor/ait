@@ -15,3 +15,4 @@
 - fix occupied slots in waypoint banks from being overridden when trying to insert another cartridge there | by [@Mansarde](https://github.com/Mansarde) ([#1764](https://github.com/amblelabs/ait/pull/1764))
 - add sonic screwdriver summon notify if no power | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1770](https://github.com/amblelabs/ait/pull/1770))
 - fix: loading of waypoint cartridges now only loads the coordinates instead of starting flight | by [@Mansarde](https://github.com/Mansarde) ([#1769](https://github.com/amblelabs/ait/pull/1769))
+- build(ver): 1.2.12 | by [@duzos](https://github.com/duzos) ([#1771](https://github.com/amblelabs/ait/pull/1771))
