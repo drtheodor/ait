@@ -1077,6 +1077,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("tardis.message.control.hail_mary.disengaged", "Hail Mary: DISENGAGED");
         provider.addTranslation("tardis.message.control.protocol_116.inactive", "Stabilisers: DISENGAGED");
         provider.addTranslation("tardis.message.console.has_sonic_in_port", "Cannot cache console with sonic in port");
+        provider.addTranslation("ait.tardis.control.throttle.stabilisers_disabled", "Stabilisers not connected to engine, speed limited!");
         provider.addTranslation("tardis.message.control.antigravs.active", "Antigravs: ENGAGED");
         provider.addTranslation("tardis.message.control.antigravs.inactive", "Antigravs: DISENGAGED");
         provider.addTranslation("tardis.message.control.electric.fail", "System Error: Not enough fuel present! Requires %sAU");
