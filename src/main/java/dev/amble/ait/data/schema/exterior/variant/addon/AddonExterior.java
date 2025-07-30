@@ -363,7 +363,7 @@ public class AddonExterior extends ExteriorVariantSchema {
         }
 
         public Door register() {
-            DoorRegistry.register(this);
+            DoorRegistry.getInstance().register(this);
 
             return this;
         }
@@ -406,7 +406,7 @@ public class AddonExterior extends ExteriorVariantSchema {
         }
 
         public ClientDoor register() {
-            ClientDoorRegistry.register(this);
+            ClientDoorRegistry.getInstance().register(this);
 
             return this;
         }

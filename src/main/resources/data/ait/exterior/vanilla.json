@@ -4,5 +4,6 @@
   "parent": "ait:exterior/police_box/coral",
   "texture": "ait:textures/blockentities/exteriors/police_box/vanilla.png",
   "emission": "ait:textures/blockentities/exteriors/police_box/vanilla_emission.png",
-  "model": "ait:vanilla"
+  "model": "ait:vanilla",
+  "door": "ait:vanilla"
 }

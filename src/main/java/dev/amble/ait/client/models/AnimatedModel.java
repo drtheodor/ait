@@ -9,4 +9,9 @@ import net.minecraft.client.util.math.MatrixStack;
 public interface AnimatedModel {
 	void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices,
 	                          VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha);
+
+	/**
+	 * @return the root model part
+	 */
+	ModelPart getPart();
 }

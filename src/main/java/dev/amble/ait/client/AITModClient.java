@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
+import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
 import dev.amble.lib.register.AmbleRegistries;
@@ -118,10 +119,10 @@ public class AITModClient implements ClientModInitializer {
                 DrinkRegistry.getInstance(),
                 ClientExteriorVariantRegistry.getInstance(),
                 ClientConsoleVariantRegistry.getInstance(),
-                BedrockModelRegistry.getInstance()
+                BedrockModelRegistry.getInstance(),
+                ClientDoorRegistry.getInstance()
         );
 
-        ClientDoorRegistry.init();
         ClientTardisManager.init();
 
         ModuleRegistry.instance().onClientInit();
@@ -497,7 +498,7 @@ public class AITModClient implements ClientModInitializer {
             ClientTardis tardis = ClientTardisUtil.getCurrentTardis();
             if (tardis == null || tardis.getDesktop() == null) return;
             ClientExteriorVariantSchema variant = tardis.getExterior().getVariant().getClient();
-            DoorModel model = variant.getDoor().model();
+            AnimatedModel model = variant.getDoor().model();
             for (DoorBlockEntity door : BOTI.DOOR_RENDER_QUEUE) {
                 if (door == null) continue;
                 BlockPos pos = door.getPos();

@@ -13,6 +13,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import dev.amble.ait.registry.impl.door.DoorRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
@@ -40,6 +41,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
     protected final boolean initiallyDatapack;
     protected final boolean hasTransparentDoors;
     protected final Identifier model;
+    protected final Identifier doorId;
 
     public static final Codec<DatapackExterior> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ExteriorVariantSchema::id),
@@ -53,11 +55,12 @@ public class DatapackExterior extends ExteriorVariantSchema {
                     Vec3d.CODEC.optionalFieldOf("seat_translations", new Vec3d(0.5, 1, 0.5)).forGetter(DatapackExterior::seatTranslations),
                     Codec.BOOL.optionalFieldOf("has_transparent_doors", false).forGetter(DatapackExterior::hasTransparentDoors),
                     Identifier.CODEC.optionalFieldOf("model").forGetter(DatapackExterior::model),
+                    Identifier.CODEC.optionalFieldOf("door").forGetter(DatapackExterior::getDoorId),
                     Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack))
             .apply(instance, DatapackExterior::new));
 
     public DatapackExterior(Identifier id, Identifier category, Identifier parent, Identifier texture,
-                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, boolean isDatapack) {
+                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, boolean isDatapack) {
         super(category, id, loyalty);
         this.parent = parent;
         this.texture = texture;
@@ -67,6 +70,7 @@ public class DatapackExterior extends ExteriorVariantSchema {
         this.initiallyDatapack = isDatapack;
         this.overrides = overrides;
         this.model = model.orElse(null);
+        this.doorId = door.orElse(null);
     }
 
     public static DatapackExterior fromInputStream(InputStream stream) {
@@ -92,9 +96,17 @@ public class DatapackExterior extends ExteriorVariantSchema {
         return this.parent;
     }
 
+    private Optional<Identifier> getDoorId() {
+        return Optional.ofNullable(this.door().id());
+    }
+
     @Override
     public DoorSchema door() {
-        return this.getParent().door();
+        if (doorId == null) {
+            return this.getParent().door();
+        }
+
+        return DoorRegistry.getInstance().getOrElse(doorId, this.getParent().door());
     }
 
     public BiomeOverrides overrides() {

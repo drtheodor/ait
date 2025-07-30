@@ -1,5 +1,6 @@
 package dev.amble.ait.client.renderers.doors;
 
+import dev.amble.ait.client.models.AnimatedModel;
 import org.joml.Vector3f;
 
 import net.minecraft.block.BlockState;
@@ -35,7 +36,7 @@ import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
 public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRenderer<T> {
 
     private ClientExteriorVariantSchema variant;
-    private DoorModel model;
+    private AnimatedModel model;
 
     public DoorRenderer(BlockEntityRendererFactory.Context ctx) {
     }
