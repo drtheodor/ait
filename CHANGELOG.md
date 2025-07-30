@@ -17,3 +17,6 @@
 - fix: loading of waypoint cartridges now only loads the coordinates instead of starting flight | by [@Mansarde](https://github.com/Mansarde) ([#1769](https://github.com/amblelabs/ait/pull/1769))
 - build(ver): 1.2.12 | by [@duzos](https://github.com/duzos) ([#1771](https://github.com/amblelabs/ait/pull/1771))
 - feat: toggleable darkness effect when the tardis is powered off | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1773](https://github.com/amblelabs/ait/pull/1773))
+- fix: unable to move landing pad spots | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
+- fix: spots rendering at the wrong position | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
+- fix: landing marker failing in unloaded chunks | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
