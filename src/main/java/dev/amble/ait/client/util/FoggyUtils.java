@@ -70,7 +70,6 @@ public class FoggyUtils {
             RenderSystem.setShaderFogColor(0, 0, 0, tardis.siege().isActive() ? 0.85f : 1f);
         }
         if (tardis.crash().isToxic() && tardis.fuel().hasPower()) {
-
             RenderSystem
                     .setShaderFogStart(MathHelper.lerp(MinecraftClient.getInstance().getTickDelta() / 100f, -8, 24));
             RenderSystem.setShaderFogEnd(MathHelper.lerp(MinecraftClient.getInstance().getTickDelta() / 100f, 11, 32));
