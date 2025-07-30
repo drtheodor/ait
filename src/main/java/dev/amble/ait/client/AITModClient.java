@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
+import dev.amble.ait.core.tardis.animation.v2.blockbench.BedrockModelRegistry;
 import dev.amble.lib.register.AmbleRegistries;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -50,7 +51,7 @@ import dev.amble.ait.client.models.decoration.PaintingFrameModel;
 import dev.amble.ait.client.models.decoration.RiftModel;
 import dev.amble.ait.client.models.decoration.TrenzalorePaintingModel;
 import dev.amble.ait.client.models.doors.DoorModel;
-import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.client.models.exteriors.SimpleExteriorModel;
 import dev.amble.ait.client.overlays.ExteriorAxeOverlay;
 import dev.amble.ait.client.overlays.FabricatorOverlay;
 import dev.amble.ait.client.overlays.RWFOverlay;
@@ -116,7 +117,8 @@ public class AITModClient implements ClientModInitializer {
                 SonicRegistry.getInstance(),
                 DrinkRegistry.getInstance(),
                 ClientExteriorVariantRegistry.getInstance(),
-                ClientConsoleVariantRegistry.getInstance()
+                ClientConsoleVariantRegistry.getInstance(),
+                BedrockModelRegistry.getInstance()
         );
 
         ClientDoorRegistry.init();
@@ -465,7 +467,7 @@ public class AITModClient implements ClientModInitializer {
             Tardis tardis = exterior.tardis().get();
             if (tardis == null || tardis.getExterior() == null) return;
             ClientExteriorVariantSchema variant = tardis.getExterior().getVariant().getClient();
-            ExteriorModel model = variant.model();
+            SimpleExteriorModel model = variant.model();
             BlockPos pos = exterior.getPos();
             stack.push();
             stack.translate(0.5, 0, 0.5);
