@@ -29,7 +29,7 @@ public abstract class ServerPlayNetworkHandlerMixin {
     @Redirect(method = "onPlayerInteractBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayNetworkHandler;sendPacket(Lnet/minecraft/network/packet/Packet;)V"))
     public void onPlayerInteractBlock(ServerPlayNetworkHandler instance, Packet<?> packet) { }
 
-    @Inject(method = "onPlayerInteractBlock", at = @At("TAIL"))
+    @Inject(method = "onPlayerInteractBlock", at = @At("RETURN"))
     public void onPlayerInteractBlock(PlayerInteractBlockC2SPacket packet, CallbackInfo ci) {
         ServerWorld serverWorld = this.player.getServerWorld();
 
