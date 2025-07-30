@@ -37,7 +37,7 @@ public class ThrottleControl extends Control {
             if (player.isSneaking()) {
                 travel.speed(travel.maxSpeed().get());
             } else {
-                if (!tardis.subsystems().stabilisers().isEnabled()) {
+                if (!tardis.subsystems().stabilisers().isEnabled() && travel.speed() >= 3) {
                     player.sendMessage(Text.translatable("ait.tardis.control.throttle.stabilisers_disabled"), true);
                 } else {
                     travel.increaseSpeed();
