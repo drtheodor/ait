@@ -3,12 +3,10 @@ package dev.amble.ait.client.models.doors;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 
 import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 
 public class EasterHeadDoorModel extends DoorModel {
     private final ModelPart bottom;
@@ -56,8 +54,4 @@ public class EasterHeadDoorModel extends DoorModel {
         return bottom;
     }
 
-    @Override
-    public Animation getAnimationForDoorState(DoorHandler.AnimationDoorState state) {
-        return Animation.Builder.create(0).build();
-    }
 }

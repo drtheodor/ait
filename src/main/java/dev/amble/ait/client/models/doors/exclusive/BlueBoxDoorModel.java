@@ -2,7 +2,6 @@ package dev.amble.ait.client.models.doors.exclusive;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
 
@@ -125,12 +124,7 @@ public class BlueBoxDoorModel extends DoorModel {
         matrices.pop();
     }
 
-    @Override
-    public Animation getAnimationForDoorState(DoorHandler.AnimationDoorState state) {
-        return Animation.Builder.create(0).build();
-    }
-
-    @Override
+	@Override
     public ModelPart getPart() {
         return box;
     }

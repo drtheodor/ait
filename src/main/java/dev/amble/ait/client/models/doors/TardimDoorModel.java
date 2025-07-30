@@ -3,7 +3,6 @@ package dev.amble.ait.client.models.doors;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
 
@@ -45,16 +44,6 @@ public class TardimDoorModel extends DoorModel {
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red,
             float green, float blue, float alpha) {
         tardis.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-    }
-
-    @Override
-    public Animation getAnimationForDoorState(DoorHandler.AnimationDoorState state) {
-        return Animation.Builder.create(0).build();/*return switch (state) {
-            case CLOSED -> DoorAnimations.INTERIOR_BOTH_CLOSE_ANIMATION;
-            case FIRST -> DoorAnimations.INTERIOR_FIRST_OPEN_ANIMATION;
-            case SECOND -> DoorAnimations.INTERIOR_SECOND_OPEN_ANIMATION;
-            case BOTH -> DoorAnimations.INTERIOR_BOTH_OPEN_ANIMATION;
-        };*/
     }
 
     @Override

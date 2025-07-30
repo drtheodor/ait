@@ -2,14 +2,12 @@ package dev.amble.ait.client.models.coral;
 
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
 
 import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 
 public class CoralGrowthDoorModel extends DoorModel {
     private final ModelPart coral;
@@ -109,12 +107,7 @@ public class CoralGrowthDoorModel extends DoorModel {
         matrices.pop();
     }
 
-    @Override
-    public Animation getAnimationForDoorState(DoorHandler.AnimationDoorState state) {
-        return Animation.Builder.create(0).build();
-    }
-
-    @Override
+	@Override
     public ModelPart getPart() {
         return coral;
     }
