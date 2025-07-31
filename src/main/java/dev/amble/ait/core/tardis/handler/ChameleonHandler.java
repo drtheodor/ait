@@ -226,14 +226,14 @@ public class ChameleonHandler extends KeyedTardisComponent {
                 player.sendMessage(text, true));
     }
 
-    public void applyDisguise(ServerPlayerEntity player) {
+    private void applyDisguise(ServerPlayerEntity player) {
         if (!this.recalcDisguise())
             return;
 
         this.gaslighter.tweet(player);
     }
 
-    private void applyDisguise() {
+    public void applyDisguise() {
         if (!this.recalcDisguise())
             return;
 
