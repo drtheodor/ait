@@ -229,10 +229,10 @@ public class ChameleonHandler extends KeyedTardisComponent {
     private boolean applyFallback(ServerWorld world, BlockPos pos) {
         BlockState below = world.getBlockState(pos.down());
 
-        if (isSafe(below)) {
+        if (!isSafe(below)) {
             below = world.getBlockState(pos.down(2));
 
-            if (isSafe(below)) {
+            if (!isSafe(below)) {
                 this.notifyFailure();
                 return false;
             }
