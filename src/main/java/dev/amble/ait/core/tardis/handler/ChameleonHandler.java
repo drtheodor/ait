@@ -141,7 +141,7 @@ public class ChameleonHandler extends KeyedTardisComponent {
 
     @Override
     public void postInit(InitContext ctx) {
-        if (ctx.created()) return;
+        if (ctx.created() || !this.isServer()) return;
 
         if (lastFeature == null)
             return;
