@@ -115,18 +115,18 @@ public class ChameleonHandler extends KeyedTardisComponent {
 
         FakeBlockEvents.CHECK.register((player, state, pos) -> {
             if (state.isOf(AITBlocks.EXTERIOR_BLOCK))
-                return;
+                return FakeBlockEvents.Action.CONTINUE;
 
             ServerWorld world = player.getServerWorld();
 
             // should be cheap enough
             if (world.getBlockEntity(pos.down()) instanceof ExteriorBlockEntity ebe) {
                 ebe.useOn(world, player.isSneaking(), player);
-                return;
+                return FakeBlockEvents.Action.CONTINUE;
             }
 
             shitParticles(world, pos);
-            player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos));
+            return FakeBlockEvents.Action.REMOVE;
         });
 
         FakeBlockEvents.PLACED.register((world, state, pos) -> shitParticles(world, pos));
