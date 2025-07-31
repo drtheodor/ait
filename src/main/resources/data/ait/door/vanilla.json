@@ -6,5 +6,6 @@
   "is_double": false,
   "portal_info": {
     "enabled": false
-  }
+  },
+  "left_animation": "vanilla:animation.vanilla.open"
 }

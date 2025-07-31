@@ -13,6 +13,7 @@ package dev.amble.ait.core.tardis.animation.v2.bedrock;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.serialization.Codec;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.lib.AmbleKit;
@@ -26,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class BedrockAnimationRegistry implements SimpleSynchronousResourceReloadListener {
 	private static final BedrockAnimationRegistry INSTANCE = new BedrockAnimationRegistry();
@@ -36,12 +38,32 @@ public class BedrockAnimationRegistry implements SimpleSynchronousResourceReload
 		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(this);
 	}
 
+	public record Reference(String fileName, String animationName) {
+		public static Codec<Reference> CODEC = Identifier.CODEC.xmap(
+				Reference::parse,
+				ref -> Identifier.of(ref.fileName, ref.animationName)
+		);
+
+		public Optional<BedrockAnimation> get() {
+			BedrockAnimation animation = BedrockAnimationRegistry.getInstance().get(this);
+			return Optional.ofNullable(animation);
+		}
+
+		public static Reference parse(Identifier id) {
+			return new Reference(id.getNamespace(), id.getPath());
+		}
+	}
+
 	public BedrockAnimation get(String fileName, String animationName) {
 		BedrockAnimation.Group group = groups.get(fileName);
 		if (group == null) {
 			return null;
 		}
 		return group.animations.get(animationName);
+	}
+
+	public BedrockAnimation get(Reference data) {
+		return get(data.fileName, data.animationName);
 	}
 
 	@Override

@@ -17,6 +17,8 @@ import dev.amble.ait.data.schema.door.impl.exclusive.BlueBoxDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.DoomDoorVariant;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import java.util.Optional;
+
 public class DoorRegistry extends SimpleDatapackRegistry<DoorSchema> {
     private static DoorRegistry INSTANCE;
 
@@ -71,7 +73,7 @@ public class DoorRegistry extends SimpleDatapackRegistry<DoorSchema> {
             }
 
             buf.encodeAsJson(DatapackDoor.CODEC, // todo
-                    new DatapackDoor(schema.id(), schema.openSound().getId(), schema.closeSound().getId(), DatapackConsole.EMPTY, schema.isDouble(), new PortalOffsets(1, 2), false));
+                    new DatapackDoor(schema.id(), schema.openSound().getId(), schema.closeSound().getId(), DatapackConsole.EMPTY, schema.isDouble(), new PortalOffsets(1, 2), Optional.empty(), Optional.empty(), false));
         }
 
         ServerPlayNetworking.send(player, this.packet, buf);

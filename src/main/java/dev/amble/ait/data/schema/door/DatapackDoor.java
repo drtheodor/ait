@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.AITMod;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.util.PortalOffsets;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.Vec3d;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class DatapackDoor extends DoorSchema {
@@ -24,6 +26,8 @@ public class DatapackDoor extends DoorSchema {
 			Identifier.CODEC.fieldOf("model").forGetter(DatapackDoor::getModelId),
 			Codec.BOOL.fieldOf("is_double").forGetter(DoorSchema::isDouble),
 			PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackDoor::getOffsets),
+			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackDoor::getLeftAnimation),
+			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackDoor::getRightAnimation),
 			Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackDoor::wasDatapack)
 		).apply(instance, DatapackDoor::new)
 	);
@@ -33,9 +37,11 @@ public class DatapackDoor extends DoorSchema {
 	protected final Identifier model;
 	protected final boolean isDouble;
 	protected final PortalOffsets offsets;
+	protected final BedrockAnimationRegistry.Reference leftAnimation;
+	protected final BedrockAnimationRegistry.Reference rightAnimation;
 	protected final boolean initiallyDatapack;
 
-	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, boolean initiallyDatapack) {
+	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, boolean initiallyDatapack) {
 		super(id);
 
 		this.openSound = openSound;
@@ -43,6 +49,8 @@ public class DatapackDoor extends DoorSchema {
 		this.model = model;
 		this.isDouble = isDouble;
 		this.offsets = offsets;
+		this.leftAnimation = leftAnimation.orElse(null);
+		this.rightAnimation = rightAnimation.orElse(null);
 		this.initiallyDatapack = initiallyDatapack;
 	}
 
@@ -59,6 +67,16 @@ public class DatapackDoor extends DoorSchema {
 	@Override
 	public SoundEvent closeSound() {
 		return SoundEvent.of(getCloseSoundId());
+	}
+
+	@Override
+	public Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
+		return Optional.ofNullable(leftAnimation);
+	}
+
+	@Override
+	public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
+		return Optional.ofNullable(rightAnimation);
 	}
 
 	public Identifier getOpenSoundId() {

@@ -5,6 +5,7 @@ import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.*;
+import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.door.DatapackDoor;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 
@@ -118,8 +119,6 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
             return convertNonDatapack(variant);
 
         return new ClientDoorSchema(variant.id()) {
-            private BedrockAnimationTracker test;
-
             @Override
             public AnimatedModel model() {
                 BedrockModel model = BedrockModelRegistry.getInstance().get(variant.getModelId());
@@ -128,20 +127,20 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
                 return new AnimatedModel() {
                     @Override
                     public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity be, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
-                        if (test == null) {
-                            BedrockAnimation anim = BedrockAnimationRegistry.getInstance().get("vanilla", "animation.vanilla.open");
+                        matrices.push();
 
-                            test = new BedrockAnimationTracker(anim, true);
-                            test.start();
-                        }
+                        DoorHandler doors = tardis.door();
+                        DoorSchema schema = tardis.getExterior().getVariant().door();
 
-                        if (!test.isStarted() || test.isDone()) {
-                            test.start();
-                        }
+                        float leftProgress = doors.getLeftRot();
+                        float rightProgress = doors.getRightRot();
 
-                        test.animation.apply(root, test.getTicks(), tickDelta);
+                        schema.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), 0));
+                        schema.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), 0));
 
                         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
+
+                        matrices.pop();
                     }
 
                     @Override

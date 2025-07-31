@@ -44,7 +44,7 @@ public class BedrockAnimation {
 
 			Vec3d position = timeline.position.resolve((ticks + delta) / 20.0);
 			Vec3d rotation = timeline.rotation.resolve((ticks + delta) / 20.0);
-			Vec3d scale = timeline.scale.resolve((ticks + delta) / 20.0);
+			Vec3d scale = timeline.scale.isEmpty() ? new Vec3d(1, 1, 1) : timeline.scale.resolve((ticks + delta) / 20.0);
 
 			bone.setPivot((float) position.x, (float) position.y, (float) position.z);
 			bone.setAngles((float) Math.toRadians((float) rotation.x), (float) Math.toRadians((float) rotation.y), (float) Math.toRadians((float) rotation.z));

@@ -1,9 +1,11 @@
 package dev.amble.ait.data.schema.door;
 
 import java.lang.reflect.Type;
+import java.util.Optional;
 
 import com.google.gson.*;
 
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.lib.api.Identifiable;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -59,6 +61,14 @@ public abstract class DoorSchema implements Identifiable {
 
     public SoundEvent closeSound() {
         return AITSounds.POLICE_BOX_DOOR_CLOSE;
+    }
+
+    public Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
+        return Optional.empty();
+    }
+
+    public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
+        return Optional.empty();
     }
 
     public Vec3d adjustPortalPos(Vec3d pos, Direction direction) {
