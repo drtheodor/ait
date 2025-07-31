@@ -3,36 +3,22 @@ package dev.amble.ait.registry.impl.door;
 
 import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.models.AnimatedModel;
-import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModel;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.exterior.BedrockExteriorModel;
-import dev.amble.ait.data.datapack.DatapackExterior;
-import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.*;
 import dev.amble.ait.data.schema.door.DatapackDoor;
-import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
-import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
 import dev.amble.lib.register.datapack.DatapackRegistry;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.SimpleRegistry;
 
-import dev.amble.ait.AITMod;
 import dev.amble.ait.data.schema.door.ClientDoorSchema;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.door.impl.*;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientBlueBoxDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientDoomDoorVariant;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import org.joml.Vector3f;
 
 public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
     private static final ClientDoorRegistry INSTANCE = new ClientDoorRegistry();
@@ -132,6 +118,7 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
             return convertNonDatapack(variant);
 
         return new ClientDoorSchema(variant.id()) {
+            private BedrockAnimationTracker test;
 
             @Override
             public AnimatedModel model() {
@@ -140,8 +127,19 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
 
                 return new AnimatedModel() {
                     @Override
-                    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
-                        // TODO - door animation support
+                    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity be, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
+                        if (test == null) {
+                            BedrockAnimation anim = BedrockAnimationRegistry.getInstance().get("vanilla", "animation.vanilla.open");
+
+                            test = new BedrockAnimationTracker(anim, true);
+                            test.start();
+                        }
+
+                        if (!test.isStarted() || test.isDone()) {
+                            test.start();
+                        }
+
+                        test.animation.apply(root, test.getTicks(), tickDelta);
 
                         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
                     }

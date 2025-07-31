@@ -39,7 +39,7 @@ public class PresentDoorModel extends DoorModel {
     }
 
     @Override
-    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
+    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
         DoorHandler door = tardis.door();
 
         if (!AITModClient.CONFIG.animateDoors) {
@@ -57,7 +57,7 @@ public class PresentDoorModel extends DoorModel {
         matrices.translate(0, -1.5, 0);
         matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(180));
 
-        super.renderWithAnimations(tardis, linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, pAlpha);
+        super.renderWithAnimations(tardis, linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, pAlpha, tickDelta);
         matrices.pop();
     }
 

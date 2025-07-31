@@ -9,6 +9,8 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimation;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationAdapter;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModel;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.amble.lib.data.DirectedGlobalPos;
@@ -132,7 +134,8 @@ public abstract class TardisManager<T extends Tardis, C> {
                 .registerTypeAdapter(IntValue.class, IntValue.serializer())
                 .registerTypeAdapter(RangedIntValue.class, RangedIntValue.serializer())
                 .registerTypeAdapter(DoubleValue.class, DoubleValue.serializer())
-                .registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter());
+                .registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter())
+                .registerTypeAdapter(BedrockAnimation.class, new BedrockAnimationAdapter());
     }
 
     public static TardisManager<?, ?> getInstance(Entity entity) {

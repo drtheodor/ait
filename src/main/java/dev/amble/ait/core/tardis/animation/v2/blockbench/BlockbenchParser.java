@@ -37,6 +37,7 @@ import dev.amble.ait.core.tardis.animation.v2.keyframe.AnimationKeyframe;
 import dev.amble.ait.core.tardis.animation.v2.keyframe.KeyframeTracker;
 
 
+// TODO - replace this with the better BedrockAnimation stuff when i can be bothered.
 public class BlockbenchParser implements
         SimpleSynchronousResourceReloadListener {
     private static final Identifier SYNC = AITMod.id("blockbench_sync");
@@ -370,7 +371,7 @@ public class BlockbenchParser implements
         }
     }
 
-    private static float parseMath(String data) {
+    public static float parseMath(String data) {
         // parses math expressions like "1 + 2 * 3" or "1 - 2 / 3"
         // using net.objecthunter.exp4j
         Expression expression = new ExpressionBuilder(data).build();

@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
 import dev.amble.lib.register.AmbleRegistries;
 import net.fabricmc.api.ClientModInitializer;
@@ -122,6 +123,8 @@ public class AITModClient implements ClientModInitializer {
                 BedrockModelRegistry.getInstance(),
                 ClientDoorRegistry.getInstance()
         );
+
+        BedrockAnimationRegistry.getInstance();
 
         ClientTardisManager.init();
 
@@ -512,7 +515,7 @@ public class AITModClient implements ClientModInitializer {
                     light = LightmapTextureManager.pack(world.getLightLevel(LightType.BLOCK, pos), world.getLightLevel(LightType.SKY, pos));
                     TardisDoorBOTI.renderInteriorDoorBoti(tardis, door, variant, stack,
                             AITMod.id("textures/environment/tardis_sky.png"), model,
-                            BotiPortalModel.getTexturedModelData().createModel(), light);
+                            BotiPortalModel.getTexturedModelData().createModel(), light, context.tickDelta());
                 }
                 stack.pop();
             }

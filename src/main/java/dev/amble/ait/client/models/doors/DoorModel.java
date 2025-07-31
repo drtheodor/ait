@@ -29,7 +29,7 @@ public abstract class DoorModel extends SinglePartEntityModel implements Animate
 
     @Override
     public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices,
-                                     VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
+                                     VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
     }
 

@@ -20,7 +20,6 @@ import net.minecraft.util.profiler.Profiler;
 import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.client.boti.BOTI;
 import dev.amble.ait.client.models.doors.CapsuleDoorModel;
-import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.models.doors.exclusive.DoomDoorModel;
 import dev.amble.ait.client.renderers.AITRenderLayers;
 import dev.amble.ait.client.tardis.ClientTardis;
@@ -65,13 +64,13 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
 
         ClientTardis tardis = entity.tardis().get().asClient();
         if (!tardis.siege().isActive())
-            this.renderDoor(profiler, tardis, entity, matrices, vertexConsumers, light, overlay);
+            this.renderDoor(profiler, tardis, entity, matrices, vertexConsumers, light, overlay, tickDelta);
 
         profiler.pop();
     }
 
     private void renderDoor(Profiler profiler, ClientTardis tardis, T entity, MatrixStack matrices,
-                            VertexConsumerProvider vertexConsumers, int light, int overlay) {
+                            VertexConsumerProvider vertexConsumers, int light, int overlay, float tickDelta) {
         this.updateModel(tardis);
 
         BlockState blockState = entity.getCachedState();
@@ -92,7 +91,7 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
         if (!DependencyChecker.hasIris()) {
             model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
                     vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                    1, 1);
+                    1, 1, tickDelta);
         }
 
         /*if (tardis.overgrown().overgrown().get())
@@ -139,13 +138,13 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
             float blue = alarms ? !power ? 0.01f : 0.3f : u;
 
             model.renderWithAnimations(tardis, entity, this.model.getPart(), matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)),
-                    0xf000f0, OverlayTexture.DEFAULT_UV, red, green, blue, colorAlpha);
+                    0xf000f0, OverlayTexture.DEFAULT_UV, red, green, blue, colorAlpha, tickDelta);
         }
 
         if (DependencyChecker.hasIris()) {
             model.renderWithAnimations(tardis, entity, model.getPart(), matrices,
                     vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                    1, 1);
+                    1, 1, tickDelta);
         }
 
         profiler.swap("biome");
@@ -157,7 +156,7 @@ public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRende
             if (biomeTexture != null && !texture.equals(biomeTexture)) {
                 model.renderWithAnimations(tardis, entity, model.getPart(),
                         matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityCutoutNoCullZOffset(biomeTexture)),
-                        light, overlay, 1, 1, 1, 1);
+                        light, overlay, 1, 1, 1, 1, tickDelta);
             }
         }
 
