@@ -138,7 +138,7 @@ public class ChameleonHandler extends TardisComponent {
                 || tardis.siege().isActive() || tardis.door().isOpen();
     }
 
-    private static boolean isDisguised(Tardis tardis) {
+    public static boolean isDisguised(Tardis tardis) {
         return tardis.getExterior().getVariant() instanceof AdaptiveVariant;
     }
 
