@@ -113,8 +113,16 @@ public class ChameleonHandler extends TardisComponent {
             if (state.isOf(AITBlocks.EXTERIOR_BLOCK))
                 return;
 
-            shitParticles(player.getServerWorld(), pos);
-            player.networkHandler.sendPacket(new BlockUpdateS2CPacket(player.getServerWorld(), pos));
+            ServerWorld world = player.getServerWorld();
+
+            // should be cheap enough
+            if (world.getBlockEntity(pos.down()) instanceof ExteriorBlockEntity ebe) {
+                ebe.useOn(world, player.isSneaking(), player);
+                return;
+            }
+
+            shitParticles(world, pos);
+            player.networkHandler.sendPacket(new BlockUpdateS2CPacket(world, pos));
         });
 
         FakeBlockEvents.PLACED.register((world, state, pos) -> shitParticles(world, pos));
@@ -205,7 +213,7 @@ public class ChameleonHandler extends TardisComponent {
         world.spawnParticles(ParticleTypes.END_ROD, center.getX(), center.getY(), center.getZ(), 12, 0.3, 0.3, 0.3, 0);
     }
 
-    public boolean testBiome(ServerWorld world, BlockPos pos) {
+    private boolean testBiome(ServerWorld world, BlockPos pos) {
         RegistryEntry<Biome> biome = world.getBiome(pos);
         List<ConfiguredFeature<?, ?>> trees = this.findTrees(world, biome);
 
