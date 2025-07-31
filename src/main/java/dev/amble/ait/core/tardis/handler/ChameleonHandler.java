@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
+import dev.amble.ait.core.item.KeyItem;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.gaslighter.Gaslighter3000;
@@ -13,6 +14,7 @@ import dev.drtheo.gaslighter.api.FakeBlockEvents;
 
 import dev.drtheo.gaslighter.impl.FakeStructureWorldAccess;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
@@ -25,6 +27,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -113,9 +116,26 @@ public class ChameleonHandler extends KeyedTardisComponent {
             return DoorHandler.InteractionResult.CONTINUE;
         });
 
-        FakeBlockEvents.CHECK.register((player, state, pos) -> {
-            if (state.isOf(AITBlocks.EXTERIOR_BLOCK))
+        FakeBlockEvents.INTERACT.register((player, hand, pos) -> {
+            ServerWorld world = player.getServerWorld();
+
+            if (world.getBlockEntity(pos) instanceof ExteriorBlockEntity)
+                return FakeBlockEvents.Action.REMOVE;
+
+            if (world.getBlockEntity(pos.down()) instanceof ExteriorBlockEntity)
+                return FakeBlockEvents.Action.REMOVE;
+
+            return FakeBlockEvents.Action.CONTINUE;
+        });
+
+        FakeBlockEvents.CHECK.register((player, hand, state, pos) -> {
+            if (state.isOf(AITBlocks.EXTERIOR_BLOCK)) {
+                ServerWorld world = player.getServerWorld();
+                if (world.getBlockEntity(pos) instanceof ExteriorBlockEntity ebe)
+                    ebe.useOn(world, player.isSneaking(), player);
+
                 return FakeBlockEvents.Action.CONTINUE;
+            }
 
             ServerWorld world = player.getServerWorld();
 
