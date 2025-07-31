@@ -183,7 +183,7 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
         if (!DependencyChecker.hasIris()) {
             model.renderWithAnimations(tardis, entity, this.model.getPart(),
                     matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                    1, alpha);
+                    1, alpha, tickDelta);
         }
 
         profiler.push("emission");
@@ -237,12 +237,12 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             //System.out.println(emission);
 
            model.renderWithAnimations(tardis, entity, this.model.getPart(), matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)),
-                   0xF000F0, OverlayTexture.DEFAULT_UV, red, green, blue, alpha);
+                   0xF000F0, OverlayTexture.DEFAULT_UV, red, green, blue, alpha, tickDelta);
         }
         if (DependencyChecker.hasIris()) {
             model.renderWithAnimations(tardis, entity, this.model.getPart(),
                     matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(texture)), light, overlay, 1, 1,
-                    1, alpha);
+                    1, alpha, tickDelta);
         }
 
         profiler.swap("biome");
@@ -255,7 +255,7 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
                 if (alpha > 0.105f && (biomeTexture != null && !texture.equals(biomeTexture))) {
                     model.renderWithAnimations(tardis, entity, this.model.getPart(),
                             matrices,
-                            vertexConsumers.getBuffer(AITRenderLayers.getEntityCutoutNoCullZOffset(biomeTexture)), light, overlay, 1, 1, 1, alpha);
+                            vertexConsumers.getBuffer(AITRenderLayers.getEntityCutoutNoCullZOffset(biomeTexture)), light, overlay, 1, 1, 1, alpha, tickDelta);
                 }
 
             }
