@@ -319,4 +319,8 @@ public class ChameleonHandler extends KeyedTardisComponent {
 
         return false;
     }
+
+    public boolean isApplied() {
+        return isDisguised(tardis) && gaslighter != null;
+    }
 }

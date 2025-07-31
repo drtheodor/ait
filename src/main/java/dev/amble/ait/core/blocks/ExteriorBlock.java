@@ -51,7 +51,6 @@ import dev.amble.ait.core.tardis.handler.BiomeHandler;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.core.util.ShapeUtil;
-import dev.amble.ait.data.schema.exterior.variant.adaptive.AdaptiveVariant;
 import dev.amble.ait.module.planet.core.space.planet.Planet;
 import dev.amble.ait.module.planet.core.space.planet.PlanetRegistry;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
@@ -217,8 +216,6 @@ public class ExteriorBlock extends Block implements BlockEntityProvider, ICantBr
         if (!(blockEntity instanceof ExteriorBlockEntity exterior) || !exterior.isLinked())
             return getNormalShape(state, false);
 
-
-
         if (!exterior.isLinked())
             return getNormalShape(state, false);
 
@@ -233,7 +230,7 @@ public class ExteriorBlock extends Block implements BlockEntityProvider, ICantBr
         if (DependencyChecker.hasPortals() && !tardis.door().isOpen() && tardis.getExterior().getVariant().hasPortals())
             return getNormalShape(state, true);
 
-        if (tardis.getExterior().getVariant() instanceof AdaptiveVariant)
+        if (tardis.chameleon().isApplied())
             return VoxelShapes.empty();
 
         TravelHandler travel = tardis.travel();
