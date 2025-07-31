@@ -19,6 +19,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
@@ -37,8 +38,10 @@ import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
 import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.data.Exclude;
 import dev.amble.ait.data.schema.exterior.variant.adaptive.AdaptiveVariant;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.*;
+import org.jetbrains.annotations.NotNull;
 
 public class ChameleonHandler extends KeyedTardisComponent {
 
@@ -159,14 +162,14 @@ public class ChameleonHandler extends KeyedTardisComponent {
         BlockPos pos = cached.getPos();
         ServerWorld world = cached.getWorld();
 
-        Registry<ConfiguredFeature<?, ?>> registry = world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE);
-        ConfiguredFeature<?, ?> feature = registry.get(featureId);
+        Optional<RegistryEntry.Reference<ConfiguredFeature<?, ?>>> feature =
+                getRegistry(world).getEntry(asFeature(featureId));
 
-        if (feature == null)
+        if (feature.isEmpty())
             return;
 
         this.gaslighter = new Gaslighter3000(world);
-        if (!this.generate(world, pos, feature) && !this.applyFallback(world, pos))
+        if (!this.generate(world, pos, feature.get()) && !this.applyFallback(world, pos))
             return;
 
         this.applyDisguise();
@@ -247,51 +250,56 @@ public class ChameleonHandler extends KeyedTardisComponent {
         this.gaslighter.tweet();
     }
 
-    private static void shitParticles(ServerWorld world, BlockPos pos) {
-        Vec3d center = pos.toCenterPos();
-        world.spawnParticles(ParticleTypes.END_ROD, center.getX(), center.getY(), center.getZ(), 12, 0.3, 0.3, 0.3, 0);
-    }
-
     private boolean testBiome(ServerWorld world, BlockPos pos) {
         RegistryEntry<Biome> biome = world.getBiome(pos);
-        List<ConfiguredFeature<?, ?>> trees = this.findTrees(world, biome);
+        List<RegistryEntry<ConfiguredFeature<?, ?>>> trees = this.findTrees(world, biome);
 
         if (trees.isEmpty())
             return false;
 
-        ConfiguredFeature<?, ?> tree = trees.get(world.random.nextInt(trees.size()));
+        RegistryEntry<ConfiguredFeature<?, ?>> tree = trees.get(world.random.nextInt(trees.size()));
+
+        if (tree == null)
+            return false;
+
         return this.generate(world, pos, tree);
     }
 
-    private boolean generate(ServerWorld world, BlockPos pos, ConfiguredFeature<?, ?> feature) {
+    private boolean generate(ServerWorld world, BlockPos pos, RegistryEntry<ConfiguredFeature<?, ?>> feature) {
+        feature.getKey().ifPresent(k -> this.lastFeature.set(k.getValue()));
+
         FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
-        return feature.generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
+        return feature.value().generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
     }
 
     private static final Set<Class<? extends Feature<?>>> TREES = Set.of(
-            TreeFeature.class, HugeMushroomFeature.class, HugeFungusFeature.class, DesertWellFeature.class, ChorusPlantFeature.class
+            TreeFeature.class, HugeMushroomFeature.class, HugeFungusFeature.class,
+            DesertWellFeature.class, ChorusPlantFeature.class
     );
 
-    private static final Identifier CACTUS = AITMod.id("cactus");
+    private static final RegistryKey<ConfiguredFeature<?, ?>> CACTUS = asFeature(AITMod.id("cactus"));
 
-    private List<ConfiguredFeature<?, ?>> findTrees(ServerWorld world, RegistryEntry<Biome> biome) {
+    private List<RegistryEntry<ConfiguredFeature<?, ?>>> findTrees(ServerWorld world, RegistryEntry<Biome> biome) {
         BiomeHandler biomeHandler = this.tardis.handler(Id.BIOME);
-        if (biomeHandler.getBiomeKey() == BiomeHandler.BiomeType.SANDY && world.random.nextInt(5) != 0)
-            return List.of(world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).get(CACTUS));
+        List<RegistryEntry<ConfiguredFeature<?, ?>>> trees = new ArrayList<>();
 
-        List<ConfiguredFeature<?, ?>> trees = new ArrayList<>();
+        if (biomeHandler.getBiomeKey() == BiomeHandler.BiomeType.SANDY && world.random.nextInt(5) != 0) {
+            trees.add(getRegistry(world).getEntry(CACTUS).orElse(null));
+            return trees;
+        }
 
         for (RegistryEntryList<PlacedFeature> feature : biome.value().getGenerationSettings().getFeatures()) {
             for (RegistryEntry<PlacedFeature> entry : feature) {
-                ConfiguredFeature<?, ?> configured = entry.value().feature().value();
+                RegistryEntry<ConfiguredFeature<?, ?>> configured = entry.value().feature();
 
-                if (isTree(configured, biome)) {
+                if (isTree(configured.value(), biome)) {
                     trees.add(configured);
                     break;
                 } else {
                     boolean shouldBreak = false;
 
-                    for (ConfiguredFeature<?, ?> configuredFeature : configured.config().getDecoratedFeatures().toList()) {
+                    for (ConfiguredFeature<?, ?> configuredFeature : configured.value()
+                            .config().getDecoratedFeatures().toList()) {
                         if (!isTree(configuredFeature, biome))
                             continue;
 
@@ -309,6 +317,16 @@ public class ChameleonHandler extends KeyedTardisComponent {
         return trees;
     }
 
+    public boolean isApplied() {
+        return isDisguised(tardis) && gaslighter != null;
+    }
+
+    private static void shitParticles(ServerWorld world, BlockPos pos) {
+        Vec3d center = pos.toCenterPos();
+        world.spawnParticles(ParticleTypes.END_ROD, center.getX(), center.getY(), center.getZ(),
+                12, 0.3, 0.3, 0.3, 0);
+    }
+
     private static boolean isTree(ConfiguredFeature<?, ?> configured, RegistryEntry<Biome> biome) {
         Feature<?> feature = configured.feature();
 
@@ -320,7 +338,13 @@ public class ChameleonHandler extends KeyedTardisComponent {
         return false;
     }
 
-    public boolean isApplied() {
-        return isDisguised(tardis) && gaslighter != null;
+    @NotNull
+    private static Registry<ConfiguredFeature<?, ?>> getRegistry(World world) {
+        return world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE);
+    }
+
+    @NotNull
+    private static RegistryKey<ConfiguredFeature<?, ?>> asFeature(Identifier id) {
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id);
     }
 }
