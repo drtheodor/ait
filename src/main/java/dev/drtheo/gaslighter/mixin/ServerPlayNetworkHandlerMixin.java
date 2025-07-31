@@ -47,7 +47,7 @@ public abstract class ServerPlayNetworkHandlerMixin {
         BlockState state = serverWorld.getBlockState(blockPos);
 
         if (serverWorld instanceof Twitter twitter && twitter.ait$isFake(blockPos)) {
-            FakeBlockEvents.Action action = FakeBlockEvents.CHECK.invoker().check(player, state, blockPos);
+            FakeBlockEvents.Action action = FakeBlockEvents.CHECK.invoker().check(player, packet.getHand(), state, blockPos);
 
             if (!action.shouldRemove())
                 ci.cancel();
