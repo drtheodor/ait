@@ -13,7 +13,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.util.PortalOffsets;
+import dev.amble.ait.data.schema.door.AnimatedDoor;
+import dev.amble.ait.data.schema.door.DatapackDoor;
 import dev.amble.ait.registry.impl.door.DoorRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -29,7 +32,7 @@ import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
 import org.apache.http.impl.io.IdentityInputStream;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public class DatapackExterior extends ExteriorVariantSchema {
+public class DatapackExterior extends ExteriorVariantSchema implements AnimatedDoor {
 
     public static final Identifier DEFAULT_TEXTURE = new Identifier(AITMod.MOD_ID,
             "textures/gui/tardis/desktop/missing_preview.png");
@@ -44,6 +47,8 @@ public class DatapackExterior extends ExteriorVariantSchema {
     protected final Identifier model;
     protected final Identifier doorId;
     protected final PortalOffsets portalOffsets;
+    protected final BedrockAnimationRegistry.Reference leftAnimation;
+    protected final BedrockAnimationRegistry.Reference rightAnimation;
 
     public static final Codec<DatapackExterior> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ExteriorVariantSchema::id),
@@ -59,11 +64,13 @@ public class DatapackExterior extends ExteriorVariantSchema {
                     Identifier.CODEC.optionalFieldOf("model").forGetter(DatapackExterior::model),
                     Identifier.CODEC.optionalFieldOf("door").forGetter(DatapackExterior::getDoorId),
                     PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackExterior::getPortalOffsets),
+                    BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackExterior::getLeftAnimation),
+                    BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackExterior::getRightAnimation),
                     Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack))
             .apply(instance, DatapackExterior::new));
 
     public DatapackExterior(Identifier id, Identifier category, Identifier parent, Identifier texture,
-                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, PortalOffsets offsets, boolean isDatapack) {
+                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, boolean isDatapack) {
         super(category, id, loyalty);
         this.parent = parent;
         this.texture = texture;
@@ -75,6 +82,8 @@ public class DatapackExterior extends ExteriorVariantSchema {
         this.model = model.orElse(null);
         this.doorId = door.orElse(null);
         this.portalOffsets = offsets;
+        this.leftAnimation = leftAnimation.orElse(null);
+        this.rightAnimation = rightAnimation.orElse(null);
     }
 
     public static DatapackExterior fromInputStream(InputStream stream) {
@@ -188,5 +197,15 @@ public class DatapackExterior extends ExteriorVariantSchema {
 
     public PortalOffsets getPortalOffsets() {
         return this.portalOffsets;
+    }
+
+    @Override
+    public Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
+        return Optional.ofNullable(this.leftAnimation);
+    }
+
+    @Override
+    public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
+        return Optional.ofNullable(this.rightAnimation);
     }
 }

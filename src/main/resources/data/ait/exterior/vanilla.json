@@ -8,5 +8,6 @@
   "door": "ait:vanilla",
   "portal_info": {
     "enabled": false
-  }
+  },
+  "left_animation": "vanilla:animation.vanilla.open"
 }

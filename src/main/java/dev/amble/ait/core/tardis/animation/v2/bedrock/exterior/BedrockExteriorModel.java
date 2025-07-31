@@ -4,7 +4,12 @@ import dev.amble.ait.api.tardis.link.v2.Linkable;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
+import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModel;
+import dev.amble.ait.core.tardis.handler.DoorHandler;
+import dev.amble.ait.data.schema.door.AnimatedDoor;
+import dev.amble.ait.data.schema.door.DoorSchema;
+import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.lib.api.Identifiable;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.model.TexturedModelData;
@@ -29,7 +34,22 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 
 	@Override
 	public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity exterior, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+		matrices.push();
+
+		DoorHandler doors = tardis.door();
+		ExteriorVariantSchema schema = tardis.getExterior().getVariant();
+
+		if (schema instanceof AnimatedDoor animDoor) {
+			float leftProgress = doors.getLeftRot();
+			float rightProgress = doors.getRightRot();
+
+			animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), 0));
+			animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), 0));
+		}
+
 		this.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+
+		matrices.pop();
 	}
 
 	@Override
@@ -39,7 +59,7 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 
 	@Override
 	public void renderDoors(ClientTardis tardis, ExteriorBlockEntity exterior, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, boolean isBOTI) {
-		// todo
+
 	}
 
 	@Override

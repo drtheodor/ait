@@ -12,6 +12,7 @@
 package dev.amble.ait.core.tardis.animation.v2.bedrock;
 
 import com.google.gson.annotations.SerializedName;
+import dev.amble.ait.AITMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -39,18 +40,36 @@ public class BedrockAnimation {
 	@Environment(EnvType.CLIENT)
 	public void apply(ModelPart root, int ticks, float delta) {
 		this.boneTimelines.forEach((boneName, timeline) -> {
-			ModelPart bone = root.getChild(boneName);
-			if (bone == null) return;
+			try {
+				ModelPart bone = root.traverse().filter(part -> part.hasChild(boneName)).findFirst().map(part -> part.getChild(boneName)).orElse(null);
+				if (bone == null) {
+					if (boneName == "root") {
+						bone = root;
+					} else {
+						throw new IllegalStateException("Bone " + boneName + " not found in model. If this is the root part, ensure it is named 'root'.");
+					}
+				}
 
-			Vec3d position = timeline.position.resolve((ticks + delta) / 20.0);
-			Vec3d rotation = timeline.rotation.resolve((ticks + delta) / 20.0);
-			Vec3d scale = timeline.scale.isEmpty() ? new Vec3d(1, 1, 1) : timeline.scale.resolve((ticks + delta) / 20.0);
+				if (!timeline.position.isEmpty()) {
+					Vec3d position = timeline.position.resolve((ticks + delta) / 20.0);
+					bone.setPivot((float) position.x, (float) position.y, (float) position.z);
+				}
 
-			bone.setPivot((float) position.x, (float) position.y, (float) position.z);
-			bone.setAngles((float) Math.toRadians((float) rotation.x), (float) Math.toRadians((float) rotation.y), (float) Math.toRadians((float) rotation.z));
-			bone.xScale = (float) scale.x;
-			bone.yScale = (float) scale.y;
-			bone.zScale = (float) scale.z;
+				if (!timeline.rotation.isEmpty()) {
+					Vec3d rotation = timeline.rotation.resolve((ticks + delta) / 20.0);
+					bone.setAngles((float) Math.toRadians((float) rotation.x), (float) Math.toRadians((float) rotation.y), (float) Math.toRadians((float) rotation.z));
+				}
+
+				if (!timeline.scale.isEmpty()) {
+					Vec3d scale = timeline.scale.resolve((ticks + delta) / 20.0);
+
+					bone.xScale = (float) scale.x;
+					bone.yScale = (float) scale.y;
+					bone.zScale = (float) scale.z;
+				}
+			} catch (Exception e) {
+				AITMod.LOGGER.error("Failed apply animation to {} in model. Skipping animation application for this bone.", boneName, e);
+			}
 		});
 	}
 

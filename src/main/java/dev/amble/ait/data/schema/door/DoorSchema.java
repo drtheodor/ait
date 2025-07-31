@@ -63,14 +63,6 @@ public abstract class DoorSchema implements Identifiable {
         return AITSounds.POLICE_BOX_DOOR_CLOSE;
     }
 
-    public Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
-        return Optional.empty();
-    }
-
-    public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
-        return Optional.empty();
-    }
-
     public Vec3d adjustPortalPos(Vec3d pos, Direction direction) {
         return pos; // just cus some dont have portals
     }

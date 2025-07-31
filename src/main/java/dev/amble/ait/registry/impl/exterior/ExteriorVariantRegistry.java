@@ -91,7 +91,7 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
             buf.encodeAsJson(DatapackExterior.CODEC,
                     new DatapackExterior(schema.id(), schema.categoryId(), schema.id(),
                             DatapackExterior.DEFAULT_TEXTURE, DatapackExterior.DEFAULT_TEXTURE, schema.requirement(),
-                            BiomeOverrides.EMPTY,new Vec3d(0.5, 1, 0.5), false, Optional.empty(), Optional.empty(), new PortalOffsets(1, 2), false));
+                            BiomeOverrides.EMPTY,new Vec3d(0.5, 1, 0.5), false, Optional.empty(), Optional.empty(), new PortalOffsets(1, 2), Optional.empty(), Optional.empty(), false));
         }
 
         ServerPlayNetworking.send(player, this.packet, buf);

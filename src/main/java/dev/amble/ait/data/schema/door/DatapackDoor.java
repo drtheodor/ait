@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class DatapackDoor extends DoorSchema {
+public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 	public static final Codec<DatapackDoor> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Identifier.CODEC.fieldOf("id").forGetter(DoorSchema::id),
 			Identifier.CODEC.fieldOf("open_sound").forGetter(DatapackDoor::getOpenSoundId),

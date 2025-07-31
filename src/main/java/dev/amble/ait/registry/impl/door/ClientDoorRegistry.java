@@ -6,6 +6,7 @@ import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.tardis.animation.v2.bedrock.*;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
+import dev.amble.ait.data.schema.door.AnimatedDoor;
 import dev.amble.ait.data.schema.door.DatapackDoor;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 
@@ -132,12 +133,13 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
                         DoorHandler doors = tardis.door();
                         DoorSchema schema = tardis.getExterior().getVariant().door();
 
-                        float leftProgress = doors.getLeftRot();
-                        float rightProgress = doors.getRightRot();
+                        if (schema instanceof AnimatedDoor animDoor) {
+                            float leftProgress = doors.getLeftRot();
+                            float rightProgress = doors.getRightRot();
 
-                        schema.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), 0));
-                        schema.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), 0));
-
+                            animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), 0));
+                            animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), 0));
+                        }
                         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
 
                         matrices.pop();
