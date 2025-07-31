@@ -49,6 +49,7 @@ public class DatapackExterior extends ExteriorVariantSchema implements AnimatedD
     protected final PortalOffsets portalOffsets;
     protected final BedrockAnimationRegistry.Reference leftAnimation;
     protected final BedrockAnimationRegistry.Reference rightAnimation;
+    protected final Vec3d scale;
 
     public static final Codec<DatapackExterior> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ExteriorVariantSchema::id),
@@ -66,11 +67,13 @@ public class DatapackExterior extends ExteriorVariantSchema implements AnimatedD
                     PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackExterior::getPortalOffsets),
                     BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackExterior::getLeftAnimation),
                     BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackExterior::getRightAnimation),
-                    Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack))
-            .apply(instance, DatapackExterior::new));
+                    Vec3d.CODEC.optionalFieldOf("scale", new Vec3d(1, 1, 1)).forGetter(DatapackExterior::getScale),
+                    Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackExterior::wasDatapack)
+            ).apply(instance, DatapackExterior::new)
+        );
 
     public DatapackExterior(Identifier id, Identifier category, Identifier parent, Identifier texture,
-                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, boolean isDatapack) {
+                            Identifier emission, Optional<Loyalty> loyalty, BiomeOverrides overrides, Vec3d seatTranslations, boolean hasTransparentDoors, Optional<Identifier> model, Optional<Identifier> door, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, Vec3d scale, boolean isDatapack) {
         super(category, id, loyalty);
         this.parent = parent;
         this.texture = texture;
@@ -84,6 +87,7 @@ public class DatapackExterior extends ExteriorVariantSchema implements AnimatedD
         this.portalOffsets = offsets;
         this.leftAnimation = leftAnimation.orElse(null);
         this.rightAnimation = rightAnimation.orElse(null);
+        this.scale = scale;
     }
 
     public static DatapackExterior fromInputStream(InputStream stream) {
@@ -207,5 +211,10 @@ public class DatapackExterior extends ExteriorVariantSchema implements AnimatedD
     @Override
     public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
         return Optional.ofNullable(this.rightAnimation);
+    }
+
+    @Override
+    public Vec3d getScale() {
+        return scale;
     }
 }

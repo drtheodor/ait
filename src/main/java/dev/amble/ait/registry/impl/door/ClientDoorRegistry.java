@@ -21,6 +21,7 @@ import dev.amble.ait.data.schema.door.impl.*;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientBlueBoxDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientDoomDoorVariant;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 
 public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
     private static final ClientDoorRegistry INSTANCE = new ClientDoorRegistry();
@@ -134,11 +135,31 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
                         DoorSchema schema = tardis.getExterior().getVariant().door();
 
                         if (schema instanceof AnimatedDoor animDoor) {
+                            Vec3d offset = animDoor.getOffset();
+                            matrices.translate(offset.x, offset.y, offset.z);
+
+                            Vec3d scale = animDoor.getScale();
+                            matrices.scale((float) scale.x, (float) scale.y, (float) scale.z);
+
                             float leftProgress = doors.getLeftRot();
                             float rightProgress = doors.getRightRot();
 
-                            animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), 0));
-                            animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), 0));
+                            float leftDelta;
+                            if (leftProgress == 1 || leftProgress == 0) {
+                                leftDelta = 0;
+                            } else {
+                                leftDelta = tickDelta;
+                            }
+
+                            float rightDelta;
+                            if (rightProgress == 1 || rightProgress == 0) {
+                                rightDelta = 0;
+                            } else {
+                                rightDelta = tickDelta;
+                            }
+
+                            animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), leftDelta));
+                            animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), rightDelta));
                         }
                         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
 

@@ -18,6 +18,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 
 public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 	private final BedrockModel model;
@@ -41,6 +42,12 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 		ExteriorVariantSchema schema = tardis.getExterior().getVariant();
 
 		if (schema instanceof AnimatedDoor animDoor) {
+			Vec3d offset = animDoor.getOffset();
+			matrices.translate(offset.x, offset.y, offset.z);
+
+			Vec3d scale = animDoor.getScale();
+			matrices.scale((float) scale.x, (float) scale.y, (float) scale.z);
+
 			float leftProgress = doors.getLeftRot();
 			float rightProgress = doors.getRightRot();
 

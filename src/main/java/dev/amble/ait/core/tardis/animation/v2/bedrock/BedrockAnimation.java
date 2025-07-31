@@ -50,6 +50,8 @@ public class BedrockAnimation {
 					}
 				}
 
+				// TODO - tick delta causes jittering.
+
 				if (!timeline.position.isEmpty()) {
 					Vec3d position = timeline.position.resolve((ticks + delta) / 20.0);
 					bone.setPivot((float) position.x, (float) position.y, (float) position.z);

@@ -28,6 +28,8 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 			PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackDoor::getOffsets),
 			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackDoor::getLeftAnimation),
 			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackDoor::getRightAnimation),
+			Vec3d.CODEC.optionalFieldOf("scale", new Vec3d(1, 1, 1)).forGetter(DatapackDoor::getScale),
+			Vec3d.CODEC.optionalFieldOf("offset", new Vec3d(0, 0, 0)).forGetter(DatapackDoor::getOffset),
 			Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackDoor::wasDatapack)
 		).apply(instance, DatapackDoor::new)
 	);
@@ -39,9 +41,11 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 	protected final PortalOffsets offsets;
 	protected final BedrockAnimationRegistry.Reference leftAnimation;
 	protected final BedrockAnimationRegistry.Reference rightAnimation;
+	protected final Vec3d scale;
+	protected final Vec3d offset;
 	protected final boolean initiallyDatapack;
 
-	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, boolean initiallyDatapack) {
+	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, Vec3d scale, Vec3d offset, boolean initiallyDatapack) {
 		super(id);
 
 		this.openSound = openSound;
@@ -51,6 +55,8 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 		this.offsets = offsets;
 		this.leftAnimation = leftAnimation.orElse(null);
 		this.rightAnimation = rightAnimation.orElse(null);
+		this.scale = scale;
+		this.offset = offset;
 		this.initiallyDatapack = initiallyDatapack;
 	}
 
@@ -102,6 +108,16 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 
 	public Identifier getModelId() {
 		return model;
+	}
+
+	@Override
+	public Vec3d getScale() {
+		return scale;
+	}
+
+	@Override
+	public Vec3d getOffset() {
+		return offset;
 	}
 
 	public static DatapackDoor fromInputStream(InputStream stream) {
