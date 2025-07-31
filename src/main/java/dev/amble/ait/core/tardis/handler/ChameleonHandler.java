@@ -164,14 +164,10 @@ public class ChameleonHandler extends TardisComponent {
         ServerWorld world = cached.getWorld();
         BlockPos pos = cached.getPos();
 
+        this.gaslighter = new Gaslighter3000(world);
         boolean success = this.testBiome(world, pos);
 
         if (!success) {
-            if (this.gaslighter == null) {
-                this.notifyFailure();
-                return false;
-            }
-
             BlockState below = world.getBlockState(pos.down());
 
             if (below.isAir()) {
@@ -219,8 +215,6 @@ public class ChameleonHandler extends TardisComponent {
 
         if (trees.isEmpty())
             return false;
-
-        this.gaslighter = new Gaslighter3000(world);
 
         ConfiguredFeature<?, ?> tree = trees.get(world.random.nextInt(trees.size()));
         FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
