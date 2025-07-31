@@ -29,10 +29,15 @@ public abstract class ServerPlayNetworkHandlerMixin {
 
     @Redirect(method = "onPlayerInteractBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerInteractionManager;interactBlock(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/Hand;Lnet/minecraft/util/hit/BlockHitResult;)Lnet/minecraft/util/ActionResult;"))
     public ActionResult onPlayerInteractBlock(ServerPlayerInteractionManager instance, ServerPlayerEntity player, World world, ItemStack stack, Hand hand, BlockHitResult hitResult) {
-        FakeBlockEvents.Action action = FakeBlockEvents.INTERACT.invoker().check(player, hand, hitResult.getBlockPos());
+        ServerWorld serverWorld = this.player.getServerWorld();
+        BlockPos blockPos = hitResult.getBlockPos();
 
-        if (action.shouldRemove())
-            return ActionResult.PASS;
+        if (serverWorld instanceof Twitter twitter && twitter.ait$isFake(blockPos)) {
+            FakeBlockEvents.Action action = FakeBlockEvents.INTERACT.invoker().check(player, hand, hitResult.getBlockPos());
+
+            if (action.shouldRemove())
+                return ActionResult.PASS;
+        }
 
         return instance.interactBlock(player, world, stack, hand, hitResult);
     }
