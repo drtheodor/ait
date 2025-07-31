@@ -202,7 +202,23 @@ public class ChameleonHandler extends KeyedTardisComponent {
         if (!success && !applyFallback(world, pos))
             return false;
 
+        boolean result = this.tryFixDisguise(world, pos);
         AITMod.LOGGER.debug("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
+
+        return result;
+    }
+
+    private boolean tryFixDisguise(ServerWorld world, BlockPos pos) {
+        // check if the exterior's position is still an exterior
+        if (!this.gaslighter.getAgenda(pos).isOf(AITBlocks.EXTERIOR_BLOCK))
+            return true;
+
+        // if it is, then try applying fallback
+        if (!this.applyFallback(world, pos)) {
+            this.gaslighter = null;
+            return false;
+        }
+
         return true;
     }
 
