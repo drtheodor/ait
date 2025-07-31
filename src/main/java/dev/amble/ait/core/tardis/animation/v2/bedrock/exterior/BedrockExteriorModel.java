@@ -26,6 +26,9 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 
 	public BedrockExteriorModel(BedrockModel model) {
 		this.model = model;
+
+		if (this.model == null) throw new IllegalStateException("Bedrock Model is null. Ensure the resource pack is loaded correctly.");
+
 		this.root = this.model.create().createModel();
 	}
 
