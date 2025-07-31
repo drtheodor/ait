@@ -22,7 +22,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(value = ServerPlayNetworkHandler.class, priority = 1001)
 public abstract class ServerPlayNetworkHandlerMixin {
 
     @Shadow public ServerPlayerEntity player;
