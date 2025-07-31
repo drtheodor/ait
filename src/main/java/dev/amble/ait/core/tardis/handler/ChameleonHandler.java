@@ -161,6 +161,9 @@ public class ChameleonHandler extends KeyedTardisComponent {
         if (!this.generate(world, pos, feature.get()) && !this.applyFallback(world, pos))
             return;
 
+        if (!this.tryFixDisguise(world, pos))
+            return;
+
         this.applyDisguise();
     }
 
