@@ -384,6 +384,10 @@ public class DoorHandler extends KeyedTardisComponent implements TardisTickable 
             return false;
 
         this.setLocked(lock);
+
+        if (this.getDoorState() != DoorState.CLOSED)
+            TardisEvents.DOOR_USED.invoker().onDoorUsed(tardis, player);
+        
         this.setDoorState(DoorState.CLOSED);
 
         if (!forced)
