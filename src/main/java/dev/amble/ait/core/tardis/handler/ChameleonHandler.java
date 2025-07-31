@@ -228,9 +228,13 @@ public class ChameleonHandler extends KeyedTardisComponent {
     private boolean applyFallback(ServerWorld world, BlockPos pos) {
         BlockState below = world.getBlockState(pos.down());
 
-        if (below.isAir()) {
-            this.notifyFailure();
-            return false;
+        if (isSafe(below)) {
+            below = world.getBlockState(pos.down(2));
+
+            if (isSafe(below)) {
+                this.notifyFailure();
+                return false;
+            }
         }
 
         this.gaslighter.spreadLies(pos, below);
@@ -279,6 +283,10 @@ public class ChameleonHandler extends KeyedTardisComponent {
 
         FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
         return feature.value().generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
+    }
+
+    private static boolean isSafe(BlockState state) {
+        return state.isSolid() && !state.isReplaceable();
     }
 
     private static final Set<Class<? extends Feature<?>>> TREES = Set.of(
