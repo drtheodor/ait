@@ -1,0 +1,13 @@
+{
+  "id": "ait:wooden",
+  "parent": "ait:console/hartnell",
+  "texture": "ait:textures/blockentities/consoles/wooden.png",
+  "model": "ait:wooden",
+  "offset": [0.5, 0.5, -0.5],
+  "animations": {
+    "landed": "wooden:idle",
+    "demat": "wooden:flight",
+    "flight": "wooden:flight",
+    "mat": "wooden:flight"
+  }
+}
