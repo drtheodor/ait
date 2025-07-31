@@ -7,8 +7,6 @@ import java.util.Set;
 
 import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
-import dev.amble.ait.data.properties.Property;
-import dev.amble.ait.data.properties.Value;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.gaslighter.Gaslighter3000;
 import dev.drtheo.gaslighter.api.FakeBlockEvents;
@@ -135,26 +133,17 @@ public class ChameleonHandler extends KeyedTardisComponent {
         FakeBlockEvents.REMOVED.register(ChameleonHandler::shitParticles);
     }
 
-    private static final Property<Identifier> LAST_FEATURE = new Property<>(Property.IDENTIFIER, "last_feature");
-
-    private final Value<Identifier> lastFeature = LAST_FEATURE.create(this);
+    private Identifier lastFeature = null;
 
     public ChameleonHandler() {
         super(Id.CHAMELEON);
     }
 
     @Override
-    public void onLoaded() {
-        lastFeature.of(this, LAST_FEATURE);
-    }
-
-    @Override
     public void postInit(InitContext ctx) {
         if (ctx.created()) return;
 
-        Identifier featureId = lastFeature.get();
-
-        if (featureId == null)
+        if (lastFeature == null)
             return;
 
         CachedDirectedGlobalPos cached = tardis.travel().position();
@@ -163,7 +152,7 @@ public class ChameleonHandler extends KeyedTardisComponent {
         ServerWorld world = cached.getWorld();
 
         Optional<RegistryEntry.Reference<ConfiguredFeature<?, ?>>> feature =
-                getRegistry(world).getEntry(asFeature(featureId));
+                getRegistry(world).getEntry(asFeature(lastFeature));
 
         if (feature.isEmpty())
             return;
@@ -267,7 +256,7 @@ public class ChameleonHandler extends KeyedTardisComponent {
     }
 
     private boolean generate(ServerWorld world, BlockPos pos, RegistryEntry<ConfiguredFeature<?, ?>> feature) {
-        feature.getKey().ifPresent(k -> this.lastFeature.set(k.getValue()));
+        feature.getKey().ifPresent(k -> this.lastFeature = k.getValue());
 
         FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
         return feature.value().generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
