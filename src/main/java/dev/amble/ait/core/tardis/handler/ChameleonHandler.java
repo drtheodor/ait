@@ -129,8 +129,8 @@ public class ChameleonHandler extends KeyedTardisComponent {
             ServerWorld world = player.getServerWorld();
 
             // should be cheap enough
-            if (world.getBlockEntity(pos.down()) instanceof ExteriorBlockEntity ebe) {
-                //ebe.useOn(world, player.isSneaking(), player);
+            if (hand == Hand.MAIN_HAND && world.getBlockEntity(pos.down()) instanceof ExteriorBlockEntity ebe) {
+                ebe.useOn(world, player.isSneaking(), player);
                 return FakeBlockEvents.Action.CONTINUE;
             }
 
