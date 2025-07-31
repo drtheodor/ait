@@ -168,9 +168,10 @@ public class ChameleonHandler extends KeyedTardisComponent {
     }
 
     private static boolean shouldNotBeDisguised(Tardis tardis) {
-        return !isDisguised(tardis) || tardis.flight().falling().get()
+        return !isDisguised(tardis) || !tardis.travel().isLanded()
                 || tardis.siege().isActive() || tardis.door().isOpen()
-                || !tardis.travel().isLanded() || tardis.travel().antigravs().get();
+                || tardis.flight().falling().get()
+                || (tardis.travel().antigravs().get() && tardis.flight().shouldFall().get());
     }
 
     public static boolean isDisguised(Tardis tardis) {
