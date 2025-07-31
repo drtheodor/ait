@@ -135,7 +135,7 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
                         DoorSchema schema = tardis.getExterior().getVariant().door();
 
                         if (schema instanceof AnimatedDoor animDoor) {
-                            Vec3d offset = animDoor.getOffset();
+                            Vec3d offset = animDoor.getOffset().multiply(-1);
                             matrices.translate(offset.x, offset.y, offset.z);
 
                             Vec3d scale = animDoor.getScale();
