@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import dev.amble.ait.api.tardis.KeyedTardisComponent;
 import dev.amble.ait.core.tardis.util.NetworkUtil;
+import dev.amble.ait.data.properties.Property;
+import dev.amble.ait.data.properties.Value;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.gaslighter.Gaslighter3000;
 import dev.drtheo.gaslighter.api.FakeBlockEvents;
@@ -15,6 +18,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.BlockUpdateS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
@@ -27,7 +31,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 import dev.amble.ait.AITMod;
-import dev.amble.ait.api.tardis.TardisComponent;
 import dev.amble.ait.api.tardis.TardisEvents;
 import dev.amble.ait.core.AITBlocks;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
@@ -37,7 +40,7 @@ import dev.amble.ait.data.schema.exterior.variant.adaptive.AdaptiveVariant;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.*;
 
-public class ChameleonHandler extends TardisComponent {
+public class ChameleonHandler extends KeyedTardisComponent {
 
     @Exclude
     private Gaslighter3000 gaslighter;
@@ -129,8 +132,44 @@ public class ChameleonHandler extends TardisComponent {
         FakeBlockEvents.REMOVED.register(ChameleonHandler::shitParticles);
     }
 
+    private static final Property<Identifier> LAST_FEATURE = new Property<>(Property.IDENTIFIER, "last_feature");
+
+    private final Value<Identifier> lastFeature = LAST_FEATURE.create(this);
+
     public ChameleonHandler() {
         super(Id.CHAMELEON);
+    }
+
+    @Override
+    public void onLoaded() {
+        lastFeature.of(this, LAST_FEATURE);
+    }
+
+    @Override
+    public void postInit(InitContext ctx) {
+        if (ctx.created()) return;
+
+        Identifier featureId = lastFeature.get();
+
+        if (featureId == null)
+            return;
+
+        CachedDirectedGlobalPos cached = tardis.travel().position();
+
+        BlockPos pos = cached.getPos();
+        ServerWorld world = cached.getWorld();
+
+        Registry<ConfiguredFeature<?, ?>> registry = world.getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE);
+        ConfiguredFeature<?, ?> feature = registry.get(featureId);
+
+        if (feature == null)
+            return;
+
+        this.gaslighter = new Gaslighter3000(world);
+        if (!this.generate(world, pos, feature) && !this.applyFallback(world, pos))
+            return;
+
+        this.applyDisguise();
     }
 
     private static boolean shouldNotBeDisguised(Tardis tardis) {
@@ -167,18 +206,22 @@ public class ChameleonHandler extends TardisComponent {
         this.gaslighter = new Gaslighter3000(world);
         boolean success = this.testBiome(world, pos);
 
-        if (!success) {
-            BlockState below = world.getBlockState(pos.down());
-
-            if (below.isAir()) {
-                this.notifyFailure();
-                return false;
-            }
-
-            this.gaslighter.spreadLies(cached.getPos(), below);
-        }
+        if (!success && !applyFallback(world, pos))
+            return false;
 
         AITMod.LOGGER.debug("Recalculated exterior in {}ms", System.currentTimeMillis() - start);
+        return true;
+    }
+
+    private boolean applyFallback(ServerWorld world, BlockPos pos) {
+        BlockState below = world.getBlockState(pos.down());
+
+        if (below.isAir()) {
+            this.notifyFailure();
+            return false;
+        }
+
+        this.gaslighter.spreadLies(pos, below);
         return true;
     }
 
@@ -217,9 +260,12 @@ public class ChameleonHandler extends TardisComponent {
             return false;
 
         ConfiguredFeature<?, ?> tree = trees.get(world.random.nextInt(trees.size()));
-        FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
+        return this.generate(world, pos, tree);
+    }
 
-        return tree.generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
+    private boolean generate(ServerWorld world, BlockPos pos, ConfiguredFeature<?, ?> feature) {
+        FakeStructureWorldAccess access = new FakeStructureWorldAccess(world, gaslighter);
+        return feature.generate(access, world.getChunkManager().getChunkGenerator(), world.random, pos);
     }
 
     private static final Set<Class<? extends Feature<?>>> TREES = Set.of(
