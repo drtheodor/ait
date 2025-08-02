@@ -93,7 +93,6 @@ public class Gaslighter3000 {
             if (this.sections[i] == null)
                 this.sections[i] = new FakeChunkSection(this.world);
 
-            System.out.println("lies: " + pos);
             this.sections[i].setBlockState(pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF, state);
 
             if (this.world instanceof Twitter twitter)
@@ -103,13 +102,10 @@ public class Gaslighter3000 {
         }
 
         public void touchGrass(BlockPos pos) {
-            System.out.println(pos);
             int i = this.world.getSectionIndex(pos.getY());
 
-            if (this.sections[i] == null) {
-                System.out.println("No shit here");
+            if (this.sections[i] == null)
                 return;
-            }
 
             this.sections[i].setBlockState(pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF,
                     this.world.getBlockState(pos));
