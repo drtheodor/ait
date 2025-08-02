@@ -23,3 +23,4 @@
 - fix: landing marker failing in unloaded chunks | by [@duzos](https://github.com/duzos) ([#1767](https://github.com/amblelabs/ait/pull/1767))
 - Update README.md | by [@MaketendoDev](https://github.com/MaketendoDev), [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1648](https://github.com/amblelabs/ait/pull/1648))
 - fix: TARDIS' no longer break when using the default cave interior | by [@DrTheodor](https://github.com/DrTheodor) ([#1780](https://github.com/amblelabs/ait/pull/1780))
+- add: adaptive exterior | by [@DrTheodor](https://github.com/DrTheodor) ([#1779](https://github.com/amblelabs/ait/pull/1779))
