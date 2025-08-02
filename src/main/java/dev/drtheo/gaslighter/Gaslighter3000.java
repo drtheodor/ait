@@ -3,6 +3,7 @@ package dev.drtheo.gaslighter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import dev.drtheo.gaslighter.api.FakeBlockEvents;
 import dev.drtheo.gaslighter.api.Twitter;
@@ -92,6 +93,7 @@ public class Gaslighter3000 {
             if (this.sections[i] == null)
                 this.sections[i] = new FakeChunkSection(this.world);
 
+            System.out.println("lies: " + pos);
             this.sections[i].setBlockState(pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF, state);
 
             if (this.world instanceof Twitter twitter)
@@ -101,10 +103,13 @@ public class Gaslighter3000 {
         }
 
         public void touchGrass(BlockPos pos) {
+            System.out.println(pos);
             int i = this.world.getSectionIndex(pos.getY());
 
-            if (this.sections[i] == null)
+            if (this.sections[i] == null) {
+                System.out.println("No shit here");
                 return;
+            }
 
             this.sections[i].setBlockState(pos.getX() & 0xF, pos.getY() & 0xF, pos.getZ() & 0xF,
                     this.world.getBlockState(pos));
@@ -123,12 +128,11 @@ public class Gaslighter3000 {
                 if (updates == null)
                     continue;
 
+                int coord = this.world.sectionIndexToCoord(i);
+                ChunkSectionPos csp = ChunkSectionPos.from(this.pos, coord);
+
                 for (short update : updates) {
-                    this.touchGrass(new BlockPos(
-                            ChunkSectionPos.unpackLocalX(update),
-                            ChunkSectionPos.unpackLocalY(update),
-                            ChunkSectionPos.unpackLocalZ(update)
-                    ));
+                    this.touchGrass(csp.unpackBlockPos(update));
                 }
             }
         }
@@ -156,37 +160,31 @@ public class Gaslighter3000 {
             this.blockUpdatesBySection[i].remove(ChunkSectionPos.packLocal(pos));
         }
 
+        private void makeTweetPackets(Consumer<ChunkDeltaUpdateS2CPacket> consumer) {
+            for (int i = 0; i < this.blockUpdatesBySection.length; ++i) {
+                ShortSet shortSet = this.blockUpdatesBySection[i];
+
+                if (shortSet == null)
+                    continue;
+
+                int j = this.world.sectionIndexToCoord(i);
+                ChunkSectionPos chunkSectionPos = ChunkSectionPos.from(this.pos, j);
+
+                consumer.accept(new ChunkDeltaUpdateS2CPacket(chunkSectionPos, shortSet, this.sections[i]));
+            }
+        }
+
         public void tweet() {
             Collection<ServerPlayerEntity> list = PlayerLookup.tracking(this.world, this.pos);
 
             if (list.isEmpty())
                 return;
 
-            for (int i = 0; i < this.blockUpdatesBySection.length; ++i) {
-                ShortSet shortSet = this.blockUpdatesBySection[i];
-
-                if (shortSet == null)
-                    continue;
-
-                int j = this.world.sectionIndexToCoord(i);
-                ChunkSectionPos chunkSectionPos = ChunkSectionPos.from(this.pos, j);
-
-                sendPacketToPlayers(list, new ChunkDeltaUpdateS2CPacket(chunkSectionPos, shortSet, this.sections[i]));
-            }
+            this.makeTweetPackets(packet -> sendPacketToPlayers(list, packet));
         }
 
         public void tweet(ServerPlayerEntity player) {
-            for (int i = 0; i < this.blockUpdatesBySection.length; ++i) {
-                ShortSet shortSet = this.blockUpdatesBySection[i];
-
-                if (shortSet == null)
-                    continue;
-
-                int j = this.world.sectionIndexToCoord(i);
-                ChunkSectionPos chunkSectionPos = ChunkSectionPos.from(this.pos, j);
-
-                player.networkHandler.sendPacket(new ChunkDeltaUpdateS2CPacket(chunkSectionPos, shortSet, this.sections[i]));
-            }
+            this.makeTweetPackets(packet -> player.networkHandler.sendPacket(packet));
         }
 
         private static void sendPacketToPlayers(Collection<ServerPlayerEntity> players, Packet<?> packet) {

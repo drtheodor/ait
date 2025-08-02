@@ -1063,7 +1063,6 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("item.sonic.scanning.locator_message.title", "TARDIS location: %s");
         provider.addTranslation("item.sonic.scanning.locator_message.coordinates", "Coordinates: %s %s %s");
 
-
         // Loyalty Messages In Bed
         provider.addTranslation("tardis.loyalty.message.reject","You hear whispers all around you, you are not welcome. [REJECT]");
         provider.addTranslation("tardis.loyalty.message.neutral", "The TARDIS hums, neither welcoming nor dismissing your presence. [NEUTRAL]");
@@ -1112,6 +1111,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("tardis.message.interiorchange.success", "%s has grown to %d");
         provider.addTranslation("tardis.message.landingpad.adjust", "Adjusting to landing pad..");
         provider.addTranslation("tardis.message.self_destruct.warning", "SELF DESTRUCT INITIATED | ABORT SHIP");
+        provider.addTranslation("tardis.message.chameleon.failed", "Failed to find a suitable disguise!");
         provider.addTranslation("warning.ait.needs_subsystem", "ERROR, REQUIRES ACTIVE SUBSYSTEM: %s");
         provider.addTranslation("tardis.message.growth.hint", "Throw the Personality Matrix into the water to give it life...");
         provider.addTranslation("tardis.message.growth.no_cage", "Cage the TARDIS Coral to begin Plasmic coating process!");
