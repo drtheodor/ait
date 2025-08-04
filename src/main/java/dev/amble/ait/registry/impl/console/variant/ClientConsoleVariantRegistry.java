@@ -1,5 +1,8 @@
 package dev.amble.ait.registry.impl.console.variant;
 
+import dev.amble.ait.client.models.consoles.BedrockConsoleModel;
+import dev.amble.ait.client.models.consoles.ConsoleModel;
+import dev.amble.ait.client.bedrock.BedrockModelRegistry;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import org.joml.Vector3f;
 
@@ -8,7 +11,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
-import dev.amble.ait.client.models.consoles.ConsoleModel;
 import dev.amble.ait.data.datapack.DatapackConsole;
 import dev.amble.ait.data.schema.console.ClientConsoleVariantSchema;
 import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
@@ -123,6 +125,10 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
 
             @Override
             public ConsoleModel model() {
+                if (variant.model().isPresent()) {
+                    return new BedrockConsoleModel(BedrockModelRegistry.getInstance().get(variant.model().get()));
+                }
+
                 return getSameParent().model();
             }
 

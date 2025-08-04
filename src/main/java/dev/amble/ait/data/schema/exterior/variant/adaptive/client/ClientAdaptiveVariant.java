@@ -1,5 +1,6 @@
 package dev.amble.ait.data.schema.exterior.variant.adaptive.client;
 
+import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import org.joml.Vector3f;
 
 import net.minecraft.util.Identifier;
@@ -21,7 +22,7 @@ public class ClientAdaptiveVariant extends ClientExteriorVariantSchema {
     }
 
     @Override
-    public SimpleExteriorModel model() {
+    public ExteriorModel model() {
         return new CapsuleExteriorModel(CapsuleExteriorModel.getTexturedModelData().createModel());
     }
 

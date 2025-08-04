@@ -9,14 +9,15 @@
  */
 
 
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import dev.amble.ait.AITMod;
-import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.lib.AmbleKit;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Environment(EnvType.CLIENT)
 public class BedrockAnimationRegistry implements SimpleSynchronousResourceReloadListener {
 	private static final BedrockAnimationRegistry INSTANCE = new BedrockAnimationRegistry();
 
@@ -79,7 +81,7 @@ public class BedrockAnimationRegistry implements SimpleSynchronousResourceReload
 		for (Identifier rawId : manager.findResources("bedrock", filename -> filename.getPath().endsWith(".animation.json")).keySet()) {
 			try (InputStream stream = manager.getResource(rawId).get().getInputStream()) {
 				JsonObject json = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
-				BedrockAnimation.Group group = ServerTardisManager.getInstance().getFileGson().fromJson(json, BedrockAnimation.Group.class);
+				BedrockAnimation.Group group = BedrockAnimation.GSON.fromJson(json, BedrockAnimation.Group.class);
 
 				group.animations.forEach((name, animation) -> animation.name = name);
 

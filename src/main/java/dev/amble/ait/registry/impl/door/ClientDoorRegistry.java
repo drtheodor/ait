@@ -1,10 +1,10 @@
 package dev.amble.ait.registry.impl.door;
 
 
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.*;
+import dev.amble.ait.core.blockentities.DoorBlockEntity;
+import dev.amble.ait.client.bedrock.*;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.door.AnimatedDoor;
 import dev.amble.ait.data.schema.door.DatapackDoor;
@@ -122,54 +122,29 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
 
         return new ClientDoorSchema(variant.id()) {
             @Override
-            public AnimatedModel model() {
+            public AnimatedModel<DoorBlockEntity> model() {
                 BedrockModel model = BedrockModelRegistry.getInstance().get(variant.getModelId());
                 ModelPart root = model.create().createModel();
 
-                return new AnimatedModel() {
-                    @Override
-                    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity be, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
-                        matrices.push();
+                return new AnimatedModel<>() {
+	                @Override
+	                public void renderWithAnimations(ClientTardis tardis, DoorBlockEntity be, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
+		                matrices.push();
 
-                        DoorHandler doors = tardis.door();
-                        DoorSchema schema = tardis.getExterior().getVariant().door();
+		                DoorSchema schema = tardis.getExterior().getVariant().door();
 
-                        if (schema instanceof AnimatedDoor animDoor) {
-                            Vec3d offset = animDoor.getOffset().multiply(-1);
-                            matrices.translate(offset.x, offset.y, offset.z);
+		                if (schema instanceof AnimatedDoor animDoor) {
+							animDoor.runAnimations(root, matrices, tickDelta, tardis);
+		                }
+		                root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
 
-                            Vec3d scale = animDoor.getScale();
-                            matrices.scale((float) scale.x, (float) scale.y, (float) scale.z);
+		                matrices.pop();
+	                }
 
-                            float leftProgress = doors.getLeftRot();
-                            float rightProgress = doors.getRightRot();
-
-                            float leftDelta;
-                            if (leftProgress == 1 || leftProgress == 0) {
-                                leftDelta = 0;
-                            } else {
-                                leftDelta = tickDelta;
-                            }
-
-                            float rightDelta;
-                            if (rightProgress == 1 || rightProgress == 0) {
-                                rightDelta = 0;
-                            } else {
-                                rightDelta = tickDelta;
-                            }
-
-                            animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), leftDelta));
-                            animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), rightDelta));
-                        }
-                        root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
-
-                        matrices.pop();
-                    }
-
-                    @Override
-                    public ModelPart getPart() {
-                        return root;
-                    }
+	                @Override
+	                public ModelPart getPart() {
+		                return root;
+	                }
                 };
             }
         };

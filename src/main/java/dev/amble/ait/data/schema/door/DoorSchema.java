@@ -1,11 +1,9 @@
 package dev.amble.ait.data.schema.door;
 
 import java.lang.reflect.Type;
-import java.util.Optional;
 
 import com.google.gson.*;
 
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
 import dev.amble.lib.api.Identifiable;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;

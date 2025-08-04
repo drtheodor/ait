@@ -10,8 +10,8 @@ import java.util.UUID;
 
 import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockModelRegistry;
 import dev.amble.lib.register.AmbleRegistries;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -53,7 +53,6 @@ import dev.amble.ait.client.models.decoration.GallifreyFallsModel;
 import dev.amble.ait.client.models.decoration.PaintingFrameModel;
 import dev.amble.ait.client.models.decoration.RiftModel;
 import dev.amble.ait.client.models.decoration.TrenzalorePaintingModel;
-import dev.amble.ait.client.models.doors.DoorModel;
 import dev.amble.ait.client.overlays.ExteriorAxeOverlay;
 import dev.amble.ait.client.overlays.FabricatorOverlay;
 import dev.amble.ait.client.overlays.RWFOverlay;
@@ -226,7 +225,7 @@ public class AITModClient implements ClientModInitializer {
                         return;
 
                     String id = buf.readString();
-                    ConsoleTypeSchema type = ConsoleRegistry.REGISTRY.get(Identifier.tryParse(id));
+                    ConsoleTypeSchema type = ConsoleRegistry.getInstance().get(Identifier.tryParse(id));
                     BlockPos consolePos = buf.readBlockPos();
 
                     if (client.world.getBlockEntity(consolePos) instanceof ConsoleGeneratorBlockEntity console)

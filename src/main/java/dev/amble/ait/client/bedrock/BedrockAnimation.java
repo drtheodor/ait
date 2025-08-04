@@ -9,15 +9,16 @@
  */
 
 
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import dev.amble.ait.AITMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelTransform;
-import net.minecraft.client.render.entity.animation.Keyframe;
+import net.minecraft.entity.AnimationState;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
@@ -25,7 +26,13 @@ import java.util.*;
 
 import static net.minecraft.util.math.MathHelper.catmullRom;
 
+@Environment(EnvType.CLIENT)
 public class BedrockAnimation {
+	public static final Gson GSON = new GsonBuilder()
+			.registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter())
+			.registerTypeAdapter(BedrockAnimation.class, new BedrockAnimationAdapter())
+			.create();
+
 	public final boolean shouldLoop;
 	public final double animationLength;
 	public final Map<String, BoneTimeline> boneTimelines;
@@ -73,6 +80,20 @@ public class BedrockAnimation {
 				AITMod.LOGGER.error("Failed apply animation to {} in model. Skipping animation application for this bone.", boneName, e);
 			}
 		});
+	}
+
+	@Environment(EnvType.CLIENT)
+	public void apply(ModelPart root, AnimationState state, float progress, float speedMultiplier) {
+		state.update(progress, speedMultiplier);
+
+		float ticks;
+		if (this.shouldLoop) {
+			ticks = (float) ((state.getTimeRunning() / 1000F) % (this.animationLength)) * 20;
+		} else {
+			ticks = state.getTimeRunning();
+		}
+
+		state.run(s -> apply(root, (int) ticks, 0));
 	}
 
 	public static class Group {

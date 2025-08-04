@@ -35,7 +35,7 @@ import dev.amble.ait.registry.impl.exterior.ClientExteriorVariantRegistry;
 public class DoorRenderer<T extends DoorBlockEntity> implements BlockEntityRenderer<T> {
 
     private ClientExteriorVariantSchema variant;
-    private AnimatedModel model;
+    private AnimatedModel<DoorBlockEntity> model;
 
     public DoorRenderer(BlockEntityRendererFactory.Context ctx) {
     }
