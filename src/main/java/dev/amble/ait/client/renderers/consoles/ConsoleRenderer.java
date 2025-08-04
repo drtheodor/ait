@@ -123,11 +123,9 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
 
                 matrices.push();
                 if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
-                    if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
-                        model.renderWithAnimations(tardis, entity, model.getPart(),
-                                matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), light, overlay,
-                                1, 1, 1, 1, tickDelta);
-                    }
+                    model.renderWithAnimations(tardis, entity, model.getPart(),
+                            matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), light, overlay,
+                            1, 1, 1, 1, tickDelta);
                 }
                 matrices.pop();
             }

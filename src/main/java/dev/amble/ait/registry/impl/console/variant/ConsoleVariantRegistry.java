@@ -116,6 +116,11 @@ public class ConsoleVariantRegistry extends UnlockableRegistry<ConsoleVariantSch
         List<ConsoleVariantSchema> list = new ArrayList<>();
 
         for (ConsoleVariantSchema schema : ConsoleVariantRegistry.getInstance().REGISTRY.values()) {
+            if (schema.parent() == null) {
+                AITMod.LOGGER.warn("Console variant {} has no parent, skipping", schema.id());
+                continue;
+            }
+
             if (schema.parent().equals(parent))
                 list.add(schema);
         }

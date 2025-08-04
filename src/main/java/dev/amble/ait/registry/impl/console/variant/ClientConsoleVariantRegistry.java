@@ -135,6 +135,8 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
             @Override
             public float[] sonicItemRotations() {
                 if (variant.sonicRotation().isEmpty()) {
+                    if (getSameParent() == null) return new float[]{0, 0};
+
                     return getSameParent().sonicItemRotations();
                 }
 
@@ -150,6 +152,8 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
             @Override
             public Vector3f sonicItemTranslations() {
                 if (variant.sonicTranslation().equals(0,0,0)) {
+                    if (getSameParent() == null) return new Vector3f(0,0,0);
+
                     return getSameParent().sonicItemTranslations();
                 }
 
@@ -159,6 +163,8 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
             @Override
             public float[] handlesRotations() {
                 if (variant.handlesRotation().isEmpty()) {
+                    if (getSameParent() == null) return new float[]{0, 0};
+
                     return getSameParent().handlesRotations();
                 }
 
@@ -174,6 +180,8 @@ public class ClientConsoleVariantRegistry extends DatapackRegistry<ClientConsole
             @Override
             public Vector3f handlesTranslations() {
                 if (variant.handlesTranslation().equals(0,0,0)) {
+                    if (getSameParent() == null) return new Vector3f(0,0,0);
+
                     return getSameParent().handlesTranslations();
                 }
 
