@@ -79,7 +79,7 @@ public class BedrockAnimationRegistry implements SimpleSynchronousResourceReload
 		for (Identifier rawId : manager.findResources("bedrock", filename -> filename.getPath().endsWith(".animation.json")).keySet()) {
 			try (InputStream stream = manager.getResource(rawId).get().getInputStream()) {
 				JsonObject json = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
-				BedrockAnimation.Group group = ServerTardisManager.getInstance().getFileGson().fromJson(json, BedrockAnimation.Group.class);
+				BedrockAnimation.Group group = BedrockAnimation.GSON.fromJson(json, BedrockAnimation.Group.class);
 
 				group.animations.forEach((name, animation) -> animation.name = name);
 

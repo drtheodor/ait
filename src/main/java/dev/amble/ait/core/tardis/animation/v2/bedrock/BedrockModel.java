@@ -28,7 +28,7 @@ public class BedrockModel implements Identifiable {
 	private transient Identifier id;
 
 	public static BedrockModel from(JsonObject json, Identifier id) {
-		Gson gson = ServerTardisManager.getInstance().getFileGson();
+		Gson gson = BedrockAnimation.GSON;
 
 		BedrockModel model = gson.fromJson(json, BedrockModel.class);
 

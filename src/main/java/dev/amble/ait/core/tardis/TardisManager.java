@@ -133,9 +133,7 @@ public abstract class TardisManager<T extends Tardis, C> {
                 .registerTypeAdapter(BoolValue.class, BoolValue.serializer())
                 .registerTypeAdapter(IntValue.class, IntValue.serializer())
                 .registerTypeAdapter(RangedIntValue.class, RangedIntValue.serializer())
-                .registerTypeAdapter(DoubleValue.class, DoubleValue.serializer())
-                .registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter())
-                .registerTypeAdapter(BedrockAnimation.class, new BedrockAnimationAdapter());
+                .registerTypeAdapter(DoubleValue.class, DoubleValue.serializer());
     }
 
     public static TardisManager<?, ?> getInstance(Entity entity) {

@@ -11,6 +11,8 @@
 
 package dev.amble.ait.core.tardis.animation.v2.bedrock;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import dev.amble.ait.AITMod;
 import net.fabricmc.api.EnvType;
@@ -27,6 +29,11 @@ import java.util.*;
 import static net.minecraft.util.math.MathHelper.catmullRom;
 
 public class BedrockAnimation {
+	public static final Gson GSON = new GsonBuilder()
+			.registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter())
+			.registerTypeAdapter(BedrockAnimation.class, new BedrockAnimationAdapter())
+			.create();
+
 	public final boolean shouldLoop;
 	public final double animationLength;
 	public final Map<String, BoneTimeline> boneTimelines;
