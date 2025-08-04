@@ -24,3 +24,5 @@
 - Update README.md | by [@MaketendoDev](https://github.com/MaketendoDev), [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1648](https://github.com/amblelabs/ait/pull/1648))
 - fix: TARDIS' no longer break when using the default cave interior | by [@DrTheodor](https://github.com/DrTheodor) ([#1780](https://github.com/amblelabs/ait/pull/1780))
 - add: adaptive exterior | by [@DrTheodor](https://github.com/DrTheodor) ([#1779](https://github.com/amblelabs/ait/pull/1779))
+- Implemented the chronology disc | by [@Saturnorsomthing](https://github.com/Saturnorsomthing), [@DrTheodor](https://github.com/DrTheodor) ([#1783](https://github.com/amblelabs/ait/pull/1783))
+- Made "chronology" play on the main menu | by [@Saturnorsomthing](https://github.com/Saturnorsomthing), [@DrTheodor](https://github.com/DrTheodor) ([#1783](https://github.com/amblelabs/ait/pull/1783))
