@@ -825,6 +825,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("yacl3.config.ait:client.showConsoleMonitorText", "Show text on console monitors?");
         provider.addTranslation("yacl3.config.ait:client.showCRTMonitorText", "Show text on CRT monitors?");
         provider.addTranslation("yacl3.config.ait:client.renderDematParticles", "Render demat particles?");
+        provider.addTranslation("yacl3.config.ait:client.powerOffDarkness", "Darkness effect when TARDIS powers off?");
         provider.addTranslation("yacl3.config.ait:client.animateConsole", "Animate console?");
         provider.addTranslation("yacl3.config.ait:client.animateDoors", "Animate doors?");
         provider.addTranslation("yacl3.config.ait:client.temperatureType", "Temperature type");
@@ -875,6 +876,8 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation(AITItems.VENUS_MUSIC_DISC.getTranslationKey() + ".desc", "Nitrogenez - Venus");
         provider.addTranslation(AITItems.GOOD_MAN_MUSIC_DISC, "Music Disc");
         provider.addTranslation(AITItems.GOOD_MAN_MUSIC_DISC.getTranslationKey() + ".desc", "Dian - Good Man? [CUT EDITION]");
+        provider.addTranslation(AITItems.CHRONOLOGY_MUSIC_DISC, "Music Disc");
+        provider.addTranslation(AITItems.CHRONOLOGY_MUSIC_DISC.getTranslationKey() + ".desc", "PianoinFlames - Chronology [MAIN THEME]");
         provider.addTranslation(AITItems.GOLD_KEY_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
         provider.addTranslation(AITItems.NETHERITE_KEY_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
         provider.addTranslation(AITItems.CLASSIC_KEY_UPGRADE_SMITHING_TEMPLATE, "Smithing Template");
@@ -1062,7 +1065,6 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("item.sonic.scanning.locator_message.title", "TARDIS location: %s");
         provider.addTranslation("item.sonic.scanning.locator_message.coordinates", "Coordinates: %s %s %s");
 
-
         // Loyalty Messages In Bed
         provider.addTranslation("tardis.loyalty.message.reject","You hear whispers all around you, you are not welcome. [REJECT]");
         provider.addTranslation("tardis.loyalty.message.neutral", "The TARDIS hums, neither welcoming nor dismissing your presence. [NEUTRAL]");
@@ -1111,6 +1113,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("tardis.message.interiorchange.success", "%s has grown to %d");
         provider.addTranslation("tardis.message.landingpad.adjust", "Adjusting to landing pad..");
         provider.addTranslation("tardis.message.self_destruct.warning", "SELF DESTRUCT INITIATED | ABORT SHIP");
+        provider.addTranslation("tardis.message.chameleon.failed", "Failed to find a suitable disguise!");
         provider.addTranslation("warning.ait.needs_subsystem", "ERROR, REQUIRES ACTIVE SUBSYSTEM: %s");
         provider.addTranslation("tardis.message.growth.hint", "Throw the Personality Matrix into the water to give it life...");
         provider.addTranslation("tardis.message.growth.no_cage", "Cage the TARDIS Coral to begin Plasmic coating process!");
