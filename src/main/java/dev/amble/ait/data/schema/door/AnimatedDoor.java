@@ -34,6 +34,7 @@ public interface AnimatedDoor extends AnimatedFeature {
 	default void runAnimations(ModelPart root, MatrixStack matrices, float tickDelta, ClientTardis tardis) {
 		DoorHandler doors = tardis.door();
 
+
 		Vec3d offset = this.getOffset().multiply(-1);
 		matrices.translate(offset.x, offset.y, offset.z);
 

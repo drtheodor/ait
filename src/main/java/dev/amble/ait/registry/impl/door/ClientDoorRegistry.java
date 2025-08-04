@@ -134,6 +134,7 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
 		                DoorSchema schema = tardis.getExterior().getVariant().door();
 
 		                if (schema instanceof AnimatedDoor animDoor) {
+                            this.getPart().traverse().forEach(ModelPart::resetTransform);
 							animDoor.runAnimations(root, matrices, tickDelta, tardis);
 		                }
 		                root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);

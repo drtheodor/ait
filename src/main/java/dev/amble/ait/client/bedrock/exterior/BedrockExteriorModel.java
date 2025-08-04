@@ -41,6 +41,7 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 		ExteriorVariantSchema schema = tardis.getExterior().getVariant();
 
 		if (schema instanceof AnimatedDoor animDoor) {
+			this.getPart().traverse().forEach(ModelPart::resetTransform);
 			animDoor.runAnimations(root, matrices, tickDelta, tardis);
 		}
 

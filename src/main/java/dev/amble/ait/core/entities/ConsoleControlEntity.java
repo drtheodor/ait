@@ -2,9 +2,16 @@ package dev.amble.ait.core.entities;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.JsonOps;
+import dev.amble.ait.core.tardis.TardisManager;
 import dev.drtheo.scheduler.api.TimeUnit;
 import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
+import io.netty.handler.codec.EncoderException;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -536,11 +543,38 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
         if (consoleType != null) {
             this.setControlWidth(type.getScale().width);
             this.setControlHeight(type.getScale().height);
+            this.setOffset(type.getOffset());
         }
+    }
+
+    public void logConsoleJson() {
+        // convert all controls into json
+        JsonArray root = new JsonArray();
+
+        for (ConsoleControlEntity entity : this.getConsole().controlEntities) {
+            if (entity == null) continue;
+
+            ControlTypes type = new ControlTypes(entity.getControl(), entity.getDimensions(EntityPose.STANDING), entity.getOffset());
+            DataResult<JsonElement> dataResult = ControlTypes.CODEC.encodeStart(JsonOps.INSTANCE, type);
+            JsonElement typeData = Util.getResult(dataResult, error -> new EncoderException("Failed to encode: " + error + " " + type));
+
+            root.add(typeData);
+        }
+
+        AITMod.LOGGER.info(TardisManager.getInstance(this).getFileGson().toJson(root));
     }
 
     public void controlEditorHandler(PlayerEntity player) {
         float increment = 0.0125f;
+
+        if (player.getMainHandStack().getItem() == Items.PAPER && !player.getWorld().isClient()) {
+            logConsoleJson();
+
+            player.sendMessage(Text.literal("JSON Data logged to Java Console!"));
+
+            return;
+        }
+
         if (player.getMainHandStack().getItem() == Items.EMERALD_BLOCK)
             this.setPosition(this.getPos().add(player.isSneaking() ? -increment : increment, 0, 0));
 
