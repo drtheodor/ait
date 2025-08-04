@@ -1,7 +1,10 @@
 package dev.amble.ait.data.schema.door;
 
+import dev.amble.ait.AITMod;
+import dev.amble.ait.client.AITModClient;
 import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.client.tardis.ClientTardis;
+import dev.amble.ait.config.AITServerConfig;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,6 +45,11 @@ public interface AnimatedDoor {
 		float leftProgress = doors.getLeftRot();
 		float rightProgress = doors.getRightRot();
 
+		if (!AITModClient.CONFIG.animateDoors) {
+			leftProgress = doors.isLeftOpen() ? 1 : 0;
+			rightProgress = doors.isRightOpen() ? 1 : 0;
+		}
+
 		float leftDelta;
 		if (leftProgress == 1 || leftProgress == 0) {
 			leftDelta = 0;
@@ -56,8 +64,10 @@ public interface AnimatedDoor {
 			rightDelta = tickDelta;
 		}
 
-		this.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), leftDelta));
-		this.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), rightDelta));
+		float finalRightProgress = rightProgress;
+		float finalLeftProgress = leftProgress;
+		this.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (finalLeftProgress * anim.animationLength * 20), leftDelta));
+		this.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (finalRightProgress * anim.animationLength * 20), rightDelta));
 		matrices.pop();
 	}
 }
