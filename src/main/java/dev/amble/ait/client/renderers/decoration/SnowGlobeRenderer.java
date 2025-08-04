@@ -1,5 +1,6 @@
 package dev.amble.ait.client.renderers.decoration;
 
+import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.models.exteriors.SimpleExteriorModel;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -39,7 +40,7 @@ public class SnowGlobeRenderer<T extends SnowGlobeBlockEntity> implements BlockE
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(225f));
         matrices.scale(0.055f, 0.055f, 0.055f);
         ClientExteriorVariantSchema schema = ClientExteriorVariantRegistry.BOX_DEFAULT;
-        SimpleExteriorModel model = (SimpleExteriorModel) schema.model(); // Please ensure that whatever the variant you change it to is a SimpleExteriorModel
+        ExteriorModel model = schema.model();
 
         model.render(matrices, vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(schema.texture())), light, overlay, 1, 1, 1, 1);
         model.render(matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(schema.emission(), true)), 0xf000f0, overlay, 1, 1, 1, 1);

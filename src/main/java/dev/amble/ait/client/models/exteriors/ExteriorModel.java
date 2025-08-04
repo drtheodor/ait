@@ -10,19 +10,10 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
-public interface ExteriorModel extends AnimatedModel {
+public interface ExteriorModel extends AnimatedModel<ExteriorBlockEntity> {
 	<T extends Entity & Linkable> void renderEntity(T falling, ModelPart root, MatrixStack matrices,
 	                                                VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha);
 
 	void renderDoors(ClientTardis tardis, ExteriorBlockEntity exterior, ModelPart root, MatrixStack matrices,
 	                                 VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, boolean isBOTI);
-
-	@Override
-	default void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
-		if (linkableBlockEntity instanceof ExteriorBlockEntity be) {
-			renderWithAnimations(tardis, be, root, matrices, vertices, light, overlay, red, green, blue, pAlpha);
-		}
-	}
-
-	void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha);
 }

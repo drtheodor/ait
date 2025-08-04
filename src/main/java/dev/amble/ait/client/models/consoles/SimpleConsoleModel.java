@@ -46,10 +46,11 @@ public abstract class SimpleConsoleModel extends SinglePartEntityModel implement
     }
 
     @Override
-    public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {;
-        renderWithAnimations((ConsoleBlockEntity) linkableBlockEntity, tardis, root, matrices, vertices, light, overlay, red, green, blue, pAlpha);
+    public void renderWithAnimations(ClientTardis tardis, ConsoleBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {;
+        renderWithAnimations(linkableBlockEntity, tardis, root, matrices, vertices, light, overlay, red, green, blue, pAlpha);
     }
 
+    // Overloaded method for compatibility with older code
     public void renderWithAnimations(ConsoleBlockEntity console, ClientTardis tardis, ModelPart root, MatrixStack matrices,
                                      VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
         root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);

@@ -40,12 +40,8 @@ public class BedrockConsoleModel implements ConsoleModel, Identifiable {
 	}
 
 	@Override
-	public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
+	public void renderWithAnimations(ClientTardis tardis, ConsoleBlockEntity console, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
 		matrices.push();
-
-		if (!(linkableBlockEntity instanceof ConsoleBlockEntity console)) {
-			throw new IllegalArgumentException("Expected ConsoleBlockEntity, got " + linkableBlockEntity.getClass().getSimpleName());
-		}
 
 		ConsoleVariantSchema schema = console.getVariant();
 

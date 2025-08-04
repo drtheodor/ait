@@ -38,7 +38,7 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 	}
 
 	@Override
-	public void renderWithAnimations(ClientTardis tardis, AbstractLinkableBlockEntity exterior, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta) {
+	public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity exterior, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta) {
 		matrices.push();
 
 		DoorHandler doors = tardis.door();
@@ -75,11 +75,6 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 		this.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 
 		matrices.pop();
-	}
-
-	@Override
-	public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha) {
-		renderWithAnimations(tardis, linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, pAlpha, 0);
 	}
 
 	@Override
