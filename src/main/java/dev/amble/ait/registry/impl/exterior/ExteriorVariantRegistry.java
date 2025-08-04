@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import dev.amble.ait.core.util.PortalOffsets;
+import dev.amble.ait.data.schema.exterior.variant.adaptive.AdaptiveVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import dev.amble.lib.register.unlockable.UnlockableRegistry;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -282,7 +283,7 @@ public class ExteriorVariantRegistry extends UnlockableRegistry<ExteriorVariantS
         STALLION_STEEL = register(new StallionSteelVariant());
 
         // Adaptive
-//        ADAPTIVE = register(new AdaptiveVariant());
+        ADAPTIVE = register(new AdaptiveVariant());
 
         // Dalek Mod
         DALEK_MOD_1963 = register(new DalekMod1963Variant());

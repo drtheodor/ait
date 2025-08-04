@@ -4,6 +4,7 @@ package dev.amble.ait.registry.impl.exterior;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.bedrock.BedrockModelRegistry;
 import dev.amble.ait.client.bedrock.exterior.BedrockExteriorModel;
+import dev.amble.ait.data.schema.exterior.variant.adaptive.client.ClientAdaptiveVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -202,7 +203,7 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
     public static ClientExteriorVariantSchema STALLION_FIRE;
     public static ClientExteriorVariantSchema STALLION_SOUL;
     public static ClientExteriorVariantSchema STALLION_STEEL;
-    //public static ClientExteriorVariantSchema ADAPTIVE;
+    public static ClientExteriorVariantSchema ADAPTIVE;
     public static ClientExteriorVariantSchema DALEK_MOD_1963;
     public static ClientExteriorVariantSchema DALEK_MOD_1967;
     public static ClientExteriorVariantSchema DALEK_MOD_1970;
@@ -291,7 +292,7 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
         STALLION_SOUL = register(new ClientStallionSoulVariant());
         STALLION_STEEL = register(new ClientStallionSteelVariant());
 
-        //ADAPTIVE = register(new ClientAdaptiveVariant());
+        ADAPTIVE = register(new ClientAdaptiveVariant());
 
         // Dalek Mod
         DALEK_MOD_1963 = register(new ClientDalekMod1963Variant());
