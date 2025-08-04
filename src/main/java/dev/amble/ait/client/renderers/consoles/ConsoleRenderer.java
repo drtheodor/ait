@@ -122,7 +122,6 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
                 profiler.swap("emission");
 
                 matrices.push();
-                matrices.translate(0.5, -1.5f, -0.5);
                 if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
                     if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
                         model.renderWithAnimations(tardis, entity, model.getPart(),
@@ -146,7 +145,6 @@ public class ConsoleRenderer<T extends ConsoleBlockEntity> implements BlockEntit
                 profiler.swap("emission");
 
                 matrices.push();
-                matrices.translate(0.5, -1.5f, -0.5);
                 if (variant.emission() != null && !variant.emission().equals(DatapackConsole.EMPTY)) {
                     model.renderWithAnimations(tardis, entity, model.getPart(),
                             matrices, vertexConsumers.getBuffer(AITRenderLayers.tardisEmissiveCullZOffset(variant.emission(), true)), light, overlay,
