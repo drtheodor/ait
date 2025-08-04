@@ -1,11 +1,10 @@
 package dev.amble.ait.data.schema.door;
 
-import dev.amble.ait.AITMod;
 import dev.amble.ait.client.AITModClient;
-import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationReference;
 import dev.amble.ait.client.tardis.ClientTardis;
-import dev.amble.ait.config.AITServerConfig;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
+import dev.amble.ait.data.schema.AnimatedFeature;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
@@ -14,12 +13,12 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.Optional;
 
-public interface AnimatedDoor {
-	default Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
+public interface AnimatedDoor extends AnimatedFeature {
+	default Optional<BedrockAnimationReference> getLeftAnimation() {
 		return Optional.empty();
 	}
 
-	default Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
+	default Optional<BedrockAnimationReference> getRightAnimation() {
 		return Optional.empty();
 	}
 
@@ -66,8 +65,8 @@ public interface AnimatedDoor {
 
 		float finalRightProgress = rightProgress;
 		float finalLeftProgress = leftProgress;
-		this.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (finalLeftProgress * anim.animationLength * 20), leftDelta));
-		this.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (finalRightProgress * anim.animationLength * 20), rightDelta));
+		this.getLeftAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalLeftProgress * anim.animationLength * 20), leftDelta));
+		this.getRightAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalRightProgress * anim.animationLength * 20), rightDelta));
 		matrices.pop();
 	}
 }

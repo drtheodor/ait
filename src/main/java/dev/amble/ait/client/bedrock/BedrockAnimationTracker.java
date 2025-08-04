@@ -14,26 +14,29 @@ import java.util.function.Consumer;
 public class BedrockAnimationTracker {
 	public final BedrockAnimation animation;
 	private final Consumer<Runnable> ticker;
+	private final boolean reversed;
 	private int ticks;
 
 	/**
 	 * Creates a new Bedrock Animation Tracker.
 	 * @param animation the animation to track
 	 * @param nextTick a method that will be called on the next tick to continue the animation.
+	 * @param reversed whether the animation should be played in reverse.
 	 */
-	public BedrockAnimationTracker(BedrockAnimation animation, Consumer<Runnable> nextTick) {
+	public BedrockAnimationTracker(BedrockAnimation animation, Consumer<Runnable> nextTick, boolean reversed) {
 		this.animation = animation;
 		this.ticker = nextTick;
 		this.ticks = 0;
+		this.reversed = reversed;
 	}
 
 	/**
 	 * Creates a new Bedrock Animation Tracker using the default scheduler for the given side.
 	 * @param animation the animation to track
-	 * @param isClient whether the animation is being tracked on the client or server side.
+	 * @param reversed whether the animation should be played in reverse.
 	 */
-	public BedrockAnimationTracker(BedrockAnimation animation, boolean isClient) {
-		this(animation, getSchedulerTicker(isClient));
+	public BedrockAnimationTracker(BedrockAnimation animation, boolean reversed) {
+		this(animation, getSchedulerTicker(true), reversed);
 	}
 
 	private static Consumer<Runnable> getSchedulerTicker(boolean isClient) {
@@ -77,6 +80,10 @@ public class BedrockAnimationTracker {
 	}
 
 	public int getTicks() {
+		if (reversed) {
+			return (int) (animation.animationLength * 20 - ticks);
+		}
+
 		return ticks;
 	}
 }

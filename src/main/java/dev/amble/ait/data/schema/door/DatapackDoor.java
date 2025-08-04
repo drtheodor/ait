@@ -6,7 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.AITMod;
-import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationReference;
 import dev.amble.ait.core.util.PortalOffsets;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -26,8 +26,8 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 			Identifier.CODEC.fieldOf("model").forGetter(DatapackDoor::getModelId),
 			Codec.BOOL.fieldOf("is_double").forGetter(DoorSchema::isDouble),
 			PortalOffsets.CODEC.optionalFieldOf("portal_info", new PortalOffsets(1, 2)).forGetter(DatapackDoor::getOffsets),
-			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackDoor::getLeftAnimation),
-			BedrockAnimationRegistry.Reference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackDoor::getRightAnimation),
+			BedrockAnimationReference.CODEC.optionalFieldOf("left_animation").forGetter(DatapackDoor::getLeftAnimation),
+			BedrockAnimationReference.CODEC.optionalFieldOf("right_animation").forGetter(DatapackDoor::getRightAnimation),
 			Vec3d.CODEC.optionalFieldOf("scale", new Vec3d(1, 1, 1)).forGetter(DatapackDoor::getScale),
 			Vec3d.CODEC.optionalFieldOf("offset", new Vec3d(0, 0, 0)).forGetter(DatapackDoor::getOffset),
 			Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackDoor::wasDatapack)
@@ -39,13 +39,13 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 	protected final Identifier model;
 	protected final boolean isDouble;
 	protected final PortalOffsets offsets;
-	protected final BedrockAnimationRegistry.Reference leftAnimation;
-	protected final BedrockAnimationRegistry.Reference rightAnimation;
+	protected final BedrockAnimationReference leftAnimation;
+	protected final BedrockAnimationReference rightAnimation;
 	protected final Vec3d scale;
 	protected final Vec3d offset;
 	protected final boolean initiallyDatapack;
 
-	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, Optional<BedrockAnimationRegistry.Reference> leftAnimation, Optional<BedrockAnimationRegistry.Reference> rightAnimation, Vec3d scale, Vec3d offset, boolean initiallyDatapack) {
+	public DatapackDoor(Identifier id, Identifier openSound, Identifier closeSound, Identifier model, boolean isDouble, PortalOffsets offsets, Optional<BedrockAnimationReference> leftAnimation, Optional<BedrockAnimationReference> rightAnimation, Vec3d scale, Vec3d offset, boolean initiallyDatapack) {
 		super(id);
 
 		this.openSound = openSound;
@@ -76,12 +76,12 @@ public class DatapackDoor extends DoorSchema implements AnimatedDoor {
 	}
 
 	@Override
-	public Optional<BedrockAnimationRegistry.Reference> getLeftAnimation() {
+	public Optional<BedrockAnimationReference> getLeftAnimation() {
 		return Optional.ofNullable(leftAnimation);
 	}
 
 	@Override
-	public Optional<BedrockAnimationRegistry.Reference> getRightAnimation() {
+	public Optional<BedrockAnimationReference> getRightAnimation() {
 		return Optional.ofNullable(rightAnimation);
 	}
 

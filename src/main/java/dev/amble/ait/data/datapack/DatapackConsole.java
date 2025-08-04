@@ -14,7 +14,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.client.bedrock.BedrockAnimation;
-import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationReference;
 import dev.amble.ait.core.tardis.control.ControlTypes;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
@@ -184,22 +184,22 @@ public class DatapackConsole extends ConsoleVariantSchema {
         return created.get();
     }
 
-    public static class AnimationMap extends EnumMap<TravelHandlerBase.State, BedrockAnimationRegistry.Reference> {
-        public static Codec<AnimationMap> CODEC = Codec.unboundedMap(TravelHandlerBase.State.CODEC, BedrockAnimationRegistry.Reference.CODEC)
+    public static class AnimationMap extends EnumMap<TravelHandlerBase.State, BedrockAnimationReference> {
+        public static Codec<AnimationMap> CODEC = Codec.unboundedMap(TravelHandlerBase.State.CODEC, BedrockAnimationReference.CODEC)
                 .xmap(AnimationMap::new, map -> map);
 
         public AnimationMap() {
             super(TravelHandlerBase.State.class);
         }
 
-        public AnimationMap(Map<TravelHandlerBase.State, BedrockAnimationRegistry.Reference> map) {
+        public AnimationMap(Map<TravelHandlerBase.State, BedrockAnimationReference> map) {
             this();
 
             this.putAll(map);
         }
 
         public BedrockAnimation getAnimation(TravelHandlerBase.State state) {
-            BedrockAnimationRegistry.Reference ref = this.get(state);
+            BedrockAnimationReference ref = this.get(state);
             if (ref == null) {
                 return null; // No animation registered for this state
             }
