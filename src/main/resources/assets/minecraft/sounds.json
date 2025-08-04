@@ -1,0 +1,10 @@
+{
+  "music.menu": {
+    "sounds": [
+      {
+        "name": "ait:music/chronology",
+        "stream": true,
+      }
+    ]
+  }
+}
