@@ -3,7 +3,7 @@
     "sounds": [
       {
         "name": "ait:music/chronology",
-        "stream": true,
+        "stream": true
       }
     ]
   }
