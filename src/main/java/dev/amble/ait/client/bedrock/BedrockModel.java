@@ -8,18 +8,20 @@
  * This code is MPL, due to it referencing this code: https://gitlab.com/cable-mc/cobblemon/-/blob/main/common/src/main/kotlin/com/cobblemon/mod/common/client/render/models/blockbench/TexturedModel.kt
  */
 
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
 import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
-import dev.amble.ait.core.tardis.manager.ServerTardisManager;
 import dev.amble.lib.api.Identifiable;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.util.Identifier;
 
 import java.lang.reflect.Type;
 import java.util.*;
 
+@Environment(EnvType.CLIENT)
 public class BedrockModel implements Identifiable {
 	@SerializedName("format_version")
 	public String version;

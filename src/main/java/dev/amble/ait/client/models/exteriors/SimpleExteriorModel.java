@@ -27,12 +27,12 @@ public abstract class SimpleExteriorModel extends SinglePartEntityModel implemen
 
     @Override
     public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta) {
-        root.render(matrices, vertices, light, overlay, red, green, blue, alpha);
+        renderWithAnimations(tardis, linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, alpha);
     }
 
     // Overloaded method for compatibility with older code
     public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-        renderWithAnimations(tardis, linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, alpha, 0.0f);
+        root.render(matrices, vertices, light, overlay, red, green, blue, alpha);
     }
     @Override
     public <T extends Entity & Linkable> void renderEntity(T falling, ModelPart root, MatrixStack matrices,

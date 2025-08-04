@@ -31,7 +31,7 @@ public abstract class DoorModel extends SinglePartEntityModel implements Animate
     @Override
     public void renderWithAnimations(ClientTardis tardis, DoorBlockEntity linkableBlockEntity, ModelPart root, MatrixStack matrices,
                                      VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
-        root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
+        renderWithAnimations(tardis, ((AbstractLinkableBlockEntity) linkableBlockEntity) , root, matrices, vertices, light, overlay, red, green, blue, pAlpha, tickDelta);
     }
 
     // Overloaded method for compatibility with older code
@@ -39,7 +39,7 @@ public abstract class DoorModel extends SinglePartEntityModel implements Animate
                                      VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float pAlpha, float tickDelta) {
         assert linkableBlockEntity instanceof DoorBlockEntity : "Expected DoorBlockEntity, got " + linkableBlockEntity.getClass().getSimpleName();
 
-        renderWithAnimations(tardis, (DoorBlockEntity) linkableBlockEntity, root, matrices, vertices, light, overlay, red, green, blue, pAlpha, tickDelta);
+        root.render(matrices, vertices, light, overlay, red, green, blue, pAlpha);
     }
 
     @Override

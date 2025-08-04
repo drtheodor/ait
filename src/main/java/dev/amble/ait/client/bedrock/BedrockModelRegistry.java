@@ -1,4 +1,4 @@
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

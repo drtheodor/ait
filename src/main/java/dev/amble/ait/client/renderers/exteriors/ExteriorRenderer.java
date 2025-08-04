@@ -2,8 +2,6 @@ package dev.amble.ait.client.renderers.exteriors;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModel;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import org.joml.Vector3f;
 
@@ -103,7 +101,7 @@ public class ExteriorRenderer<T extends ExteriorBlockEntity> implements BlockEnt
             matrices.translate(0.5f, 0.5f, 0.5f);
             SIEGE_MODEL.renderWithAnimations(tardis, entity, SIEGE_MODEL.getPart(),
                     matrices,
-                    vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(siege.texture().get())), light, overlay, 1, 1, 1, 1);
+                    vertexConsumers.getBuffer(AITRenderLayers.getEntityTranslucentCull(siege.texture().get())), light, overlay, 1, 1, 1, 1, tickDelta);
 
             matrices.pop();
             profiler.pop();

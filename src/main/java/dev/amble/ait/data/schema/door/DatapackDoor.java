@@ -6,7 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.AITMod;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.util.PortalOffsets;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;

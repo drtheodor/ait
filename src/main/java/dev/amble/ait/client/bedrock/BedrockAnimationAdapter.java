@@ -9,20 +9,19 @@
  */
 
 
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import com.google.gson.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.util.math.Vec3d;
-
-import java.lang.reflect.Type;
-import java.util.*;
 
 import static dev.amble.ait.core.tardis.animation.v2.blockbench.BlockbenchParser.parseMath;
 
+@Environment(EnvType.CLIENT)
 public class BedrockAnimationAdapter implements JsonDeserializer<BedrockAnimation> {
 
 	public static final BedrockAnimationAdapter INSTANCE = new BedrockAnimationAdapter();

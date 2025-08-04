@@ -1,6 +1,5 @@
 package dev.amble.ait.client.models;
 
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.tardis.ClientTardis;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.model.ModelPart;

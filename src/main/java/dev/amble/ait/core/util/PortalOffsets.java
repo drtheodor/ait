@@ -42,19 +42,10 @@ public class PortalOffsets extends HashMap<Byte, Vec3d> {
 		this.put(Direction.EAST, east);
 		this.put(Direction.WEST, west);
 
-		// Love this.
-		this.put((byte) 1, northEast);
-		this.put((byte) 2, northEast);
-		this.put((byte) 3, northEast);
-		this.put((byte) 5, southEast);
-		this.put((byte) 6, southEast);
-		this.put((byte) 7, southEast);
-		this.put((byte) 9, southWest);
-		this.put((byte) 10, southWest);
-		this.put((byte) 11, southWest);
-		this.put((byte) 13, northWest);
-		this.put((byte) 14, northWest);
-		this.put((byte) 15, northWest);
+		for (byte i = 1; i <= 3; i++) this.put(i, northEast);
+		for (byte i = 5; i <= 7; i++) this.put(i, southEast);
+		for (byte i = 9; i <= 11; i++) this.put(i, southWest);
+		for (byte i = 13; i <= 15; i++) this.put(i, northWest);
 
 		this.enabled = enabled;
 	}

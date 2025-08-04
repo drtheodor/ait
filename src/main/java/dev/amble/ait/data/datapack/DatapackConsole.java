@@ -13,13 +13,12 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimation;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimation;
+import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.tardis.control.ControlTypes;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
 import dev.amble.ait.registry.impl.console.ConsoleRegistry;
-import dev.amble.ait.registry.impl.console.variant.ConsoleVariantRegistry;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
@@ -28,8 +27,6 @@ import net.minecraft.util.Identifier;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.data.codec.MoreCodec;
 import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
-
-import javax.management.openmbean.SimpleType;
 
 // Example usage
 /*

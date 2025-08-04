@@ -13,10 +13,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
 import dev.amble.ait.core.util.PortalOffsets;
 import dev.amble.ait.data.schema.door.AnimatedDoor;
-import dev.amble.ait.data.schema.door.DatapackDoor;
 import dev.amble.ait.registry.impl.door.DoorRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -29,7 +28,6 @@ import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.ait.registry.impl.exterior.ExteriorVariantRegistry;
-import org.apache.http.impl.io.IdentityInputStream;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class DatapackExterior extends ExteriorVariantSchema implements AnimatedDoor {

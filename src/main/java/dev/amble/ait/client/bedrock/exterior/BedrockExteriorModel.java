@@ -1,19 +1,16 @@
-package dev.amble.ait.core.tardis.animation.v2.bedrock.exterior;
+package dev.amble.ait.client.bedrock.exterior;
 
 import dev.amble.ait.api.tardis.link.v2.Linkable;
-import dev.amble.ait.api.tardis.link.v2.block.AbstractLinkableBlockEntity;
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockAnimationRegistry;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModel;
+import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
+import dev.amble.ait.client.bedrock.BedrockModel;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.door.AnimatedDoor;
-import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.lib.api.Identifiable;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -41,35 +38,10 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 	public void renderWithAnimations(ClientTardis tardis, ExteriorBlockEntity exterior, ModelPart root, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha, float tickDelta) {
 		matrices.push();
 
-		DoorHandler doors = tardis.door();
 		ExteriorVariantSchema schema = tardis.getExterior().getVariant();
 
 		if (schema instanceof AnimatedDoor animDoor) {
-			Vec3d offset = animDoor.getOffset();
-			matrices.translate(offset.x, offset.y, offset.z);
-
-			Vec3d scale = animDoor.getScale();
-			matrices.scale((float) scale.x, (float) scale.y, (float) scale.z);
-
-			float leftProgress = doors.getLeftRot();
-			float rightProgress = doors.getRightRot();
-
-			float leftDelta;
-			if (leftProgress == 1 || leftProgress == 0) {
-				leftDelta = 0;
-			} else {
-				leftDelta = tickDelta;
-			}
-
-			float rightDelta;
-			if (rightProgress == 1 || rightProgress == 0) {
-				rightDelta = 0;
-			} else {
-				rightDelta = tickDelta;
-			}
-
-			animDoor.getLeftAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (leftProgress * anim.animationLength * 20), leftDelta));
-			animDoor.getRightAnimation().flatMap(BedrockAnimationRegistry.Reference::get).ifPresent(anim -> anim.apply(root, (int) (rightProgress * anim.animationLength * 20), rightDelta));
+			animDoor.runAnimations(root, matrices, tickDelta, tardis);
 		}
 
 		this.render(matrices, vertices, light, overlay, red, green, blue, alpha);

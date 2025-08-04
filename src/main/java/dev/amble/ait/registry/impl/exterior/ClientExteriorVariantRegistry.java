@@ -2,8 +2,8 @@ package dev.amble.ait.registry.impl.exterior;
 
 
 import dev.amble.ait.client.models.exteriors.ExteriorModel;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.BedrockModelRegistry;
-import dev.amble.ait.core.tardis.animation.v2.bedrock.exterior.BedrockExteriorModel;
+import dev.amble.ait.client.bedrock.BedrockModelRegistry;
+import dev.amble.ait.client.bedrock.exterior.BedrockExteriorModel;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
@@ -16,7 +16,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
-import dev.amble.ait.client.models.exteriors.SimpleExteriorModel;
 import dev.amble.ait.data.datapack.DatapackExterior;
 import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;

@@ -9,7 +9,7 @@
  */
 
 
-package dev.amble.ait.core.tardis.animation.v2.bedrock;
+package dev.amble.ait.client.bedrock;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,8 +18,6 @@ import dev.amble.ait.AITMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelTransform;
-import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -28,6 +26,7 @@ import java.util.*;
 
 import static net.minecraft.util.math.MathHelper.catmullRom;
 
+@Environment(EnvType.CLIENT)
 public class BedrockAnimation {
 	public static final Gson GSON = new GsonBuilder()
 			.registerTypeAdapter(BedrockModel.LocatorBone.class, new BedrockModel.LocatorBone.Adapter())
