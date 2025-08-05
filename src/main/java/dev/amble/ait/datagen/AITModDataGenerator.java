@@ -1117,6 +1117,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("warning.ait.needs_subsystem", "ERROR, REQUIRES ACTIVE SUBSYSTEM: %s");
         provider.addTranslation("tardis.message.growth.hint", "Throw the Personality Matrix into the water to give it life...");
         provider.addTranslation("tardis.message.growth.no_cage", "Cage the TARDIS Coral to begin Plasmic coating process!");
+        provider.addTranslation("tardis.message.growth.in_progress", "Coral growth still in progress...");
         provider.addTranslation("message.ait.hypercubes.disabled", "Hypercubes are disabled in SERVER config.");
 
         provider.addTranslation("message.ait.control.ylandtype", "Vertical Search Mode: %s");
