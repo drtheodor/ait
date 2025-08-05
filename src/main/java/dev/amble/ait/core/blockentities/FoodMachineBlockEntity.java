@@ -1,6 +1,5 @@
 package dev.amble.ait.core.blockentities;
 
-import dev.amble.ait.core.blocks.FoodMachineBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
@@ -13,14 +12,20 @@ public class FoodMachineBlockEntity extends BlockEntity {
         super(AITBlockEntityTypes.FOOD_MACHINE_BLOCK_ENTITY_TYPE, pos, state);
     }
 
-    private FoodMachineBlock.FoodMachineMode mode = FoodMachineBlock.FoodMachineMode.FOOD_CUBES;
-
-    public FoodMachineBlock.FoodMachineMode getMode() {
-        return mode;
+    public enum FoodMachineMode {
+        FOOD_CUBES,
+        DRINKS,
+        OVERCHARGED_FOOD_CUBES
     }
 
-    public void setMode(FoodMachineBlock.FoodMachineMode mode) {
-        this.mode = mode;
-        markDirty();
+    private FoodMachineMode currentMode = FoodMachineMode.FOOD_CUBES;
+
+    public void setMode(FoodMachineMode mode) {
+        this.currentMode = mode;
     }
+
+    public FoodMachineMode getMode() {
+        return currentMode;
+    }
+
 }

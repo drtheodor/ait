@@ -1,16 +1,17 @@
 package dev.amble.ait.core.blocks;
 
-import dev.amble.ait.AITMod;
 import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.AITSounds;
 import dev.amble.ait.core.blockentities.FoodMachineBlockEntity;
-import dev.amble.ait.core.drinks.Drink;
 import dev.amble.ait.core.drinks.DrinkRegistry;
 import dev.amble.ait.core.drinks.DrinkUtil;
+import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
@@ -18,6 +19,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.RotationPropertyHelper;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,10 +32,23 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
     private static final int MAX_ROTATIONS = MAX_ROTATION_INDEX + 1;
     public static final IntProperty ROTATION = Properties.ROTATION;
 
-    public enum FoodMachineMode {
-        FOOD_CUBES,
-        DRINKS,
-        OVERCHARGED_FOOD_CUBES
+    protected static final VoxelShape Y_SHAPE = Block.createCuboidShape(
+            2.0,
+            0.0,
+            2,
+            14.0,
+            25.0,
+            14
+    );
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return Y_SHAPE;
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return Y_SHAPE;
     }
 
     public FoodMachineBlock(Settings settings) {
@@ -40,57 +56,93 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 
-    private static final String defaultDrink = "water";
-    private static String selectedDrink = defaultDrink;
+    private static int currentIndex = 0;
 
+    private ItemStack selectedItem;
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        BlockEntity be = world.getBlockEntity(pos);
-        if (!(be instanceof FoodMachineBlockEntity)) return ActionResult.PASS;
-        FoodMachineBlockEntity machine = (FoodMachineBlockEntity) be;
+            BlockEntity be = world.getBlockEntity(pos);
+            if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
 
-        //mode logic
-        ItemStack stack = player.getStackInHand(hand);
+            FoodMachineBlockEntity.FoodMachineMode currentMode = machine.getMode();
 
-        if (player.isSneaking() && stack.isEmpty()) {
-            FoodMachineMode currentMode = machine.getMode();
-            char currentModeMessage = 0;
-            switch (currentMode) {
-                case FOOD_CUBES:
-                    machine.setMode(FoodMachineMode.DRINKS);
-                    currentModeMessage = 'D';
-                    break;
-                case DRINKS:
-                    machine.setMode(FoodMachineMode.OVERCHARGED_FOOD_CUBES);
-                    currentModeMessage = 'O';
-                    break;
-                case OVERCHARGED_FOOD_CUBES:
-                    machine.setMode(FoodMachineMode.FOOD_CUBES);
-                    currentModeMessage = 'F';
-                    break;
+            //mode logic
+            ItemStack stack = player.getStackInHand(hand);
+
+            if (player.isSneaking() && stack.isEmpty()) {
+                char currentModeMessage = 0;
+                world.playSound(null, pos, AITSounds.SET_WAYPOINT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                switch (currentMode) {
+                    case FOOD_CUBES:
+                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.DRINKS);
+                        currentModeMessage = 'D';
+                        break;
+                    case DRINKS:
+                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES);
+                        currentModeMessage = 'O';
+                        break;
+                    case OVERCHARGED_FOOD_CUBES:
+                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES);
+                        currentModeMessage = 'F';
+                        break;
+                }
+                switch (currentModeMessage) {
+                    case 'F':
+                        player.sendMessage(Text.of("Food Cubes").copy().formatted(Formatting.GREEN), true);
+                        break;
+                    case 'D':
+                        player.sendMessage(Text.of("Drinks").copy().formatted(Formatting.AQUA), true);
+                        break;
+                    case 'O':
+                        player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
+                        break;
+                }
             }
-            switch (currentModeMessage){
-                case 'F': player.sendMessage(Text.of("Food Cubes").copy().formatted(Formatting.GREEN), true); break;
-                case 'D': player.sendMessage(Text.of("Drinks").copy().formatted(Formatting.AQUA), true); break;
-                case 'O': player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true); break;
+
+            if (!player.isSneaking()) {
+                if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES) {
+                    world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
+                } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
+                    world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    if (selectedItem == null) {
+                        selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                    }
+                    player.getInventory().insertStack(selectedItem.copy());
+                } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
+                    world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
+                }
             }
-
-        }
-
-        if (!player.isSneaking()) {
-            if (machine.getMode() == FoodMachineMode.FOOD_CUBES) {
-                player.getInventory().insertStack(Items.CARROT.getDefaultStack());
-            } else if (machine.getMode() == FoodMachineMode.DRINKS) {
-                player.getInventory().insertStack(getDrink(selectedDrink));
-            } else if (machine.getMode() == FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
-                player.getInventory().insertStack(Items.ENCHANTED_GOLDEN_APPLE.getDefaultStack());
-            }
-        }
-
 
         return ActionResult.SUCCESS;
     }
+
+    private long lastDrinkTime = 0;
+    {
+        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
+            if (world.getBlockEntity(pos) instanceof FluidLinkBlockEntity fbe){
+                BlockEntity be = world.getBlockEntity(pos);
+            if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.PASS;
+            if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
+                if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
+                    long now = System.currentTimeMillis();
+                    if (now - lastDrinkTime < 270) {
+                        return ActionResult.FAIL;
+                    }
+                    lastDrinkTime = now;
+                    currentIndex = (currentIndex + 1) % DrinkRegistry.getInstance().size();
+                    this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                    player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
+                    return ActionResult.FAIL;
+                }
+            }
+        }
+            return ActionResult.PASS;
+        });
+    }
+
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {

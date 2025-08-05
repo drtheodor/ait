@@ -26,17 +26,23 @@ public class AstralMapScreen extends Screen {
     int bgHeight = 138;
     int bgWidth = 216;
     int left, top;
-    final IdentifierSwitcher switcher;
+    final IdentifierSwitcher structureSwitcher;
+//    final IdentifierSwitcher biomeSwitcher;
 
     public AstralMapScreen() {
         super(Text.translatable("screen." + AITMod.MOD_ID + ".astral_map"));
 
         this.client = MinecraftClient.getInstance();
 
-        this.switcher = new IdentifierSwitcher(AstralMapBlock.structureIds, (id) -> {
+        this.structureSwitcher = new IdentifierSwitcher(AstralMapBlock.structureIds, (id) -> {
             ClientPlayNetworking.send(AstralMapBlock.REQUEST_SEARCH, PacketByteBufs.create().writeIdentifier(id));
             this.close();
         });
+
+//        this.biomeSwitcher = new IdentifierSwitcher(AstralMapBlock.biomeIds, (id) -> {
+//            ClientPlayNetworking.send(AstralMapBlock.REQUEST_SEARCH, PacketByteBufs.create().writeIdentifier(id));
+//            this.close();
+//        });
     }
 
     @Override
@@ -51,12 +57,14 @@ public class AstralMapScreen extends Screen {
 
         super.init();
 
-        this.addDrawableChild(new PressableTextWidget((width / 2 - 30), (height / 2 + 12),
-                this.textRenderer.getWidth("<"), 10, Text.literal("<"), button -> this.switcher.previous(), this.textRenderer));
-        this.addDrawableChild(new PressableTextWidget((width / 2 + 25), (height / 2 + 12),
-                this.textRenderer.getWidth(">"), 10, Text.literal(">"), button -> this.switcher.next(), this.textRenderer));
-        this.addDrawableChild(new PressableTextWidget((width / 2 - this.textRenderer.getWidth(Text.literal("SEARCH")) / 2), (height / 2 + 12),
-                this.textRenderer.getWidth(Text.literal("SEARCH")), 10, Text.literal("SEARCH"), button -> this.switcher.sync(null), this.textRenderer));
+//        this.addDrawableChild(new PressableTextWidget((width / 2 - 30), (height / 2 + 12),
+//                this.textRenderer.getWidth("<"), 10, Text.literal("<"), button -> this.switcher.previous(), this.textRenderer));
+//        this.addDrawableChild(new PressableTextWidget((width / 2 + 25), (height / 2 + 12),
+//                this.textRenderer.getWidth(">"), 10, Text.literal(">"), button -> this.switcher.next(), this.textRenderer));
+        this.addDrawableChild(new PressableTextWidget((width / 2 - this.textRenderer.getWidth(Text.literal("STRUCTURES")) / 2), (height / 2 + 12),
+                this.textRenderer.getWidth(Text.literal("STRUCTURES")), 10, Text.literal("STRUCTURES"), button -> this.structureSwitcher.sync(null), this.textRenderer));
+//        this.addDrawableChild(new PressableTextWidget((width / 2 - this.textRenderer.getWidth(Text.literal("BIOMES")) / 2), (height / 2 + 12),
+//                this.textRenderer.getWidth(Text.literal("BIOMES")), 10, Text.literal("BIOMES"), button -> this.biomeSwitcher.sync(null), this.textRenderer));
     }
 
     @Override
@@ -75,9 +83,12 @@ public class AstralMapScreen extends Screen {
 
         super.render(context, mouseX, mouseY, delta);
 
-        Text currentText = Text.literal(switcher.get().name().toUpperCase());
+        Text currentText = Text.literal(structureSwitcher.get().name().toUpperCase());
+//        Text bcurrentText = Text.literal(biomeSwitcher.get().name().toUpperCase());
         context.drawText(this.textRenderer, currentText, (int) (left + (bgWidth * 0.5f)) - this.textRenderer.getWidth(currentText) / 2,
                 (int) (top + (bgHeight * 0.5)), 0xffffff, true);
+//        context.drawText(this.textRenderer, bcurrentText, (int) (left + (bgWidth * 0.5f)) - this.textRenderer.getWidth(bcurrentText) / 2,
+//                (int) (top + (bgHeight * 0.4)), 0xffffff, true);
     }
 
     private void drawBackground(DrawContext context) {

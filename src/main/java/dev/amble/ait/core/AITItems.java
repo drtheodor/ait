@@ -123,6 +123,8 @@ public class AITItems extends ItemContainer {
             new AItemSettings().group(AITItemGroups.MAIN).maxCount(1));
     public static final Item ZEITON_DUST = new Item(
             new AItemSettings().food(ZEITON_DUST_FOOD));
+    public static final Item FOOD_CUBE = new Item(new AItemSettings().food(AITFoodComponents.FOOD_CUBE));
+    public static final Item OVERCHARGED_FOOD_CUBE = new GlintItem(new AItemSettings().food(AITFoodComponents.OVERCHARGED_FOOD_CUBE));
     public static final Item SUPERHEATED_ZEITON = new Item(new AItemSettings().group(AITItemGroups.MAIN));
     public static final Item PLASMIC_MATERIAL = new Item(new AItemSettings().group(AITItemGroups.MAIN));
     public static final Item CORAL_FRAGMENT = new Item(new AItemSettings().group(AITItemGroups.MAIN));
