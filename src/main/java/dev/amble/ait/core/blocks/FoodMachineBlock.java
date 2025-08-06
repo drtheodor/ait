@@ -57,7 +57,6 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
     }
 
 
-    private ItemStack selectedItem;
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -108,10 +107,9 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                 } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
                     machine.eatFuel(193);
                     world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    if (selectedItem == null) {
-                        selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(machine.getCurrentIndex()));
-                    }
-                    player.getInventory().insertStack(selectedItem.copy());
+                    int currentIndex = machine.getCurrentIndex();
+                    ItemStack mug = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                    player.getInventory().insertStack(mug);
                 } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
                     machine.eatFuel(437);
                     world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -124,29 +122,26 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
 
     private long lastDrinkTime = 0;
 
-    {
+    static {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
                 BlockEntity be = world.getBlockEntity(pos);
-                if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
+                if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.PASS;
                 if (!machine.isPoweredOn()) return ActionResult.PASS;
                 if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
                     if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
-                        long now = System.currentTimeMillis();
-                        if (now - lastDrinkTime < 270) {
-                            return ActionResult.FAIL;
+                        if (!world.isClient) {
+                            int currentIndex = (machine.getCurrentIndex() + 1) % DrinkRegistry.getInstance().size();
+                            machine.setCurrentIndex(currentIndex);
+                            ItemStack selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                            machine.setSelectedItem(selectedItem);
+                            player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
                         }
-                        lastDrinkTime = now;
-                        int currentIndex = (machine.getCurrentIndex() + 1) % DrinkRegistry.getInstance().size();
-                        machine.setCurrentIndex(currentIndex);
-                        this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(machine.getCurrentIndex()));
-                        player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
-                        return ActionResult.SUCCESS;
+                        return ActionResult.PASS;
                     }
                 }
             return ActionResult.PASS;
         });
     }
-
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
