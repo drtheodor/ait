@@ -27,3 +27,4 @@
 - Implemented the chronology disc | by [@Saturnorsomthing](https://github.com/Saturnorsomthing), [@DrTheodor](https://github.com/DrTheodor) ([#1783](https://github.com/amblelabs/ait/pull/1783))
 - Made "chronology" play on the main menu | by [@Saturnorsomthing](https://github.com/Saturnorsomthing), [@DrTheodor](https://github.com/DrTheodor) ([#1783](https://github.com/amblelabs/ait/pull/1783))
 - add: action-bar message when trying to enter growth TARDIS during its initial interior reconfiguration. | by [@Mansarde](https://github.com/Mansarde) ([#1785](https://github.com/amblelabs/ait/pull/1785))
+- chore: fix beta build pipeline | by [@Mansarde](https://github.com/Mansarde) ([#1790](https://github.com/amblelabs/ait/pull/1790))
