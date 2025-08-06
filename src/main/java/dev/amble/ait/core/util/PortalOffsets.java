@@ -3,13 +3,9 @@ package dev.amble.ait.core.util;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationPropertyHelper;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-
-public class PortalOffsets extends HashMap<Byte, Vec3d> {
+public class PortalOffsets {
 	public static final Codec<PortalOffsets> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.BOOL.optionalFieldOf("enabled", true).forGetter(PortalOffsets::isEnabled),
 			Codec.FLOAT.optionalFieldOf("width", 1F).forGetter(PortalOffsets::getWidth),
@@ -24,12 +20,14 @@ public class PortalOffsets extends HashMap<Byte, Vec3d> {
 			Vec3d.CODEC.optionalFieldOf("north_west", Vec3d.ZERO).forGetter(map -> map.get((byte) 13))
 	).apply(instance, PortalOffsets::new));
 
+	private final Vec3d[] lookup;
 	private final float width;
 	private final float height;
 	private boolean enabled;
 
 	public PortalOffsets(float width, float height) {
 		super();
+		this.lookup = new Vec3d[16];
 		this.width = width;
 		this.height = height;
 	}
@@ -62,6 +60,13 @@ public class PortalOffsets extends HashMap<Byte, Vec3d> {
 		return this.enabled;
 	}
 
+	public Vec3d get(byte direction) {
+		if (direction < 0 || direction > 15) {
+			throw new IllegalArgumentException("Direction must be between 0 and 15, inclusive.");
+		}
+		return this.lookup[direction];
+	}
+
 	public Vec3d get(Direction dir) {
 		return switch (dir) {
 			case NORTH -> this.get((byte) 0);
@@ -70,6 +75,13 @@ public class PortalOffsets extends HashMap<Byte, Vec3d> {
 			case WEST -> this.get((byte) 12);
 			default -> null;
 		};
+	}
+
+	public void put(byte direction, Vec3d offset) {
+		if (direction < 0 || direction > 15) {
+			throw new IllegalArgumentException("Direction must be between 0 and 15, inclusive.");
+		}
+		this.lookup[direction] = offset;
 	}
 
 	public void put(Direction dir, Vec3d offset) {
