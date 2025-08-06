@@ -1,5 +1,6 @@
 package dev.amble.ait.core.item.sonic;
 
+import dev.amble.ait.core.AITTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -47,6 +48,8 @@ public class InteractionSonicMode extends SonicMode {
     private void interactBlock(BlockPos pos, ServerWorld world, LivingEntity user, int ticks, BlockHitResult blockHit) {
         BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
+
+        if (!state.isIn(AITTags.Blocks.SONIC_INTERACTABLE)) return;
 
         if (block == Blocks.IRON_DOOR && state.contains(Properties.OPEN)) {
             boolean isOpen = state.get(Properties.OPEN);
