@@ -148,7 +148,7 @@ public class OverloadSonicMode extends SonicMode {
             return;
         }
 
-        if (block instanceof DaylightDetectorBlock || block instanceof ButtonBlock) {
+        if (block instanceof DaylightDetectorBlock) {
             activateBlock(world, pos, user, state, blockHit);
         }
         else if (block instanceof RedstoneLampBlock) {
