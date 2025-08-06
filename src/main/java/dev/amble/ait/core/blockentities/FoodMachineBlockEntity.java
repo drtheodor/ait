@@ -8,6 +8,7 @@ import dev.amble.ait.core.AITBlockEntityTypes;
 
 public class FoodMachineBlockEntity extends InteriorLinkableBlockEntity {
     private FoodMachineMode currentMode = FoodMachineMode.FOOD_CUBES;
+    private int currentIndex = 0;
 
     public FoodMachineBlockEntity(BlockPos pos, BlockState state) {
         super(AITBlockEntityTypes.FOOD_MACHINE_BLOCK_ENTITY_TYPE, pos, state);
@@ -25,6 +26,14 @@ public class FoodMachineBlockEntity extends InteriorLinkableBlockEntity {
 
     public FoodMachineMode getMode() {
         return currentMode;
+    }
+
+    public int getCurrentIndex(){
+        return this.currentIndex;
+    }
+
+    public void setCurrentIndex(int value){
+        this.currentIndex = value;
     }
 
     public void eatFuel(double value){

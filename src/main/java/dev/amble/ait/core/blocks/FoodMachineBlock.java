@@ -56,7 +56,6 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 
-    private static int currentIndex = 0;
 
     private ItemStack selectedItem;
 
@@ -110,7 +109,7 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                     machine.eatFuel(193);
                     world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     if (selectedItem == null) {
-                        selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                        selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(machine.getCurrentIndex()));
                     }
                     player.getInventory().insertStack(selectedItem.copy());
                 } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
@@ -137,8 +136,9 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                             return ActionResult.FAIL;
                         }
                         lastDrinkTime = now;
-                        currentIndex = (currentIndex + 1) % DrinkRegistry.getInstance().size();
-                        this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                        int currentIndex = (machine.getCurrentIndex() + 1) % DrinkRegistry.getInstance().size();
+                        machine.setCurrentIndex(currentIndex);
+                        this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(machine.getCurrentIndex()));
                         player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
                         return ActionResult.SUCCESS;
                     }
