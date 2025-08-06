@@ -5,7 +5,6 @@ import dev.amble.ait.core.AITSounds;
 import dev.amble.ait.core.blockentities.FoodMachineBlockEntity;
 import dev.amble.ait.core.drinks.DrinkRegistry;
 import dev.amble.ait.core.drinks.DrinkUtil;
-import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -75,15 +74,15 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                 switch (currentMode) {
                     case FOOD_CUBES:
                         machine.setMode(FoodMachineBlockEntity.FoodMachineMode.DRINKS);
-                        currentModeMessage = 'D';
+                        player.sendMessage(Text.of("Food Cubes").copy().formatted(Formatting.GREEN), true);
                         break;
                     case DRINKS:
                         machine.setMode(FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES);
-                        currentModeMessage = 'O';
+                        player.sendMessage(Text.of("Drinks").copy().formatted(Formatting.AQUA), true);
                         break;
                     case OVERCHARGED_FOOD_CUBES:
                         machine.setMode(FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES);
-                        currentModeMessage = 'F';
+                        player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
                         break;
                 }
                 switch (currentModeMessage) {
