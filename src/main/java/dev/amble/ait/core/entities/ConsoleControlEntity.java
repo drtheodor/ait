@@ -1,20 +1,28 @@
 package dev.amble.ait.core.entities;
 
-import java.util.List;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.AITBlocks;
+import dev.amble.ait.core.AITEntityTypes;
+import dev.amble.ait.core.AITItems;
+import dev.amble.ait.core.AITSounds;
+import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
+import dev.amble.ait.core.entities.base.LinkableDummyEntity;
+import dev.amble.ait.core.item.SonicItem;
+import dev.amble.ait.core.item.control.ControlBlockItem;
+import dev.amble.ait.core.item.sonic.SonicMode;
+import dev.amble.ait.core.tardis.Tardis;
 import dev.amble.ait.core.tardis.TardisManager;
+import dev.amble.ait.core.tardis.control.Control;
+import dev.amble.ait.core.tardis.control.ControlTypes;
+import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
 import dev.drtheo.scheduler.api.TimeUnit;
 import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.util.Util;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.*;
@@ -37,24 +45,14 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
-import dev.amble.ait.AITMod;
-import dev.amble.ait.core.AITBlocks;
-import dev.amble.ait.core.AITEntityTypes;
-import dev.amble.ait.core.AITItems;
-import dev.amble.ait.core.AITSounds;
-import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
-import dev.amble.ait.core.entities.base.LinkableDummyEntity;
-import dev.amble.ait.core.item.SonicItem;
-import dev.amble.ait.core.item.control.ControlBlockItem;
-import dev.amble.ait.core.item.sonic.SonicMode;
-import dev.amble.ait.core.tardis.Tardis;
-import dev.amble.ait.core.tardis.control.Control;
-import dev.amble.ait.core.tardis.control.ControlTypes;
-import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
+import java.util.List;
 
 public class ConsoleControlEntity extends LinkableDummyEntity {
     private static final TrackedData<Float> WIDTH = DataTracker.registerData(ConsoleControlEntity.class,
@@ -565,6 +563,8 @@ public class ConsoleControlEntity extends LinkableDummyEntity {
     }
 
     public void controlEditorHandler(PlayerEntity player) {
+        if (!player.isCreativeLevelTwoOp()) return;
+
         float increment = 0.0125f;
 
         if (player.getMainHandStack().getItem() == Items.PAPER && !player.getWorld().isClient()) {
