@@ -129,7 +129,7 @@ We also have some extra compatibility but for this you would have to install a s
 - b2
 - Ouro
 - Maggie
-- 
+- Theta
 
 ---
 
