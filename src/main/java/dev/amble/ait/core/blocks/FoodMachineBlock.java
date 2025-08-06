@@ -64,6 +64,7 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
             BlockEntity be = world.getBlockEntity(pos);
             if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
+            if (!machine.isPoweredOn()) return ActionResult.PASS;
 
             FoodMachineBlockEntity.FoodMachineMode currentMode = machine.getMode();
 
@@ -102,15 +103,18 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
 
             if (!player.isSneaking()) {
                 if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES) {
+                    machine.eatFuel(139);
                     world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
                 } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
+                    machine.eatFuel(193);
                     world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     if (selectedItem == null) {
                         selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
                     }
                     player.getInventory().insertStack(selectedItem.copy());
                 } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
+                    machine.eatFuel(437);
                     world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
                     player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
                 }
@@ -120,25 +124,25 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
     }
 
     private long lastDrinkTime = 0;
+
     {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-            if (world.getBlockEntity(pos) instanceof FluidLinkBlockEntity fbe){
                 BlockEntity be = world.getBlockEntity(pos);
-            if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.PASS;
-            if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
-                if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
-                    long now = System.currentTimeMillis();
-                    if (now - lastDrinkTime < 270) {
-                        return ActionResult.FAIL;
+                if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
+                if (!machine.isPoweredOn()) return ActionResult.PASS;
+                if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
+                    if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
+                        long now = System.currentTimeMillis();
+                        if (now - lastDrinkTime < 270) {
+                            return ActionResult.FAIL;
+                        }
+                        lastDrinkTime = now;
+                        currentIndex = (currentIndex + 1) % DrinkRegistry.getInstance().size();
+                        this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                        player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
+                        return ActionResult.SUCCESS;
                     }
-                    lastDrinkTime = now;
-                    currentIndex = (currentIndex + 1) % DrinkRegistry.getInstance().size();
-                    this.selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
-                    player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
-                    return ActionResult.FAIL;
                 }
-            }
-        }
             return ActionResult.PASS;
         });
     }
