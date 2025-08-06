@@ -88,13 +88,13 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
             }
                 switch(machine.getMode()) {
                     case FOOD_CUBES -> {
-                        machine.eatFuel(139);
+                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES);
                         world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
                         break;
                     }
                     case DRINKS -> {
-                        machine.eatFuel(193);
+                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.DRINKS);
                         world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         int currentIndex = machine.getCurrentIndex();
                         ItemStack mug = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
@@ -102,7 +102,7 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                         break;
                     }
                     case OVERCHARGED_FOOD_CUBES -> {
-                        machine.eatFuel(437);
+                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES);
                         world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
                         break;

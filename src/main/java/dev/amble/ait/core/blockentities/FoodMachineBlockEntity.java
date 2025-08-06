@@ -20,7 +20,7 @@ public class FoodMachineBlockEntity extends InteriorLinkableBlockEntity {
     public enum FoodMachineMode {
         FOOD_CUBES,
         DRINKS,
-        OVERCHARGED_FOOD_CUBES
+        OVERCHARGED_FOOD_CUBES;
     }
 
     public void setMode(FoodMachineMode mode) {
@@ -42,8 +42,21 @@ public class FoodMachineBlockEntity extends InteriorLinkableBlockEntity {
         }
     }
 
-    public void eatFuel(double value){
-        this.tardis().get().fuel().removeFuel(value);
+    public void eatFuel(FoodMachineMode mode){
+        switch (mode){
+            case FOOD_CUBES -> {
+                this.tardis().get().fuel().removeFuel(139);
+                return;
+            }
+            case DRINKS -> {
+                this.tardis().get().fuel().removeFuel(193);
+                return;
+            }
+            case OVERCHARGED_FOOD_CUBES -> {
+                this.tardis().get().fuel().removeFuel(437);
+                return;
+            }
+        }
     }
 
     public boolean isPoweredOn(){
