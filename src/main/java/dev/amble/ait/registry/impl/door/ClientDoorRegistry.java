@@ -4,24 +4,21 @@ package dev.amble.ait.registry.impl.door;
 import dev.amble.ait.client.models.AnimatedModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.blockentities.DoorBlockEntity;
-import dev.amble.ait.client.bedrock.*;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.door.AnimatedDoor;
-import dev.amble.ait.data.schema.door.DatapackDoor;
-import dev.amble.lib.register.datapack.DatapackRegistry;
-
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.PacketByteBuf;
-
 import dev.amble.ait.data.schema.door.ClientDoorSchema;
+import dev.amble.ait.data.schema.door.DatapackDoor;
 import dev.amble.ait.data.schema.door.DoorSchema;
 import dev.amble.ait.data.schema.door.impl.*;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientBlueBoxDoorVariant;
 import dev.amble.ait.data.schema.door.impl.exclusive.ClientDoomDoorVariant;
+import dev.amble.lib.client.bedrock.BedrockModel;
+import dev.amble.lib.client.bedrock.BedrockModelRegistry;
+import dev.amble.lib.register.datapack.DatapackRegistry;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
 
 public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
     private static final ClientDoorRegistry INSTANCE = new ClientDoorRegistry();
