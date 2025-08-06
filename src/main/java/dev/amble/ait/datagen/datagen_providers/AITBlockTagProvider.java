@@ -54,6 +54,7 @@ public class AITBlockTagProvider extends AmbleBlockTagProvider {
                 .add(Blocks.BRICKS, Blocks.BRICK_WALL, Blocks.REDSTONE_TORCH, Blocks.DEEPSLATE_BRICKS)
                 .add(Blocks.BARREL)
                 .add(Blocks.REDSTONE_WIRE, Blocks.COMPARATOR, Blocks.REPEATER)
+                .add(Blocks.LEVER, Blocks.STONE_BUTTON)
                 .add(Blocks.BELL, Blocks.JUKEBOX, Blocks.TRAPPED_CHEST)
                 .add(Blocks.DAYLIGHT_DETECTOR)
                 .add(Blocks.OBSIDIAN);

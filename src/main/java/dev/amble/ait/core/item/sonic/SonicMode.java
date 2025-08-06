@@ -9,7 +9,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import dev.amble.ait.data.enummap.Ordered;
@@ -113,6 +116,21 @@ public abstract class SonicMode implements Ordered {
         return 1;
     }
 
+    public static HitResult getHitResultForOutline(LivingEntity user) {
+        return getHitResultForOutline(user, 16);
+    }
+    public static HitResult getHitResultForOutline(LivingEntity user, double distance) {
+        BlockHitResult hitResult = null;
+
+        if (user instanceof PlayerEntity player) {
+            Vec3d eyePos = player.getCameraPosVec(1.0F);
+            Vec3d rotation = player.getRotationVec(1.0F);
+            Vec3d end = eyePos.add(rotation.multiply(distance));
+            hitResult = player.getWorld().raycast(new RaycastContext(eyePos, end, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, player));
+        }
+
+        return hitResult;
+    }
     public static HitResult getHitResult(LivingEntity user) {
         return getHitResult(user, 16);
     }
