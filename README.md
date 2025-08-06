@@ -115,10 +115,11 @@ We also have some extra compatibility but for this you would have to install a s
 - [Loqor](https://loqor.dev/)
 - [duzo](https://duzo.is-a.dev/)
 - [Dr. Theo](https://theo.is-a.dev/)
-- Maketendo
+- [Maketendo](https://github.com/MaketendoDev)
 - [AddieDaBaddie](https://addieastarr.carrd.co)
-- Saturn
-- Monke
+- [Saturn](https://github.com/Saturnorsomthing)
+- [Monke](https://github.com/rapbattlegod32)
+- [Pan](https://github.com/Mansarde)
 
 ---
 
@@ -128,6 +129,7 @@ We also have some extra compatibility but for this you would have to install a s
 - b2
 - Ouro
 - Maggie
+- 
 
 ---
 
