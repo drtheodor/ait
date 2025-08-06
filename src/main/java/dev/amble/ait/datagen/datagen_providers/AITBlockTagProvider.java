@@ -53,7 +53,8 @@ public class AITBlockTagProvider extends AmbleBlockTagProvider {
                 .add(Blocks.BLACK_CONCRETE,Blocks.CYAN_CONCRETE,Blocks.BLUE_CONCRETE,Blocks.BROWN_CONCRETE,Blocks.GRAY_CONCRETE,Blocks.GREEN_CONCRETE,Blocks.MAGENTA_CONCRETE,Blocks.ORANGE_CONCRETE,Blocks.PINK_CONCRETE,Blocks.RED_CONCRETE,Blocks.WHITE_CONCRETE,Blocks.PURPLE_CONCRETE,Blocks.LIGHT_GRAY_CONCRETE,Blocks.LIGHT_BLUE_CONCRETE,Blocks.LIME_CONCRETE)
                 .add(Blocks.BRICKS, Blocks.BRICK_WALL, Blocks.REDSTONE_TORCH, Blocks.DEEPSLATE_BRICKS)
                 .add(Blocks.BARREL)
-                .add(Blocks.REDSTONE_WIRE, Blocks.COMPARATOR, Blocks.REPEATER)
+                .add(Blocks.REDSTONE_WIRE, Blocks.COMPARATOR, Blocks.REPEATER, Blocks.LEVER)
+                .forceAddTag(BlockTags.BUTTONS)
                 .add(Blocks.BELL, Blocks.JUKEBOX, Blocks.TRAPPED_CHEST)
                 .add(Blocks.DAYLIGHT_DETECTOR)
                 .add(Blocks.OBSIDIAN);
