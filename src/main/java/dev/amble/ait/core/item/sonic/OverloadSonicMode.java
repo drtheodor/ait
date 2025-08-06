@@ -160,9 +160,6 @@ public class OverloadSonicMode extends SonicMode {
         else if (block instanceof LeverBlock lever) {
             lever.togglePower(state, world, pos);
         }
-        else if (block instanceof ButtonBlock button) {
-            button.onUse(state, world, pos, (PlayerEntity) user, user.getActiveHand(), blockHit);
-        }
         else if (block instanceof GlassBlock || block instanceof StainedGlassPaneBlock) {
             breakBlock(world, pos, user, state, blockHit);
         }
