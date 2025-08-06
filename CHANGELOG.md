@@ -29,3 +29,4 @@
 - add: action-bar message when trying to enter growth TARDIS during its initial interior reconfiguration. | by [@Mansarde](https://github.com/Mansarde) ([#1785](https://github.com/amblelabs/ait/pull/1785))
 - chore: fix beta build pipeline | by [@Mansarde](https://github.com/Mansarde) ([#1790](https://github.com/amblelabs/ait/pull/1790))
 - tweak: buffed staser damage on entities | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1787](https://github.com/amblelabs/ait/pull/1787))
+- add: Sonic Overload mode can now toggle levers and Sonic Interaction mode can press stone buttons | by [@Mansarde](https://github.com/Mansarde) ([#1789](https://github.com/amblelabs/ait/pull/1789))
