@@ -85,35 +85,29 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
                         player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
                         break;
                 }
-                switch (currentModeMessage) {
-                    case 'F':
-                        player.sendMessage(Text.of("Food Cubes").copy().formatted(Formatting.GREEN), true);
-                        break;
-                    case 'D':
-                        player.sendMessage(Text.of("Drinks").copy().formatted(Formatting.AQUA), true);
-                        break;
-                    case 'O':
-                        player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
-                        break;
-                }
             }
-
-            if (!player.isSneaking()) {
-                if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES) {
-                    machine.eatFuel(139);
-                    world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
-                } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
-                    machine.eatFuel(193);
-                    world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    int currentIndex = machine.getCurrentIndex();
-                    ItemStack mug = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
-                    player.getInventory().insertStack(mug);
-                } else if (machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES) {
-                    machine.eatFuel(437);
-                    world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
-                }
+                switch(machine.getMode()) {
+                    case FOOD_CUBES -> {
+                        machine.eatFuel(139);
+                        world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
+                        break;
+                    }
+                    case DRINKS -> {
+                        machine.eatFuel(193);
+                        world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        int currentIndex = machine.getCurrentIndex();
+                        ItemStack mug = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
+                        player.getInventory().insertStack(mug);
+                        break;
+                    }
+                    case OVERCHARGED_FOOD_CUBES -> {
+                        machine.eatFuel(437);
+                        world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
+                        break;
+                    }
+                    default -> machine.tardis().get().selfDestruct().boom();
             }
 
         return ActionResult.SUCCESS;
