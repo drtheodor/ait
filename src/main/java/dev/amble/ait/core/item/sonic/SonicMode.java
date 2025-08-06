@@ -20,6 +20,8 @@ import dev.amble.ait.data.schema.sonic.SonicSchema;
 
 public abstract class SonicMode implements Ordered {
 
+    private static final int MAX_DISTANCE = 16;
+
     public static class Modes {
         public static final SonicMode[] VALUES = new SonicMode[4];
         private static int lastIndex = 0;
@@ -117,7 +119,7 @@ public abstract class SonicMode implements Ordered {
     }
 
     public static HitResult getHitResultForOutline(LivingEntity user) {
-        return getHitResultForOutline(user, 16);
+        return getHitResultForOutline(user, MAX_DISTANCE);
     }
     public static HitResult getHitResultForOutline(LivingEntity user, double distance) {
         BlockHitResult hitResult = null;
@@ -132,7 +134,7 @@ public abstract class SonicMode implements Ordered {
         return hitResult;
     }
     public static HitResult getHitResult(LivingEntity user) {
-        return getHitResult(user, 16);
+        return getHitResult(user, MAX_DISTANCE);
     }
     public static HitResult getHitResult(LivingEntity user, double distance) {
         return ProjectileUtil.getCollision(user, entity -> !entity.isSpectator() && entity.canHit(), distance);
