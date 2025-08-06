@@ -93,13 +93,15 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
 
     @Override
     public void readFromServer(PacketByteBuf buf) {
-        int size = buf.readInt();
+        for (ExteriorVariantSchema schema : ExteriorVariantRegistry.getInstance().toList()) {
+            if (!(schema instanceof DatapackExterior variant)) continue;
 
-        for (int i = 0; i < size; i++) {
-            this.register(convertDatapack(buf.decodeAsJson(DatapackExterior.CODEC)));
+            ClientExteriorVariantSchema clientSchema = convertDatapack(variant);
+
+            if (clientSchema == null) continue;
+
+            this.register(clientSchema);
         }
-
-        AITMod.LOGGER.info("Read {} client exterior variants from server", size);
     }
 
     public static ClientExteriorVariantSchema convertDatapack(DatapackExterior variant) {

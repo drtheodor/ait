@@ -1,24 +1,17 @@
 package dev.amble.ait.registry.impl.console;
 
+import dev.amble.ait.AITMod;
 import dev.amble.ait.data.datapack.DatapackConsole;
+import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
+import dev.amble.ait.data.schema.console.type.*;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.SimpleRegistry;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
-import dev.amble.ait.data.schema.console.type.*;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class ConsoleRegistry extends DatapackRegistry<ConsoleTypeSchema> {
@@ -48,12 +41,14 @@ public class ConsoleRegistry extends DatapackRegistry<ConsoleTypeSchema> {
 
         buf.writeInt(counter);
         buf.writeBytes(secondary);
+
+        ServerPlayNetworking.send(player, AITMod.id("sync_console_type"), buf);
     }
 
     @Override
     public void readFromServer(PacketByteBuf buf) {
         for (ConsoleTypeSchema schema : this.toList()) {
-            if (!(schema instanceof DatapackConsole.SimpleType type)) return;
+            if (!(schema instanceof DatapackConsole.SimpleType type)) continue;
 
             this.REGISTRY.remove(type.id());
         }
@@ -70,7 +65,7 @@ public class ConsoleRegistry extends DatapackRegistry<ConsoleTypeSchema> {
     @Override
     @Environment(EnvType.CLIENT)
     public void onClientInit() {
-        ClientPlayNetworking.registerGlobalReceiver(AITMod.id("console_sync"),
+        ClientPlayNetworking.registerGlobalReceiver(AITMod.id("sync_console_type"),
                 (client, handler, buf, responseSender) -> this.readFromServer(buf));
     }
 

@@ -101,9 +101,6 @@ public class DatapackConsole extends ConsoleVariantSchema {
     }
 
     private static Identifier resolveParentId(Optional<Identifier> parent, Optional<SimpleType> type) {
-        System.out.println(parent);
-        System.out.println(type);
-
         if (parent.isPresent()) {
             return parent.get();
         } else if (type.isPresent()) {

@@ -106,10 +106,14 @@ public class ClientDoorRegistry extends DatapackRegistry<ClientDoorSchema> {
 
     @Override
     public void readFromServer(PacketByteBuf buf) {
-        int size = buf.readInt();
+        for (DoorSchema schema : DoorRegistry.getInstance().toList()) {
+            if (!(schema instanceof DatapackDoor variant)) continue;
 
-        for (int i = 0; i < size; i++) {
-            this.register(convertDatapack(buf.decodeAsJson(DatapackDoor.CODEC)));
+            ClientDoorSchema clientSchema = convertDatapack(variant);
+
+            if (clientSchema == null) continue;
+
+            this.register(clientSchema);
         }
     }
 
