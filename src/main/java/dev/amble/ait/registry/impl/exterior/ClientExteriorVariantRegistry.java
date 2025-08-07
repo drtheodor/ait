@@ -1,6 +1,9 @@
 package dev.amble.ait.registry.impl.exterior;
 
 
+import dev.amble.ait.client.models.exteriors.ExteriorModel;
+import dev.amble.ait.client.bedrock.BedrockModelRegistry;
+import dev.amble.ait.client.bedrock.exterior.BedrockExteriorModel;
 import dev.amble.ait.data.schema.exterior.variant.adaptive.client.ClientAdaptiveVariant;
 import dev.amble.lib.register.datapack.DatapackRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -14,7 +17,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import dev.amble.ait.AITMod;
-import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.data.datapack.DatapackExterior;
 import dev.amble.ait.data.datapack.exterior.BiomeOverrides;
 import dev.amble.ait.data.schema.exterior.ClientExteriorVariantSchema;
@@ -120,6 +122,10 @@ public class ClientExteriorVariantRegistry extends DatapackRegistry<ClientExteri
 
             @Override
             public ExteriorModel model() {
+                if (variant.model().isPresent()) {
+                    return new BedrockExteriorModel(BedrockModelRegistry.getInstance().get(variant.model().get()));
+                }
+
                 var parent = getInstance().get(variant.getParentId());
 
                 if (parent == null) return ClientExteriorVariantRegistry.CAPSULE_DEFAULT.model();
