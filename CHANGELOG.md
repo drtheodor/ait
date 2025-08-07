@@ -34,3 +34,7 @@
 - api: support for bedrock json models | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
 - api: datapacks can now add custom exterior models | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
 - api: datapacks can now add custom console models, as well as custom control positioning etc | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
+- feat: capaldi vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1797](https://github.com/amblelabs/ait/pull/1797))
+- feat: movie vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1797](https://github.com/amblelabs/ait/pull/1797))
+- feat: twice upon a time vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1797](https://github.com/amblelabs/ait/pull/1797))
+- feat: mccoy vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1797](https://github.com/amblelabs/ait/pull/1797))
