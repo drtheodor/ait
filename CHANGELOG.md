@@ -31,3 +31,6 @@
 - tweak: buffed staser damage on entities | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1787](https://github.com/amblelabs/ait/pull/1787))
 - add: Sonic Overload mode can now toggle levers and Sonic Interaction mode can press stone buttons | by [@Mansarde](https://github.com/Mansarde) ([#1789](https://github.com/amblelabs/ait/pull/1789))
 - add: credits update | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1794](https://github.com/amblelabs/ait/pull/1794))
+- api: support for bedrock json models | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
+- api: datapacks can now add custom exterior models | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
+- api: datapacks can now add custom console models, as well as custom control positioning etc | by [@duzos](https://github.com/duzos) ([#1774](https://github.com/amblelabs/ait/pull/1774))
