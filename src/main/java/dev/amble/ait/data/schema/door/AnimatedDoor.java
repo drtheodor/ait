@@ -1,10 +1,10 @@
 package dev.amble.ait.data.schema.door;
 
 import dev.amble.ait.client.AITModClient;
-import dev.amble.ait.client.bedrock.BedrockAnimationReference;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.AnimatedFeature;
+import dev.amble.lib.client.bedrock.BedrockAnimationReference;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ModelPart;

@@ -1,5 +1,23 @@
 package dev.amble.ait.data.datapack;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.amble.ait.AITMod;
+import dev.amble.ait.core.tardis.control.ControlTypes;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
+import dev.amble.ait.data.codec.MoreCodec;
+import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
+import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
+import dev.amble.ait.registry.impl.console.ConsoleRegistry;
+import dev.amble.lib.client.bedrock.BedrockAnimation;
+import dev.amble.lib.client.bedrock.BedrockAnimationReference;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.EnumMap;
@@ -7,26 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.amble.ait.client.bedrock.BedrockAnimation;
-import dev.amble.ait.client.bedrock.BedrockAnimationReference;
-import dev.amble.ait.core.tardis.control.ControlTypes;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
-import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
-import dev.amble.ait.registry.impl.console.ConsoleRegistry;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Vector3f;
-
-import net.minecraft.util.Identifier;
-
-import dev.amble.ait.AITMod;
-import dev.amble.ait.data.codec.MoreCodec;
-import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
 
 // Example usage
 /*
@@ -103,9 +101,6 @@ public class DatapackConsole extends ConsoleVariantSchema {
     }
 
     private static Identifier resolveParentId(Optional<Identifier> parent, Optional<SimpleType> type) {
-        System.out.println(parent);
-        System.out.println(type);
-
         if (parent.isPresent()) {
             return parent.get();
         } else if (type.isPresent()) {

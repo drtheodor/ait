@@ -1,25 +1,21 @@
-package dev.amble.ait.client.bedrock.exterior;
+package dev.amble.ait.client.models.exteriors;
 
 import dev.amble.ait.api.tardis.link.v2.Linkable;
-import dev.amble.ait.client.models.exteriors.ExteriorModel;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.blockentities.ExteriorBlockEntity;
-import dev.amble.ait.client.bedrock.BedrockAnimationRegistry;
-import dev.amble.ait.client.bedrock.BedrockModel;
-import dev.amble.ait.core.tardis.handler.DoorHandler;
 import dev.amble.ait.data.schema.door.AnimatedDoor;
 import dev.amble.ait.data.schema.exterior.ExteriorVariantSchema;
 import dev.amble.lib.api.Identifiable;
+import dev.amble.lib.client.bedrock.BedrockModel;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
 
 public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 	private final BedrockModel model;
-	private ModelPart root;
+	private final ModelPart root;
 
 	public BedrockExteriorModel(BedrockModel model) {
 		this.model = model;
