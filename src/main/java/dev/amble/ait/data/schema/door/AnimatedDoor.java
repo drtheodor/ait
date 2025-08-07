@@ -34,7 +34,6 @@ public interface AnimatedDoor extends AnimatedFeature {
 	default void runAnimations(ModelPart root, MatrixStack matrices, float tickDelta, ClientTardis tardis) {
 		DoorHandler doors = tardis.door();
 
-
 		Vec3d offset = this.getOffset().multiply(-1);
 		matrices.translate(offset.x, offset.y, offset.z);
 
@@ -54,20 +53,20 @@ public interface AnimatedDoor extends AnimatedFeature {
 		if (leftProgress == 1 || leftProgress == 0) {
 			leftDelta = 0;
 		} else {
-			leftDelta = tickDelta;
+			leftDelta = tickDelta / 10F;
 		}
 
 		float rightDelta;
 		if (rightProgress == 1 || rightProgress == 0) {
 			rightDelta = 0;
 		} else {
-			rightDelta = tickDelta;
+			rightDelta = tickDelta / 10F;
 		}
 
-		float finalRightProgress = rightProgress;
-		float finalLeftProgress = leftProgress;
-		this.getLeftAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalLeftProgress * anim.animationLength * 20), leftDelta / 10));
-		this.getRightAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalRightProgress * anim.animationLength * 20), rightDelta / 10));
+		float finalRightProgress = rightProgress - 0.001F;
+		float finalLeftProgress = leftProgress - 0.001F;
+		this.getLeftAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalLeftProgress * anim.animationLength * 20), leftDelta));
+		this.getRightAnimation().flatMap(BedrockAnimationReference::get).ifPresent(anim -> anim.apply(root, (int) (finalRightProgress * anim.animationLength * 20), rightDelta));
 		matrices.pop();
 	}
 }

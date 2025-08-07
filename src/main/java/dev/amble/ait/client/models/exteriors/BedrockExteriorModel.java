@@ -42,6 +42,7 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 		ExteriorVariantSchema schema = tardis.getExterior().getVariant();
 
 		if (schema instanceof AnimatedDoor animDoor) {
+			this.getPart().traverse().forEach(ModelPart::resetTransform);
 			animDoor.runAnimations(root, matrices, tickDelta, tardis);
 		}
 
@@ -70,12 +71,8 @@ public class BedrockExteriorModel implements ExteriorModel, Identifiable {
 			return;
 		}
 
-		float ticks = MinecraftClient.getInstance().player.age; // TODO - move this logic into the animation itself
-
-		ticks = (float) ((ticks / 20) % (anim.animationLength)) * 20;
-
-		// TODO - fix pivot points in animations
-		anim.apply(root, (int) ticks, tickDelta / 10F);
+		float ticks = MinecraftClient.getInstance().player.age;
+		anim.apply(root, (int) ticks, tickDelta);
 	}
 
 	@Override
