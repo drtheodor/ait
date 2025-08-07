@@ -4,6 +4,7 @@ import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.core.blockentities.ConsoleBlockEntity;
 import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.data.datapack.DatapackConsole;
+import dev.amble.ait.data.datapack.TravelAnimationMap;
 import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
 import dev.amble.lib.api.Identifiable;
 import dev.amble.lib.client.bedrock.BedrockAnimation;
@@ -57,11 +58,11 @@ public class BedrockConsoleModel implements ConsoleModel, Identifiable {
 
 	@Override
 	public void animateBlockEntity(ConsoleBlockEntity console, TravelHandlerBase.State state, boolean hasPower) {
-		if (!(console.getVariant() instanceof DatapackConsole schema)) return;
+		if (!(console.getVariant() instanceof TravelAnimationMap.Holder schema)) return;
 
-		DatapackConsole.AnimationMap map = schema.getAnimations();
+		TravelAnimationMap map = schema.getAnimations();
 		if (map == null) {
-			throw new IllegalStateException("DatapackConsole " + schema.id() + " has no animations defined.");
+			throw new IllegalStateException("DatapackConsole " + console.getVariant().id() + " has no animations defined.");
 		}
 
 		BedrockAnimation anim = map.getAnimation(state);

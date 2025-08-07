@@ -7,22 +7,17 @@ import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.amble.ait.AITMod;
 import dev.amble.ait.core.tardis.control.ControlTypes;
-import dev.amble.ait.core.tardis.handler.travel.TravelHandlerBase;
 import dev.amble.ait.data.codec.MoreCodec;
 import dev.amble.ait.data.schema.console.ConsoleTypeSchema;
 import dev.amble.ait.data.schema.console.ConsoleVariantSchema;
 import dev.amble.ait.registry.impl.console.ConsoleRegistry;
-import dev.amble.lib.client.bedrock.BedrockAnimation;
-import dev.amble.lib.client.bedrock.BedrockAnimationReference;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3f;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -35,7 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
   "emission": "ait:textures/console/alnico_emission.png"
 }
  */
-public class DatapackConsole extends ConsoleVariantSchema {
+public class DatapackConsole extends ConsoleVariantSchema implements TravelAnimationMap.Holder {
     public static final Identifier EMPTY = AITMod.id("intentionally_empty");
 
     protected final Identifier texture;
@@ -48,9 +43,6 @@ public class DatapackConsole extends ConsoleVariantSchema {
     protected final Identifier model;
     protected final Vec3d scale;
     protected final Vec3d offset;
-    protected final AnimationMap animations;
-    protected boolean initiallyDatapack;
-
     public static final Codec<DatapackConsole> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(Identifier.CODEC.fieldOf("id").forGetter(ConsoleVariantSchema::id),
                     Identifier.CODEC.optionalFieldOf("parent").forGetter(c -> Optional.ofNullable(c.parentId())),
@@ -65,11 +57,13 @@ public class DatapackConsole extends ConsoleVariantSchema {
                     Identifier.CODEC.optionalFieldOf("model").forGetter(DatapackConsole::model),
                     Vec3d.CODEC.optionalFieldOf("scale", new Vec3d(1, 1, 1)).forGetter(DatapackConsole::getScale),
                     Vec3d.CODEC.optionalFieldOf("offset", new Vec3d(0, 0, 0)).forGetter(DatapackConsole::getOffset),
-                    AnimationMap.CODEC.optionalFieldOf("animations", new AnimationMap())
+                    TravelAnimationMap.CODEC.optionalFieldOf("animations", new TravelAnimationMap())
                             .forGetter(DatapackConsole::getAnimations),
                     SimpleType.CODEC.optionalFieldOf("type").forGetter(DatapackConsole::getCustomType),
                     Codec.BOOL.optionalFieldOf("isDatapack", true).forGetter(DatapackConsole::wasDatapack))
             .apply(instance, DatapackConsole::new));
+    protected boolean initiallyDatapack;
+    protected final TravelAnimationMap animations;
 
     public DatapackConsole(Identifier id,
                            Optional<Identifier> category,
@@ -82,7 +76,7 @@ public class DatapackConsole extends ConsoleVariantSchema {
                            Optional<Identifier> model,
                            Vec3d scale,
                            Vec3d offset,
-                           AnimationMap animations,
+                           TravelAnimationMap animations,
                            Optional<SimpleType> type,
                            boolean isDatapack) {
         super(resolveParentId(category, type), id);
@@ -97,7 +91,7 @@ public class DatapackConsole extends ConsoleVariantSchema {
         this.model = model.orElse(null);
         this.scale = scale;
         this.offset = offset;
-        this.animations = animations != null ? animations : new AnimationMap();
+        this.animations = animations != null ? animations : new TravelAnimationMap();
     }
 
     private static Identifier resolveParentId(Optional<Identifier> parent, Optional<SimpleType> type) {
@@ -153,7 +147,8 @@ public class DatapackConsole extends ConsoleVariantSchema {
         return offset;
     }
 
-    public AnimationMap getAnimations() {
+    @Override
+    public TravelAnimationMap getAnimations() {
         return animations;
     }
 
@@ -177,30 +172,6 @@ public class DatapackConsole extends ConsoleVariantSchema {
         });
 
         return created.get();
-    }
-
-    public static class AnimationMap extends EnumMap<TravelHandlerBase.State, BedrockAnimationReference> {
-        public static Codec<AnimationMap> CODEC = Codec.unboundedMap(TravelHandlerBase.State.CODEC, BedrockAnimationReference.CODEC)
-                .xmap(AnimationMap::new, map -> map);
-
-        public AnimationMap() {
-            super(TravelHandlerBase.State.class);
-        }
-
-        public AnimationMap(Map<TravelHandlerBase.State, BedrockAnimationReference> map) {
-            this();
-
-            this.putAll(map);
-        }
-
-        public BedrockAnimation getAnimation(TravelHandlerBase.State state) {
-            BedrockAnimationReference ref = this.get(state);
-            if (ref == null) {
-                return null; // No animation registered for this state
-            }
-
-            return ref.get().orElse(null);
-        }
     }
 
     public static class SimpleType extends ConsoleTypeSchema {
