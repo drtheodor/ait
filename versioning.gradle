@@ -1,8 +1,8 @@
 // MAJOR.MINOR.PATCH-build.BUILD-DASH-SEPARATED-BRANCH+mc.MCVER (CI + branch)
 // or
-// MAJOR.MINOR.PATCH-testbuild+mc.MCVER (no CI + no branch = local)
-// or
 // MAJOR.MINOR.PATCH-build.BUILD+mc.MCVER (CI + no branch)
+// or
+// MAJOR.MINOR.PATCH-testbuild+mc.MCVER (no CI + no branch = local)
 // or
 // (no CI + branch = impossible)
 
