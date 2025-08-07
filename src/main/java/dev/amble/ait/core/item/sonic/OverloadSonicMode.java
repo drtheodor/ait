@@ -160,7 +160,7 @@ public class OverloadSonicMode extends SonicMode {
         else if (block instanceof LeverBlock lever) {
             lever.togglePower(state, world, pos);
         }
-        else if (block instanceof GlassBlock || block instanceof StainedGlassPaneBlock) {
+        else if (block instanceof AbstractGlassBlock || block instanceof PaneBlock) {
             breakBlock(world, pos, user, state, blockHit);
         }
         else if (canLight(ticks) && block instanceof TntBlock) {
