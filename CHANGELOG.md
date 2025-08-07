@@ -41,3 +41,4 @@
 - fix: sonics no longer show that they can interact with something when they actually can't | by [@drtheodor](https://github.com/drtheodor) ([#1796](https://github.com/amblelabs/ait/pull/1796))
 - minor changes to the buildscript | ([#1795](https://github.com/amblelabs/ait/pull/1795))
 - build(amblekit): 1.1.12 | by [@duzos](https://github.com/duzos) ([#1798](https://github.com/amblelabs/ait/pull/1798))
+- feat: portal gun sonic screwdriver skin | by [@duzos](https://github.com/duzos) ([#1800](https://github.com/amblelabs/ait/pull/1800))
