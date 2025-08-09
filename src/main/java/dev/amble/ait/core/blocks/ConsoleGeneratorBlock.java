@@ -2,6 +2,8 @@ package dev.amble.ait.core.blocks;
 
 import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.lib.api.ICantBreak;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockEntityProvider;
@@ -108,6 +110,8 @@ public class ConsoleGeneratorBlock extends FluidLinkBlock implements BlockEntity
         }
 
         if (world.getBlockEntity(pos) instanceof ConsoleGeneratorBlockEntity be) {
+            world.playSound(null, pos, SoundEvents.BLOCK_SCULK_CHARGE, SoundCategory.BLOCKS, 0.5f, 1.0f);
+
             if (player.isSneaking())
                 be.changeConsole(previousVariant(be.getConsoleVariant()));
             else
