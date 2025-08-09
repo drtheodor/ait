@@ -264,8 +264,11 @@ public class AITItems extends ItemContainer {
             entries.addAfter(EARTH_MUSIC_DISC, VENUS_MUSIC_DISC, GOOD_MAN_MUSIC_DISC);
         });
 
+
+
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(entries -> {
             addDrinks(entries);
+            entries.addAfter(Items.SPIDER_EYE, FOOD_CUBE);
         });
 
         /*ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {
