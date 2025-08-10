@@ -38,7 +38,7 @@ public class FoodMachineRenderer<T extends FoodMachineBlockEntity> implements Bl
 
 
         matrices.push();
-        matrices.scale(1f, 1f, 1f);
+
 
 
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180));

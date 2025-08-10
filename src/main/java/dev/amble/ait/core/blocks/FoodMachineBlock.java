@@ -55,83 +55,82 @@ public class FoodMachineBlock extends BlockWithEntity implements BlockEntityProv
         this.setDefaultState(this.stateManager.getDefaultState().with(ROTATION, 0));
     }
 
-
-
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-            BlockEntity be = world.getBlockEntity(pos);
-            if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
-            if (!machine.isPoweredOn()) return ActionResult.PASS;
+        BlockEntity be = world.getBlockEntity(pos);
+        if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.SUCCESS;
+        if (!machine.isPoweredOn()) return ActionResult.PASS;
+        ItemStack stack = player.getStackInHand(hand);
 
-            FoodMachineBlockEntity.FoodMachineMode currentMode = machine.getMode();
-
-            //mode logic
-            ItemStack stack = player.getStackInHand(hand);
-
-            if (player.isSneaking() && stack.isEmpty()) {
-                char currentModeMessage = 0;
-                world.playSound(null, pos, AITSounds.SET_WAYPOINT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                switch (currentMode) {
-                    case FOOD_CUBES:
-                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.DRINKS);
-                        player.sendMessage(Text.of("Food Cubes").copy().formatted(Formatting.GREEN), true);
-                        break;
-                    case DRINKS:
-                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES);
-                        player.sendMessage(Text.of("Drinks").copy().formatted(Formatting.AQUA), true);
-                        break;
-                    case OVERCHARGED_FOOD_CUBES:
-                        machine.setMode(FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES);
-                        player.sendMessage(Text.of("Overcharged Food Cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
-                        break;
+        // cycle through different modes
+        if (player.isSneaking() && stack.isEmpty()) {
+            world.playSound(null, pos, AITSounds.SET_WAYPOINT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            switch (machine.getMode()) {
+                case FOOD_CUBES -> {
+                    machine.setMode(FoodMachineBlockEntity.Mode.DRINKS);
+                    player.sendMessage(Text.translatable("ait.foodmachine.mode.drinks").copy().formatted(Formatting.AQUA), true);
                 }
+                case DRINKS -> {
+                    machine.setMode(FoodMachineBlockEntity.Mode.OVERCHARGED_FOOD_CUBES);
+                    player.sendMessage(Text.translatable("ait.foodmachine.mode.overcharged_food_cubes").copy().formatted(Formatting.LIGHT_PURPLE), true);
+                }
+                case OVERCHARGED_FOOD_CUBES -> {
+                    machine.setMode(FoodMachineBlockEntity.Mode.FOOD_CUBES);
+                    player.sendMessage(Text.translatable("ait.foodmachine.mode.food_cubes").copy().formatted(Formatting.GREEN), true);
+                }
+
             }
-                switch(machine.getMode()) {
-                    case FOOD_CUBES -> {
-                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.FOOD_CUBES);
-                        world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
-                        break;
-                    }
-                    case DRINKS -> {
-                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.DRINKS);
-                        world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        int currentIndex = machine.getCurrentIndex();
-                        ItemStack mug = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
-                        player.getInventory().insertStack(mug);
-                        break;
-                    }
-                    case OVERCHARGED_FOOD_CUBES -> {
-                        machine.eatFuel(FoodMachineBlockEntity.FoodMachineMode.OVERCHARGED_FOOD_CUBES);
-                        world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                        player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
-                        break;
-                    }
-                    default -> machine.tardis().get().selfDestruct().boom();
+            return ActionResult.SUCCESS;
+        }
+
+        // logic for the current mode selected
+        switch (machine.getMode()) {
+            case FOOD_CUBES -> {
+                machine.eatFuel();
+                world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                player.getInventory().insertStack(AITItems.FOOD_CUBE.getDefaultStack());
+            }
+            case DRINKS -> {
+                machine.eatFuel();
+                world.playSound(null, pos, AITSounds.COFFEE_MACHINE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                if (machine.getSelectedItem() == null) {
+                    machine.setSelectedItem(DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(1)));
+                }
+                player.getInventory().insertStack(machine.getSelectedItem().copy());
+            }
+            case OVERCHARGED_FOOD_CUBES -> {
+                machine.eatFuel();
+                world.playSound(null, pos, AITSounds.POWER_CONVERT, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                player.getInventory().insertStack(AITItems.OVERCHARGED_FOOD_CUBE.getDefaultStack());
             }
 
+        }
         return ActionResult.SUCCESS;
     }
 
-    private long lastDrinkTime = 0;
-
-    static {
+    {
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
-                BlockEntity be = world.getBlockEntity(pos);
-                if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.PASS;
-                if (!machine.isPoweredOn()) return ActionResult.PASS;
-                if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
-                    if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.FoodMachineMode.DRINKS) {
-                        if (!world.isClient) {
-                            int currentIndex = (machine.getCurrentIndex() + 1) % DrinkRegistry.getInstance().size();
-                            machine.setCurrentIndex(currentIndex);
-                            ItemStack selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(currentIndex));
-                            machine.setSelectedItem(selectedItem);
-                            player.sendMessage(Text.literal("Refreshment set to: " + selectedItem.getName().getString() + "!"), true);
+            BlockEntity be = world.getBlockEntity(pos);
+            if (!(be instanceof FoodMachineBlockEntity machine)) return ActionResult.PASS;
+            if (!machine.isPoweredOn()) return ActionResult.PASS;
+            if (world.getBlockState(pos).getBlock() instanceof FoodMachineBlock) {
+                if (player.isSneaking() && machine.getMode() == FoodMachineBlockEntity.Mode.DRINKS) {
+                    if (!world.isClient) {
+                        long now = world.getTime();
+                        int cooldownTicks = 5;
+                        if (now - machine.getLastDrinkTime() < cooldownTicks) {
+                            return ActionResult.FAIL;
                         }
-                        return ActionResult.PASS;
+                        machine.setLastDrinkTime(now);
+                        int currentIndex = (machine.getCurrentIndex() + 1) % DrinkRegistry.getInstance().size();
+                        machine.setCurrentIndex(currentIndex);
+                        ItemStack selectedItem = DrinkUtil.setDrink(new ItemStack(AITItems.MUG), DrinkRegistry.getInstance().toList().get(machine.getCurrentIndex()));
+                        machine.setSelectedItem(selectedItem);
+                        player.sendMessage(Text.translatable("ait.foodmachine.mode.refreshement_set_to", selectedItem.getName()), true);
                     }
+                    return ActionResult.SUCCESS;
                 }
+            }
             return ActionResult.PASS;
         });
     }

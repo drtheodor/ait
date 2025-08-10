@@ -7,6 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class FoodMachineModel extends SinglePartEntityModel {
+    private final ModelPart root;
     private final ModelPart pannel;
     private final ModelPart bone;
     private final ModelPart dial2;
@@ -20,6 +21,7 @@ public class FoodMachineModel extends SinglePartEntityModel {
     private final ModelPart door_slider;
     private final ModelPart bb_main;
     public FoodMachineModel(ModelPart root) {
+        this.root = root;
         this.pannel = root.getChild("pannel");
         this.bone = this.pannel.getChild("bone");
         this.dial2 = this.bone.getChild("dial2");
@@ -34,7 +36,8 @@ public class FoodMachineModel extends SinglePartEntityModel {
         this.bb_main = root.getChild("bb_main");
     }
 
-    public FoodMachineModel(ModelPart pannel, ModelPart bone, ModelPart dial2, ModelPart dial, ModelPart water, ModelPart milk, ModelPart selectDial, ModelPart spinyThing2, ModelPart water2, ModelPart spinyThing, ModelPart doorSlider, ModelPart bbMain) {
+    public FoodMachineModel(ModelPart root, ModelPart pannel, ModelPart bone, ModelPart dial2, ModelPart dial, ModelPart water, ModelPart milk, ModelPart selectDial, ModelPart spinyThing2, ModelPart water2, ModelPart spinyThing, ModelPart doorSlider, ModelPart bbMain) {
+        this.root = root;
         this.pannel = pannel;
         this.bone = bone;
         this.dial2 = dial2;
@@ -121,7 +124,7 @@ public class FoodMachineModel extends SinglePartEntityModel {
 
     @Override
     public ModelPart getPart() {
-        return null;
+        return this.root;
     }
 
     @Override
