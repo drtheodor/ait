@@ -36,14 +36,7 @@ public class FoodMachineBlockEntity extends InteriorLinkableBlockEntity {
 
     public void eatFuel() {
         if (!this.isLinked()) return;
-        switch (this.getMode()) {
-            case FOOD_CUBES, DRINKS, OVERCHARGED_FOOD_CUBES:
-                this.tardis().get().fuel().removeFuel(this.getMode().getFuelCost());
-                break;
-            default:
-                System.out.println("error");
-                break;
-        }
+        this.tardis().get().fuel().removeFuel(this.getMode().getFuelCost());
     }
 
     public void setMode(Mode mode) {
