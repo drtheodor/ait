@@ -46,3 +46,4 @@
 - fix: overload did not break all glass and glass panes | by [@Mansarde](https://github.com/Mansarde) ([#1804](https://github.com/amblelabs/ait/pull/1804))
 - feat: food machine! | by [@rapbattlegod32](https://github.com/rapbattlegod32), [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1788](https://github.com/amblelabs/ait/pull/1788))
 - fix: food machine | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1807](https://github.com/amblelabs/ait/pull/1807))
+- fix: readme typo | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1811](https://github.com/amblelabs/ait/pull/1811))
