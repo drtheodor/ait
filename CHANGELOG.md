@@ -44,3 +44,4 @@
 - feat: portal gun sonic screwdriver skin | by [@duzos](https://github.com/duzos) ([#1800](https://github.com/amblelabs/ait/pull/1800))
 - feat: pixelator vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1801](https://github.com/amblelabs/ait/pull/1801))
 - fix: overload did not break all glass and glass panes | by [@Mansarde](https://github.com/Mansarde) ([#1804](https://github.com/amblelabs/ait/pull/1804))
+- add: added food machine! | by [@rapbattlegod32](https://github.com/rapbattlegod32), [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1788](https://github.com/amblelabs/ait/pull/1788))
