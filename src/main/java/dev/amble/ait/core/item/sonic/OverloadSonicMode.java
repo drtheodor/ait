@@ -182,6 +182,7 @@ public class OverloadSonicMode extends SonicMode {
         } else if(state.isOf(Blocks.BRICKS)){
             breakBlock(world, pos, user, state, blockHit);
         }
+        playFx(world, pos);
     }
 
     private void playSparkEffect(ServerWorld world, PlayerEntity player) {
