@@ -47,3 +47,4 @@
 - feat: food machine! | by [@rapbattlegod32](https://github.com/rapbattlegod32), [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1788](https://github.com/amblelabs/ait/pull/1788))
 - fix: food machine | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1807](https://github.com/amblelabs/ait/pull/1807))
 - fix: readme typo | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1811](https://github.com/amblelabs/ait/pull/1811))
+- feat: overload mode breaks bricks | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1812](https://github.com/amblelabs/ait/pull/1812))
