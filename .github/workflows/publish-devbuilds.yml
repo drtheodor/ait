@@ -31,7 +31,7 @@ jobs:
     - name: Build
       run: ./gradlew build
     - name: Publish artifacts
-      uses: DrTheodor/discord-webhook-upload-action@e9e515d116502c406b7975217647aacf416cc128
+      uses: DrTheodor/discord-webhook-upload-action@92e3cfcbe3db57d81a44d5ebfce3784c258289c0
       with:
         url: ${{ secrets.DEV_BUILDS }}
         username: george washington
