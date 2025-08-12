@@ -92,10 +92,10 @@ public record BlueprintSchema(Identifier id, Text text, InputList inputs, ItemSt
             this(Registries.ITEM.get(item), min, max);
         }
 
-        protected int minimum() {
+        public int minimum() {
             return minCount;
         }
-        protected int maximum() {
+        public int maximum() {
             return maxCount;
         }
 
@@ -104,6 +104,10 @@ public record BlueprintSchema(Identifier id, Text text, InputList inputs, ItemSt
          */
         public ItemStack toStack() {
             return new ItemStack(item, minCount + (int) (Math.random() * (maxCount - minCount)));
+        }
+
+        public ItemStack maxCountStack() {
+            return new ItemStack(item, maxCount);
         }
 
         @Override
