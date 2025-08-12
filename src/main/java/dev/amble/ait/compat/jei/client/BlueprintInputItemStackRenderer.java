@@ -1,4 +1,4 @@
-package dev.amble.ait.client.renderers;
+package dev.amble.ait.compat.jei.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -11,6 +11,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -48,13 +49,19 @@ public class BlueprintInputItemStackRenderer implements IIngredientRenderer<Item
         RenderSystem.disableBlend();
     }
 
+    private static final int TEXT_COLOR = 16777215;
+
     /**
      * Custom text drawing method to fit the range of items within the item slot
      */
     private void drawText(DrawContext context, TextRenderer textRenderer, int posX, int posY) {
-        String range = minCount == maxCount ? String.valueOf(minCount) : minCount + "-" + maxCount;
-        if (range.equals("1")) {
-            return;
+        String range;
+        if (minCount == maxCount) {
+            if (minCount == 1)
+                return;
+            range = String.valueOf(minCount);
+        } else {
+            range = minCount + "-" + maxCount;
         }
 
         MatrixStack matrixStack = context.getMatrices();
@@ -67,7 +74,7 @@ public class BlueprintInputItemStackRenderer implements IIngredientRenderer<Item
                     String.valueOf(minCount),
                     posX + 20 - textRenderer.getWidth(String.valueOf(minCount)),
                     posY + 4,
-                    16777215,
+                    TEXT_COLOR,
                     true
             );
             context.drawText(
@@ -75,7 +82,7 @@ public class BlueprintInputItemStackRenderer implements IIngredientRenderer<Item
                     "-" + maxCount,
                     posX + 20 - textRenderer.getWidth("-" + maxCount),
                     posY + 12,
-                    16777215,
+                    TEXT_COLOR,
                     true
             );
         } else {
@@ -84,7 +91,7 @@ public class BlueprintInputItemStackRenderer implements IIngredientRenderer<Item
                     range,
                     posX + 20 - textRenderer.getWidth(range),
                     posY + 12,
-                    16777215,
+                    TEXT_COLOR,
                     true
             );
         }
@@ -95,7 +102,7 @@ public class BlueprintInputItemStackRenderer implements IIngredientRenderer<Item
      * This is both required and deprecated for some reason so it has to be here
      */
     @Override
-    public List<Text> getTooltip(ItemStack ingredient, TooltipContext tooltipFlag) {
+    public @NotNull List<Text> getTooltip(ItemStack ingredient, TooltipContext tooltipFlag) {
         return List.of();
     }
 
