@@ -36,6 +36,9 @@ repositories {
     // K9
     maven { url "https://api.modrinth.com/maven" }
 
+    // JEI
+    maven { url "https://maven.blamejared.com/" }
+
     // Scheduler, Queue, MultiDim, AutoJSON
     maven { url "https://theo.is-a.dev/maven/" }
 }
@@ -101,6 +104,10 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
 
     modCompileOnly "maven.modrinth:k9-mod:${project.k9_version}"
+
+    modImplementation("mezz.jei:jei-${project.minecraft_version}-fabric-api:${project.jei_version}")
+    // Using Modrinth maven because JEI's official maven crashed with Yarn mappings
+    modRuntimeOnly("maven.modrinth:jei:${project.jei_version}")
 
     modCompileOnly("com.github.qouteall:GravityChanger:${project.gravity_version}") {
         exclude(group: "net.fabricmc.fabric-api")
