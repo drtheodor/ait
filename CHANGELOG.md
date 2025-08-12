@@ -48,3 +48,4 @@
 - fix: food machine | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1807](https://github.com/amblelabs/ait/pull/1807))
 - fix: readme typo | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1811](https://github.com/amblelabs/ait/pull/1811))
 - feat: overload mode breaks bricks | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1812](https://github.com/amblelabs/ait/pull/1812))
+- tweak: Changed rift drops from just being a specific item to randomly choosing from tags "rift_success_extra_item" & "rift_fail_item" | by [@MaketendoDev](https://github.com/MaketendoDev) ([#1817](https://github.com/amblelabs/ait/pull/1817))
