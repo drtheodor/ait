@@ -1,15 +1,17 @@
 package dev.amble.ait.core.blocks;
 
-import dev.amble.ait.core.world.TardisServerWorld;
+import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousConsole;
+import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousVariant;
+
 import dev.amble.lib.api.ICantBreak;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -21,9 +23,7 @@ import dev.amble.ait.AITMod;
 import dev.amble.ait.core.blockentities.ConsoleGeneratorBlockEntity;
 import dev.amble.ait.core.engine.link.block.FluidLinkBlock;
 import dev.amble.ait.core.engine.link.block.FluidLinkBlockEntity;
-
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousConsole;
-import static dev.amble.ait.core.blockentities.ConsoleBlockEntity.previousVariant;
+import dev.amble.ait.core.world.TardisServerWorld;
 
 public class ConsoleGeneratorBlock extends FluidLinkBlock implements BlockEntityProvider, ICantBreak {
 
