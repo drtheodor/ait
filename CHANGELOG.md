@@ -53,3 +53,4 @@
 - fix: description.attack_eyebrows spelling | by [@Addi3](https://github.com/Addi3) ([#1821](https://github.com/amblelabs/ait/pull/1821))
 - fix: description.attack_eyebrows spelling, for real this time | by [@Mansarde](https://github.com/Mansarde), [@Addi3](https://github.com/Addi3), [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1822](https://github.com/amblelabs/ait/pull/1822))
 - chore: make multidim, scheduler and queue libraries transitive | by [@Mansarde](https://github.com/Mansarde) ([#1824](https://github.com/amblelabs/ait/pull/1824))
+- chore: updated addie's link | by [@Addi3](https://github.com/Addi3) ([#1825](https://github.com/amblelabs/ait/pull/1825))
