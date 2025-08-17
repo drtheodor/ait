@@ -54,7 +54,7 @@ public class EngineOverloadControl extends Control {
 
 
         if (tardis.fuel().getCurrentFuel() < 25000) {
-            player.sendMessage(Text.literal("§cERROR, TARDIS REQUIRES AT LEAST 25K ARTRON TO EXECUTE THIS ACTION."), true);
+            player.sendMessage(Text.translatable("tardis.message.control.engine_overdrive.insufficient_fuel").formatted(Formatting.RED), true);
             world.playSound(null, player.getBlockPos(), AITSounds.CLOISTER, SoundCategory.BLOCKS, 1.0F, 1.0F);
             return Result.FAILURE;
         }
@@ -136,9 +136,7 @@ public class EngineOverloadControl extends Control {
             Scheduler.get().runTaskLater(() -> {
                 String frame = SPINNER[delay % SPINNER.length];
 
-                // FIXME: use translations
-                // FIXME: use `#formatted`
-                player.sendMessage(Text.literal("§6DUMPING ARTRON " + frame), true);
+                player.sendMessage(Text.translatable("tardis.message.control.engine_overdrive.dumping_artron").append(" " + frame).formatted(Formatting.GOLD), true);
             }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, delay);
         }
 
@@ -149,9 +147,8 @@ public class EngineOverloadControl extends Control {
         for (int i = 0; i < 6; i++) {
             int delay = i + 1;
             Scheduler.get().runTaskLater(() -> {
-                // FIXME: use `#formatted`
-                String flashColor = (delay % 2 == 0) ? "§c" : "§f";
-                player.sendMessage(Text.literal(flashColor + "ARTRON DUMPED, ENGINES OVERLOADED, TRIGGERING EMERGENCY ARTRON RELEASE"), true);
+                Formatting flashColor = (delay % 2 == 0) ? Formatting.RED : Formatting.WHITE;
+                player.sendMessage(Text.translatable("tardis.message.control.engine_overdrive.engines_overloaded").formatted(flashColor), true);
             }, TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, delay);
         }
 
