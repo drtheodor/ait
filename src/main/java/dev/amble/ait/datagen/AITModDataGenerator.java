@@ -1422,6 +1422,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
 
         // Alarms
         provider.addTranslation("tardis.message.alarm.crashing", "System Alert: TARDIS is experiencing a critical failure.");
+        provider.addTranslation("tardis.message.alarm.hostile_presence", "System Alert: Hostile presence detected.");
 
         // Security Settings Menu
         provider.addTranslation("screen.ait.sonic.button", "> Sonic Settings");
