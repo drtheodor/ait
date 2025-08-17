@@ -76,21 +76,14 @@ public class EngineOverloadControl extends Control {
         runDumpingArtronSequence(player, () -> {
             world.playSound(null, player.getBlockPos(), AITSounds.ENGINE_OVERLOAD, SoundCategory.BLOCKS, 1.0F, 1.0F);
             world.getServer().execute(() -> {
-                tardis.travel().decreaseFlightTime(999999999);
                 tardis.travel().handbrake(false);
-                tardis.setRefueling(false);
-                tardis.setFuelCount(0);
 
-                if (!isInFlight) {
+                if (!isInFlight)
                     tardis.travel().finishDemat();
-                    tardis.setFuelCount(0);
-                    tardis.travel().decreaseFlightTime(999999999);
-                    tardis.setRefueling(false);
-                } else {
-                    tardis.travel().decreaseFlightTime(999999999);
-                    tardis.setFuelCount(0);
-                    tardis.setRefueling(false);
-                }
+
+                tardis.setFuelCount(0);
+                tardis.travel().decreaseFlightTime(999999999);
+                tardis.setRefueling(false);
 
                 Scheduler.get().runTaskLater(() -> triggerExplosion(world, console, tardis, 4), TaskStage.END_SERVER_TICK, TimeUnit.SECONDS, 0);
             });
