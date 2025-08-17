@@ -1,5 +1,6 @@
 package dev.amble.ait.core.tardis.control;
 
+import dev.amble.ait.api.tardis.TardisEvents;
 import dev.amble.lib.api.Identifiable;
 
 import net.minecraft.particle.ParticleTypes;
@@ -39,6 +40,8 @@ public class Control implements Identifiable {
             this.addToControlSequence(tardis, player, console);
             throw ControlSequencedException.INSTANCE;
         }
+
+        TardisEvents.USE_CONTROL.invoker().onUse(this);
 
         return Result.FAILURE;
     }
