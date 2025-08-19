@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import dev.amble.ait.core.world.TardisServerWorld;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import org.jetbrains.annotations.Nullable;
 
@@ -148,6 +149,10 @@ public class KeyItem extends LinkableItem {
             return;
 
         World world = player.getWorld();
+        // fail silently if in tardis dim
+        if (TardisServerWorld.isTardisDimension(world))
+            return;
+
         BlockPos pos = player.getBlockPos();
 
         CachedDirectedGlobalPos globalPos = CachedDirectedGlobalPos.create((ServerWorld) world, pos,
