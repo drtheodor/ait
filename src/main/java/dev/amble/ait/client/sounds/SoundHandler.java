@@ -72,10 +72,8 @@ public class SoundHandler {
     }
 
     public void startSound(SoundInstance sound) {
-        if (sound == null)
-            return;
-        if (sound.getId() == null) return;
-
+if (sound == null || sound.getId() == null)
+return;
         MinecraftClient.getInstance().getSoundManager().play(sound);
     }
 
