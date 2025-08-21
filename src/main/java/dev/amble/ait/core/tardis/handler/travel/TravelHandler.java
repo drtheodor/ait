@@ -68,6 +68,10 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
 
             TravelHandler travel = tardis.travel();
 
+            // Destination world locked, diverting TARDIS back to previous location.
+            if (!LockedDimensionRegistry.getInstance().isUnlocked(tardis, travel.destination().getWorld()))
+                travel.forceDestination(travel.previousPosition());
+
             return (TardisUtil.isInteriorEmpty(tardis) && !travel.leaveBehind().get()) || travel.autopilot() || travel.speed() == 0
                     ? TardisEvents.Interaction.SUCCESS : TardisEvents.Interaction.PASS;
         });
