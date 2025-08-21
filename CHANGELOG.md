@@ -59,3 +59,5 @@
 - chore: updated addie's link | by [@Addi3](https://github.com/Addi3) ([#1826](https://github.com/amblelabs/ait/pull/1826))
 - add: Display message on action bar (in addition to alarm) to inform about hostile presence. | by [@Mansarde](https://github.com/Mansarde) ([#1827](https://github.com/amblelabs/ait/pull/1827))
 - fix: updating addonexteriors to bedrock models causes crash | by [@duzos](https://github.com/duzos) ([#1833](https://github.com/amblelabs/ait/pull/1833))
+- feat: chronos vortex, rulebreaker vortex, timehole vortex and the stargate vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1835](https://github.com/amblelabs/ait/pull/1835))
+- feat: updated the classic vortex and the accursed vortex. | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1835](https://github.com/amblelabs/ait/pull/1835))
