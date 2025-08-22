@@ -50,7 +50,7 @@ unzip -q "$JAR_FILE" -d "/tmp/unzipped/"
 
 # Unzip /tmp/pack.zip into the same directory
 echo "Unzipping /tmp/pack.zip to /tmp/unzipped"
-unzip -q $OTHER_ZIP -d "/tmp/unzipped/"
+unzip -q -o $OTHER_ZIP -d "/tmp/unzipped/"
 
 # Remove original jar file
 rm -f "$JAR_FILE"
