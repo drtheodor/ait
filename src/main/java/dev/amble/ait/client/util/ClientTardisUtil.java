@@ -139,6 +139,9 @@ public class ClientTardisUtil {
 
         // doesnt find nearest, only finds if within radius.
         // could be more performant though
+        //
+        // ya dont say
+        //  - Theo
         /*
         return ClientTardisManager.getInstance().find(tardis -> {
             if (!tardis.travel().position().getDimension().equals(dimension))

@@ -1,5 +1,6 @@
 package dev.amble.ait.client.sounds.flight;
 
+import dev.amble.ait.client.AITModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
 
@@ -7,6 +8,8 @@ import dev.amble.ait.client.sounds.SoundHandler;
 import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.client.util.ClientTardisUtil;
 
+// FIXME: god this is so stupid
+//   why does the client have to go through the trouble of finding every tardis in some radius
 public class ClientFlightHandler extends SoundHandler {
 
     public static double MAX_DISTANCE = 16; // distance from console before the sound stops
@@ -93,7 +96,7 @@ public class ClientFlightHandler extends SoundHandler {
         ClientTardis tardis = ClientTardisUtil.getCurrentTardis();
 
         if (tardis == null)
-            tardis = ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
+            tardis = ClientTardisUtil.getNearestTardis(AITModClient.CONFIG.flightSoundDistance).orElse(null);
 
         if (tardis == null) return;
 

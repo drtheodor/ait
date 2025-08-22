@@ -89,6 +89,10 @@ public class AITServerConfig {
     @Boolean(formatter = Boolean.Formatter.YES_NO, colored = true)
     @SerialEntry public boolean disableSafeguards = false;
 
+    @AutoGen(category = CATEGORY)
+    @FloatSlider(min = 0, max = 16, step = 0.1f)
+    @SerialEntry public float crashSoundVolume = 1f;
+
     public static class StringListFactory implements ListGroup.ValueFactory<String>, ListGroup.ControllerFactory<String> {
 
         // used by the reflections

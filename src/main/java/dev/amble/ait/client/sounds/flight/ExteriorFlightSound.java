@@ -1,5 +1,6 @@
 package dev.amble.ait.client.sounds.flight;
 
+import dev.amble.ait.client.AITModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.WeightedSoundSet;
@@ -18,7 +19,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
     private boolean dirty = true;
 
     public ExteriorFlightSound(FlightSound data, SoundCategory soundCategory) {
-        super(data.sound(), soundCategory, new BlockPos(0,0,0));
+        super(data.sound(), soundCategory, new BlockPos(0,0,0), AITModClient.CONFIG.flightSoundVolume);
         this.data = data;
     }
 
@@ -46,7 +47,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
 
     @Override
     public ClientTardis tardis() {
-        return ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
+        return ClientTardisUtil.getNearestTardis(AITModClient.CONFIG.flightSoundDistance).orElse(null);
     }
 
     @Override

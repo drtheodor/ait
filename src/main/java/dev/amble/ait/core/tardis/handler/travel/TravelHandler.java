@@ -378,7 +378,8 @@ public final class TravelHandler extends AnimatedTravelHandler implements Crasha
         this.finishRemat();
 
         this.position().getWorld().playSound(null, this.position().getPos(), AITSounds.LAND_CRASH,
-                SoundCategory.AMBIENT);
+                SoundCategory.AMBIENT, AITMod.CONFIG.crashSoundVolume, 1f);
+
         this.tardis.getDesktop().playSoundAtEveryConsole(AITSounds.ABORT_FLIGHT, SoundCategory.AMBIENT);
 
         PacketByteBuf buf = PacketByteBufs.create();
