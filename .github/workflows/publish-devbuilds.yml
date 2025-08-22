@@ -13,7 +13,6 @@ on:
       - versioning.gradle
       
       - .github/workflows/publish-devbuilds.yml
-      - scripts/extract_jar
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,8 +20,6 @@ jobs:
       contents: read
     steps:
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # For PackSquash
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:

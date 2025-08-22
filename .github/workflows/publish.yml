@@ -22,7 +22,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          submodules: true
+          fetch-depth: 0 # For PackSquash
 
       - name: Setup Java
         uses: actions/setup-java@v2
