@@ -41,6 +41,24 @@ jobs:
         options: |
           pack_directory = '/tmp/unzipped/'
           output_file_path = '/tmp/pack.zip'
+          
+          ['*?.json']
+          force_include = true
+          
+          ['*?.accesswidener']
+          force_include = true
+          
+          ['**/*?.class']
+          force_include = true
+          
+          ['LICENSE*']
+          force_include = true
+          
+          ['**/*?.jar']
+          force_include = true
+          
+          ['META-INF/MANIFEST.MF']
+          force_include = true
     
     - uses: actions/upload-artifact@v4
       with:
