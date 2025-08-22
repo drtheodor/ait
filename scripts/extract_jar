@@ -57,7 +57,7 @@ rm -f "$JAR_FILE"
 
 # Create new jar file with combined contents
 echo "Creating new jar file: $JAR_FILE"
-cd "/tmp/unzipped" && zip -qr "$JAR_FILE" ./*
+zip -qr "$JAR_FILE" "/tmp/unzipped/*"
 
 # Clean up temporary directory
 echo "Cleaning up temporary files"

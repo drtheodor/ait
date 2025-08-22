@@ -11,7 +11,9 @@ on:
       - gradlew
       - gradlew.bat
       - versioning.gradle
+      
       - .github/workflows/publish-devbuilds.yml
+      - scripts/extract_jar
 jobs:
   build:
     runs-on: ubuntu-latest
