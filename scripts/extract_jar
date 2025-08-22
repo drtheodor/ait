@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Find the first .jar file and extract it
+jar_file=$(find ./build/libs -maxdepth 1 -name "*.jar" -type f | head -n 1)
+
+if [ -n "$jar_file" ]; then
+    echo "Extracting: $jar_file"
+    jar xf "$jar_file" -C /tmp/unzipped
+else
+    echo "No .jar file found in the current directory"
+    exit 1
+fi
