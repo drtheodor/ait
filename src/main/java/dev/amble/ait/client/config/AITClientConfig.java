@@ -87,7 +87,7 @@ public class AITClientConfig {
     @SerialEntry public TemperatureType temperatureType = TemperatureType.CELSIUS;
 
     @AutoGen(category = CATEGORY)
-    @FloatSlider(min = 0, max = 256, step = 0.1f)
+    @FloatSlider(min = 0, max = 256, step = 1f)
     @SerialEntry public float flightSoundDistance = 16f;
 
     @AutoGen(category = CATEGORY)
@@ -104,6 +104,7 @@ public class AITClientConfig {
         TemperatureType() {
             String key1;
             key1 = this.toString().toLowerCase();
+            // FIXME wtf??
             key1 = key1.substring(0, 1).toUpperCase() + key1.substring(1);
             key1 = switch (key1) {
                 case "Celsius" -> key1 + " (°C)";

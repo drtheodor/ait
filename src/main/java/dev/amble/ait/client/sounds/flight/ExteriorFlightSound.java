@@ -24,6 +24,11 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
     }
 
     @Override
+    public boolean shouldAlwaysPlay() {
+        return true;
+    }
+
+    @Override
     public Identifier getId() {
         return data.soundId();
     }
