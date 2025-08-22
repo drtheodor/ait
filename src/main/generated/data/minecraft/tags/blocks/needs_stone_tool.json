@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "ait:large_zeiton_bud",
+    "ait:matrix_energizer",
+    "ait:zeiton_cobble",
+    "ait:small_zeiton_bud",
+    "ait:compact_zeiton",
+    "ait:monitor_block",
+    "ait:medium_zeiton_bud"
+  ]
+}
