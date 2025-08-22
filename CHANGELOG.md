@@ -61,3 +61,7 @@
 - fix: updating addonexteriors to bedrock models causes crash | by [@duzos](https://github.com/duzos) ([#1833](https://github.com/amblelabs/ait/pull/1833))
 - feat: chronos vortex, rulebreaker vortex, timehole vortex and the stargate vortex | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1835](https://github.com/amblelabs/ait/pull/1835))
 - feat: updated the classic vortex and the accursed vortex. | by [@Saturnorsomthing](https://github.com/Saturnorsomthing) ([#1835](https://github.com/amblelabs/ait/pull/1835))
+- perf: improve client-side performance of TARDIS-related sounds | by [@drtheodor](https://github.com/drtheodor) ([#1837](https://github.com/amblelabs/ait/pull/1837))
+- add: a server-side config option to control the volume/distance of mat/demat sounds | by [@drtheodor](https://github.com/drtheodor) ([#1837](https://github.com/amblelabs/ait/pull/1837))
+- add: a server-side config option to control the volume of crash sound | by [@drtheodor](https://github.com/drtheodor) ([#1837](https://github.com/amblelabs/ait/pull/1837))
+- fix: no more random exterior travel sounds | by [@drtheodor](https://github.com/drtheodor) ([#1837](https://github.com/amblelabs/ait/pull/1837))
