@@ -1,5 +1,6 @@
 package dev.amble.ait.client.sounds.flight;
 
+import dev.amble.ait.AITMod;
 import dev.amble.ait.client.AITModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.sound.SoundCategory;
@@ -97,6 +98,7 @@ public class ClientFlightHandler extends SoundHandler {
         if (tardis == null)
             tardis = ClientTardisUtil.getNearestTardis(AITModClient.CONFIG.flightSoundDistance).orElse(null);
 
+        AITMod.LOGGER.info("{}@{}", tardis, AITModClient.CONFIG.flightSoundVolume);
         if (tardis == null) return;
 
         if (this.sounds == null)
