@@ -24,7 +24,7 @@ public class EngineLoopSound extends PositionedLoopingSound {
     }
 
     public void refresh() {
-        this.setPosition(ClientTardisUtil.getNearestConsole());
+        this.setPosition(ClientTardisUtil.getNearestEngine());
         this.ticks = 0;
     }
 }

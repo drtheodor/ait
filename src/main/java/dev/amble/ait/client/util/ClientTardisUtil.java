@@ -232,6 +232,37 @@ public class ClientTardisUtil {
         return nearest;
     }
 
+    public static BlockPos getNearestEngine() {
+        if (!isPlayerInATardis())
+            return BlockPos.ORIGIN;
+
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+
+        if (player == null)
+            return BlockPos.ORIGIN;
+
+        Tardis tardis = getCurrentTardis();
+
+        if (tardis == null)
+            return BlockPos.ORIGIN;
+
+        BlockPos pos = player.getBlockPos();
+        double lowest = Double.MAX_VALUE;
+        BlockPos nearest = BlockPos.ORIGIN;
+
+        BlockPos engine = tardis.getDesktop().getEnginePos();
+        if (engine != null) {
+            double distance = Math.sqrt(pos.getSquaredDistance(engine));
+
+            if (distance < lowest) {
+                lowest = distance;
+                nearest = engine;
+            }
+        }
+
+        return nearest;
+    }
+
     public static void tickPowerDelta() {
         Tardis tardis = getCurrentTardis();
 
