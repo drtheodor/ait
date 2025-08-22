@@ -127,7 +127,7 @@ public class NetworkUtil {
     /**
      * plays a sound, ignoring whether it exists or not.
      */
-    public static void playSound(RegistryKey<World> worldKey, BlockPos pos, Identifier soundId, SoundCategory category, float volume, float distance) {
+    public static void playSound(RegistryKey<World> worldKey, BlockPos pos, Identifier soundId, SoundCategory category, float volume) {
         if (!ServerLifecycleHooks.isServer()) return;
 
         RegistryEntry<SoundEvent> soundEntry = RegistryEntry.of(SoundEvent.of(soundId));
@@ -140,7 +140,7 @@ public class NetworkUtil {
                         pos.getX(),
                         pos.getY(),
                         pos.getZ(),
-                        distance,
+                        volume > 1.0F ? 16.0F * volume : 16.0F,
                         worldKey,
                         new PlaySoundS2CPacket(soundEntry, category, pos.getX(), pos.getY(), pos.getZ(), volume, 1f, seed)
                 );

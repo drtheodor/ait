@@ -99,7 +99,7 @@ public abstract class TardisAnimation implements TardisTickable, Disposable, Ide
 
         if (playSound) {
             tardis.getExterior().playSound(this.getSoundIdOrDefault(), SoundCategory.BLOCKS,
-                    AITMod.CONFIG.flightSoundVolume, AITMod.CONFIG.flightSoundDistance);
+                    AITMod.CONFIG.flightSoundVolume);
         }
 
         this.alpha.tick(server);
