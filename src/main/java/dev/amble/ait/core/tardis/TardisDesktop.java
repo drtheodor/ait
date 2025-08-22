@@ -254,7 +254,7 @@ public class TardisDesktop extends TardisComponent {
 
         RegistryKey<World> worldKey = this.tardis.asServer().world().getRegistryKey();
         this.getConsolePos().forEach(consolePos -> {
-            NetworkUtil.playSound(worldKey, consolePos, soundId, category);
+            NetworkUtil.playSound(worldKey, consolePos, soundId, category, 1);
         });
     }
 

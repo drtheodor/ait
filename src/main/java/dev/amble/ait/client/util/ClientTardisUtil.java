@@ -139,6 +139,9 @@ public class ClientTardisUtil {
 
         // doesnt find nearest, only finds if within radius.
         // could be more performant though
+        //
+        // ya dont say
+        //  - Theo
         /*
         return ClientTardisManager.getInstance().find(tardis -> {
             if (!tardis.travel().position().getDimension().equals(dimension))
@@ -151,23 +154,25 @@ public class ClientTardisUtil {
         });
         */
 
-        AtomicReference<ClientTardis> nearestTardis = new AtomicReference<>();
-        AtomicReference<Double> nearestDistance = new AtomicReference<>(Double.MAX_VALUE);
+        double radiusSquared = Math.pow(radius, 2);
+
+        final ClientTardis[] nearestTardis = new ClientTardis[1];
+        final double[] nearestDistanceSquared = {Double.MAX_VALUE};
 
         ClientTardisManager.getInstance().forEach(tardis -> {
             if (!tardis.travel().position().getDimension().equals(dimension))
                 return;
 
             BlockPos tPos = tardis.travel().position().getPos();
-            double distance = Math.sqrt(pos.getSquaredDistance(tPos));
+            double distanceSquared = pos.getSquaredDistance(tPos);
 
-            if (distance < radius && distance < nearestDistance.get()) {
-                nearestDistance.set(distance);
-                nearestTardis.set(tardis);
+            if (radiusSquared > distanceSquared && distanceSquared < nearestDistanceSquared[0]) {
+                nearestDistanceSquared[0] = distanceSquared;
+                nearestTardis[0] = tardis;
             }
         });
 
-        return Optional.ofNullable(nearestTardis.get());
+        return Optional.ofNullable(nearestTardis[0]);
     }
 
     public static double distanceFromConsole() {

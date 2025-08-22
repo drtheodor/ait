@@ -96,6 +96,7 @@ public class AITClientConfig {
         TemperatureType() {
             String key1;
             key1 = this.toString().toLowerCase();
+            // FIXME wtf??
             key1 = key1.substring(0, 1).toUpperCase() + key1.substring(1);
             key1 = switch (key1) {
                 case "Celsius" -> key1 + " (°C)";
