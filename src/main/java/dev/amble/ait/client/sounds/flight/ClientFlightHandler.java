@@ -13,6 +13,8 @@ import dev.amble.ait.client.util.ClientTardisUtil;
 //   why does the client have to go through the trouble of finding every tardis in some radius
 public class ClientFlightHandler extends SoundHandler {
 
+    public static final double MAX_DISTANCE = 16;
+
     public static FlightSoundPlayer FLIGHT;
     public static FlightSoundPlayer EXTERIOR;
 
@@ -96,9 +98,8 @@ public class ClientFlightHandler extends SoundHandler {
         ClientTardis tardis = ClientTardisUtil.getCurrentTardis();
 
         if (tardis == null)
-            tardis = ClientTardisUtil.getNearestTardis(AITModClient.CONFIG.flightSoundDistance).orElse(null);
+            tardis = ClientTardisUtil.getNearestTardis(MAX_DISTANCE).orElse(null);
 
-        AITMod.LOGGER.info("{}@{}", tardis, AITModClient.CONFIG.flightSoundVolume);
         if (tardis == null) return;
 
         if (this.sounds == null)

@@ -19,14 +19,8 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
     private boolean dirty = true;
 
     public ExteriorFlightSound(FlightSound data, SoundCategory soundCategory) {
-        super(data.sound(), soundCategory, new BlockPos(0,0,0), AITModClient.CONFIG.flightSoundVolume);
+        super(data.sound(), soundCategory, new BlockPos(0,0,0));
         this.data = data;
-        this.attenuationType = AttenuationType.NONE;
-    }
-
-    @Override
-    public boolean shouldAlwaysPlay() {
-        return true;
     }
 
     @Override
@@ -53,7 +47,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
 
     @Override
     public ClientTardis tardis() {
-        return ClientTardisUtil.getNearestTardis(AITModClient.CONFIG.flightSoundDistance).orElse(null);
+        return ClientTardisUtil.getNearestTardis(ClientFlightHandler.MAX_DISTANCE).orElse(null);
     }
 
     @Override

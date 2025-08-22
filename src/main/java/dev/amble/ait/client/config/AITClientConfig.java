@@ -86,14 +86,6 @@ public class AITClientConfig {
     @EnumCycler
     @SerialEntry public TemperatureType temperatureType = TemperatureType.CELSIUS;
 
-    @AutoGen(category = CATEGORY)
-    @FloatSlider(min = 0, max = 256, step = 1f)
-    @SerialEntry public float flightSoundDistance = 16f;
-
-    @AutoGen(category = CATEGORY)
-    @FloatSlider(min = 0, max = 16, step = 0.1f)
-    @SerialEntry public float flightSoundVolume = 1f;
-
     public enum TemperatureType implements NameableEnum {
         CELSIUS,
         FAHRENHEIT,
