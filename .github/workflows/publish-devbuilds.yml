@@ -39,6 +39,7 @@ jobs:
       uses: drtheodor/PackSquash-action@9df4689ee0fdb105de4d16ee9fb319fbbd81ec28
       with:
         packsquash_version: latest
+        quiet_logs: true
         options: |
           pack_directory = './build/resources/main/'
           output_file_path = '/tmp/pack.zip'
