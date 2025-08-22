@@ -1,6 +1,5 @@
 package dev.amble.ait.client.sounds.flight;
 
-import dev.amble.ait.client.AITModClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.client.sound.WeightedSoundSet;
@@ -13,6 +12,10 @@ import dev.amble.ait.client.tardis.ClientTardis;
 import dev.amble.ait.client.util.ClientTardisUtil;
 import dev.amble.ait.core.sounds.flight.FlightSound;
 
+/**
+ * Not to be confused with {@link dev.amble.ait.core.tardis.animation.v2.TardisAnimation}'s ability of playing mat/demat sounds.
+ * Yeah.
+ */
 public class ExteriorFlightSound extends PositionedLoopingSound implements FlightSoundPlayer {
     private FlightSound data;
     private int ticks = 0;
