@@ -50,14 +50,15 @@ unzip -q "$JAR_FILE" -d "/tmp/unzipped/"
 
 # Unzip /tmp/pack.zip into the same directory
 echo "Unzipping /tmp/pack.zip to /tmp/unzipped"
-unzip -qo $OTHER_ZIP -d "/tmp/unzipped"
+unzip -qo $OTHER_ZIP -d "/tmp/unzipped/"
 
 # Remove original jar file
 rm -f "$JAR_FILE"
 
 # Create new jar file with combined contents
 echo "Creating new jar file: $JAR_FILE"
-zip -qr "$JAR_FILE" "/tmp/unzipped"
+#zip -qr "$JAR_FILE" "/tmp/unzipped"
+jar --create --file=$JAR_FILE -C /tmp/unzipped .
 
 # Clean up temporary directory
 echo "Cleaning up temporary files"

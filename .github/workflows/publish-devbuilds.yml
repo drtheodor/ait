@@ -44,7 +44,7 @@ jobs:
           output_file_path = '/tmp/pack.zip'
     
     - name: Combine
-      run: ./scripts/extract_jar ./build/libs/ /tmp/pack.zip
+      run: ./scripts/merge_jar ./build/libs/ /tmp/pack.zip
     
     - name: Publish artifacts
       uses: drtheodor/discord-webhook-upload-action@v0.2
