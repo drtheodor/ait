@@ -27,38 +27,20 @@ jobs:
     
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-      
-    - name: Build
-      run: ./gradlew build
     
-    - name: Unzipping
-      run: ./scripts/extract_jar
+    - name: Process Resources
+      run: ./gradlew processResources
     
     - name: Run PackSquash
       uses: ComunidadAylas/PackSquash-action@v4
       with:
         packsquash_version: latest
         options: |
-          pack_directory = '/tmp/unzipped/'
+          pack_directory = './build/resources/main/'
           output_file_path = '/tmp/pack.zip'
-          
-          ['*?.json']
-          force_include = true
-          
-          ['*?.accesswidener']
-          force_include = true
-          
-          ['**/*?.class']
-          force_include = true
-          
-          ['LICENSE*']
-          force_include = true
-          
-          ['**/*?.jar']
-          force_include = true
-          
-          ['META-INF/MANIFEST.MF']
-          force_include = true
+    
+    - name: Build
+      run: ./gradlew build
     
     - uses: actions/upload-artifact@v4
       with:
