@@ -35,18 +35,6 @@ jobs:
     - name: Build
       run: ./gradlew build
     
-    - name: Run PackSquash
-      uses: drtheodor/PackSquash-action@9df4689ee0fdb105de4d16ee9fb319fbbd81ec28
-      with:
-        packsquash_version: latest
-        quiet_logs: true
-        options: |
-          pack_directory = './build/resources/main/'
-          output_file_path = '/tmp/pack.zip'
-    
-    - name: Combine
-      run: ./scripts/merge_jar ./build/libs/ /tmp/pack.zip
-    
     - name: Publish artifacts
       uses: drtheodor/discord-webhook-upload-action@v0.2
       with:
