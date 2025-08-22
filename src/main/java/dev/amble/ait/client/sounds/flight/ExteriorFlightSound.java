@@ -21,6 +21,7 @@ public class ExteriorFlightSound extends PositionedLoopingSound implements Fligh
     public ExteriorFlightSound(FlightSound data, SoundCategory soundCategory) {
         super(data.sound(), soundCategory, new BlockPos(0,0,0), AITModClient.CONFIG.flightSoundVolume);
         this.data = data;
+        this.attenuationType = AttenuationType.NONE;
     }
 
     @Override
