@@ -153,14 +153,6 @@ public class TardisDesktop extends TardisComponent {
     }
 
     public BlockPos getEnginePos() {
-        if (this.enginePos == null) {
-            for (BlockPos consolePos : this.consolePos) {
-                return consolePos;
-            }
-
-            return BlockPos.ORIGIN;
-        }
-
         return enginePos;
     }
 
