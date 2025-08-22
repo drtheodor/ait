@@ -40,12 +40,12 @@ jobs:
         options: |
           pack_directory = './build/resources/main/'
           output_file_path = '/tmp/pack.zip'
-          
-          ['!{assets,data}/**']
-          force_include = true
     
     - name: Build
       run: ./gradlew build
+    
+    - name: Combine
+      run: ./scripts/extract_jar ./build/libs/ /tmp/pack.zip
     
     - name: Publish artifacts
       uses: drtheodor/discord-webhook-upload-action@v0.2
