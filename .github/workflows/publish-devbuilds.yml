@@ -36,7 +36,7 @@ jobs:
       run: ./gradlew build
     
     - name: Run PackSquash
-      uses: drtheodor/PackSquash-action@82535a3a06d407d8f99e7dfd65b467ede3885653
+      uses: drtheodor/PackSquash-action@9df4689ee0fdb105de4d16ee9fb319fbbd81ec28
       with:
         packsquash_version: latest
         options: |
