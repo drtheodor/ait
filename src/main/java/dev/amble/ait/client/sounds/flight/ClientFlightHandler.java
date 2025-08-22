@@ -12,7 +12,6 @@ import dev.amble.ait.client.util.ClientTardisUtil;
 //   why does the client have to go through the trouble of finding every tardis in some radius
 public class ClientFlightHandler extends SoundHandler {
 
-    public static double MAX_DISTANCE = 16; // distance from console before the sound stops
     public static FlightSoundPlayer FLIGHT;
     public static FlightSoundPlayer EXTERIOR;
 
