@@ -128,6 +128,8 @@ processResources {
     inputs.property "yacl_version", project.yacl_version
     filteringCharset "UTF-8"
 
+    exclude '.cache'
+
     filesMatching("fabric.mod.json") {
         expand "version": project.version,
                 "minecraft_version": project.minecraft_version,
