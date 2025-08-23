@@ -10,7 +10,7 @@ public class EngineLoopSound extends PositionedLoopingSound {
     private int ticks = 0;
 
     public EngineLoopSound() {
-        super(AITSounds.ENGINE_LOOP, SoundCategory.BLOCKS, new BlockPos(0, 0, 0), 0.3f);
+        super(AITSounds.ENGINE_LOOP, SoundCategory.BLOCKS, new BlockPos(0, 0, 0), 0.35f);
     }
 
     @Override
