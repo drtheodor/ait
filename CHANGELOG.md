@@ -67,3 +67,4 @@
 - fix: no more random exterior travel sounds | by [@drtheodor](https://github.com/drtheodor) ([#1837](https://github.com/amblelabs/ait/pull/1837))
 - tweak: the mod is now almost twice as smaller! yippe! | by [@drtheodor](https://github.com/drtheodor) ([#1838](https://github.com/amblelabs/ait/pull/1838))
 - feat: engine loop sound | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1834](https://github.com/amblelabs/ait/pull/1834))
+- fix: Landing in locked worlds was possible via crashing or using engine overload | by [@Mansarde](https://github.com/Mansarde) ([#1836](https://github.com/amblelabs/ait/pull/1836))
