@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import dev.amble.ait.core.blockentities.EngineBlockEntity;
 import dev.amble.lib.data.DirectedBlockPos;
 import dev.drtheo.queue.api.ActionQueue;
 import dev.drtheo.queue.api.util.block.ChunkEraser;
@@ -47,6 +48,7 @@ public class TardisDesktop extends TardisComponent {
     public static final Identifier CACHE_CONSOLE = AITMod.id("cache_console");
     private TardisDesktopSchema schema;
     private DirectedBlockPos doorPos;
+    private BlockPos enginePos;
     private final Corners corners;
     private final Set<BlockPos> consolePos;
     public static final int RADIUS = 500;
@@ -112,6 +114,19 @@ public class TardisDesktop extends TardisComponent {
         TardisEvents.DOOR_MOVE.invoker().onMove(tardis.asServer(), pos, this.doorPos);
     }
 
+    public void setEnginePos(EngineBlockEntity engine) {
+        if (engine == null || engine.getWorld() == null || engine.getWorld().isClient())
+            return;
+
+        BlockPos pos = engine.getPos();
+
+        if (pos.equals(this.enginePos))
+            return;
+
+        this.enginePos = pos;
+        TardisEvents.ENGINE_MOVE.invoker().onMove(tardis.asServer(), pos, this.enginePos);
+    }
+
     public void removeDoor(DoorBlockEntity door) {
         if (this.doorPos == null)
             return;
@@ -135,6 +150,10 @@ public class TardisDesktop extends TardisComponent {
         }
 
         return doorPos;
+    }
+
+    public BlockPos getEnginePos() {
+        return enginePos;
     }
 
     // TODO this is strictly for clearing the interior now

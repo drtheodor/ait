@@ -153,6 +153,13 @@ public final class TardisEvents {
                 }
             });
 
+    public static final Event<MoveEngine> ENGINE_MOVE = EventFactory.createArrayBacked(MoveEngine.class,
+            callbacks -> (tardis, newPos, oldPos) -> {
+                for (MoveEngine callback : callbacks) {
+                    callback.onMove(tardis, newPos, oldPos);
+                }
+            });
+
     public static final Event<UseDoor> USE_DOOR = EventFactory.createArrayBacked(UseDoor.class,
             callbacks -> (tardis, interior, world, player, pos) -> {
                 for (UseDoor callback : callbacks) {
@@ -457,6 +464,11 @@ public final class TardisEvents {
     @FunctionalInterface
     public interface MoveDoor {
         void onMove(ServerTardis tardis, @Nullable DirectedBlockPos newPos, @Nullable DirectedBlockPos oldPos);
+    }
+
+    @FunctionalInterface
+    public interface MoveEngine {
+        void onMove(ServerTardis tardis, @Nullable BlockPos newPos, @Nullable BlockPos oldPos);
     }
 
     @FunctionalInterface
