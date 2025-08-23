@@ -34,7 +34,7 @@ public class EngineOverloadControl extends Control {
     private static boolean isArmed = false;
 
     static {
-        TardisEvents.USE_CONTROL.register(control -> {
+        TardisEvents.USE_CONTROL.register((control, tardis, player, world, console, leftClick) -> {
             if (!(control instanceof EngineOverloadControl)) {
                 disarm();
             }

@@ -41,7 +41,7 @@ public class Control implements Identifiable {
             throw ControlSequencedException.INSTANCE;
         }
 
-        TardisEvents.USE_CONTROL.invoker().onUse(this);
+        TardisEvents.USE_CONTROL.invoker().onUse(this, tardis, player, world, console, leftClick);
 
         return Result.FAILURE;
     }

@@ -288,9 +288,9 @@ public final class TardisEvents {
                 }
             });
     public static final Event<UseControl> USE_CONTROL = EventFactory.createArrayBacked(UseControl.class,
-            callbacks -> control -> {
+            callbacks -> (control, tardis, player, world, console, leftClick) -> {
                 for (UseControl callback : callbacks) {
-                    callback.onUse(control);
+                    callback.onUse(control, tardis, player, world, console, leftClick);
                 }
             });
 
@@ -550,7 +550,7 @@ public final class TardisEvents {
          * @param control
          *            the control that was used
          */
-        void onUse(Control control);
+        void onUse(Control control, Tardis tardis, ServerPlayerEntity player, ServerWorld world, BlockPos console, boolean leftClick);
     }
 
 
