@@ -120,7 +120,7 @@ public class TardisDesktop extends TardisComponent {
 
         BlockPos pos = engine.getPos();
 
-        if (this.enginePos != null && this.enginePos.equals(pos))
+        if (pos.equals(this.enginePos))
             return;
 
         this.enginePos = pos;

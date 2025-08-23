@@ -234,17 +234,17 @@ public class ClientTardisUtil {
 
     public static BlockPos getNearestEngine() {
         if (!isPlayerInATardis())
-            return BlockPos.ORIGIN;
+            return null;
 
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
         if (player == null)
-            return BlockPos.ORIGIN;
+            return null;
 
         Tardis tardis = getCurrentTardis();
 
         if (tardis == null)
-            return BlockPos.ORIGIN;
+            return null;
 
         BlockPos pos = player.getBlockPos();
         double lowest = Double.MAX_VALUE;
