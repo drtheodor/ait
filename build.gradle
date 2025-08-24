@@ -99,7 +99,7 @@ dependencies {
         transitive = true
     }
 
-    modApi("com.github.amblelabs:modkit:v${project.amblekit_version}") {
+    modApi("com.github.amblelabs:modkit:v${project.amblekit_version}")) {
         exclude(group: "net.fabricmc.fabric-api")
         transitive = true
     }
