@@ -2,13 +2,12 @@ package dev.amble.ait.core.tardis.control.impl;
 
 import java.util.Random;
 
-import dev.amble.ait.api.tardis.TardisEvents;
+import dev.amble.ait.core.tardis.handler.travel.TravelHandler;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.scheduler.api.TimeUnit;
 import dev.drtheo.scheduler.api.common.Scheduler;
 import dev.drtheo.scheduler.api.common.TaskStage;
 
-import dev.drtheo.scheduler.api.task.Task;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -29,17 +28,6 @@ public class EngineOverloadControl extends Control {
 
     private static final Random RANDOM = new Random();
     private static final String[] SPINNER = {"/", "-", "\\", "|"};
-    private static final long CONFIRMATION_TIME = 20 * 5;   //in ticks
-    private static Task confirmationTimer;
-    private static boolean isArmed = false;
-
-    static {
-        TardisEvents.USE_CONTROL.register((control, tardis, player, world, console, leftClick) -> {
-            if (!(control instanceof EngineOverloadControl)) {
-                disarm();
-            }
-        });
-    }
 
     public EngineOverloadControl() {
         super(AITMod.id("engine_overload"));
@@ -60,12 +48,12 @@ public class EngineOverloadControl extends Control {
         }
 
 
-        if (!isArmed) {
+        if (!TravelHandler.isEngineOverloadArmed(tardis.getUuid())) {
             player.sendMessage(Text.translatable("tardis.message.control.engine_overdrive.primed").formatted(Formatting.RED), true);
-            arm();
+            TravelHandler.armEngineOverload(tardis.getUuid(), world);
             return Result.SUCCESS_ALT;
         }
-        disarm();
+        TravelHandler.disarmEngineOverload(tardis.getUuid());
 
         boolean isInFlight = tardis.travel().getState() == TravelHandlerBase.State.FLIGHT;
 
@@ -90,18 +78,6 @@ public class EngineOverloadControl extends Control {
         });
 
         return Result.SUCCESS;
-    }
-
-    private static void arm() {
-        isArmed = true;
-        confirmationTimer = Scheduler.get().runTaskLater(() -> isArmed = false,
-                TaskStage.END_SERVER_TICK, TimeUnit.TICKS, CONFIRMATION_TIME);
-    }
-
-    private static void disarm() {
-        isArmed = false;
-        if (confirmationTimer != null)
-            confirmationTimer.cancel();
     }
 
     private void triggerExplosion(ServerWorld world, BlockPos console, Tardis tardis, int stage) {
@@ -179,8 +155,8 @@ public class EngineOverloadControl extends Control {
     }
 
     @Override
-    public long getDelayLength() {
-        if (isArmed)
+    public long getDelayLength(Tardis tardis) {
+        if (TravelHandler.isEngineOverloadArmed(tardis.getUuid()))
             return 360000;
 
         return 5;
