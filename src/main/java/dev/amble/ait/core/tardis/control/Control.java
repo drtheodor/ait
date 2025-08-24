@@ -108,7 +108,7 @@ public class Control implements Identifiable {
         return "Control{" + "id='" + id + '\'' + '}';
     }
 
-    public long getDelayLength() {
+    public long getDelayLength(Tardis tardis) {
         return 5;
     }
 
