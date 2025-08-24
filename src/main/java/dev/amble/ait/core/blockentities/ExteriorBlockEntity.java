@@ -4,6 +4,7 @@ import static dev.amble.ait.core.tardis.handler.InteriorChangingHandler.MAX_PLAS
 
 import java.util.UUID;
 
+import dev.amble.ait.core.item.sonic.SonicMode;
 import dev.amble.lib.data.CachedDirectedGlobalPos;
 import dev.drtheo.scheduler.api.TimeUnit;
 import dev.drtheo.scheduler.api.common.Scheduler;
@@ -162,7 +163,7 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
             // try to stop phasing
             EngineSystem.Phaser phasing = tardis.subsystems().engine().phaser();
 
-            if (phasing.isPhasing()) {
+            if (phasing.isPhasing() && SonicItem.mode(hand) == SonicMode.Modes.TARDIS) {
                 world.playSound(null, pos, AITSounds.SONIC_USE, SoundCategory.PLAYERS, 1F, 1F);
                 phasing.cancel();
                 return;
