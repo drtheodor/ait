@@ -86,21 +86,22 @@ dependencies {
     modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}"
 
     // TODO: move these 3 to modkit so we don't have to re-export so many dependencies
-    include(modApi("dev.drtheo:multidim:${project.multidim_version}")) {
+    modApi("dev.drtheo:multidim:${project.multidim_version}")) {
         exclude(group: "net.fabricmc.fabric-api")
         transitive = true
     }
-    include(modApi("dev.drtheo:scheduler:${project.scheduler_version}")) {
+    modApi("dev.drtheo:scheduler:${project.scheduler_version}")) {
         exclude(group: "net.fabricmc.fabric-api")
         transitive = true
     }
-    include(modApi("dev.drtheo:queue:${project.queue_version}")) {
+    modApi("dev.drtheo:queue:${project.queue_version}")) {
         exclude(group: "net.fabricmc.fabric-api")
         transitive = true
     }
 
     modApi("com.github.amblelabs:modkit:v${project.amblekit_version}") {
         exclude(group: "net.fabricmc.fabric-api")
+        transitive = true
     }
 
     // Compat
