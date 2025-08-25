@@ -226,7 +226,7 @@ public class InteriorSettingsScreen extends ConsoleScreen {
     final int UV_INCREMENT = 19;
 
     int calculateUvOffsetForRange(int progress) {
-        int rangeProgress = progress % 20;
+        int rangeProgress = progress % 19;
         return (rangeProgress / 5) * UV_INCREMENT;
     }
 
@@ -348,7 +348,7 @@ public class InteriorSettingsScreen extends ConsoleScreen {
             if (progress >= rangeStart && progress <= rangeEnd) {
                 uvOffset = calculateUvOffsetForRange(progress);
             } else if (progress >= rangeEnd) {
-                uvOffset = 57;
+                uvOffset = 76;
             } else {
                 uvOffset = UV_BASE;
             }
