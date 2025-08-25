@@ -69,3 +69,4 @@
 - feat: engine loop sound | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1834](https://github.com/amblelabs/ait/pull/1834))
 - fix: Landing in locked worlds was possible via crashing or using engine overload | by [@Mansarde](https://github.com/Mansarde) ([#1836](https://github.com/amblelabs/ait/pull/1836))
 - fix: The segments of the flight progress indicator of the interior settings screen did not fill out during flight. | by [@Mansarde](https://github.com/Mansarde) ([#1841](https://github.com/amblelabs/ait/pull/1841))
+- feat: check for sonic mode tardis to repair phasing engines | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1839](https://github.com/amblelabs/ait/pull/1839))
