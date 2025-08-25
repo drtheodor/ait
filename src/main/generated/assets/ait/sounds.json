@@ -675,6 +675,11 @@
       "ait:tardis/emergency_land"
     ]
   },
+  "tardis/engine_loop": {
+    "sounds": [
+      "ait:tardis/engine_loop"
+    ]
+  },
   "tardis/engine_phasing_demat": {
     "sounds": [
       "ait:tardis/engine_phasing_demat"
