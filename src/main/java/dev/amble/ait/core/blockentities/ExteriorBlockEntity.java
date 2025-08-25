@@ -163,11 +163,9 @@ public class ExteriorBlockEntity extends AbstractLinkableBlockEntity implements 
             // try to stop phasing
             EngineSystem.Phaser phasing = tardis.subsystems().engine().phaser();
 
-            if (phasing.isPhasing()) {
-                if(SonicItem.mode(hand) == SonicMode.Modes.TARDIS) {
+            if (phasing.isPhasing() && SonicItem.mode(hand) == SonicMode.Modes.TARDIS) {
                     world.playSound(null, pos, AITSounds.SONIC_USE, SoundCategory.PLAYERS, 1F, 1F);
                     phasing.cancel();
-                }
                 return;
             }
         }
