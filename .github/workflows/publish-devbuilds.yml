@@ -28,6 +28,18 @@ jobs:
     
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+
+    - name: Cache restore
+      id: cache-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: src/main/generated
+        key: datagen-${{ github.run_id }}
+        restore-keys:
+          datagen-
+
+    - name: Run Datagen
+      run: ./gradlew runDatagen
     
     - name: Build
       run: ./gradlew build
@@ -44,3 +56,10 @@ jobs:
           <:new1:1253371736510959636><:new2:1253371805734015006> New `Adventures in Time` dev build `#${{ github.run_number }}`:
 
         file: 'build/libs/*'
+    
+    - name: Cache save
+      id: cache-save
+      uses: actions/cache/save@v4
+      with:
+        path: src/main/generated
+        key: ${{ steps.cache-restore.outputs.cache-primary-key }}
