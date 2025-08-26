@@ -38,12 +38,11 @@ jobs:
         key: datagen-${{ github.run_id }}
         restore-keys:
           datagen-
-
-    - name: Run Datagen
-      run: ./gradlew --configuration-cache runDatagen
     
     - name: Build
-      run: ./gradlew build
+      run: |
+        ./gradlew --configuration-cache runDatagen
+        ./gradlew --configuration-cache build
     
     - name: Publish artifacts
       uses: drtheodor/discord-webhook-upload-action@v0.2
