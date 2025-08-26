@@ -218,13 +218,3 @@ publishing {
         // retrieving dependencies.
     }
 }
-
-def gitBranch = providers.exec {
-    commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
-}.standardOutput.asText.get().trim()
-
-tasks.processResources {
-    filesMatching("*.properties") {
-        expand(branch: gitBranch)
-    }
-}
