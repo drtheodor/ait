@@ -192,8 +192,12 @@ java {
 }
 
 jar {
+    inputs.property "archivesBaseName", project.archivesBaseName
+
+    def archivesName = project.archivesBaseName
+    
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${archivesName}" }
     }
 
     // exclude assets if it's a beta dev build
