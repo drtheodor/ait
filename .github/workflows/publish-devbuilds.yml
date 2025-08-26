@@ -39,7 +39,7 @@ jobs:
           datagen-
 
     - name: Run Datagen
-      run: ./gradlew runDatagen
+      run: ./gradlew --configuration-cache runDatagen
     
     - name: Build
       run: ./gradlew build
