@@ -1,5 +1,6 @@
 package dev.amble.ait.core.blocks;
 
+import dev.amble.ait.core.world.TardisServerWorld;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,11 +65,7 @@ public class EngineBlock extends SubSystemBlock implements BlockEntityProvider {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if (world instanceof World world1 && (world1.getRegistryKey().equals(World.OVERWORLD) ||
-                world1.getRegistryKey().equals(World.NETHER) || world1.getRegistryKey().equals(World.END))) {
-            return false;
-        }
-        return super.canPlaceAt(state, world, pos);
+        return world instanceof World world1 && TardisServerWorld.isTardisDimension(world1);
     }
 
     @Override
