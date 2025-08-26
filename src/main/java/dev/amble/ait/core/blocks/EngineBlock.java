@@ -1,5 +1,6 @@
 package dev.amble.ait.core.blocks;
 
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.*;
@@ -59,6 +60,15 @@ public class EngineBlock extends SubSystemBlock implements BlockEntityProvider {
     @Nullable @Override
     public FluidLinkBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new EngineBlockEntity(pos, state);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        if (world instanceof World world1 && (world1.getRegistryKey().equals(World.OVERWORLD) ||
+                world1.getRegistryKey().equals(World.NETHER) || world1.getRegistryKey().equals(World.END))) {
+            return false;
+        }
+        return super.canPlaceAt(state, world, pos);
     }
 
     @Override
