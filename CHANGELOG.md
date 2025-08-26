@@ -70,3 +70,4 @@
 - fix: Landing in locked worlds was possible via crashing or using engine overload | by [@Mansarde](https://github.com/Mansarde) ([#1836](https://github.com/amblelabs/ait/pull/1836))
 - fix: The segments of the flight progress indicator of the interior settings screen did not fill out during flight. | by [@Mansarde](https://github.com/Mansarde) ([#1841](https://github.com/amblelabs/ait/pull/1841))
 - feat: check for sonic mode tardis to repair phasing engines | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1839](https://github.com/amblelabs/ait/pull/1839))
+- fix: fixed a bug where you could place an engine in a non tardis dimension and it would crash the game | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1842](https://github.com/amblelabs/ait/pull/1842))
