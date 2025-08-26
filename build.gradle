@@ -219,7 +219,9 @@ publishing {
     }
 }
 
-def gitBranch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+def gitBranch = providers.exec {
+    commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
+}.standardOutput.asText.get().trim()
 
 tasks.processResources {
     filesMatching("*.properties") {
