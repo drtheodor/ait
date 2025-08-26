@@ -1,5 +1,7 @@
 package dev.amble.ait.core.blocks;
 
+import dev.amble.ait.core.world.TardisServerWorld;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.*;
@@ -59,6 +61,11 @@ public class EngineBlock extends SubSystemBlock implements BlockEntityProvider {
     @Nullable @Override
     public FluidLinkBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new EngineBlockEntity(pos, state);
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        return world instanceof World world1 && TardisServerWorld.isTardisDimension(world1);
     }
 
     @Override
