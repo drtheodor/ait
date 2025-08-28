@@ -12,6 +12,7 @@ import dev.isxander.yacl3.platform.YACLPlatform;
 import net.minecraft.text.Text;
 
 import dev.amble.ait.AITMod;
+import org.apache.commons.lang3.StringUtils;
 
 public class AITClientConfig {
 
@@ -94,13 +95,12 @@ public class AITClientConfig {
         private final String key;
 
         TemperatureType() {
-            String unitCapitalized = this.toString().charAt(0) + this.toString().substring(1).toLowerCase();
             String unitSymbol = switch (this) {
                 case CELSIUS -> "°C";
                 case FAHRENHEIT -> "°F";
                 case KELVIN -> "K";
             };
-            this.key = String.format("%s (%s)", unitCapitalized, unitSymbol);
+            this.key = String.format("%s (%s)", StringUtils.capitalize(this.toString().toLowerCase()), unitSymbol);
         }
 
         @Override
