@@ -154,10 +154,13 @@ java {
 }
 
 jar {
-    inputs.property "archivesBaseName", project.archivesBaseName
+    inputs.property "archivesName", project.base.archivesName
 
+    // needed because inputs.properties.archivesName is not accessible configuration time
+    def archivesNameValue = project.base.archivesName
+    
     from("LICENSE") {
-        rename { "${it}_${inputs.properties.archivesName}" }
+        rename { "${it}_${archivesNameValue}" }
     }
 }
 
