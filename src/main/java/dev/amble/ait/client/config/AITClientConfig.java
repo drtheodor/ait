@@ -94,17 +94,13 @@ public class AITClientConfig {
         private final String key;
 
         TemperatureType() {
-            String key1;
-            key1 = this.toString().toLowerCase();
-            // FIXME wtf??
-            key1 = key1.substring(0, 1).toUpperCase() + key1.substring(1);
-            key1 = switch (key1) {
-                case "Celsius" -> key1 + " (°C)";
-                case "Fahrenheit" -> key1 + " (°F)";
-                case "Kelvin" -> key1 + " (K)";
-                default -> key1;
+            String unitCapitalized = this.toString().charAt(0) + this.toString().substring(1).toLowerCase();
+            String unitSymbol = switch (this) {
+                case CELSIUS -> "°C";
+                case FAHRENHEIT -> "°F";
+                case KELVIN -> "K";
             };
-            this.key = key1;
+            this.key = String.format("%s (%s)", unitCapitalized, unitSymbol);
         }
 
         @Override
