@@ -80,6 +80,8 @@ public class TardisDesktop extends TardisComponent {
                 }));
     }
 
+    private boolean changingDesktop = false;
+
     public TardisDesktop(TardisDesktopSchema schema) {
         super(Id.DESKTOP);
         this.schema = schema;
@@ -222,9 +224,12 @@ public class TardisDesktop extends TardisComponent {
         this.tardis.door().setLocked(false);
         this.tardis.door().setDeadlocked(false);
         this.tardis.alarm().disable();
+
+        this.changingDesktop = false;
     }
 
     public ActionQueue changeInterior(TardisDesktopSchema schema, boolean clear, boolean sendEvent) {
+        this.changingDesktop = true;
         ActionQueue queue = new ActionQueue()
                 .thenRun(() -> this.startQueue(sendEvent));
 
@@ -287,5 +292,9 @@ public class TardisDesktop extends TardisComponent {
 
     public Set<BlockPos> getConsolePos() {
         return consolePos;
+    }
+
+    public boolean isChanging() {
+        return changingDesktop;
     }
 }

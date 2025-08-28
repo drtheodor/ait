@@ -51,13 +51,15 @@ public class TardisServerWorld extends MultiDimServerWorld {
 
     @Override
     public void tick(BooleanSupplier shouldKeepTicking) {
-        if (this.tardis != null && this.shouldTick()) {
+        if (this.shouldTick()) {
             super.tick(shouldKeepTicking);
         }
     }
 
     public boolean shouldTick() {
-        return this.tardis != null && MultiDim.get(this.getServer()).isWorldUnloaded(this);
+        return this.tardis != null && (!MultiDim.get(this.getServer()).isWorldUnloaded(this) 
+                                       || this.tardis.interiorChanging().queued().get() 
+                                       || this.tardis.getDesktop().isChanging());
     }
 
     @Override
