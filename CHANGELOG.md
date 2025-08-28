@@ -72,3 +72,4 @@
 - feat: check for sonic mode tardis to repair phasing engines | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1839](https://github.com/amblelabs/ait/pull/1839))
 - fix: fixed a bug where you could place an engine in a non tardis dimension and it would crash the game | by [@rapbattlegod32](https://github.com/rapbattlegod32) ([#1842](https://github.com/amblelabs/ait/pull/1842))
 - perf: improved tardis world performance | by [@drtheodor](https://github.com/drtheodor) ([#1850](https://github.com/amblelabs/ait/pull/1850))
+- Fix regression in #1850 | by [@drtheodor](https://github.com/drtheodor) ([#1854](https://github.com/amblelabs/ait/pull/1854))
