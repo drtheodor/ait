@@ -74,3 +74,5 @@
 - perf: improved tardis world performance | by [@drtheodor](https://github.com/drtheodor) ([#1850](https://github.com/amblelabs/ait/pull/1850))
 - Fix regression in #1850 | by [@drtheodor](https://github.com/drtheodor) ([#1854](https://github.com/amblelabs/ait/pull/1854))
 - fix: Falling TARDISes destroy Siege Cube exteriors | by [@Mansarde](https://github.com/Mansarde) ([#1855](https://github.com/amblelabs/ait/pull/1855))
+- fix: Power Converter could be fueled by an empty hand | by [@Mansarde](https://github.com/Mansarde) ([#1852](https://github.com/amblelabs/ait/pull/1852))
+- fix: Power Converter would instantly drain all Artron when trying to fuel it during power off | by [@Mansarde](https://github.com/Mansarde) ([#1852](https://github.com/amblelabs/ait/pull/1852))
