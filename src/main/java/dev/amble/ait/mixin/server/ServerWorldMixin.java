@@ -1,27 +1,26 @@
 package dev.amble.ait.mixin.server;
 
-import dev.amble.ait.core.item.SiegeTardisItem;
-import dev.amble.ait.core.tardis.Tardis;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 
 import dev.amble.ait.api.AITWorldOptions;
 import dev.amble.ait.core.events.WorldSaveEvent;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import dev.amble.ait.core.item.SiegeTardisItem;
+import dev.amble.ait.core.tardis.Tardis;
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin implements AITWorldOptions {
 
-    @Unique
-    private boolean canRiftsSpawn;
+    @Unique private boolean canRiftsSpawn;
 
     @Inject(method = "saveLevel", at = @At("HEAD"))
     private void saveLevel(CallbackInfo ci) {
