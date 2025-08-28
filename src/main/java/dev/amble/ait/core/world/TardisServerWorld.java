@@ -66,14 +66,6 @@ public class TardisServerWorld extends MultiDimServerWorld {
     }
 
     @Override
-    public boolean spawnEntity(Entity entity) {
-        if (entity instanceof ItemEntity && this.tardis.interiorChangingHandler().regenerating().get())
-            return false;
-
-        return super.spawnEntity(entity);
-    }
-
-    @Override
     public RegistryEntry<Biome> getBiome(BlockPos pos) {
         if (this.cachedBiome != null)
             return cachedBiome;
