@@ -154,7 +154,7 @@ java {
 }
 
 jar {
-    inputs.property "archivesBaseName", project.archivesBaseName
+    inputs.property "archivesName", project.archivesName
 
     from("LICENSE") {
         rename { "${it}_${inputs.properties.archivesName}" }
