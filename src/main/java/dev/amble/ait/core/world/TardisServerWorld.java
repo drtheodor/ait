@@ -51,13 +51,14 @@ public class TardisServerWorld extends MultiDimServerWorld {
 
     @Override
     public void tick(BooleanSupplier shouldKeepTicking) {
+        if (this.getServer().getTicks() % 20 == 0) AITMod.LOGGER.info("empty? {}; loaded chunks: {}",  this.getPlayers().isEmpty(), this.getChunkManager().getLoadedChunkCount());
         if (this.tardis != null && this.shouldTick()) {
             super.tick(shouldKeepTicking);
         }
     }
 
     public boolean shouldTick() {
-        return this.tardis != null && MultiDim.get(this.getServer()).isWorldUnloaded(this);
+        return this.tardis != null && !MultiDim.get(this.getServer()).isWorldUnloaded(this);
     }
 
     @Override
