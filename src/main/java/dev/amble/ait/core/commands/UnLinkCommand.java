@@ -20,7 +20,7 @@ public class UnLinkCommand {
 
     // TODO: add slot argument, like in "/item replace" command
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal(AITMod.MOD_ID).then(literal("link").requires(source -> PermissionAPICompat.hasPermission(source, "ait.command.link", 2))
+        dispatcher.register(literal(AITMod.MOD_ID).then(literal("unlink").requires(source -> PermissionAPICompat.hasPermission(source, "ait.command.link", 2))
                 .executes(UnLinkCommand::runCommand)));
     }
 
@@ -31,7 +31,7 @@ public class UnLinkCommand {
         if (!(stack.getItem() instanceof LinkableItem linker))
             return 0;
 
-        linker.unlink(stack, tardis);
+        linker.unlink(stack);
         return Command.SINGLE_SUCCESS;
     }
 }
