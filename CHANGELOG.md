@@ -77,3 +77,4 @@
 - fix: Power Converter could be fueled by an empty hand | by [@Mansarde](https://github.com/Mansarde) ([#1852](https://github.com/amblelabs/ait/pull/1852))
 - fix: Power Converter would instantly drain all Artron when trying to fuel it during power off | by [@Mansarde](https://github.com/Mansarde) ([#1852](https://github.com/amblelabs/ait/pull/1852))
 - fix: life-support subsystem regeneration effect flicker | by [@drtheodor](https://github.com/drtheodor) ([#1859](https://github.com/amblelabs/ait/pull/1859))
+- add: /ait list command is now more useful. Read the wiki for more details. | by [@drtheodor](https://github.com/drtheodor) ([#1860](https://github.com/amblelabs/ait/pull/1860))
