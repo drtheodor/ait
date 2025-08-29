@@ -49,7 +49,7 @@ public class ListCommand {
         String args = StringArgumentType.getString(context, "search-args");
 
         ServerCommandSource source = context.getSource();
-        source.sendMessage(Text.literal("TARDIS':"));
+        source.sendMessage(Text.translatable("command.ait.list.tardises"));
 
         String[] parts = args.split(":");
 

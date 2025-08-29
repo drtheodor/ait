@@ -1458,6 +1458,7 @@ public class AITModDataGenerator implements DataGeneratorEntrypoint {
         provider.addTranslation("command.ait.data.set", "Set value %s to '%s'");
         provider.addTranslation("command.ait.data.fail",
                 "Can't get value of a property named %s, because component %s is not keyed!");
+        provider.addTranslation("command.ait.list.tardises", "TARDISes");
         provider.addTranslation("command.ait.list.pattern.error", "Bad pattern '%s'!");
 
         // Rift Chunk Tracking
