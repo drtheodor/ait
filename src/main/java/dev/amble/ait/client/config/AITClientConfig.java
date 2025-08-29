@@ -95,12 +95,7 @@ public class AITClientConfig {
         private final String key;
 
         TemperatureType() {
-            String unitSymbol = switch (this) {
-                case CELSIUS -> "°C";
-                case FAHRENHEIT -> "°F";
-                case KELVIN -> "K";
-            };
-            this.key = String.format("%s (%s)", StringUtils.capitalize(this.toString().toLowerCase()), unitSymbol);
+            this.key = "yacl3.config.ait:client.temperatureType.unit." + this.toString().toLowerCase();
         }
 
         @Override
