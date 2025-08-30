@@ -81,3 +81,4 @@
 - add: /ait unlink | by [@drtheodor](https://github.com/drtheodor) ([#1861](https://github.com/amblelabs/ait/pull/1861))
 - fix: no more exterior hum when cloaked | by [@drtheodor](https://github.com/drtheodor) ([#1863](https://github.com/amblelabs/ait/pull/1863))
 - add: arming mechanism for engine overdrive | by [@Mansarde](https://github.com/Mansarde) ([#1829](https://github.com/amblelabs/ait/pull/1829))
+- fix: Celsius was showing Fahrenheit degrees | by [@Mansarde](https://github.com/Mansarde) ([#1857](https://github.com/amblelabs/ait/pull/1857))
