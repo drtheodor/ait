@@ -82,3 +82,4 @@
 - fix: no more exterior hum when cloaked | by [@drtheodor](https://github.com/drtheodor) ([#1863](https://github.com/amblelabs/ait/pull/1863))
 - add: arming mechanism for engine overdrive | by [@Mansarde](https://github.com/Mansarde) ([#1829](https://github.com/amblelabs/ait/pull/1829))
 - fix: Celsius was showing Fahrenheit degrees | by [@Mansarde](https://github.com/Mansarde) ([#1857](https://github.com/amblelabs/ait/pull/1857))
+- fix: TARDIS in TARDIS landing was still possible via Hail Mary protocol. | by [@Mansarde](https://github.com/Mansarde) ([#1831](https://github.com/amblelabs/ait/pull/1831))
