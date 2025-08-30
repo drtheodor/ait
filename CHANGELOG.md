@@ -79,3 +79,4 @@
 - fix: life-support subsystem regeneration effect flicker | by [@drtheodor](https://github.com/drtheodor) ([#1859](https://github.com/amblelabs/ait/pull/1859))
 - add: /ait list command is now more useful. Read the wiki for more details. | by [@drtheodor](https://github.com/drtheodor) ([#1860](https://github.com/amblelabs/ait/pull/1860))
 - add: /ait unlink | by [@drtheodor](https://github.com/drtheodor) ([#1861](https://github.com/amblelabs/ait/pull/1861))
+- fix: no more exterior hum when cloaked | by [@drtheodor](https://github.com/drtheodor) ([#1863](https://github.com/amblelabs/ait/pull/1863))
