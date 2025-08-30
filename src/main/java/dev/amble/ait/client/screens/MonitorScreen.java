@@ -195,8 +195,8 @@ public class MonitorScreen extends ConsoleScreen {
         else
             setCategory(previousCategory());
 
-        if ((this.category instanceof ExclusiveCategory && !ExclusiveCategory.isUnlocked(player.getUuid()))
-                || this.category instanceof GrowthCategory)
+        if ((CategoryRegistry.EXCLUSIVE.equals(this.category) && !ExclusiveCategory.isUnlocked(player.getUuid()))
+                || CategoryRegistry.CORAL_GROWTH.equals(this.category))
             changeCategory(direction);
     }
 
