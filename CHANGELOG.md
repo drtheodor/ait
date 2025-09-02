@@ -83,3 +83,4 @@
 - add: arming mechanism for engine overdrive | by [@Mansarde](https://github.com/Mansarde) ([#1829](https://github.com/amblelabs/ait/pull/1829))
 - fix: Celsius was showing Fahrenheit degrees | by [@Mansarde](https://github.com/Mansarde) ([#1857](https://github.com/amblelabs/ait/pull/1857))
 - fix: TARDIS in TARDIS landing was still possible via Hail Mary protocol. | by [@Mansarde](https://github.com/Mansarde) ([#1831](https://github.com/amblelabs/ait/pull/1831))
+- fix: The achievements for redecoration, getting owner loyalty and using the sonic on wood did not trigger | by [@Mansarde](https://github.com/Mansarde) ([#1851](https://github.com/amblelabs/ait/pull/1851))
