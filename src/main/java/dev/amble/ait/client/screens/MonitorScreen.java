@@ -101,9 +101,6 @@ public class MonitorScreen extends ConsoleScreen {
     }
 
     public ClientExteriorVariantSchema getCurrentVariant() {
-        if (Objects.equals(currentVariant, ClientExteriorVariantRegistry.CORAL_GROWTH))
-            changeCategory(true);
-
         if (currentVariant == null)
             if (!this.tardis().getExterior().getCategory().equals(getCategory())) {
                 setCurrentVariant(this.getCategory().getDefaultVariant());
