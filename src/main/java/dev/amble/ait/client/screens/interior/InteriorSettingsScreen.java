@@ -116,7 +116,7 @@ public class InteriorSettingsScreen extends ConsoleScreen {
         createTextButton(Text.translatable("screen.ait.security.button"), (button -> toSecurityScreen()));
 
         boolean showSonicButton = console != null && MinecraftClient.getInstance().world.getBlockEntity(console) instanceof ConsoleBlockEntity consoleBlock 
-                && consoleBlock.getSonicScrewdriver() != null && !consoleBlock.getSonicScrewdriver().isEmpty()
+                && consoleBlock.getSonicScrewdriver() != null && !consoleBlock.getSonicScrewdriver().isEmpty();
         
         createTextButton(Text.translatable("screen.ait.sonic.button")
                 .formatted(bl ? Formatting.WHITE : Formatting.GRAY), button -> {
