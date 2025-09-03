@@ -119,8 +119,8 @@ public class InteriorSettingsScreen extends ConsoleScreen {
                 && consoleBlock.getSonicScrewdriver() != null && !consoleBlock.getSonicScrewdriver().isEmpty();
         
         createTextButton(Text.translatable("screen.ait.sonic.button")
-                .formatted(bl ? Formatting.WHITE : Formatting.GRAY), button -> {
-                    if (bl)
+                .formatted(showSonicButton ? Formatting.WHITE : Formatting.GRAY), button -> {
+                    if (showSonicButton)
                         toSonicScreen();
                 });
         
