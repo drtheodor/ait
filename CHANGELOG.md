@@ -86,3 +86,4 @@
 - fix: The achievements for redecoration, getting owner loyalty and using the sonic on wood did not trigger | by [@Mansarde](https://github.com/Mansarde) ([#1851](https://github.com/amblelabs/ait/pull/1851))
 - fix: Exclusive exteriors are now exclusive again | by [@Mansarde](https://github.com/Mansarde) ([#1864](https://github.com/amblelabs/ait/pull/1864))
 - fix: Dropped items in interior were being teleported instantly | by [@Mansarde](https://github.com/Mansarde) ([#1865](https://github.com/amblelabs/ait/pull/1865))
+- fix: Gamerules did not control all explosions (and their fire creation) | by [@Mansarde](https://github.com/Mansarde) ([#1866](https://github.com/amblelabs/ait/pull/1866))
