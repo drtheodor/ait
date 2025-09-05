@@ -87,3 +87,4 @@
 - fix: Exclusive exteriors are now exclusive again | by [@Mansarde](https://github.com/Mansarde) ([#1864](https://github.com/amblelabs/ait/pull/1864))
 - fix: Dropped items in interior were being teleported instantly | by [@Mansarde](https://github.com/Mansarde) ([#1865](https://github.com/amblelabs/ait/pull/1865))
 - fix: Gamerules did not control all explosions (and their fire creation) | by [@Mansarde](https://github.com/Mansarde) ([#1866](https://github.com/amblelabs/ait/pull/1866))
+- fix crashing still allowing to land in locked dimensions | by [@Mansarde](https://github.com/Mansarde) ([#1867](https://github.com/amblelabs/ait/pull/1867))
