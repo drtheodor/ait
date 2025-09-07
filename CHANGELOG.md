@@ -1,0 +1,1 @@
+- fix: the experimental warning was shown for release versions | by [@Mansarde](https://github.com/Mansarde) ([#1873](https://github.com/amblelabs/ait/pull/1873))
